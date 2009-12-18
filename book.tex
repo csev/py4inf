@@ -106,11 +106,11 @@ Charles Severance\\
 }
 
 
-\vspace{0.5in}
+% \vspace{0.5in}
 
-{\Large Green Tea Press}
+% {\Large Green Tea Press}
 
-{\small Needham, Massachusetts}
+% {\small Needham, Massachusetts}
 
 %\includegraphics[width=1in]{figs/logo1.eps}
 \vfill
@@ -130,21 +130,21 @@ Printing history:
 
 \begin{description}
 
-\item[April 2002:] First edition of {\em How to Think Like
-a Computer Scientist}.
-
-\item[August 2007:] Major revision, changed title to
-{\em How to Think Like a (Python) Programmer}.
-
-\item[June 2008:] Major revision, changed title to
-{\em Think Python: How to Think Like
-a Computer Scientist}.
-
 \item[December 2009:] Begine the work to remix 
 {\em Think Python: How to Think Like
 a Computer Scientist}
 to produce 
 {\em Python for Informatics: Exploring Information}
+
+\item[June 2008:] Major revision, changed title to
+{\em Think Python: How to Think Like
+a Computer Scientist}.
+
+\item[August 2007:] Major revision, changed title to
+{\em How to Think Like a (Python) Programmer}.
+
+\item[April 2002:] First edition of {\em How to Think Like
+a Computer Scientist}.
 
 \end{description}
 
@@ -206,9 +206,10 @@ Version \theversion
 \section*{Remixing an Open Book}
 
 It is quite natural for academics who are continuously told to 
-"publish or perish" to want to always create something new that is 
-their own contribution.   This book is an experiment in "re-mixing"
-an earlier book titled
+"publish or perish" to want to always create something from scratch
+that is their own contribution.   This book is an for me 
+experiment in "re-mixing"
+an book titled
 {\em Think Python: How to Think Like
 a Computer Scientist}
 written by Allan B. Downey, Jeff Elkner and others.
@@ -321,41 +322,9 @@ on a major revision---at the same time, I was
 contacted by an editor at Cambridge University Press who
 was interested in publishing the next edition.  Good timing!
 
-The result is this book, now with the less grandiose title
-{\em Think Python}.  Some of the changes are:
-
-\begin{itemize}
-
-\item I added a section about debugging at the end of each chapter.
-  These sections present general techniques for finding and avoiding
-  bugs, and warnings about Python pitfalls.
-
-\item I removed the material in the last few chapters about the
-  implementation of lists and trees.  I still love those topics, but I
-  thought they were incongruent with the rest of the book.
-
-\item I added more exercises, ranging from short tests of
-  understanding to a few substantial projects.
-
-\item I added a series of case studies---longer examples with
-  exercises, solutions, and discussion.  Some of them are based on
-  Swampy, a suite of Python programs I wrote for use in my classes.
-  Swampy, code examples, and some solutions are available from
-  \url{thinkpython.com}.
-  
-\item I expanded the discussion of program development plans
-  and basic design patterns.
-
-\item The use of Python is more idiomatic.  The book is still about
-  programming, not Python, but now I think the book gets more leverage
-  from the language.
-
-\end{itemize}
-
 I hope you enjoy working with this book, and that it helps
 you learn to program and think, at least a little bit, like
 a computer scientist.
-
 
 Allen B. Downey \\
 Needham MA\\
@@ -732,6 +701,76 @@ pattern but didn't mention it by name.
 
 % START THE BOOK
 \mainmatter
+
+\chapter{Why should you learn to write programs?}
+
+Writing programs (or programming) is a very creative 
+and rewarding activity.  You can write programs for 
+many reasons ranging from making your living to solving
+a difficult data analysis problem to having fun to helping
+someone else solve a problem.  This book assumes that 
+{\em everyone} needs to know how to program and that once 
+you know how to program, you will figure out what you want 
+to do with your newfound skills.  
+
+We are surrounded in our daily lives with computers ranging 
+from laptops to cell phones.  We can think of these computers
+as our ``personal assistants'' who can take care of many things
+on our behalf.  The hardware in our current-day computers 
+is essentially built to continuously as us the question, 
+``What would you like me to do next?''.
+
+{\large Picture of PDA asking "What Next?"}
+
+Our computers are fast and have vasts amounts of memory and 
+could be very helpful to us if we only knew the language to
+speak to explain to the computer what we would like it to 
+``do next''.  If we knew this language we could tell the 
+computer to do tasks on our behalf that were reptitive.  
+Interestingly, the kinds of things computers can do best
+are often the kinds of things that we humans find boring
+and mind-numbing.
+
+For example, look at the first three paragraphs of this
+chapter and tell me the most commonly used word and how
+many times the word is used.  While you were able to read
+and understand the words in a few seconds, counting them
+is almost painful because is is not the kind of problem 
+that human minds are designed to solve.  For a computer
+the opposite is true, reading and understanding text 
+from a piece of paper is hard for a computer to do 
+but counting the words and telling you how many times
+the most used word was used is very easy for the
+computer:
+
+\beforeverb
+\begin{verbatim}
+python words.py
+Enter file:words.txt
+to 16
+\end{verbatim}
+\afterverb
+%
+Our ``personal information analysis assistant'' quickly 
+told us that the word ``to'' was used ten times in the
+first three paragraphs of this chapter.
+
+It is this very fact that computers are good at things 
+that humans are not so good at is why you need to become
+skilled at talking ``computer language''.  Once you learn
+this new language, you can delegate mundane tasks
+to your partner (the computer), leaving more time 
+for you to do the 
+things that you are uniquely suited for.  You bring 
+creativity, intuition, and inventiveness to this
+partnership.  
+
+\section{Computer hardware architecture}
+\index{hardware}
+\index{hardware!architecture}
+
+
+% CURRENT
 
 
 \chapter{The way of the program}
