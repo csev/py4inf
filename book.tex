@@ -1,5 +1,5 @@
-% LaTeX source for ``Think Python: How to Think Like a Computer Scientist''
-% Copyright (c)  2008  Allen B. Downey.
+% LaTeX source for ``Python for Informatics: Exploring Information''
+% Copyright (c)  2009  Charles R. Severance
 
 % Permission is granted to copy, distribute and/or modify this
 % document under the terms of the GNU Free Documentation License,
@@ -101,8 +101,8 @@ Version \theversion
 
 
 {\Large
-Allen Downey\\
 Charles Severance\\
+Allen Downey\\
 }
 
 
@@ -193,7 +193,9 @@ version of the book is available (for the moment) from
 
 {\Large \thetitle}
 
-{\large Allen B. Downey}
+{\large 
+Charles Severance\\
+Allen B. Downey}
 
 Version \theversion
 
@@ -331,7 +333,6 @@ Needham MA\\
 
 Allen Downey is an Associate Professor of Computer Science at 
 the Franklin W. Olin College of Engineering.
-
 
 
 % \section*{For the teacher}
@@ -769,33 +770,122 @@ partnership.
 \index{hardware}
 \index{hardware!architecture}
 
+Before we start out learning the language we 
+speak to give instructions to computers to 
+develop software, we need to learn about more 
+about how computers are built.  If you were to take
+apart your computer or cell phone and look deep
+inside, you would find the following parts:
 
-% CURRENT
+{\large Picture of CPU, Memory, Etc. "What next?" in a thought bubble from the CPU}
 
+The high-level definitions of these parts are as follows:
 
-\chapter{The way of the program}
+\begin{itemize}
 
-The goal of this book is to teach you to think like a
-computer scientist.  This way of thinking combines some of the best features
-of mathematics, engineering, and natural science.  Like mathematicians,
-computer scientists use formal languages to denote ideas (specifically
-computations).  Like engineers, they design things, assembling components
-into systems and evaluating tradeoffs among alternatives.  Like scientists,
-they observe the behavior of complex systems, form hypotheses, and test
-predictions.
+\item The {\bf Central Processing Unit} (or CPU) is 
+that part of the computer that is built to be obsessed 
+with ``what is next?''.  If your computer is rated
+at 3.0 Gigahertz, it means that the CPU will ask "What next?"
+three billion times per second.  You are going to have to 
+learn how to talk fast to keep up with the CPU.
+
+\item The {\bf Main Memory} is used to store information
+that the CPU needs in a hurry.  The main memory is nearly as 
+fast as the CPU.  But the information stored in the main
+memory vanishes when the computer is turned off.
+
+\item The {\bf Secondary Memory} is also used to store
+information, but it is much slower than the main memory.
+The advantage of the secondary memory is that it can
+store information even when there is no power to the
+computer.  Examples of secondary memory are disk drives
+or flash memory (typically found in USB sticks and portable
+music players).
+
+\item The {\bf Input and Output Devices} are simply our
+screen, keyboard, mouse, microphone, speaker, touchpad, etc.  
+They are all of the ways we interact with the computer.
+
+\item These days, most computers also have a
+{\bf Network Connection} to retrieve information over a network.
+We can think of the network as a very slow place to store and
+retrieve data that might now always be "up".  So in a sense,
+the network is a slower and at times unreliable form of
+{\bf Secondary Memory}
+
+\end{itemize}
+
+While most of the detail of how these components work is best left 
+to computer builders, it helps to have a some terminology
+so we can talk about these different parts as we write our programs.
+
+As a programmer, your job is to use and orchestrate 
+each of these resources to solve the problem that you need solving
+and analyze the data you need analysed.  As a programmer you will 
+mostly be "talking" to the CPU and telling it what to 
+do next.  Sometimes you will tell the CPU to use the main memory,
+secondary memory, network, or the input/output devices.
+
+{\large Picture of CPU, Memory, Etc. With 
+stick figure inside saying "do this" to the CPU}
+
+You need to be the person who answers the CPU's "What next?" 
+question.  But it would be very uncomfortable to shrink you 
+down to 10cm tall and insert you into the computer just so you 
+could issue a command three billion times per second.  So instead,
+you must write down your instructions in advance.
+We call these stored instructions a {\bf program} and the act 
+of writing these instructions down and getting the instructions to 
+be correct {\bf programming}.
+
+\section{Understanding programming}
+
+In the rest of this book, we will try to turn you into a person
+who is skilled in the art of programming.  In the end you will be a 
+{\bf programmer} - perhaps not a professional programmer - but 
+at least you will have the skills to look at a data/information
+analysis problem and develop a program to solve the problem.
 
 \index{problem solving}
 
-The single most important skill for a computer scientist is {\bf
-problem solving}.  Problem solving means the ability to formulate
-problems, think creatively about solutions, and express a solution clearly
-and accurately.  As it turns out, the process of learning to program is an
-excellent opportunity to practice problem-solving skills.  That's why
-this chapter is called, ``The way of the program.''
+In a sense, you need two skills to be a programmer:
 
-On one level, you will be learning to program, a useful
-skill by itself.  On another level, you will use programming as a means to
-an end.  As we go along, that end will become clearer.
+\begin{itemize}
+
+\item First you need to know the programming language (Python) -
+you need to know the vocabulary and the grammar.  You need to be able 
+spell the words in this new language properly and how to construct 
+well-formed ``sentances'' in this new languages.
+
+\item Second you need to to "tell a story".  In writing a story,
+you combine words and sentances to convey an idea to the reader. 
+There is a skill and art in constructing the story and skill in
+story writing is improved by doing some writing and getting some
+feedback.  In programming, our program is the "story" and the 
+problem you are trying to solve is the "idea".
+
+\end{itemize}
+
+Once you learn one programming language such as Python, you will 
+find it much easier to learn a second programming language such
+as JavaScript or C++.  The new programming language has very different 
+vocabulary and grammar but once you learn problem solving skills, 
+they will be the same across all programming languages.
+
+You will learn the "vocabulary" and "sentances" of Python pretty quickly.
+It will take longer for you to be able to write a coherent program
+to solve a brand new problem.  We teach programming much like we teach
+writing.  We start reading and explaining programs and then we write 
+simple programs and then write increasingly complex programs over time.
+At some point you "get your muse" and see the patterns on your own
+and can see more naturally how to take a problem and 
+write a program that solves that problem.  And once you get 
+to that point, programming becomes a very plesant and creative process.  
+
+We start with the vocabulary and structure of Python programs.  Be patient
+as the simple examples remind you of when you started reading for the first
+time. 
 
 \section{The Python programming language}
 \index{programming language}
@@ -803,7 +893,10 @@ an end.  As we go along, that end will become clearer.
 
 The programming language you will learn is Python. Python is
 an example of a {\bf high-level language}; other high-level languages
-you might have heard of are C, C++, Perl, and Java.
+you might have heard of are C, C++, Perl, Java, Ruby, and JavaScript. 
+At times, we will include a few examples of the JavaScript language
+to help cement the basic grammar ideas using 
+two different ``vocabularies''.
 
 There are
 also {\bf low-level languages}, sometimes referred to as ``machine
@@ -871,17 +964,25 @@ the result:
 \begin{verbatim}
 >>> 1 + 1
 2
+>>>
 \end{verbatim}
 \afterverb
 %
 The chevron, {\tt >>>}, is the
 {\bf prompt} the interpreter uses to indicate that it is ready.  If
 you type {\tt 1 + 1}, the interpreter replies {\tt 2}.
+The chevron is the Python interpreter's way of asking you, "What
+do you want me to do next?".  You will notice that as soon as 
+Python finishes one statement - it immediately is ready for you to type 
+another statement.
 
 \index{prompt}
 
-Alternatively, you can store code in a file and use the interpreter to
-execute the contents of the file, which is called a {\bf script}.  By
+Typing commands into the Python interpreter is a great way to experiment
+with Python's features, but it is a bad way to type in many commands 
+to solve a more complex problem.  When we want to write a program, 
+we use a text editor to write the Python instructions into a file,
+which is called a {\bf script}.  By
 convention, Python scripts have names that end with {\tt .py}.
 
 \index{script}
@@ -930,6 +1031,9 @@ execute the appropriate sequence of statements.
 
 \item[repetition:] Perform some action repeatedly, usually with
 some variation.
+
+\item[reuse:] Write a set of instructions once and give them a name
+and then reuse those instructions as needed throuhgout your program.,
 
 \end{description}
 
@@ -1064,11 +1168,14 @@ between printing AAAA and BBBB.  This later evolved to Linux.''
 Later chapters will make more suggestions about debugging and other
 programming practices.
 
-\section{Formal and natural languages}
+\section{Building ``sentances'' in Python}
 \index{formal language}
 \index{natural language}
 \index{language!formal}
 \index{language!natural}
+
+The rules (or grammar) of Python are simpler and more precise than 
+the rules of a natural language that we use to speak and write.
 
 {\bf Natural languages} are the languages people speak,
 such as English, Spanish, and French.  They were not designed
@@ -1292,6 +1399,17 @@ with my thoughts about debugging.  I hope they help!
 
 \begin{description}
 
+\item[central processing unit:] The heart of any computer.  It is what
+runs the software that we write.
+
+\item[main memory:] Stores programs and data.  Main memory loses 
+its information when the power is tunred off.
+
+\item[secondary memory:] Stores programs and data and retains its 
+information even when the power is turned off.  Generally slower 
+than main memory.  Examples of secondary memory include disk 
+drives and flash member in USB sticks.
+
 \item[problem solving:]  The process of formulating a problem, finding
 a solution, and expressing the solution.
 \index{problem solving}
@@ -1449,7 +1567,7 @@ average time per mile?  What is your average speed in miles per hour?
 
 \end{ex}
 
-
+% XXXX
 
 
 \chapter{Variables, expressions and statements}
