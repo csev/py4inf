@@ -728,18 +728,19 @@ instructions appear in just about every language:
 \begin{description}
 
 \item[input:] Get data from the keyboard, a file, or some
-other device.
+other device, pausing if necessary.
 
 \item[output:] Display data on the screen or send data to a
 file or other device.
 
-\item[math:] Perform basic mathematical operations like addition and
-multiplication.
+\item[sequential execution:] Perform statements one after
+another in the order they are encountered in the script.
 
 \item[conditional execution:] Check for certain conditions and
 execute the appropriate sequence of statements.
 
-\item[repetition:] Perform some action repeatedly, usually with
+\item[repeated execution:] Perform some set of statements 
+repeatedly, usually with
 some variation.
 
 \item[reuse:] Write a set of instructions once and give them a name
@@ -1537,6 +1538,16 @@ You might want to keep this list handy.  If the interpreter complains
 about one of your variable names and you don't know why, see if it
 is on this list.
 
+\section{Choosing mnemonic variable names}
+
+\index{mnemonic}
+
+Mnemonic variables...
+
+% TBD
+
+\url{http://en.wikipedia.org/wiki/Mnemonic}
+
 
 \section{Statements}
 
@@ -1692,7 +1703,7 @@ x + 1
 %
 Now put the same statements into a script and run it.  What
 is the output?  Modify the script by transforming each
-expression into a print statement and then run it again.
+{\em expression} into a print statement and then run it again.
 \end{ex}
 
 
@@ -1732,6 +1743,41 @@ happens first and the result is multiplied by {\tt pi}.
 To divide by $2 \pi$, you can reorder the operands or use parentheses.
 
 \end{itemize}
+
+\section{Modulus operator}
+
+\index{modulus operator}
+\index{operator!modulus}
+
+The {\bf modulus operator} works on integers and yields the remainder
+when the first operand is divided by the second.  In Python, the
+modulus operator is a percent sign (\verb"%").  The syntax is the same
+as for other operators:
+
+\beforeverb
+\begin{verbatim}
+>>> quotient = 7 / 3
+>>> print quotient
+2
+>>> remainder = 7 % 3
+>>> print remainder
+1
+\end{verbatim}
+\afterverb
+%
+So 7 divided by 3 is 2 with 1 left over.
+
+The modulus operator turns out to be surprisingly useful.  For
+example, you can check whether one number is divisible by another---if
+{\tt x \% y} is zero, then {\tt x} is divisible by {\tt y}.
+
+\index{divisibility}
+
+Also, you can extract the right-most digit
+or digits from a number.  For example, {\tt x \% 10} yields the
+right-most digit of {\tt x} (in base 10).  Similarly {\tt x \% 100}
+yields the last two digits.
+
 
 
 \section{String operations}
@@ -1778,6 +1824,87 @@ Can you think of a property that addition has
 that string concatenation does not?
 
 \index{commutativity}
+
+\section{Keyboard input}
+\index{keyboard input}
+
+The programs we have written so far are a bit rude in the sense that
+they accept no input from the user.  They just do the same thing every
+time.
+
+Python provides a built-in function called \verb"raw_input" that gets
+input from the keyboard\footnote{In Python 3.0, this function is named
+  {\tt input}.}.  When this function is called, the program stops and
+waits for the user to type something.  When the user presses {\sf
+  Return} or {\sf Enter}, the program resumes and \verb"raw_input"
+returns what the user typed as a string.
+
+\index{Python 3.0}
+\index{raw\_input function}
+\index{function!raw\_input}
+
+\beforeverb
+\begin{verbatim}
+>>> input = raw_input()
+What are you waiting for?
+>>> print input
+What are you waiting for?
+\end{verbatim}
+\afterverb
+%
+Before getting input from the user, it is a good idea to print a
+prompt telling the user what to input.  \verb"raw_input" can take a
+prompt as an argument:
+
+\index{prompt}
+
+\beforeverb
+\begin{verbatim}
+>>> name = raw_input('What...is your name?\n')
+What...is your name?
+Arthur, King of the Britons!
+>>> print name
+Arthur, King of the Britons!
+\end{verbatim}
+\afterverb
+%
+The sequence \verb"\n" at the end of the prompt represents a {\bf newline},
+which is a special character that causes a line break.
+That's why the user's input appears below the prompt.
+
+\index{newline}
+
+If you expect the user to type an integer, you can try to convert
+the return value to {\tt int} using the {\tt int()} function:
+
+\beforeverb
+\begin{verbatim}
+>>> prompt = 'What...is the airspeed velocity of an unladen swallow?\n'
+>>> speed = raw_input(prompt)
+What...is the airspeed velocity of an unladen swallow?
+17
+>>> int(speed)
+17
+\end{verbatim}
+\afterverb
+%
+But if the user types something other than a string of digits,
+you get an error:
+
+\beforeverb
+\begin{verbatim}
+>>> speed = raw_input(prompt)
+What...is the airspeed velocity of an unladen swallow?
+What do you mean, an African or a European swallow?
+>>> int(speed)
+ValueError: invalid literal for int()
+\end{verbatim}
+\afterverb
+%
+We will see how to handle this kind of error later.
+
+\index{ValueError}
+\index{exception!ValueError}
 
 
 \section{Comments}
@@ -1830,7 +1957,7 @@ v = 5     # velocity in meters/second.
 \end{verbatim}
 \afterverb
 %
-Good variable names can reduce the need for comments, but
+Good mnemonic variable names can reduce the need for comments, but
 long names can make complex expressions hard to read, so there is
 a tradeoff.
 
@@ -1928,6 +2055,10 @@ parts.
 \item[variable:]  A name that refers to a value.
 \index{variable}
 
+\item[mnemonic:] A memory aid. We often give variables mnemonic names
+to help us remember what is stored in the variable.
+\index{mnemonic}
+
 \item[statement:]  A section of code that represents a command or action.  So
 far, the statements we have seen are assignments and print statements.
 \index{statement}
@@ -1954,6 +2085,12 @@ addition, multiplication, or string concatenation.
 \item[floor division:] The operation that divides two numbers and chops off
 the fraction part.
 \index{floor division}
+
+\item[modulus operator:]  An operator, denoted with a percent sign
+({\tt \%}), that works on integers and yields the remainder when one
+number is divided by another.
+\index{modulus operator}
+\index{operator!modulus}
 
 \item[expression:]  A combination of variables, operators, and values that
 represents a single result value.
@@ -2034,41 +2171,6 @@ Practice using the Python interpreter as a calculator:
 
 
 \chapter{Conditional execution}
-
-\section{Modulus operator}
-
-\index{modulus operator}
-\index{operator!modulus}
-
-The {\bf modulus operator} works on integers and yields the remainder
-when the first operand is divided by the second.  In Python, the
-modulus operator is a percent sign (\verb"%").  The syntax is the same
-as for other operators:
-
-\beforeverb
-\begin{verbatim}
->>> quotient = 7 / 3
->>> print quotient
-2
->>> remainder = 7 % 3
->>> print remainder
-1
-\end{verbatim}
-\afterverb
-%
-So 7 divided by 3 is 2 with 1 left over.
-
-The modulus operator turns out to be surprisingly useful.  For
-example, you can check whether one number is divisible by another---if
-{\tt x \% y} is zero, then {\tt x} is divisible by {\tt y}.
-
-\index{divisibility}
-
-Also, you can extract the right-most digit
-or digits from a number.  For example, {\tt x \% 10} yields the
-right-most digit of {\tt x} (in base 10).  Similarly {\tt x \% 100}
-yields the last two digits.
-
 
 \section{Boolean expressions}
 \index{boolean expression}
@@ -2285,11 +2387,11 @@ at the end, but there doesn't have to be one.
 \beforeverb
 \begin{verbatim}
 if choice == 'a':
-    draw_a()
+    print "Bad guess"
 elif choice == 'b':
-    draw_b()
+    print "Good guess"
 elif choice == 'c':
-    draw_c()
+    print "Close, but not correct"
 \end{verbatim}
 \afterverb
 %
@@ -2352,87 +2454,32 @@ if 0 < x and x < 10:
 \afterverb
 
 
+\section{Catching exceptions}
+\label{catch1}
 
-\section{Keyboard input}
-\index{keyboard input}
-
-The programs we have written so far are a bit rude in the sense that
-they accept no input from the user.  They just do the same thing every
-time.
-
-Python provides a built-in function called \verb"raw_input" that gets
-input from the keyboard\footnote{In Python 3.0, this function is named
-  {\tt input}.}.  When this function is called, the program stops and
-waits for the user to type something.  When the user presses {\sf
-  Return} or {\sf Enter}, the program resumes and \verb"raw_input"
-returns what the user typed as a string.
-
-\index{Python 3.0}
-\index{raw\_input function}
-\index{function!raw\_input}
+Python starts by executing the {\tt try} clause.  If all goes
+well, it skips the {\tt except} clause and proceeds.  If an
+exception occurs, it jumps out of the {\tt try} clause and
+executes the {\tt except} clause.
 
 \beforeverb
 \begin{verbatim}
->>> input = raw_input()
-What are you waiting for?
->>> print input
-What are you waiting for?
+x = 'fred'
+try:    
+    y = int(fred)
+except:
+    print 'Something went wrong.'
+    y = -1
+
+print y
 \end{verbatim}
 \afterverb
 %
-Before getting input from the user, it is a good idea to print a
-prompt telling the user what to input.  \verb"raw_input" can take a
-prompt as an argument:
-
-\index{prompt}
-
-\beforeverb
-\begin{verbatim}
->>> name = raw_input('What...is your name?\n')
-What...is your name?
-Arthur, King of the Britons!
->>> print name
-Arthur, King of the Britons!
-\end{verbatim}
-\afterverb
-%
-The sequence \verb"\n" at the end of the prompt represents a {\bf newline},
-which is a special character that causes a line break.
-That's why the user's input appears below the prompt.
-
-\index{newline}
-
-If you expect the user to type an integer, you can try to convert
-the return value to {\tt int}:
-
-\beforeverb
-\begin{verbatim}
->>> prompt = 'What...is the airspeed velocity of an unladen swallow?\n'
->>> speed = raw_input(prompt)
-What...is the airspeed velocity of an unladen swallow?
-17
->>> int(speed)
-17
-\end{verbatim}
-\afterverb
-%
-But if the user types something other than a string of digits,
-you get an error:
-
-\beforeverb
-\begin{verbatim}
->>> speed = raw_input(prompt)
-What...is the airspeed velocity of an unladen swallow?
-What do you mean, an African or a European swallow?
->>> int(speed)
-ValueError: invalid literal for int()
-\end{verbatim}
-\afterverb
-%
-We will see how to handle this kind of error later.
-
-\index{ValueError}
-\index{exception!ValueError}
+Handling an exception with a {\tt try} statement is called {\bf
+catching} an exception.  In this example, the {\tt except} clause
+prints an error message that is not very helpful.  In general,
+catching an exception gives you a chance to fix the problem, or try
+again, or at least end the program gracefully.
 
 
 \section{Debugging}
@@ -2528,12 +2575,6 @@ but that is often not where it was caused.
 \section{Glossary}
 
 \begin{description}
-
-\item[modulus operator:]  An operator, denoted with a percent sign
-({\tt \%}), that works on integers and yields the remainder when one
-number is divided by another.
-\index{modulus operator}
-\index{operator!modulus}
 
 \item[boolean expression:]  An expression whose value is either 
 {\tt True} or {\tt False}.
@@ -2645,160 +2686,9 @@ a triangle:
 
 \end{ex}
 
-The following exercises use TurtleWorld from Chapter~\ref{turtlechap}:
-
-\index{TurtleWorld}
-
-\begin{ex}
-
-Read the following function and see if you can figure out
-what it does.  Then run it (see the examples in Chapter~\ref{turtlechap}).
-
-\beforeverb
-\begin{verbatim}
-def draw(t, length, n):
-    if n == 0:
-        return
-    angle = 50
-    fd(t, length*n)
-    lt(t, angle)
-    draw(t, length, n-1)
-    rt(t, 2*angle)
-    draw(t, length, n-1)
-    lt(t, angle)
-    bk(t, length*n)
-\end{verbatim}
-\afterverb
-
-\end{ex}
-
-
-\begin{ex}
-
-\index{Koch curve}
-
-The Koch curve is a fractal that looks something like
-this:
-
-\beforefig
-\centerline{\includegraphics[height=1in]{figs/koch.eps}}
-\afterfig
-
-To draw a Koch curve with length $x$, all you have to do is
-
-\begin{enumerate}
-
-\item Draw a Koch curve with length $x/3$.
-
-\item Turn left 60 degrees.
-
-\item Draw a Koch curve with length $x/3$.
-
-\item Turn right 120 degrees.
-
-\item Draw a Koch curve with length $x/3$.
-
-\item Turn left 60 degrees.
-
-\item Draw a Koch curve with length $x/3$.
-
-\end{enumerate}
-
-The only exception is if $x$ is less than 3.  In that case,
-you can just draw a straight line with length $x$.
-
-\begin{enumerate}
-
-\item Write a function called {\tt koch} that takes a turtle and
-a length as parameters, and that uses the turtle to draw a Koch
-curve with the given length.
-
-\item Write a function called {\tt snowflake} that draws three
-Koch curves to make the outline of a snowflake.
-
-You can see my solution at \url{thinkpython.com/code/koch.py}.
-
-\item The Koch curve can be generalized in several ways.  See
-\url{wikipedia.org/wiki/Koch_snowflake} for examples and
-implement your favorite.
-
-\end{enumerate}
-\end{ex}
-
 
 \chapter{Iteration}
 \index{iteration}
-
-
-\section{Multiple assignment}
-
-\index{assignment}
-\index{statement!assignment}
-\index{multiple assignment}
-
-As you may have discovered, it is legal to
-make more than one assignment to the same variable.  A
-new assignment makes an existing variable refer to a new
-value (and stop referring to the old value).
-
-\beforeverb
-\begin{verbatim}
-bruce = 5
-print bruce,
-bruce = 7
-print bruce
-\end{verbatim}
-\afterverb
-%
-The output of this program is {\tt 5 7}, because the first time
-{\tt bruce} is printed, its value is 5, and the second time, its
-value is 7.  The
-comma at the end of the first {\tt print} statement suppresses
-the newline, which is why both outputs
-appear on the same line.
-
-\index{newline}
-
-Here is what {\bf multiple assignment} looks like in a state diagram:
-
-\index{state diagram}
-\index{diagram!state}
-
-\beforefig
-\centerline{\includegraphics{figs/assign2.eps}}
-\afterfig
-
-With multiple assignment it is especially important to distinguish
-between an assignment operation and a statement of equality.  Because
-Python uses the equal sign ({\tt =}) for assignment, it is tempting to
-interpret a statement like {\tt a = b} as a statement of equality. It
-is not!
-
-\index{equality and assignment}
-
-First, equality is a symmetric relation and assignment is not.  For
-example, in mathematics, if $a = 7$ then $7 = a$.  But in Python, the
-statement {\tt a = 7} is legal and {\tt 7 = a} is not.
-
-Furthermore, in mathematics, a statement of equality is either true or
-false, for all time.  If $a = b$ now, then $a$ will always equal $b$.
-In Python, an assignment statement can make two variables equal, but
-they don't have to stay that way:
-
-\beforeverb
-\begin{verbatim}
-a = 5
-b = a    # a and b are now equal
-a = 3    # a and b are no longer equal
-\end{verbatim}
-\afterverb
-%
-The third line changes the value of {\tt a} but does not change the
-value of {\tt b}, so they are no longer equal. 
-
-Although multiple assignment is frequently helpful, you should use it
-with caution.  If the values of variables change frequently, it can
-make the code difficult to read and debug.
 
 
 \section{Updating variables}
@@ -2869,6 +2759,8 @@ we saw in Section~\ref{repetition}.  We'll get back to that later.
 Another is the {\tt while} statement.  Here is a version of {\tt
 countdown} that uses a {\tt while} statement:
 
+% TBD - De-function
+
 \beforeverb
 \begin{verbatim}
 def countdown(n):
@@ -2923,6 +2815,9 @@ can see that the value of {\tt n} gets smaller each time through the
 loop, so eventually we have to get to 0.  In other
 cases, it is not so easy to tell:
 
+% TBD - De-function
+
+\beforeverb
 \beforeverb
 \begin{verbatim}
 def sequence(n):
@@ -2958,7 +2853,6 @@ The hard question is whether we can prove that this program terminates
 for {\em all positive values} of {\tt n}.  So far\footnote{See
   \url{wikipedia.org/wiki/Collatz_conjecture}.}, no one has
 been able to prove it {\em or} disprove it!
-
 
 \section{{\tt break}}
 \index{break statement}
@@ -3006,176 +2900,51 @@ top) and you can express the stop condition affirmatively
 (``stop when this happens'') rather than negatively (``keep going
 until that happens.'').
 
+\section{{\tt continue}}
+\index{continue statement}
+\index{statement!continue}
 
-\section{Square roots}
+Sometimes you are in an iteration of a loop and want to finish the
+current iteration and immediately jump to the next iteration.
+In that case you can use the {\tt continue}
+statement to skip to the next iteration without finishing the
+body of the loop for the current iteration.
 
-\index{square root}
+% TBD
 
-Loops are often used in programs that compute
-numerical results by starting with an approximate answer and
-iteratively improving it.
+\section{The {\tt for} statement}
+\index{for statement}
+\index{statement!for}
 
-\index{Newton's method}
+% TBD
 
-For example, one way of computing square roots is Newton's method.
-Suppose that you want to know the square root of $a$.  If you start
-with almost any estimate, $x$, you can compute a better
-estimate with the following formula:
+\section{Loop patterns}
 
-\[ y = \frac{x + a/x}{2} \]
-%
-For example, if $a$ is 4 and $x$ is 3:
+Often we use a for or while loop to go through a list of items
+or the contents of a file and we are looking for something such as
+the largest or smallest value of the data we scan through.
 
-\beforeverb
-\begin{verbatim}
->>> a = 4.0
->>> x = 3.0
->>> y = (x + a/x) / 2
->>> print y
-2.16666666667
-\end{verbatim}
-\afterverb
-%
-Which is closer to the correct answer ($\sqrt{4} = 2$).  If we
-repeat the process with the new estimate, it gets even closer:
+These loops fall into several patterns.
 
-\beforeverb
-\begin{verbatim}
->>> x = y
->>> y = (x + a/x) / 2
->>> print y
-2.00641025641
-\end{verbatim}
-\afterverb
-%
-After a few more updates, the estimate is almost exact:
+\subsection{Counting loop}
 
-\index{update}
+% TBD
 
-\beforeverb
-\begin{verbatim}
->>> x = y
->>> y = (x + a/x) / 2
->>> print y
-2.00001024003
->>> x = y
->>> y = (x + a/x) / 2
->>> print y
-2.00000000003
-\end{verbatim}
-\afterverb
-%
-In general we don't know ahead of time how many steps it takes
-to get to the right answer, but we know when we get there
-because the estimate
-stops changing:
+\subsection{Summing loop (total)}
 
-\beforeverb
-\begin{verbatim}
->>> x = y
->>> y = (x + a/x) / 2
->>> print y
-2.0
->>> x = y
->>> y = (x + a/x) / 2
->>> print y
-2.0
-\end{verbatim}
-\afterverb
-%
-When {\tt y == x}, we can stop.  Here is a loop that starts
-with an initial estimate, {\tt x}, and improves it until it
-stops changing:
+% TBD
 
-\beforeverb
-\begin{verbatim}
-while True:
-    print x
-    y = (x + a/x) / 2
-    if y == x:
-        break
-    x = y
-\end{verbatim}
-\afterverb
-%
-For most values of {\tt a} this works fine, but in general it is
-dangerous to test {\tt float} equality.
-Floating-point values are only approximately right:
-most rational numbers, like $1/3$, and irrational numbers, like
-$\sqrt{2}$, can't be represented exactly with a {\tt float}.
+\subsection{Maximum loop}
 
-\index{floating-point}
-\index{epsilon}
+% TBD
 
-Rather than checking whether {\tt x} and {\tt y} are exactly equal, it
-is safer to use the built-in function {\tt abs} to compute the
-absolute value, or magnitude, of the difference between them:
+\subsection{Minimum loop}
 
-\beforeverb
-\begin{verbatim}
-    if abs(y-x) < epsilon:
-        break
-\end{verbatim}
-\afterverb
-%
-Where \verb"epsilon" has a value like {\tt 0.0000001} that
-determines how close is close enough.
+% TBD
 
-\begin{ex}
-\label{square_root}
-\index{encapsulation}
+\subsection{Searching loop}
 
-Encapsulate this loop in a function called \verb"square_root"
-that takes {\tt a} as a parameter, chooses a reasonable
-value of {\tt x}, and returns an estimate of the square root
-of {\tt a}.
-\end{ex}
-
-
-\section{Algorithms}
-\index{algorithm}
-
-Newton's method is an example of an {\bf algorithm}: it is a
-mechanical process for solving a category of problems (in this
-case, computing square roots).
-
-It is not easy to define an algorithm.  It might help to start
-with something that is not an algorithm.  When you learned
-to multiply single-digit numbers, you probably memorized the
-multiplication table.  In effect, you memorized 100 specific solutions.
-That kind of knowledge is not algorithmic.
-
-But if you were ``lazy,'' you probably cheated by learning a few
-tricks.  For example, to find the product of $n$ and 9, you can
-write $n-1$ as the first digit and $10-n$ as the second
-digit.  This trick is a general solution for multiplying any
-single-digit number by 9.  That's an algorithm!
-
-\index{addition with carrying}
-\index{carrying, addition with}
-\index{subtraction!with borrowing}
-\index{borrowing, subtraction with}
-
-Similarly, the techniques you learned for addition with carrying,
-subtraction with borrowing, and long division are all algorithms.  One
-of the characteristics of algorithms is that they do not require any
-intelligence to carry out.  They are mechanical processes in which
-each step follows from the last according to a simple set of rules.
-
-In my opinion, it is embarrassing that humans spend so much time in
-school learning to execute algorithms that, quite literally, require
-no intelligence.
-
-On the other hand, the process of designing algorithms is interesting,
-intellectually challenging, and a central part of what we call
-programming.
-
-Some of the things that people do naturally, without difficulty or
-conscious thought, are the hardest to express algorithmically.
-Understanding natural language is a good example.  We all do it, but
-so far no one has been able to explain {\em how} we do it, at least
-not in the form of an algorithm.
-
+% TBD
 
 \section{Debugging}
 
@@ -3251,37 +3020,6 @@ never satisfied.
 
 
 \section{Exercises}
-
-\begin{ex}
-
-\index{algorithm!square root}
-
-To test the square root algorithm in this chapter, you could compare
-it with {\tt math.sqrt}.  Write a function named \verb"test_square_root"
-that prints a table like this:
-
-\beforeverb
-\begin{verbatim}
-1.0 1.0           1.0           0.0
-2.0 1.41421356237 1.41421356237 2.22044604925e-16
-3.0 1.73205080757 1.73205080757 0.0
-4.0 2.0           2.0           0.0
-5.0 2.2360679775  2.2360679775  0.0
-6.0 2.44948974278 2.44948974278 0.0
-7.0 2.64575131106 2.64575131106 0.0
-8.0 2.82842712475 2.82842712475 4.4408920985e-16
-9.0 3.0           3.0           0.0
-
-\end{verbatim}
-\afterverb
-%
-The first column is a number, $a$; the second column is
-the square root of $a$ computed with the function from
-Exercise~\ref{square_root}; the third column is the square root computed
-by {\tt math.sqrt}; the fourth column is the absolute value
-of the difference between the two estimates.
-\end{ex}
-
 
 \begin{ex}
 
@@ -3690,6 +3428,9 @@ What does the following function do?
 \index{find function}
 \index{function!find}
 
+% TBD - De-function
+
+\beforeverb
 \beforeverb
 \begin{verbatim}
 def find(word, letter):
@@ -3963,6 +3704,106 @@ A common way to address this problem is to convert strings to a
 standard format, such as all lowercase, before performing the
 comparison.  Keep that in mind in case you have to defend yourself
 against a man armed with a Pineapple.
+
+\section{Format operator}
+
+\index{format operator}
+\index{operator!format}
+
+The {\bf format operator}, {\tt \%}
+allows us to construct strings, replacing parts of the strings
+with the data stored in variables.
+When applied to integers, {\tt \%} is the modulus operator.  But
+when the first operand is a string, {\tt \%} is the format operator.
+
+\index{format string}
+
+The first operand is the {\bf format string}, which contains
+one or more {\bf format sequences}, which
+specify how
+the second operand is formatted.  The result is a string.
+
+\index{format sequence}
+
+For example, the format sequence \verb"'%d'" means that
+the second operand should be formatted as an
+integer ({\tt d} stands for ``decimal''):
+
+\beforeverb
+\begin{verbatim}
+>>> camels = 42
+>>> '%d' % camels
+'42'
+\end{verbatim}
+\afterverb
+%
+The result is the string \verb"'42'", which is not to be confused
+with the integer value {\tt 42}.
+
+A format sequence can appear anywhere in the string,
+so you can embed a value in a sentence:
+
+\beforeverb
+\begin{verbatim}
+>>> camels = 42
+>>> 'I have spotted %d camels.' % camels
+'I have spotted 42 camels.'
+\end{verbatim}
+\afterverb
+%
+If there is more than one format sequence in the string,
+the second argument has to be a tuple.  Each format sequence is
+matched with an element of the tuple, in order.
+
+The following example uses \verb"'%d'" to format an integer,
+\verb"'%g'" to format
+a floating-point number (don't ask why), and \verb"'%s'" to format
+a string:
+
+\beforeverb
+\begin{verbatim}
+>>> 'In %d years I have spotted %g %s.' % (3, 0.1, 'camels')
+'In 3 years I have spotted 0.1 camels.'
+\end{verbatim}
+\afterverb
+%
+The number of elements in the tuple has to match the number
+of format sequences in the string.  Also, the types of the
+elements have to match the format sequences:
+
+\index{exception!TypeError}
+\index{TypeError}
+
+\beforeverb
+\begin{verbatim}
+>>> '%d %d %d' % (1, 2)
+TypeError: not enough arguments for format string
+>>> '%d' % 'dollars'
+TypeError: illegal argument type for built-in operation
+\end{verbatim}
+\afterverb
+%
+In the first example, there aren't enough elements; in the
+second, the element is the wrong type.
+
+The format operator is powerful, but it can be difficult to use.  You
+can read more about it at
+\url{docs.python.org/lib/typesseq-strings.html}.
+
+% You can specify the number of digits as part of the format sequence.
+% For example, the sequence \verb"'%8.2f'"
+% formats a floating-point number to be 8 characters long, with
+% 2 digits after the decimal point:
+
+% \beforeverb
+% \begin{verbatim}
+% >>> '%8.2f' % 3.14159
+% '    3.14'
+% \end{verbatim}
+% \afterverb
+% %
+% The result takes up eight spaces with two
+% digits after the decimal point.  
 
 
 \section{Debugging}
@@ -4371,250 +4212,6 @@ When you are done writing, you have to close the file.
 \index{method!close}
 
 
-\section{Format operator}
-
-\index{format operator}
-\index{operator!format}
-
-The argument of {\tt write} has to be a string, so if we want
-to put other values in a file, we have to convert them to
-strings.  The easiest way to do that is with {\tt str}:
-
-\beforeverb
-\begin{verbatim}
->>> x = 52
->>> f.write(str(x))
-\end{verbatim}
-\afterverb
-%
-An alternative is to use the {\bf format operator}, {\tt \%}.  When
-applied to integers, {\tt \%} is the modulus operator.  But
-when the first operand is a string, {\tt \%} is the format operator.
-
-\index{format string}
-
-The first operand is the {\bf format string}, which contains
-one or more {\bf format sequences}, which
-specify how
-the second operand is formatted.  The result is a string.
-
-\index{format sequence}
-
-For example, the format sequence \verb"'%d'" means that
-the second operand should be formatted as an
-integer ({\tt d} stands for ``decimal''):
-
-\beforeverb
-\begin{verbatim}
->>> camels = 42
->>> '%d' % camels
-'42'
-\end{verbatim}
-\afterverb
-%
-The result is the string \verb"'42'", which is not to be confused
-with the integer value {\tt 42}.
-
-A format sequence can appear anywhere in the string,
-so you can embed a value in a sentence:
-
-\beforeverb
-\begin{verbatim}
->>> camels = 42
->>> 'I have spotted %d camels.' % camels
-'I have spotted 42 camels.'
-\end{verbatim}
-\afterverb
-%
-If there is more than one format sequence in the string,
-the second argument has to be a tuple.  Each format sequence is
-matched with an element of the tuple, in order.
-
-The following example uses \verb"'%d'" to format an integer,
-\verb"'%g'" to format
-a floating-point number (don't ask why), and \verb"'%s'" to format
-a string:
-
-\beforeverb
-\begin{verbatim}
->>> 'In %d years I have spotted %g %s.' % (3, 0.1, 'camels')
-'In 3 years I have spotted 0.1 camels.'
-\end{verbatim}
-\afterverb
-%
-The number of elements in the tuple has to match the number
-of format sequences in the string.  Also, the types of the
-elements have to match the format sequences:
-
-\index{exception!TypeError}
-\index{TypeError}
-
-\beforeverb
-\begin{verbatim}
->>> '%d %d %d' % (1, 2)
-TypeError: not enough arguments for format string
->>> '%d' % 'dollars'
-TypeError: illegal argument type for built-in operation
-\end{verbatim}
-\afterverb
-%
-In the first example, there aren't enough elements; in the
-second, the element is the wrong type.
-
-The format operator is powerful, but it can be difficult to use.  You
-can read more about it at
-\url{docs.python.org/lib/typesseq-strings.html}.
-
-% You can specify the number of digits as part of the format sequence.
-% For example, the sequence \verb"'%8.2f'"
-% formats a floating-point number to be 8 characters long, with
-% 2 digits after the decimal point:
-
-% \beforeverb
-% \begin{verbatim}
-% >>> '%8.2f' % 3.14159
-% '    3.14'
-% \end{verbatim}
-% \afterverb
-% %
-% The result takes up eight spaces with two
-% digits after the decimal point.  
-
-
-\section{Filenames and paths}
-\label{paths}
-
-\index{filename}
-\index{path}
-\index{directory}
-\index{folder}
-
-Files are organized into {\bf directories} (also called ``folders'').
-Every running program has a ``current directory,'' which is the
-default directory for most operations.  
-For example, when you open a file for reading, Python looks for it in the
-current directory.
-
-\index{os module}
-\index{module!os}
-
-The {\tt os} module provides functions for working with files and
-directories (``os'' stands for ``operating system'').  {\tt os.getcwd}
-returns the name of the current directory:
-
-\index{getcwd function}
-\index{function!getcwd}
-
-\beforeverb
-\begin{verbatim}
->>> import os
->>> cwd = os.getcwd()
->>> print cwd
-/home/dinsdale
-\end{verbatim}
-\afterverb
-%
-{\tt cwd} stands for ``current working directory.''  The result in
-this example is {\tt /home/dinsdale}, which is the home directory of a
-user named {\tt dinsdale}.
-
-\index{working directory}
-\index{directory!working}
-
-A string like {\tt cwd} that identifies a file is called a {\bf path}.
-A {\bf relative path} starts from the current directory;
-an {\bf absolute path} starts from the topmost directory in the
-file system.
-
-\index{relative path}
-\index{path!relative}
-\index{absolute path}
-\index{path!absolute}
-
-The paths we have seen so far are simple filenames, so they are
-relative to the current directory.  To find the absolute path to
-a file, you can use {\tt os.path.abspath}:
-
-\beforeverb
-\begin{verbatim}
->>> os.path.abspath('memo.txt')
-'/home/dinsdale/memo.txt'
-\end{verbatim}
-\afterverb
-%
-{\tt os.path.exists} checks
-whether a file or directory exists:
-
-\index{exists function}
-\index{function!exists}
-
-\beforeverb
-\begin{verbatim}
->>> os.path.exists('memo.txt')
-True
-\end{verbatim}
-\afterverb
-%
-If it exists, {\tt os.path.isdir} checks whether it's a directory:
-
-\beforeverb
-\begin{verbatim}
->>> os.path.isdir('memo.txt')
-False
->>> os.path.isdir('music')
-True
-\end{verbatim}
-\afterverb
-%
-Similarly, {\tt os.path.isfile} checks whether it's a file.
-
-{\tt os.listdir} returns a list of the files (and other directories)
-in the given directory:
-
-\beforeverb
-\begin{verbatim}
->>> os.listdir(cwd)
-['music', 'photos', 'memo.txt']
-\end{verbatim}
-\afterverb
-%
-To demonstrate these functions, the following example
-``walks'' through a directory, prints
-the names of all the files, and calls itself recursively on
-all the directories.
-
-\index{walk, directory}
-\index{directory!walk}
-
-\beforeverb
-\begin{verbatim}
-def walk(dir):
-    for name in os.listdir(dir):
-        path = os.path.join(dir, name)
-
-        if os.path.isfile(path):
-            print path
-        else:
-            walk(path)
-\end{verbatim}
-\afterverb
-%
-{\tt os.path.join} takes a directory and a file name and joins
-them into a complete path.  
-
-\begin{ex}
-Modify {\tt walk} so that instead of printing the names of
-the files, it returns a list of names.
-\end{ex}
-
-\begin{ex}
-The {\tt os} module provides a function called {\tt walk}
-that is similar to this one but more versatile.  Read
-the documentation and use it to print the names of the
-files in a given directory and its subdirectories.
-\end{ex}
-
-
 \section{Catching exceptions}
 \label{catch}
 
@@ -4690,365 +4287,6 @@ catching} an exception.  In this example, the {\tt except} clause
 prints an error message that is not very helpful.  In general,
 catching an exception gives you a chance to fix the problem, or try
 again, or at least end the program gracefully.
-
-
-\section{Databases}
-
-\index{database}
-
-A {\bf database} is a file that is organized for storing data.
-Most databases are organized like a dictionary in the sense
-that they map from keys to values.  The biggest difference
-is that the database is on disk (or other permanent storage),
-so it persists after the program ends.
-
-\index{anydbm module}
-\index{module!anydbm}
-
-The module {\tt anydbm} provides an interface for creating
-and updating database files.  As an example, I'll create a database
-that contains captions for image files.
-
-\index{open function}
-\index{function!open}
-
-Opening a database is similar
-to opening other files:
-
-\beforeverb
-\begin{verbatim}
->>> import anydbm
->>> db = anydbm.open('captions.db', 'c')
-\end{verbatim}
-\afterverb
-%
-The mode \verb"'c'" means that the database should be created if
-it doesn't already exist.  The result is a database object
-that can be used (for most operations) like a dictionary.
-If you create a new item, {\tt anydbm} updates the database file.
-
-\index{update!database}
-
-
-\beforeverb
-\begin{verbatim}
->>> db['cleese.png'] = 'Photo of John Cleese.'
-\end{verbatim}
-\afterverb
-%
-When you access one of the items, {\tt anydbm} reads the file:
-
-\beforeverb
-\begin{verbatim}
->>> print db['cleese.png']
-Photo of John Cleese.
-\end{verbatim}
-\afterverb
-%
-If you make another assignment to an existing key, {\tt anydbm} replaces
-the old value:
-
-\beforeverb
-\begin{verbatim}
->>> db['cleese.png'] = 'Photo of John Cleese doing a silly walk.'
->>> print db['cleese.png']
-Photo of John Cleese doing a silly walk.
-\end{verbatim}
-\afterverb
-%
-Many dictionary methods, like {\tt keys} and {\tt items}, also
-work with database objects.  So does iteration with a {\tt for}
-statement.
-
-\index{dictionary methods!anydbm module}
-
-\beforeverb
-\begin{verbatim}
-for key in db:
-     print key
-\end{verbatim}
-\afterverb
-%
-As with other files, you should close the database when you are
-done:
-
-\beforeverb
-\begin{verbatim}
->>> db.close()
-\end{verbatim}
-\afterverb
-%
-
-\index{close method}
-\index{method!close}
-
-
-\section{Pickling}
-
-\index{pickling}
-
-A limitation of {\tt anydbm} is that the keys and values have
-to be strings.  If you try to use any other type, you get an
-error.
-
-\index{pickle module}
-\index{module!pickle}
-
-The {\tt pickle} module can help.  It translates
-almost any type of object into a string suitable for storage in a
-database, and then translates strings back into objects.
-
-{\tt pickle.dumps} takes an object as a parameter and returns
-a string representation ({\tt dumps} is short for ``dump string''):
-
-\beforeverb
-\begin{verbatim}
->>> import pickle
->>> t = [1, 2, 3]
->>> pickle.dumps(t)
-'(lp0\nI1\naI2\naI3\na.'
-\end{verbatim}
-\afterverb
-%
-The format isn't obvious to human readers; it is meant to be
-easy for {\tt pickle} to interpret.  {\tt pickle.loads}
-(``load string'') reconstitutes the object:
-
-\beforeverb
-\begin{verbatim}
->>> t1 = [1, 2, 3]
->>> s = pickle.dumps(t1)
->>> t2 = pickle.loads(s)
->>> print t2
-[1, 2, 3]
-\end{verbatim}
-\afterverb
-%
-Although the new object has the same value as the old, it is
-not (in general) the same object:
-
-\beforeverb
-\begin{verbatim}
->>> t1 == t2
-True
->>> t1 is t2
-False
-\end{verbatim}
-\afterverb
-%
-In other words, pickling and then unpickling has the same effect
-as copying the object.
-
-You can use {\tt pickle} to store non-strings in a database.
-In fact, this combination is so common that it has been
-encapsulated in a module called {\tt shelve}.  
-
-\index{shelve module}
-\index{module!shelve}
-
-
-\begin{ex}
-
-\index{anagram set}
-\index{set!anagram}
-
-If you did Exercise~\ref{anagrams}, modify your solution so that
-it creates a database that maps from each word in the list to
-a list of words that use the same set of letters.
-
-Write a different program that opens the database and prints
-the contents in a human-readable format.
-\end{ex}
-
-
-\section{Pipes}
-
-\index{shell}
-\index{pipe}
-
-Most operating systems provide a command-line interface,
-also known as a {\bf shell}.  Shells usually provide commands
-to navigate the file system and launch applications.  For
-example, in Unix, you can change directories with {\tt cd},
-display the contents of a directory with {\tt ls}, and launch
-a web browser by typing (for example) {\tt firefox}.
-
-\index{ls (Unix command)}
-\index{Unix command!ls}
-
-Any program that you can launch from the shell can also be
-launched from Python using a {\bf pipe}.  A pipe is an object
-that represents a running process.
-
-For example, the Unix command {\tt ls -l} normally displays the
-contents of the current directory (in long format).  You can
-launch {\tt ls} with {\tt os.popen}:
-
-\index{popen function}
-\index{function!popen}
-
-\beforeverb
-\begin{verbatim}
->>> cmd = 'ls -l'
->>> fp = os.popen(cmd)
-\end{verbatim}
-\afterverb
-%
-The argument is a string that contains a shell command.  The
-return value is a file pointer that behaves just like an open
-file.  You can read the output from the {\tt ls} process one
-line at a time with {\tt readline} or get the whole thing at
-once with {\tt read}:
-
-\index{readline method}
-\index{method!readline}
-\index{read method}
-\index{method!read}
-
-\beforeverb
-\begin{verbatim}
->>> res = fp.read()
-\end{verbatim}
-\afterverb
-%
-When you are done, you close the pipe like a file:
-
-\index{close method}
-\index{method!close}
-
-\beforeverb
-\begin{verbatim}
->>> stat = fp.close()
->>> print stat
-None
-\end{verbatim}
-\afterverb
-%
-The return value is the final status of the {\tt ls} process;
-{\tt None} means that it ended normally (with no errors).
-
-\index{file!compression}
-\index{compression!file}
-\index{Unix command!gunzip}
-\index{gunzip (Unix command)}
-
-A common use of pipes is to read a compressed file incrementally;
-that is, without uncompressing the whole thing at once.  The
-following function takes the name of a compressed file as a
-parameter and returns a pipe that uses {\tt gunzip} to decompress
-the contents:
-
-\beforeverb
-\begin{verbatim}
-def open_gunzip(filename):
-    cmd = 'gunzip -c ' + filename
-    fp = os.popen(cmd)
-    return fp
-\end{verbatim}
-\afterverb
-%
-If you read lines from {\tt fp} one at a time, you never have
-to store the uncompressed file in memory or on disk.
-
-
-\section{Writing modules}
-\label{modules}
-
-\index{module, writing}
-\index{word count}
-
-Any file that contains Python code can be imported as a module.
-For example, suppose you have a file named {\tt wc.py} with the following
-code:
-
-\beforeverb
-\begin{verbatim}
-def linecount(filename):
-    count = 0
-    for line in open(filename):
-        count += 1
-    return count
-
-print linecount('wc.py')
-\end{verbatim}
-\afterverb
-%
-If you run this program, it reads itself and prints the number
-of lines in the file, which is 7.
-You can also import it like this:
-
-\beforeverb
-\begin{verbatim}
->>> import wc
-7
-\end{verbatim}
-\afterverb
-%
-Now you have a module object {\tt wc}:
-
-\index{module object}
-\index{object!module}
-
-\beforeverb
-\begin{verbatim}
->>> print wc
-<module 'wc' from 'wc.py'>
-\end{verbatim}
-\afterverb
-%
-That provides a function called \verb"linecount":
-
-\beforeverb
-\begin{verbatim}
->>> wc.linecount('wc.py')
-7
-\end{verbatim}
-\afterverb
-%
-So that's how you write modules in Python.
-
-The only problem with this example is that when you import
-the module it executes the test code at the bottom.  Normally
-when you import a module, it defines new functions but it
-doesn't execute them.
-
-\index{import statement}
-\index{statement!import}
-
-Programs that will be imported as modules often
-use the following idiom:
-
-\beforeverb
-\begin{verbatim}
-if __name__ == '__main__':
-    print linecount('wc.py')
-\end{verbatim}
-\afterverb
-%
-\verb"__name__" is a built-in variable that is set when the
-program starts.  If the program is running as a script,
-\verb"__name__" has the value \verb"__main__"; in that
-case, the test code is executed.  Otherwise,
-if the module is being imported, the test code is skipped.
-
-\begin{ex}
-Type this example into a file named {\tt wc.py} and run
-it as a script.  Then run the Python interpreter and
-{\tt import wc}.  What is the value of \verb"__name__"
-when the module is being imported?
-
-Warning: If you import a module that has already been imported,
-Python does nothing.  It does not re-read the file, even if it has
-changed.
-
-\index{module!reload}
-\index{reload function}
-\index{function!reload}
-
-If you want to reload a module, you can use the built-in function 
-{\tt reload}, but it can be tricky, so the safest thing to do is
-restart the interpreter and then import the module again.
-\end{ex}
 
 
 
@@ -5155,75 +4393,6 @@ with keys that correspond to values.
 
 
 \section{Exercises}
-
-\begin{ex}
-\label{urllib}
-
-\index{urllib module}
-\index{module!urllib}
-\index{URL}
-
-The {\tt urllib} module provides methods for manipulating URLs
-and downloading information from the web.  The following example
-downloads and prints a secret message from {\tt thinkpython.com}:
-
-\beforeverb
-\begin{verbatim}
-import urllib
-
-conn = urllib.urlopen('http://thinkpython.com/secret.html')
-for line in conn.fp:
-    print line.strip()
-\end{verbatim}
-\afterverb
-
-Run this code and follow the instructions you see there.
-
-\index{secret exercise}
-\index{exercise, secret}
-
-\end{ex}
-
-\begin{ex}
-\label{checksum}
-
-\index{MP3}
-
-In a large collection of MP3 files, there may be more than one
-copy of the same song, stored in different directories or with
-different file names.  The goal of this exercise is to search for
-these duplicates.
-
-\begin{enumerate}
-
-\item Write a program that searches a directory and all of its
-subdirectories, recursively, and returns a list of complete paths
-for all files with a given suffix (like {\tt .mp3}).
-Hint: {\tt os.path} provides several useful functions for
-manipulating file and path names.
-
-\index{duplicate}
-\index{MD5 algorithm}
-\index{algorithm!MD5}
-\index{checksum}
-
-\item To recognize duplicates, you can use a hash function that
-reads the file and generates a short summary
-of the contents.  For example,
-MD5 (Message-Digest algorithm 5) takes an arbitrarily-long
-``message'' and returns a 128-bit ``checksum.''  The probability
-is very small that two files with different contents will
-return the same checksum.
-
-You can read about MD5 at \url{wikipedia.org/wiki/Md5}.  On
-a Unix system you can use the program {\tt md5sum} and a pipe to
-compute checksums from Python.
-
-\index{pipe}
-
-\end{enumerate}
-
-\end{ex}
 
 
 \begin{ex}
@@ -6035,7 +5204,7 @@ It is a special value that has its own type:
 \afterverb
 %
 The functions we have written so far are all void.  We will start
-writing fruitful functions in a few chapters.
+writing fruitful functions in the next chapter.
 
 
 \section{Why functions?}
@@ -6871,27 +6040,6 @@ print c(x, y+3, x+y)
 
 \end{ex}
 
-
-\begin{ex}
-\index{Ackerman function}
-\index{function!ack}
-
-The Ackermann function, $A(m, n)$, is defined\footnote{See
-  \url{wikipedia.org/wiki/Ackermann_function}}:
-
-\begin{eqnarray}
-A(m, n) = \begin{cases} 
-              n+1 & \mbox{if } m = 0 \\ 
-        A(m-1, 1) & \mbox{if } m > 0 \mbox{ and } n = 0 \\ 
-A(m-1, A(m, n-1)) & \mbox{if } m > 0 \mbox{ and } n > 0.
-\end{cases} 
-\end{eqnarray}
-%
-Write a function named {\tt ack} that evaluates Ackerman's function.
-Use your function to evaluate {\tt ack(3, 4)}, which should be 125.
-What happens for larger values of {\tt m} and {\tt n}?
-
-\end{ex}
 
 
 \begin{ex}
@@ -10474,6 +9622,78 @@ and adds them, as key-value pairs, to an existing dictionary.
 \index{update method}
 \index{method!update}
 
+\section{Multiple assignment}
+
+\index{assignment}
+\index{statement!assignment}
+\index{multiple assignment}
+
+As you may have discovered, it is legal to
+make more than one assignment to the same variable.  A
+new assignment makes an existing variable refer to a new
+value (and stop referring to the old value).
+
+\beforeverb
+\begin{verbatim}
+bruce = 5
+print bruce,
+bruce = 7
+print bruce
+\end{verbatim}
+\afterverb
+%
+The output of this program is {\tt 5 7}, because the first time
+{\tt bruce} is printed, its value is 5, and the second time, its
+value is 7.  The
+comma at the end of the first {\tt print} statement suppresses
+the newline, which is why both outputs
+appear on the same line.
+
+\index{newline}
+
+Here is what {\bf multiple assignment} looks like in a state diagram:
+
+\index{state diagram}
+\index{diagram!state}
+
+\beforefig
+\centerline{\includegraphics{figs/assign2.eps}}
+\afterfig
+
+With multiple assignment it is especially important to distinguish
+between an assignment operation and a statement of equality.  Because
+Python uses the equal sign ({\tt =}) for assignment, it is tempting to
+interpret a statement like {\tt a = b} as a statement of equality. It
+is not!
+
+\index{equality and assignment}
+
+First, equality is a symmetric relation and assignment is not.  For
+example, in mathematics, if $a = 7$ then $7 = a$.  But in Python, the
+statement {\tt a = 7} is legal and {\tt 7 = a} is not.
+
+Furthermore, in mathematics, a statement of equality is either true or
+false, for all time.  If $a = b$ now, then $a$ will always equal $b$.
+In Python, an assignment statement can make two variables equal, but
+they don't have to stay that way:
+
+\beforeverb
+\begin{verbatim}
+a = 5
+b = a    # a and b are now equal
+a = 3    # a and b are no longer equal
+\end{verbatim}
+\afterverb
+%
+The third line changes the value of {\tt a} but does not change the
+value of {\tt b}, so they are no longer equal. 
+
+Although multiple assignment is frequently helpful, you should use it
+with caution.  If the values of variables change frequently, it can
+make the code difficult to read and debug.
+
+\section{Multiple assignment with dictionaries}
+
 \index{traverse!dictionary}
 \index{dictionary!traversal}
 
@@ -11488,215 +10708,6 @@ word from the book.
 
 
 
-\section{Markov analysis}
-
-\index{Markov analysis}
-
-If you choose words from the book at random, you can get a
-sense of the vocabulary, you probably won't get a sentence:
-
-\beforeverb
-\begin{verbatim}
-this the small regard harriet which knightley's it most things
-\end{verbatim}
-\afterverb
-%
-A series of random words seldom makes sense because there
-is no relationship between successive words.  For example, in
-a real sentence you would expect an article like ``the'' to
-be followed by an adjective or a noun, and probably not a verb
-or adverb.
-
-One way to measure these kinds of relationships is Markov
-analysis\footnote{This case study is based on an example from
-  Kernighan and Pike, {\em The Practice of Programming}, 1999.}, which
-characterizes, for a given sequence of words, the probability of the
-word that comes next.  For example, the song {\em Eric, the Half a
-  Bee} begins:
-
-\begin{quote}
-Half a bee, philosophically, \\
-Must, ipso facto, half not be. \\
-But half the bee has got to be \\
-Vis a vis, its entity. D'you see? \\
-\\
-But can a bee be said to be \\
-Or not to be an entire bee \\
-When half the bee is not a bee \\
-Due to some ancient injury? \\
-\end{quote}
-%
-In this text,
-the phrase ``half the'' is always followed by the word ``bee,''
-but the phrase ``the bee'' might be followed by either
-``has'' or ``is''.
-
-\index{prefix}
-\index{suffix}
-\index{mapping}
-
-The result of Markov analysis is a mapping from each prefix
-(like ``half the'' and ``the bee'') to all possible suffixes
-(like ``has'' and ``is'').
-
-\index{random text}
-\index{text!random}
-
-Given this mapping, you can generate a random text by
-starting with any prefix and choosing at random from the
-possible suffixes.  Next, you can combine the end of the
-prefix and the new suffix to form the next prefix, and repeat.
-
-For example, if you start with the prefix ``Half a,'' then the
-next word has to be ``bee,'' because the prefix only appears
-once in the text.  The next prefix is ``a bee,'' so the
-next suffix might be ``philosophically,'' ``be'' or ``due.''
-
-In this example the length of the prefix is always two, but
-you can do Markov analysis with any prefix length.  The length
-of the prefix is called the ``order'' of the analysis.
-
-\begin{ex}
-Markov analysis:
-
-\begin{enumerate}
-
-\item Write a program to read a text from a file and perform Markov
-analysis.  The result should be a dictionary that maps from
-prefixes to a collection of possible suffixes.  The collection
-might be a list, tuple, or dictionary; it is up to you to make
-an appropriate choice.  You can test your program with prefix
-length two, but you should write the program in a way that makes
-it easy to try other lengths.
-
-\item Add a function to the previous program to generate random text
-based on the Markov analysis.  Here is an example from {\em Emma}
-with prefix length 2:
-
-\begin{quote}
-He was very clever, be it sweetness or be angry, ashamed or only
-amused, at such a stroke. She had never thought of Hannah till you
-were never meant for me?" "I cannot make speeches, Emma:" he soon cut
-it all himself.
-\end{quote}
-
-For this example, I left the punctuation attached to the words.
-The result is almost syntactically correct, but not quite.
-Semantically, it almost makes sense, but not quite.
-
-What happens if you increase the prefix length?  Does the random
-text make more sense?
-
-\index{mash-up}
-
-\item Once your program is working, you might want to try a mash-up:
-if you analyze text from two or more books, the random
-text you generate will blend the vocabulary and phrases from
-the sources in interesting ways.
-
-\end{enumerate}
-\end{ex}
-
-
-\section{Data structures}
-
-\index{data structure}
-
-Using Markov analysis to generate random text is fun, but there is
-also a point to this exercise: data structure selection.  In your
-solution to the previous exercises, you had to choose:
-
-\begin{itemize}
-
-\item How to represent the prefixes.
-
-\item How to represent the collection of possible suffixes.
-
-\item How to represent the mapping from each prefix to
-the collection of possible suffixes.
-
-\end{itemize}
-
-Ok, the last one is the easy; the only mapping type we have
-seen is a dictionary, so it is the natural choice.
-
-For the prefixes, the most obvious options are string,
-list of strings, or tuple of strings.  For the suffixes,
-one option is a list; another is a histogram (dictionary).
-
-\index{implementation}
-
-How should you choose?  The first step is to think about
-the operations you will need to implement for each data structure.
-For the prefixes, we need to be able to remove words from
-the beginning and add to the end.  For example, if the current
-prefix is ``Half a,'' and the next word is ``bee,'' you need
-to be able to form the next prefix, ``a bee.''
-
-\index{tuple!as key in dictionary}
-
-Your first choice might be a list, since it is easy to add
-and remove elements, but we also need to be able to use the
-prefixes as keys in a dictionary, so that rules out lists.
-With tuples, you can't append or remove, but you can use
-the addition operator to form a new tuple:
-
-\beforeverb
-\begin{verbatim}
-def shift(prefix, word):
-    return prefix[1:] + (word,)
-\end{verbatim}
-\afterverb
-%
-{\tt shift} takes a tuple of words, {\tt prefix}, and a string, 
-{\tt word}, and forms a new tuple that has all the words
-in {\tt prefix} except the first, and {\tt word} added to
-the end.
-
-For the collection of suffixes, the operations we need to
-perform include adding a new suffix (or increasing the frequency
-of an existing one), and choosing a random suffix.
-
-Adding a new suffix is equally easy for the list implementation
-or the histogram.  Choosing a random element from a list
-is easy; choosing from a histogram is harder to do
-efficiently (see Exercise~\ref{randhist}).
-
-So far we have been talking mostly about ease of implementation,
-but there are other factors to consider in choosing data structures.
-One is run time.  Sometimes there is a theoretical reason to expect
-one data structure to be faster than other; for example, I mentioned
-that the {\tt in} operator is faster for dictionaries than for lists,
-at least when the number of elements is large.
-
-But often you don't know ahead of time which implementation will
-be faster.  One option is to implement both of them and see which
-is better.  This approach is called {\bf benchmarking}.  A practical
-alternative is to choose the data structure that is
-easiest to implement, and then see if it is fast enough for the
-intended application.  If so, there is no need to go on.  If not,
-there are tools, like the {\tt profile} module, that can identify
-the places in a program that take the most time.
-
-\index{benchmarking}
-\index{profile module}
-\index{module!profile}
-
-The other factor to consider is storage space.  For example, using a
-histogram for the collection of suffixes might take less space because
-you only have to store each word once, no matter how many times it
-appears in the text.  In some cases, saving space can also make your
-program run faster, and in the extreme, your program might not run at
-all if you run out of memory.  But for many applications, space is a
-secondary consideration after run time.
-
-One final thought: in this discussion, I have implied that
-we should use one data structure for both analysis and generation.  But
-since these are separate phases, it would also be possible to use one
-structure for analysis and then convert to another structure for
-generation.  This would be a net win if the time saved during
-generation exceeded the time spent in conversion.
-
 
 \section{Debugging}
 \index{debugging}
@@ -11853,6 +10864,232 @@ a straight line.  Can you estimate the value of $s$?
 \section{Regular expressions at the command line (Advanced)}
 
 
+\chapter{Automating common tasks}
+
+
+\section{Filenames and paths}
+\label{paths}
+
+\index{filename}
+\index{path}
+\index{directory}
+\index{folder}
+
+Files are organized into {\bf directories} (also called ``folders'').
+Every running program has a ``current directory,'' which is the
+default directory for most operations.  
+For example, when you open a file for reading, Python looks for it in the
+current directory.
+
+\index{os module}
+\index{module!os}
+
+The {\tt os} module provides functions for working with files and
+directories (``os'' stands for ``operating system'').  {\tt os.getcwd}
+returns the name of the current directory:
+
+\index{getcwd function}
+\index{function!getcwd}
+
+\beforeverb
+\begin{verbatim}
+>>> import os
+>>> cwd = os.getcwd()
+>>> print cwd
+/home/dinsdale
+\end{verbatim}
+\afterverb
+%
+{\tt cwd} stands for ``current working directory.''  The result in
+this example is {\tt /home/dinsdale}, which is the home directory of a
+user named {\tt dinsdale}.
+
+\index{working directory}
+\index{directory!working}
+
+A string like {\tt cwd} that identifies a file is called a {\bf path}.
+A {\bf relative path} starts from the current directory;
+an {\bf absolute path} starts from the topmost directory in the
+file system.
+
+\index{relative path}
+\index{path!relative}
+\index{absolute path}
+\index{path!absolute}
+
+The paths we have seen so far are simple filenames, so they are
+relative to the current directory.  To find the absolute path to
+a file, you can use {\tt os.path.abspath}:
+
+\beforeverb
+\begin{verbatim}
+>>> os.path.abspath('memo.txt')
+'/home/dinsdale/memo.txt'
+\end{verbatim}
+\afterverb
+%
+{\tt os.path.exists} checks
+whether a file or directory exists:
+
+\index{exists function}
+\index{function!exists}
+
+\beforeverb
+\begin{verbatim}
+>>> os.path.exists('memo.txt')
+True
+\end{verbatim}
+\afterverb
+%
+If it exists, {\tt os.path.isdir} checks whether it's a directory:
+
+\beforeverb
+\begin{verbatim}
+>>> os.path.isdir('memo.txt')
+False
+>>> os.path.isdir('music')
+True
+\end{verbatim}
+\afterverb
+%
+Similarly, {\tt os.path.isfile} checks whether it's a file.
+
+{\tt os.listdir} returns a list of the files (and other directories)
+in the given directory:
+
+\beforeverb
+\begin{verbatim}
+>>> os.listdir(cwd)
+['music', 'photos', 'memo.txt']
+\end{verbatim}
+\afterverb
+%
+To demonstrate these functions, the following example
+``walks'' through a directory, prints
+the names of all the files, and calls itself recursively on
+all the directories.
+
+\index{walk, directory}
+\index{directory!walk}
+
+\beforeverb
+\begin{verbatim}
+def walk(dir):
+    for name in os.listdir(dir):
+        path = os.path.join(dir, name)
+
+        if os.path.isfile(path):
+            print path
+        else:
+            walk(path)
+\end{verbatim}
+\afterverb
+%
+{\tt os.path.join} takes a directory and a file name and joins
+them into a complete path.  
+
+\begin{ex}
+Modify {\tt walk} so that instead of printing the names of
+the files, it returns a list of names.
+\end{ex}
+
+\begin{ex}
+The {\tt os} module provides a function called {\tt walk}
+that is similar to this one but more versatile.  Read
+the documentation and use it to print the names of the
+files in a given directory and its subdirectories.
+\end{ex}
+
+
+\section{Pipes}
+
+\index{shell}
+\index{pipe}
+
+Most operating systems provide a command-line interface,
+also known as a {\bf shell}.  Shells usually provide commands
+to navigate the file system and launch applications.  For
+example, in Unix, you can change directories with {\tt cd},
+display the contents of a directory with {\tt ls}, and launch
+a web browser by typing (for example) {\tt firefox}.
+
+\index{ls (Unix command)}
+\index{Unix command!ls}
+
+Any program that you can launch from the shell can also be
+launched from Python using a {\bf pipe}.  A pipe is an object
+that represents a running process.
+
+For example, the Unix command {\tt ls -l} normally displays the
+contents of the current directory (in long format).  You can
+launch {\tt ls} with {\tt os.popen}:
+
+\index{popen function}
+\index{function!popen}
+
+\beforeverb
+\begin{verbatim}
+>>> cmd = 'ls -l'
+>>> fp = os.popen(cmd)
+\end{verbatim}
+\afterverb
+%
+The argument is a string that contains a shell command.  The
+return value is a file pointer that behaves just like an open
+file.  You can read the output from the {\tt ls} process one
+line at a time with {\tt readline} or get the whole thing at
+once with {\tt read}:
+
+\index{readline method}
+\index{method!readline}
+\index{read method}
+\index{method!read}
+
+\beforeverb
+\begin{verbatim}
+>>> res = fp.read()
+\end{verbatim}
+\afterverb
+%
+When you are done, you close the pipe like a file:
+
+\index{close method}
+\index{method!close}
+
+\beforeverb
+\begin{verbatim}
+>>> stat = fp.close()
+>>> print stat
+None
+\end{verbatim}
+\afterverb
+%
+The return value is the final status of the {\tt ls} process;
+{\tt None} means that it ended normally (with no errors).
+
+\index{file!compression}
+\index{compression!file}
+\index{Unix command!gunzip}
+\index{gunzip (Unix command)}
+
+A common use of pipes is to read a compressed file incrementally;
+that is, without uncompressing the whole thing at once.  The
+following function takes the name of a compressed file as a
+parameter and returns a pipe that uses {\tt gunzip} to decompress
+the contents:
+
+\beforeverb
+\begin{verbatim}
+def open_gunzip(filename):
+    cmd = 'gunzip -c ' + filename
+    fp = os.popen(cmd)
+    return fp
+\end{verbatim}
+\afterverb
+%
+If you read lines from {\tt fp} one at a time, you never have
+to store the uncompressed file in memory or on disk.
+
 
 \chapter{Visualizing data}
 
@@ -11861,6 +11098,49 @@ a straight line.  Can you estimate the value of $s$?
 \section{Python and spreadsheets}
 
 \section{Using Google visualization}
+
+\section{Exercises}
+
+\begin{ex}
+\label{checksum}
+
+\index{MP3}
+
+In a large collection of MP3 files, there may be more than one
+copy of the same song, stored in different directories or with
+different file names.  The goal of this exercise is to search for
+these duplicates.
+
+\begin{enumerate}
+
+\item Write a program that searches a directory and all of its
+subdirectories, recursively, and returns a list of complete paths
+for all files with a given suffix (like {\tt .mp3}).
+Hint: {\tt os.path} provides several useful functions for
+manipulating file and path names.
+
+\index{duplicate}
+\index{MD5 algorithm}
+\index{algorithm!MD5}
+\index{checksum}
+
+\item To recognize duplicates, you can use a hash function that
+reads the file and generates a short summary
+of the contents.  For example,
+MD5 (Message-Digest algorithm 5) takes an arbitrarily-long
+``message'' and returns a 128-bit ``checksum.''  The probability
+is very small that two files with different contents will
+return the same checksum.
+
+You can read about MD5 at \url{wikipedia.org/wiki/Md5}.  On
+a Unix system you can use the program {\tt md5sum} and a pipe to
+compute checksums from Python.
+
+\index{pipe}
+
+\end{enumerate}
+
+\end{ex}
 
 
 
@@ -11873,6 +11153,36 @@ a straight line.  Can you estimate the value of $s$?
 \section{Retrieving web pages}
 
 \section{Parsing HTML and scraping the web}
+
+\section{Exercises}
+
+\begin{ex}
+\label{urllib}
+
+\index{urllib module}
+\index{module!urllib}
+\index{URL}
+
+The {\tt urllib} module provides methods for manipulating URLs
+and downloading information from the web.  The following example
+downloads and prints a secret message from {\tt thinkpython.com}:
+
+\beforeverb
+\begin{verbatim}
+import urllib
+
+conn = urllib.urlopen('http://thinkpython.com/secret.html')
+for line in conn.fp:
+    print line.strip()
+\end{verbatim}
+\afterverb
+
+Run this code and follow the instructions you see there.
+
+\index{secret exercise}
+\index{exercise, secret}
+
+\end{ex}
 
 
 
@@ -11892,6 +11202,173 @@ a straight line.  Can you estimate the value of $s$?
 \chapter{Using databases}
 
 \section{What is a database?}
+\index{database}
+
+A {\bf database} is a file that is organized for storing data.
+Most databases are organized like a dictionary in the sense
+that they map from keys to values.  The biggest difference
+is that the database is on disk (or other permanent storage),
+so it persists after the program ends.
+
+\index{anydbm module}
+\index{module!anydbm}
+
+The module {\tt anydbm} provides an interface for creating
+and updating database files.  As an example, I'll create a database
+that contains captions for image files.
+
+\index{open function}
+\index{function!open}
+
+Opening a database is similar
+to opening other files:
+
+\beforeverb
+\begin{verbatim}
+>>> import anydbm
+>>> db = anydbm.open('captions.db', 'c')
+\end{verbatim}
+\afterverb
+%
+The mode \verb"'c'" means that the database should be created if
+it doesn't already exist.  The result is a database object
+that can be used (for most operations) like a dictionary.
+If you create a new item, {\tt anydbm} updates the database file.
+
+\index{update!database}
+
+
+\beforeverb
+\begin{verbatim}
+>>> db['cleese.png'] = 'Photo of John Cleese.'
+\end{verbatim}
+\afterverb
+%
+When you access one of the items, {\tt anydbm} reads the file:
+
+\beforeverb
+\begin{verbatim}
+>>> print db['cleese.png']
+Photo of John Cleese.
+\end{verbatim}
+\afterverb
+%
+If you make another assignment to an existing key, {\tt anydbm} replaces
+the old value:
+
+\beforeverb
+\begin{verbatim}
+>>> db['cleese.png'] = 'Photo of John Cleese doing a silly walk.'
+>>> print db['cleese.png']
+Photo of John Cleese doing a silly walk.
+\end{verbatim}
+\afterverb
+%
+Many dictionary methods, like {\tt keys} and {\tt items}, also
+work with database objects.  So does iteration with a {\tt for}
+statement.
+
+\index{dictionary methods!anydbm module}
+
+\beforeverb
+\begin{verbatim}
+for key in db:
+     print key
+\end{verbatim}
+\afterverb
+%
+As with other files, you should close the database when you are
+done:
+
+\beforeverb
+\begin{verbatim}
+>>> db.close()
+\end{verbatim}
+\afterverb
+%
+
+\index{close method}
+\index{method!close}
+
+
+\section{Pickling}
+
+\index{pickling}
+
+A limitation of {\tt anydbm} is that the keys and values have
+to be strings.  If you try to use any other type, you get an
+error.
+
+\index{pickle module}
+\index{module!pickle}
+
+The {\tt pickle} module can help.  It translates
+almost any type of object into a string suitable for storage in a
+database, and then translates strings back into objects.
+
+{\tt pickle.dumps} takes an object as a parameter and returns
+a string representation ({\tt dumps} is short for ``dump string''):
+
+\beforeverb
+\begin{verbatim}
+>>> import pickle
+>>> t = [1, 2, 3]
+>>> pickle.dumps(t)
+'(lp0\nI1\naI2\naI3\na.'
+\end{verbatim}
+\afterverb
+%
+The format isn't obvious to human readers; it is meant to be
+easy for {\tt pickle} to interpret.  {\tt pickle.loads}
+(``load string'') reconstitutes the object:
+
+\beforeverb
+\begin{verbatim}
+>>> t1 = [1, 2, 3]
+>>> s = pickle.dumps(t1)
+>>> t2 = pickle.loads(s)
+>>> print t2
+[1, 2, 3]
+\end{verbatim}
+\afterverb
+%
+Although the new object has the same value as the old, it is
+not (in general) the same object:
+
+\beforeverb
+\begin{verbatim}
+>>> t1 == t2
+True
+>>> t1 is t2
+False
+\end{verbatim}
+\afterverb
+%
+In other words, pickling and then unpickling has the same effect
+as copying the object.
+
+You can use {\tt pickle} to store non-strings in a database.
+In fact, this combination is so common that it has been
+encapsulated in a module called {\tt shelve}.  
+
+\index{shelve module}
+\index{module!shelve}
+
+
+\begin{ex}
+
+\index{anagram set}
+\index{set!anagram}
+
+If you did Exercise~\ref{anagrams}, modify your solution so that
+it creates a database that maps from each word in the list to
+a list of words that use the same set of letters.
+
+Write a different program that opens the database and prints
+the contents in a human-readable format.
+\end{ex}
+
+
 
 \section{Using the SQLite3 database}
 
@@ -11902,6 +11379,7 @@ a straight line.  Can you estimate the value of $s$?
 \section{Using JOIN to retrieve data}
 
 \section{Python and SQLite3}
+
 
 
 \appendix
