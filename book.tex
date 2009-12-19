@@ -2032,7 +2032,7 @@ Practice using the Python interpreter as a calculator:
 \end{ex}
 
 
-\chapter{Conditionals and recursion}
+\chapter{Conditional execution}
 
 \section{Modulus operator}
 
@@ -2352,206 +2352,6 @@ if 0 < x and x < 10:
 
 
 
-
-\section{Recursion}
-\label{recursion}
-\index{recursion}
-
-It is legal for one function to call another;
-it is also legal for a function to call itself.  It may not be obvious
-why that is a good thing, but it turns out to be one of the most
-magical things a program can do.
-For example, look at the following function:
-
-\beforeverb
-\begin{verbatim}
-def countdown(n):
-    if n <= 0:
-        print 'Blastoff!'
-    else:
-        print n
-        countdown(n-1)
-\end{verbatim}
-\afterverb
-%
-If {\tt n} is 0 or negative, it outputs the word, ``Blastoff!''
-Otherwise, it outputs {\tt n} and then calls a function named {\tt
-countdown}---itself---passing {\tt n-1} as an argument.
-
-What happens if we call this function like this?
-
-\beforeverb
-\begin{verbatim}
->>> countdown(3)
-\end{verbatim}
-\afterverb
-%
-The execution of {\tt countdown} begins with {\tt n=3}, and since
-{\tt n} is greater than 0, it outputs the value 3, and then calls itself...
-
-\begin{quote}
-The execution of {\tt countdown} begins with {\tt n=2}, and since
-{\tt n} is greater than 0, it outputs the value 2, and then calls itself...
-
-\begin{quote}
-The execution of {\tt countdown} begins with {\tt n=1}, and since
-{\tt n} is greater than 0, it outputs the value 1, and then calls itself...
-
-\begin{quote}
-The execution of {\tt countdown} begins with {\tt n=0}, and since {\tt
-n} is not greater than 0, it outputs the word, ``Blastoff!'' and then
-returns.
-\end{quote}
-
-The {\tt countdown} that got {\tt n=1} returns.
-\end{quote}
-
-The {\tt countdown} that got {\tt n=2} returns.
-\end{quote}
-
-The {\tt countdown} that got {\tt n=3} returns.
-
-And then you're back in \verb"__main__".  So, the
-total output looks like this:
-
-\beforeverb
-\begin{verbatim}
-3
-2
-1
-Blastoff!
-\end{verbatim}
-\afterverb
-%
-A function that calls itself is {\bf recursive}; the process is
-called {\bf recursion}.
-
-\index{recursion}
-\index{function!recursive}
-
-As another example, we can write a function that prints a
-string {\tt n} times.
-
-\beforeverb
-\begin{verbatim}
-def print_n(s, n):
-    if n <= 0:
-        return
-    print s
-    print_n(s, n-1)
-\end{verbatim}
-\afterverb
-%
-If {\tt n <= 0} the {\tt return} statement exits the function.  The
-flow of execution immediately returns to the caller, and the remaining
-lines of the function are not executed.
-
-\index{return statement}
-\index{statement!return}
-
-The rest of the function is similar to {\tt countdown}: if {\tt n} is
-greater than 0, it displays {\tt s} and then calls itself to display
-{\tt s} $n-1$ additional times.  So the number of lines of output
-is {\tt 1 + (n - 1)}, which adds up to
-{\tt n}.
-
-For simple examples like this, it is probably easier to use a {\tt
-for} loop.  But we will see examples later that are hard to write
-with a {\tt for} loop and easy to write with recursion, so it is
-good to start early.
-
-
-
-\section{Stack diagrams for recursive functions}
-\index{stack diagram}
-\index{function frame}
-\index{frame}
-
-In Section~\ref{stackdiagram}, we used a stack diagram to represent
-the state of a program during a function call.  The same kind of
-diagram can help interpret a recursive function.
-
-Every time a function gets called, Python creates a new function
-frame, which contains the function's local variables and parameters.
-For a recursive function, there might be more than one frame on the
-stack at the same time.
-
-This figure shows a stack diagram for {\tt countdown} called with
-{\tt n = 3}:
-
-\beforefig
-\centerline{\includegraphics{figs/stack2.eps}}
-\afterfig
-
-As usual, the top of the stack is the frame for \verb"__main__".
-It is empty because we did not create any variables in 
-\verb"__main__" or pass any arguments to it.
-
-\index{base case}
-\index{recursion!base case}
-
-The four {\tt countdown} frames have different values for the
-parameter {\tt n}.  The bottom of the stack, where {\tt n=0}, is
-called the {\bf base case}.  It does not make a recursive call, so
-there are no more frames.
-
-\begin{quote}
-Draw a stack diagram for \verb"print_n" called with
-\verb"s = 'Hello'" and {\tt n=2}.
-\end{quote}
-
-\begin{quote}
-Write a function called \verb"do_n" that takes a function
-object and a number, {\tt n}, as arguments, and that calls
-the given function {\tt n} times.
-\end{quote}
-
-
-
-\section{Infinite recursion}
-\index{infinite recursion}
-\index{recursion!infinite}
-\index{runtime error}
-\index{error!runtime}
-\index{traceback}
-
-If a recursion never reaches a base case, it goes on making
-recursive calls forever, and the program never terminates.  This is
-known as {\bf infinite recursion}, and it is generally not
-a good idea.  Here is a minimal program with an infinite recursion:
-
-\beforeverb
-\begin{verbatim}
-def recurse():
-    recurse()
-\end{verbatim}
-\afterverb
-%
-In most programming environments, a program with infinite recursion
-does not really run forever.  Python reports an error
-message when the maximum recursion depth is reached:
-
-\index{exception!RuntimeError}
-\index{RuntimeError}
-
-\beforeverb
-\begin{verbatim}
-  File "<stdin>", line 2, in recurse
-  File "<stdin>", line 2, in recurse
-  File "<stdin>", line 2, in recurse
-                  .   
-                  .
-                  .
-  File "<stdin>", line 2, in recurse
-RuntimeError: Maximum recursion depth exceeded
-\end{verbatim}
-\afterverb
-%
-This traceback is a little bigger than the one we saw in the
-previous chapter.  When the error occurs, there are 1000
-{\tt recurse} frames on the stack!
-
-
 \section{Keyboard input}
 \index{keyboard input}
 
@@ -2775,19 +2575,6 @@ of alternative branches.
 in one of the branches of another conditional statement.
 \index{nested conditional}
 \index{conditional!nested}
-
-\item[recursion:]  The process of calling the function that is
-currently executing.
-\index{recursion}
-
-\item[base case:]  A conditional branch in a
-recursive function that does not make a recursive call.
-\index{base case}
-
-\item[infinite recursion:]  A function that calls itself recursively
-without ever reaching the base case.  Eventually, an infinite recursion
-causes a runtime error.
-\index{infinite recursion}
 
 \end{description}
 
@@ -3074,9 +2861,7 @@ Computers are often used to automate repetitive tasks.  Repeating
 identical or similar tasks without making errors is something that
 computers do well and people do poorly.
 
-We have seen two programs, {\tt countdown} and \verb"print_n", that
-use recursion to perform repetition, which is also called {\bf
-iteration}.  Because iteration is so common, Python provides several
+Because iteration is so common, Python provides several
 language features to make it easier.  One is the {\tt for} statement
 we saw in Section~\ref{repetition}.  We'll get back to that later.
 
@@ -3172,11 +2957,6 @@ The hard question is whether we can prove that this program terminates
 for {\em all positive values} of {\tt n}.  So far\footnote{See
   \url{wikipedia.org/wiki/Collatz_conjecture}.}, no one has
 been able to prove it {\em or} disprove it!
-
-\begin{ex}
-Rewrite the function \verb"print_n" from
-Section~\ref{recursion} using iteration instead of recursion.
-\end{ex}
 
 
 \section{{\tt break}}
@@ -6970,335 +6750,7 @@ Write a function \verb"is_between(x, y, z)" that
 returns {\tt True} if $x \le y \le z$ or {\tt False} otherwise.
 \end{ex}
 
-
-\section{More recursion}
-
-\index{recursion}
-\index{Turing complete language}
-\index{language!Turing complete}
-\index{Turing, Alan}
-\index{Turing Thesis}
-
-We have only covered a small subset of Python, but you might
-be interested to know that this subset is a {\em complete}
-programming language, which means that anything that can be
-computed can be expressed in this language.  Any program ever written
-could be rewritten using only the language features you have learned
-so far (actually, you would need a few commands to control devices
-like the keyboard, mouse, disks, etc., but that's all).
-
-Proving that claim is a nontrivial exercise first accomplished by Alan
-Turing, one of the first computer scientists (some would argue that he
-was a mathematician, but a lot of early computer scientists started as
-mathematicians).  Accordingly, it is known as the Turing Thesis.
-For a more complete (and accurate) discussion of the Turing Thesis,
-I recommend Michael Sipser's book {\em Introduction to the
-Theory of Computation}.
-
-To give you an idea of what you can do with the tools you have learned
-so far, we'll evaluate a few recursively defined mathematical
-functions.  A recursive definition is similar to a circular
-definition, in the sense that the definition contains a reference to
-the thing being defined.  A truly circular definition is not very
-useful:
-
-\begin{description}
-
-\item[frabjous:] An adjective used to describe something that is frabjous.
-
-\end{description}
-
-\index{frabjous}
-\index{circular definition}
-\index{definition!circular}
-
-If you saw that definition in the dictionary, you might be annoyed. On
-the other hand, if you looked up the definition of the factorial
-function, denoted with the symbol $!$, you might get something like
-this:
-
-\vspace{-0.35in}
-\begin{eqnarray*}
-&&  0! = 1 \\
-&&  n! = n (n-1)!
-\end{eqnarray*}
-\vspace{-0.25in}
-
-This definition says that the factorial of 0 is 1, and the factorial
-of any other value, $n$, is $n$ multiplied by the factorial of $n-1$.
-
-So $3!$ is 3 times $2!$, which is 2 times $1!$, which is 1 times
-$0!$. Putting it all together, $3!$ equals 3 times 2 times 1 times 1,
-which is 6.
-
-\index{factorial function}
-\index{function!factorial}
-\index{recursive definition}
-
-If you can write a recursive definition of something, you can usually
-write a Python program to evaluate it. The first step is to decide
-what the parameters should be.  In this case it should be clear
-that {\tt factorial} takes an integer:
-
-\beforeverb
-\begin{verbatim}
-def factorial(n):
-\end{verbatim}
-\afterverb
-%
-If the argument happens to be 0, all we have to do is return 1:
-
-\beforeverb
-\begin{verbatim}
-def factorial(n):
-    if n == 0:
-        return 1
-\end{verbatim}
-\afterverb
-%
-Otherwise, and this is the interesting part, we have to make a
-recursive call to find the factorial of $n-1$ and then multiply it by
-$n$:
-
-\beforeverb
-\begin{verbatim}
-def factorial(n):
-    if n == 0:
-        return 1
-    else:
-        recurse = factorial(n-1)
-        result = n * recurse
-        return result
-\end{verbatim}
-\afterverb
-%
-The flow of execution for this program is similar to the flow of {\tt
-countdown} in Section~\ref{recursion}.  If we call {\tt factorial}
-with the value 3:
-
-Since 3 is not 0, we take the second branch and calculate the factorial
-of {\tt n-1}...
-
-\begin{quote}
-Since 2 is not 0, we take the second branch and calculate the factorial of
-{\tt n-1}...
-
-
-  \begin{quote}
-  Since 1 is not 0, we take the second branch and calculate the factorial
-  of {\tt n-1}...
-
-
-    \begin{quote}
-    Since 0 {\em is} 0, we take the first branch and return 1
-    without making any more recursive calls.
-    \end{quote}
-
-
-  The return value (1) is multiplied by $n$, which is 1, and the
-  result is returned.
-  \end{quote}
-
-
-The return value (1) is multiplied by $n$, which is 2, and the
-result is returned.
-\end{quote}
-
-
-The return value (2) is multiplied by $n$, which is 3, and the result, 6,
-becomes the return value of the function call that started the whole
-process.
-
-\index{stack diagram}
-
-Here is what the stack diagram looks like for this sequence of function
-calls:
-
-\vspace{0.1in}
-\beforefig
-\centerline{\includegraphics{figs/stack3.eps}}
-\afterfig
-\vspace{0.1in}
-
-The return values are shown being passed back up the stack.  In each
-frame, the return value is the value of {\tt result}, which is the
-product of {\tt n} and {\tt recurse}.
-
-\index{frame}
-
-In the last frame, the local
-variables {\tt recurse} and {\tt result} do not exist, because
-the branch that creates them does not execute.
-
-
-
-\section{Leap of faith}
-\index{recursion}
-\index{leap of faith}
-
-Following the flow of execution is one way to read programs, but
-it can quickly become labyrinthine.  An
-alternative is what I call the ``leap of faith.''  When you come to a
-function call, instead of following the flow of execution, you {\em
-assume} that the function works correctly and returns the right
-result.
-
-In fact, you are already practicing this leap of faith when you use
-built-in functions.  When you call {\tt math.cos} or {\tt math.exp},
-you don't examine the bodies of those functions.  You just
-assume that they work because the people who wrote the built-in
-functions were good programmers.
-
-The same is true when you call one of your own functions.  For
-example, in Section~\ref{boolean}, we wrote a function called 
-\verb"is_divisible" that determines whether one number is divisible by
-another.  Once we have convinced ourselves that this function is
-correct---by examining the code and testing---we can use the function
-without looking at the body again.
-
-\index{testing!leap of faith}
-
-The same is true of recursive programs.  When you get to the recursive
-call, instead of following the flow of execution, you should assume
-that the recursive call works (yields the correct result) and then ask
-yourself, ``Assuming that I can find the factorial of $n-1$, can I
-compute the factorial of $n$?''  In this case, it is clear that you
-can, by multiplying by $n$.
-
-Of course, it's a bit strange to assume that the function works
-correctly when you haven't finished writing it, but that's why
-it's called a leap of faith!
-
-
-\section{One more example}
-\label{one more example}
-
-\index{fibonacci function}
-\index{function!fibonacci}
-
-After {\tt factorial}, the most common example of a recursively
-defined mathematical function is {\tt fibonacci}, which has the
-following definition\footnote{See
-  \url{wikipedia.org/wiki/Fibonacci_number}.}:
-
-\vspace{-0.25in}
-\begin{eqnarray*}
-&& \mathrm{fibonacci}(0) = 0 \\
-&& \mathrm{fibonacci}(1) = 1 \\
-&& \mathrm{fibonacci}(n) = \mathrm{fibonacci}(n-1) + \mathrm{fibonacci}(n-2);
-\end{eqnarray*}
-%
-Translated into Python, it looks like this:
-
-\beforeverb
-\begin{verbatim}
-def fibonacci (n):
-    if n == 0:
-        return 0
-    elif  n == 1:
-        return 1
-    else:
-        return fibonacci(n-1) + fibonacci(n-2)
-\end{verbatim}
-\afterverb
-%
-If you try to follow the flow of execution here, even for fairly
-small values of $n$, your head explodes.  But according to the
-leap of faith, if you assume that the two recursive calls
-work correctly, then it is clear that you get
-the right result by adding them together.
-
-\index{flow of execution}
-
-
-\section{Checking types}
-\label{guardian}
-
-\index{type checking}
-\index{error checking}
-\index{factorial function}
-
-What happens if we call {\tt factorial} and give it 1.5 as an argument?
-
-\index{RuntimeError}
-
-\beforeverb
-\begin{verbatim}
->>> factorial(1.5)
-RuntimeError: Maximum recursion depth exceeded
-\end{verbatim}
-\afterverb
-%
-It looks like an infinite recursion.  But how can that be?  There is a
-base case---when {\tt n == 0}.  But if {\tt n} is not an integer,
-we can {\em miss} the base case and recurse forever.
-
-\index{infinite recursion}
-\index{recursion!infinite}
-
-In the first recursive call, the value of {\tt n} is 0.5.
-In the next, it is -0.5.  From there, it gets smaller
-(more negative), but it will never be 0.
-
-We have two choices.  We can try to generalize the {\tt factorial}
-function to work with floating-point numbers, or we can make {\tt
-  factorial} check the type of its argument.  The first option is
-called the gamma function\footnote{See
-  \url{wikipedia.org/wiki/Gamma_function}.} and it's a
-little beyond the scope of this book.  So we'll go for the second.
-
-\index{gamma function}
-
-We can use the built-in function {\tt isinstance} to verify the type
-of the argument.  While we're at it, we can also make sure the
-argument is positive:
-
-\index{isinstance function}
-\index{function!isinstance}
-
-\beforeverb
-\begin{verbatim}
-def factorial (n):
-    if not isinstance(n, int):
-        print 'Factorial is only defined for integers.'
-        return None
-    elif n < 0:
-        print 'Factorial is only defined for positive integers.'
-        return None
-    elif n == 0:
-        return 1
-    else:
-        return n * factorial(n-1)
-\end{verbatim}
-\afterverb
-%
-The first base case handles nonintegers; the
-second catches negative integers.  In both cases, the program prints
-an error message and returns {\tt None} to indicate that something
-went wrong:
-
-\beforeverb
-\begin{verbatim}
->>> factorial('fred')
-Factorial is only defined for integers.
-None
->>> factorial(-2)
-Factorial is only defined for positive integers.
-None
-\end{verbatim}
-\afterverb
-%
-If we get past both checks, then we know that $n$ is a positive
-integer, and we can prove that the recursion terminates.
-
-\index{guardian pattern}
-\index{pattern!guardian}
-
-This program demonstrates a pattern sometimes called a {\bf guardian}.
-The first two conditionals act as guardians, protecting the code that
-follows from values that might cause an error.  The guardians make it
-possible to prove the correctness of the code.
-
+% TBD - May want ot talk about "guarding" code here - lots removed
 
 \section{Debugging}
 \label{factdebug}
@@ -7344,45 +6796,7 @@ at all!).
 
 Adding print statements at the beginning and end of a function
 can help make the flow of execution more visible.
-For example, here is a version of {\tt factorial} with
-print statements:
 
-\beforeverb
-\begin{verbatim}
-def factorial(n):
-    space = ' ' * (4 * n)
-    print space, 'factorial', n
-    if n == 0:
-        print space, 'returning 1'
-        return 1
-    else:
-        recurse = factorial(n-1)
-        result = n * recurse
-        print space, 'returning', result
-        return result
-\end{verbatim}
-\afterverb
-%
-{\tt space} is a string of space characters that controls the
-indentation of the output.  Here is the result of {\tt factorial(5)} :
-
-\beforeverb
-\begin{verbatim}
-                     factorial 5
-                 factorial 4
-             factorial 3
-         factorial 2
-     factorial 1
- factorial 0
- returning 1
-     returning 1
-         returning 2
-             returning 6
-                 returning 24
-                     returning 120
-\end{verbatim}
-\afterverb
-%
 If you are confused about the flow of execution, this kind of
 output can be helpful.  It takes some time to develop effective
 scaffolding, but a little bit of scaffolding can save a lot of debugging.
@@ -7890,20 +7304,6 @@ def is_abecedarian(word):
 \end{verbatim}
 \afterverb
 
-
-An alternative is to
-use recursion:
-
-\beforeverb
-\begin{verbatim}
-def is_abecedarian(word):
-    if len(word) <= 1:
-        return True
-    if word[0] > word[1]:
-        return False
-    return is_abecedarian(word[1:])
-\end{verbatim}
-\afterverb
 
 Another option is to use a {\tt while} loop:
 
@@ -12461,8 +11861,7 @@ in order to track them down more quickly:
 \item Runtime errors are produced by the interpreter if something goes
   wrong while the program is running.  Most runtime error messages
   include information about where the error occurred and what
-  functions were executing.  Example: An infinite recursion eventually
-  causes the runtime error ``maximum recursion depth exceeded.''
+  functions were executing.  
 
 \item Semantic errors are problems with a program that runs without
   producing error messages but doesn't do the right thing.  Example:
@@ -12638,52 +12037,26 @@ below.
 
 \subsection{My program hangs.}
 \index{infinite loop}
-\index{infinite recursion}
 \index{hanging}
 
 If a program stops and seems to be doing nothing, it is ``hanging.''
-Often that means that it is caught in an infinite loop or infinite
-recursion.
-
-\begin{itemize}
-
-\item If there is a particular loop that you suspect is the
+Often that means that it is caught in an infinite loop.  
+If there is a particular loop that you suspect is the
 problem, add a {\tt print} statement immediately before the loop that says
 ``entering the loop'' and another immediately after that says
 ``exiting the loop.''
 
-Run the program.  If you get the first message and not the second,
-you've got an infinite loop.  Go to the ``Infinite Loop'' section
-below.
-
-\item Most of the time, an infinite recursion will cause the program
-to run for a while and then produce a ``RuntimeError: Maximum
-recursion depth exceeded'' error.  If that happens, go to the
-``Infinite Recursion'' section below.
-
-If you are not getting this error but you suspect there is a problem
-with a recursive method or function, you can still use the techniques
-in the ``Infinite Recursion'' section.
-
-\item If neither of those steps works, start testing other
-loops and other recursive functions and methods.
-
-\item If that doesn't work, then it is possible that
-you don't understand the flow of execution in your program.
-Go to the ``Flow of Execution'' section below.
-
-\end{itemize}
-
-
-\subsubsection{Infinite Loop}
 \index{infinite loop}
 \index{loop!infinite}
 \index{condition}
 \index{loop!condition}
 
+Run the program.  If you get the first message and not the second,
+you've got an infinite loop.  
 If you think you have an infinite loop and you think you know
-what loop is causing the problem, add a {\tt print} statement at
-the end of the loop that prints the values of the variables in
+what loop is causing the problem, add a {\tt print} statement 
+inside the loop as the last statement in the loop
+loop that prints the values of the variables in
 the condition and the value of the condition.
 
 For example:
@@ -12705,30 +12078,6 @@ for each time through the loop.  The last time through the
 loop, the condition should be {\tt false}.  If the loop keeps
 going, you will be able to see the values of {\tt x} and {\tt y},
 and you might figure out why they are not being updated correctly.
-
-
-\subsubsection{Infinite Recursion}
-\index{infinite recursion}
-\index{recursion!infinite}
-
-Most of the time, an infinite recursion will cause the program to run
-for a while and then produce a {\tt Maximum recursion depth exceeded}
-error.
-
-If you suspect that a function or method is causing an infinite
-recursion, start by checking to make sure that there is a base case.
-In other words, there should be some condition that will cause the
-function or method to return without making a recursive invocation.
-If not, then you need to rethink the algorithm and identify a base
-case.
-
-If there is a base case but the program doesn't seem to be reaching
-it, add a {\tt print} statement at the beginning of the function or method
-that prints the parameters.  Now when you run the program, you will see
-a few lines of output every time the function or method is invoked,
-and you will see the parameters.  If the parameters are not moving
-toward the base case, you will get some ideas about why not.
-
 
 \subsubsection{Flow of Execution}
 \index{flow of execution}
