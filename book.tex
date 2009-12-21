@@ -2625,27 +2625,103 @@ if 0 < x and x < 10:
 \section{Catching exceptions}
 \label{catch1}
 
-Python starts by executing the {\tt try} clause.  If all goes
-well, it skips the {\tt except} clause and proceeds.  If an
-exception occurs, it jumps out of the {\tt try} clause and
-executes the {\tt except} clause.
+Earlier we saw a code segment where we used the \verb"raw_input" and
+{\tt int} functions to read and parse an integer number entered by
+the user.  We also saw how treacherous doing this could be:
 
 \beforeverb
 \begin{verbatim}
-x = 'fred'
-try:    
-    y = int(fred)
-except:
-    print 'Something went wrong.'
-    y = -1
-
-print y
+>>> speed = raw_input(prompt)
+What...is the airspeed velocity of an unladen swallow?
+What do you mean, an African or a European swallow?
+>>> int(speed)
+ValueError: invalid literal for int()
+>>>
 \end{verbatim}
 \afterverb
 %
+When we are executing these statements in the Python interpreter, 
+we get a new prompt from the interpreter, think ``oops'' and move 
+on to our next statement.  
+
+However if this code is placed in a 
+Python script and this error occurs, your script immediately 
+stops in its tracks with a traceback.  
+It does not execute the following statement. 
+\index{traceback}
+
+Here is a sample program to convert a Fahrenheit temparature 
+to a Celius temparature:
+\index{fahrenheit}
+\index{celsius}
+\index{temparature conversion}
+
+\beforeverb
+\begin{verbatim}
+inp = raw_input("Enter Fahrenheit Temparature:")
+fahr = float(inp)
+cel = (fahr - 32.0) * 5.0 / 9.0
+print cel
+\end{verbatim}
+\afterverb
+%
+If we execute this code and give it invalid input, it simply fails
+with an unfriendly error message:
+
+\beforeverb
+\begin{verbatim}
+python fahren.py 
+Enter Fahrenheit Temparature:72
+22.2222222222
+
+python fahren.py 
+Enter Fahrenheit Temparature:fred
+Traceback (most recent call last):
+  File "fahren.py", line 2, in <module>
+    fahr = float(inp)
+ValueError: invalid literal for float(): fred
+\end{verbatim}
+\afterverb
+%
+There is a conditional execution structure built into 
+Python to handle these types of expected and unexpected
+errors called ``try / except''.  The idea of {\tt try}
+and {\tt except} is that you know that some sequence
+of instruction(s) may have a problem and you want to 
+add some statements to be executed if an error occurs.
+These extra statements (the except block) is ignored
+if there is no error.
+
+You can think of the {\tt try} and {\tt except} feature
+in Python as an ``insurance policy'' on a sequence of
+statements.
+
+We can rewrite our temparature converter as follows:
+
+\beforeverb
+\begin{verbatim}
+inp = raw_input("Enter Fahrenheit Temparature:")
+try:
+    fahr = float(inp)
+    cel = (fahr - 32.0) * 5.0 / 9.0
+    print cel
+except:
+    print "Please enter a number"
+\end{verbatim}
+\afterverb
+%
+
+Python starts by executing the 
+sequence of statements in the 
+{\tt try} block.  If all goes
+well, it skips the {\tt except} block and proceeds.  If an
+exception occurs in the {tt try} block, 
+it jumps out of the {\tt try} block and
+executes the sequence of statements in the {\tt except} block.
+
 Handling an exception with a {\tt try} statement is called {\bf
 catching} an exception.  In this example, the {\tt except} clause
-prints an error message that is not very helpful.  In general,
+prints an error message.  In general,
 catching an exception gives you a chance to fix the problem, or try
 again, or at least end the program gracefully.
 
