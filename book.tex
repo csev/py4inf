@@ -685,8 +685,9 @@ alternately reading lines and performing computations.
 A compiler reads the program and translates it completely before the
 program starts running.  In this context, the high-level program is
 called the {\bf source code}, and the translated program is called the
-{\bf object code} or the {\bf executable}.  Once a program is
-compiled, you can execute it repeatedly without further translation.
+{\bf object code}, {\bf machine language} or the {\bf executable}.  
+Once a program is compiled, you can execute it 
+repeatedly without further translation.
 
 \beforefig
 \centerline{\includegraphics[height=0.77in]{figs/compile.eps}}
@@ -768,7 +769,7 @@ file or other device.
 another in the order they are encountered in the script.
 
 \item[conditional execution:] Check for certain conditions and
-execute the appropriate sequence of statements.
+execute or skip a sequence of statements.
 
 \item[repeated execution:] Perform some set of statements 
 repeatedly, usually with
@@ -858,7 +859,7 @@ The third type of error is the {\bf semantic error}.  If there is a
 semantic error in your program, it will run successfully in the sense
 that the computer will not generate any error messages, but it will
 not do the right thing.  It will do something else.  Specifically, it
-will do what you told it to do.
+will do what you told it to do but not what you meant for it to do.
 
 The problem is that the program you wrote is not the program you
 wanted to write.  The meaning of the program (its semantics) is wrong.
@@ -1142,15 +1143,19 @@ with my thoughts about debugging.  I hope they help!
 \begin{description}
 
 \item[central processing unit:] The heart of any computer.  It is what
-runs the software that we write.
+runs the software that we write; also called ``CPU'' or ``the processor''.
+\index{central processing unit}
+\index{CPU}
 
 \item[main memory:] Stores programs and data.  Main memory loses 
 its information when the power is tunred off.
+\index{main memory}
 
 \item[secondary memory:] Stores programs and data and retains its 
 information even when the power is turned off.  Generally slower 
 than main memory.  Examples of secondary memory include disk 
 drives and flash member in USB sticks.
+\index{secondary memory}
 
 \item[problem solving:]  The process of formulating a problem, finding
 a solution, and expressing the solution.
@@ -1164,6 +1169,11 @@ is designed to be easy for humans to read and write.
 to be easy for a computer to execute; also called ``machine language'' or
 ``assembly language.''
 \index{low-level language}
+
+\item[machine language:]  The lowest level language for software which 
+is the language that is directly executed by the central processing unit 
+(CPU).
+\index{machine language}
 
 \item[portability:]  A property of a program that can run on more
 than one kind of computer.
