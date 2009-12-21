@@ -224,7 +224,7 @@ My goal in SI502 is to teach people life-long data handling
 skills using Python.  Few of my
 students would ever be professional computer programmers - instead, they
 would be librarians, managers, lawyers, biologists, economists, etc.
-In short, they represented every field outside of Computer Science.
+In short, they represent every field outside of Computer Science.
 
 I never seemed to find the perfect book for my course so I set out 
 to write just such a book.  Luckily at a faculty meeting three weeks
@@ -233,7 +233,7 @@ the holiday break,
 Dr. Atul Prakash showed me the {\em Think Python} book which he had
 used to teach his Python course that semester.
 
-{\em Think Python} did follow the structure of most introductory Computer
+{\em Think Python} follows the structure of most introductory Computer
 Science textbooks.  It is a well-written text with a focus on 
 simple explanations and ease of learning.  Jeff Elkner is a High
 School teacher and so the language in the book is understandable
@@ -3888,13 +3888,11 @@ subtracting 1 is called a {\bf decrement}.
 Computers are often used to automate repetitive tasks.  Repeating
 identical or similar tasks without making errors is something that
 computers do well and people do poorly.
-
 Because iteration is so common, Python provides several
-language features to make it easier.  One is the {\tt for} statement
-we saw in Section~\ref{repetition}.  We'll get back to that later.
+language features to make it easier.  
 
-Another is the {\tt while} statement.  Here is a version of {\tt
-countdown} that uses a {\tt while} statement:
+One form of iteration in Python is the {\tt while} statement.  Here is 
+a simple program that counts down from five and then says ``Blastoff!''.
 
 \beforeverb
 \begin{verbatim}
@@ -3929,7 +3927,10 @@ body and then go back to step 1.
 \end{enumerate}
 
 This type of flow is called a {\bf loop} because the third step
-loops back around to the top.  
+loops back around to the top.  Each time we execute the body of 
+the loop, we call it an {\bf iteration}.  For the above loop, we 
+would say, ``It had five iterations'' which means that the body of
+of the loop was executed five times.
 
 \index{condition}
 \index{loop}
@@ -3937,10 +3938,20 @@ loops back around to the top.
 
 The body of the loop should change the value of one or more variables
 so that eventually the condition becomes false and the loop
-terminates.  Otherwise the loop will repeat forever, which is called
-an {\bf infinite loop}.  An endless source of amusement for computer
-scientists is the observation that the directions on shampoo,
-``Lather, rinse, repeat,'' are an infinite loop.
+terminates.  
+We call the variable that changes each time the loop
+executes and controls when the loop finishes the 
+{\bf iteration variable}.
+Id there is no iteration variable, the loop will repeat forever, 
+resulting in an {\bf infinite loop}.  
+
+\section{Infinite loops}
+
+An endless source of amusement for 
+programmers is the observation that the directions on shampoo,
+``Lather, rinse, repeat,'' are an infinite loop because 
+there is no {\bf iteration variable} telling you how many times
+to execute the loop.
 
 \index{infinite loop}
 \index{loop!infinite}
@@ -3948,14 +3959,14 @@ scientists is the observation that the directions on shampoo,
 In the case of {\tt countdown}, we can prove that the loop
 terminates because we know that the value of {\tt n} is finite, and we
 can see that the value of {\tt n} gets smaller each time through the
-loop, so eventually we have to get to 0.  
+loop, so eventually we have to get to 0.  Other times a loop is obviously
+infinite because it has no iteration variable at all.
 
 In other cases, it is not so easy to tell.  The code below defines a function
-that takes an integer parameter and computes a different kind of sequence.
-Remeber that the percent sign is the {\bf modulo} operator which gives us the
+that takes an positive number as its parameter and computes a different 
+kind of sequence.
+Remember that the percent sign is the {\bf modulo} operator which gives us the
 remainder if a division were performed.
-
-% TBD - De-function
 
 \beforeverb
 \begin{verbatim}
@@ -4006,9 +4017,11 @@ starting with 16.
 \afterverb
 %
 You can try this sequence with a variety of integer or floating 
-point numbers.  Since the main loop repeatedly divides a number
-by two, a number in the billions converges to one in 
-relatively few steps.  It is more fun to try floating point values 
+point numbers as the argument.  
+Since the main loop repeatedly divides a number
+by two, an argument in the billions converges to one in 
+relatively few steps.  
+It is more fun to try floating point arguments 
 such as 12.45 as it takes more iterations before the sequence
 converges to one.
 
@@ -4018,13 +4031,41 @@ for {\em all positive values} of {\tt n}.  So far\footnote{See
   \url{wikipedia.org/wiki/Collatz_conjecture}.}, no one has
 been able to prove it {\em or} disprove it!
 
-\section{{\tt break}}
+\section{``Infinite loops'' and {\tt break}}
 \index{break statement}
 \index{statement!break}
 
 Sometimes you don't know it's time to end a loop until you get half
-way through the body.  In that case you can use the {\tt break}
-statement to jump out of the loop.
+way through the body.  In that case you can write an infinite loop on purpose
+and then use the {\tt break} statement to jump out of the loop.
+
+This loop is obviously an {\bf infinite loop} because the logical 
+expression on the
+{\tt while} statement is simply the logical constant {\tt True}:
+\beforeverb
+\begin{verbatim}
+n = 10
+while True:
+    print n, 
+    n = n - 1
+print 'Done!'
+\end{verbatim}
+\afterverb
+%
+If you make the mistake and run this code, you will learn quickly how
+to stop a runaway Python process on your system or find where the power-off
+button is on your computer.  
+This program will 
+run forever or until your battery runs out 
+because the logical expression at the top of the loop 
+is always true by virtue of the fact that the expression is the 
+constant value {\tt True}.
+
+While this is a dysfunctional infinite loop, we can still use this pattern
+to build useful loops as long as we carefully add code to the 
+body of the loop to explicitly exit the loop using {\tt break} 
+when we have reached 
+the exit condition.
 
 For example, suppose you want to take input from the user until they
 type {\tt done}.  You could write:
@@ -4036,13 +4077,12 @@ while True:
     if line == 'done':
         break
     print line
-
 print 'Done!'
 \end{verbatim}
 \afterverb
 %
 The loop condition is {\tt True}, which is always true, so the
-loop runs until it hits the break statement.
+loop runs repeatedly until it hits the break statement.
 
 Each time through, it prompts the user with an angle bracket.
 If the user types {\tt done}, the {\tt break} statement exits
@@ -4051,8 +4091,10 @@ and goes back to the top of the loop.  Here's a sample run:
 
 \beforeverb
 \begin{verbatim}
-> not done
-not done
+> hello there
+hello there
+> finished
+finished
 > done
 Done!
 \end{verbatim}
@@ -4064,7 +4106,7 @@ top) and you can express the stop condition affirmatively
 (``stop when this happens'') rather than negatively (``keep going
 until that happens.'').
 
-\section{{\tt continue}}
+\section{Finishing iterations with {\tt continue}}
 \index{continue statement}
 \index{statement!continue}
 
@@ -4074,7 +4116,42 @@ In that case you can use the {\tt continue}
 statement to skip to the next iteration without finishing the
 body of the loop for the current iteration.
 
-% TBD
+Here is an example of a loop that copies its input until the user
+types ``done'', but treats lines that start with the hash character
+as lines not to be printed (kind of like Python comments).
+
+\beforeverb
+\begin{verbatim}
+while True:
+    line = raw_input('> ')
+    if line[0] == '#' :
+        continue
+    if line == 'done':
+        break
+    print line
+print 'Done!'
+\end{verbatim}
+\afterverb
+%
+Here is a sample run of this new program with {\tt continue} added.
+
+\beforeverb
+\begin{verbatim}
+> hello there
+hello there
+> # don't print this
+> print this!
+print this!
+> done
+Done!
+\end{verbatim}
+\afterverb
+%
+All the lines are printed except the one that starts with the hash
+sign because when the {\tt continue} is executed, it ends 
+the current iteration and jumps
+back to the {\tt while} statement to start the next iteration, thus 
+skipping the {\tt print} statement.
 
 \section{The {\tt for} statement}
 \index{for statement}
@@ -4146,9 +4223,6 @@ is easy to put a check.  Then choose a spot where you
 think the chances are about the same that the bug is before
 or after the check.
 
-
-
-
 \section{Glossary}
 
 \begin{description}
@@ -4190,27 +4264,9 @@ never satisfied.
 \index{eval function}
 \index{function!eval}
 
-The built-in function {\tt eval} takes a string and evaluates
-it using the Python interpreter.  For example:
+% TBD
 
-\beforeverb
-\begin{verbatim}
->>> eval('1 + 2 * 3')
-7
->>> import math
->>> eval('math.sqrt(5)')
-2.2360679774997898
->>> eval('type(math.pi)')
-<type 'float'>
-\end{verbatim}
-\afterverb
-%
-Write a function called \verb"eval_loop" that iteratively
-prompts the user, takes the resulting input and evaluates
-it using {\tt eval}, and prints the result.
-
-It should continue until the user enters \verb"'done'", and then
-return the value of the last expression it evaluated.
+Need some exercises here.
 
 \end{ex}
 
@@ -4255,7 +4311,7 @@ a
 \afterverb
 %
 For most people, the first letter of \verb"'banana'" is {\tt b}, not
-{\tt a}.  But for computer scientists, the index is an offset from the
+{\tt a}.  But in Python, the index is an offset from the
 beginning of the string, and the offset of the first letter is zero.
 
 \beforeverb
@@ -4948,6 +5004,46 @@ can read more about it at
 
 \section{Debugging}
 \index{debugging}
+
+A skill that you should cultivate as you program is always
+asking yourself, ``What could go wrong here?'' or alternatively,
+``What crazy thing might our user do to crash our (seemingly) 
+perfect program?''.
+
+For example, look at the program which we used to demonstrate
+the {\tt while} loop in the chapter on iteration:
+
+\beforeverb
+\begin{verbatim}
+while True:
+    line = raw_input('> ')
+    if line[0] == '#' :
+        continue
+    if line == 'done':
+        break
+    print line
+
+print 'Done!'
+\end{verbatim}
+\afterverb
+%
+Look what happens when the user enters an empty line of input:
+\beforeverb
+\begin{verbatim}
+> hello there
+hello there
+> # don't print this
+> print this!
+print this!
+> 
+Traceback (most recent call last):
+  File "copytildone.py", line 3, in <module>
+    if line[0] == '#' :
+\end{verbatim}
+\afterverb
+%
+
+% TBD - Talk about the guardian pattern
 
 \index{traversal}
 
