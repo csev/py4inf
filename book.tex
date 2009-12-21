@@ -4153,11 +4153,58 @@ the current iteration and jumps
 back to the {\tt while} statement to start the next iteration, thus 
 skipping the {\tt print} statement.
 
-\section{The {\tt for} statement}
+\section{Definite loops using {\tt for} }
 \index{for statement}
 \index{statement!for}
 
-% TBD
+Sometimes we want to loop through a {\bf set} of things such 
+as a list of words, the lines in a file or a list of numbers.
+When we have some know list of things to loop through, we can
+construct a {\em definite} loop using a {\tt for} statement.
+We call the {\tt while} statement an {\em indefinite} loop
+because it simply loops until some condition becomes {\tt False} 
+whereas the {\tt for} loop is looping through a known
+set of items so it runs through as many iterations as there
+are items in the set.
+
+The syntax of a {\tt for} loop is similar to the {\tt while} loop
+in that there is a {\tt for} statement and a loop body:
+
+\beforeverb
+\begin{verbatim}
+friends = ['Joseph', 'Glenn', 'Sally']
+for friend in friends:
+    print 'Happy New Year:', friend
+print "Done!"
+\end{verbatim}
+\afterverb
+%
+The variable {\tt friends} is a list\footnote{We will examine lists in more detail
+in a later chapter} of three strings and the {\tt for}
+loop goes through the list and executes the body once
+for each of the three strings in the list resulting in this output:
+
+\beforeverb
+\begin{verbatim}
+Happy New Year: Joseph
+Happy New Year: Glenn
+Happy New Year: Sally
+Done!
+\end{verbatim}
+\afterverb
+%
+Looking at the {\tt for} loop, {\bf for} and {\bf in} are reserved
+Python keywords, and {\tt friend} and {\tt friends} are variables.
+
+{\tt {\bf for} friend {\bf in} friends{\bf :}\\
+\verb"    "{\bf print} 'Happy New Year', friend }
+
+In particular, {\tt friend} is the {\bf iteration variable} for 
+the for loop.  The variable {\tt friend} changes for each iteration of
+the loop and controls when the {\tt for} loop completes.  The 
+{\bf iteration variable} steps successively through the 
+three strings stored in the {\tt friends} variable.
+
 
 \section{Loop patterns}
 
