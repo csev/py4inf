@@ -3896,22 +3896,21 @@ we saw in Section~\ref{repetition}.  We'll get back to that later.
 Another is the {\tt while} statement.  Here is a version of {\tt
 countdown} that uses a {\tt while} statement:
 
-% TBD - De-function
-
 \beforeverb
 \begin{verbatim}
-def countdown(n):
-    while n > 0:
-        print n
-        n = n-1
-    print 'Blastoff!'
+n = 5
+while n > 0:
+    print n
+    n = n-1
+print 'Blastoff!'
 \end{verbatim}
 \afterverb
 %
 You can almost read the {\tt while} statement as if it were English.
 It means, ``While {\tt n} is greater than 0,
 display the value of {\tt n} and then reduce the value of
-{\tt n} by 1.  When you get to 0, display the word {\tt Blastoff!}''
+{\tt n} by 1.  When you get to 0, exit the while statement and
+display the word {\tt Blastoff!}''
 
 \index{flow of execution}
 
@@ -3949,12 +3948,15 @@ scientists is the observation that the directions on shampoo,
 In the case of {\tt countdown}, we can prove that the loop
 terminates because we know that the value of {\tt n} is finite, and we
 can see that the value of {\tt n} gets smaller each time through the
-loop, so eventually we have to get to 0.  In other
-cases, it is not so easy to tell:
+loop, so eventually we have to get to 0.  
+
+In other cases, it is not so easy to tell.  The code below defines a function
+that takes an integer parameter and computes a different kind of sequence.
+Remeber that the percent sign is the {\bf modulo} operator which gives us the
+remainder if a division were performed.
 
 % TBD - De-function
 
-\beforeverb
 \beforeverb
 \begin{verbatim}
 def sequence(n):
@@ -3984,8 +3986,33 @@ then the value of {\tt n} will be even each time through the loop
 until it reaches 1. The previous example ends with such a sequence,
 starting with 16.
 
-\index{Collatz conjecture}
+\beforeverb
+\begin{verbatim}
+>>> def sequence(n):
+...     while n != 1:
+...         print n,
+...         if n%2 == 0:        # n is even
+...             n = n/2
+...         else:               # n is odd
+...             n = n*3+1
+... 
+>>> sequence(3)
+3 10 5 16 8 4 2
+>>> sequence(16)
+16 8 4 2
+>>> sequence(50)
+50 25 76 38 19 58 29 88 44 22 11 34 17 52 26 13 40 20 10 5 16 8 4 2
+\end{verbatim}
+\afterverb
+%
+You can try this sequence with a variety of integer or floating 
+point numbers.  Since the main loop repeatedly divides a number
+by two, a number in the billions converges to one in 
+relatively few steps.  It is more fun to try floating point values 
+such as 12.45 as it takes more iterations before the sequence
+converges to one.
 
+\index{Collatz conjecture}
 The hard question is whether we can prove that this program terminates
 for {\em all positive values} of {\tt n}.  So far\footnote{See
   \url{wikipedia.org/wiki/Collatz_conjecture}.}, no one has
