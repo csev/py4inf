@@ -2862,6 +2862,10 @@ in one of the branches of another conditional statement.
 \index{nested conditional}
 \index{conditional!nested}
 
+\item[traceback:]  A list of the functions that are executing,
+printed when an exception occurs.
+\index{traceback}
+
 \end{description}
 
 \section{Exercises}
@@ -3648,17 +3652,13 @@ the expression.
 \item[void function:] A function that doesn't return a value.
 \index{void function}
 
-\item[module:] A file that contains a
-collection of related functions and other definitions.
-\index{module}
-
 \item[import statement:] A statement that reads a module file and creates
 a module object.
 \index{import statement}
 \index{statement!import}
 
 \item[module object:] A value created by an {\tt import} statement
-that provides access to the values defined in a module.
+that provides access to the data and code defined in a module.
 \index{module}
 
 \item[dot notation:]  The syntax for calling a function in another
@@ -3673,19 +3673,6 @@ or a statement as part of a larger statement.
 \item[flow of execution:]  The order in which statements are executed during
 a program run.
 \index{flow of execution}
-
-\item[stack diagram:]  A graphical representation of a stack of functions,
-their variables, and the values they refer to.
-\index{stack diagram}
-
-\item[frame:]  A box in a stack diagram that represents a function call.
-It contains the local variables and parameters of the function.
-\index{function frame}
-\index{frame}
-
-\item[traceback:]  A list of the functions that are executing,
-printed when an exception occurs.
-\index{traceback}
 
 
 \end{description}
@@ -6357,6 +6344,19 @@ statement to check for and handle circumstances that
 might cause an error.
 \index{guardian pattern}
 \index{pattern!guardian}
+
+\item[stack diagram:]  A graphical representation of a stack of functions,
+their variables, and the values they refer to.
+\index{stack diagram}
+
+\item[frame:]  A box in a stack diagram that represents a function call.
+It contains the local variables and parameters of the function.
+\index{function frame}
+\index{frame}
+
+\item[traceback:]  A list of the functions that are executing,
+printed when an exception occurs.
+\index{traceback}
 
 \end{description}
 
