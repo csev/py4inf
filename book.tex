@@ -4267,6 +4267,7 @@ finishes.
 
 Another similar loop that computes the total of a set of numbers
 is as follows:
+
 \beforeverb
 \begin{verbatim}
 total = 0
@@ -4289,22 +4290,107 @@ in the list.
 
 Neither the counting loop not the summing loop are particularly 
 useful in practice because there are built-in functions 
-{\tt len()} and {\tt sum()} that computer the number of 
+{\tt len()} and {\tt sum()} that compute the number of 
 items in a list and the total of the items in the list
 respectively.
 
-\subsection{Maximum loop}
+\subsection{Maximum and minimum loops}
 
-% TBD
+\index{loop!maximum}
+\index{loop!minimum}
+To find the largest value in a list or sequence, we construct the
+following loop:
 
-\subsection{Minimum loop}
+\index{None special value}
+\index{special value!None}
+\beforeverb
+\begin{verbatim}
+largest = None
+print 'Before:', largest
+for iterval in [3, 41, 12, 9, 74, 15]:
+    if largest == None or largest < iterval:
+        largest = iterval
+    print 'Loop:', iterval, largest
+print 'Largest:', largest
+\end{verbatim}
+\afterverb
+%
+When the program executes, the output is as follows:
 
-% TBD
+\beforeverb
+\begin{verbatim}
+Before: None
+Loop: 3 3
+Loop: 41 41
+Loop: 12 41
+Loop: 9 41
+Loop: 74 74
+Loop: 15 74
+Largest: 74
+\end{verbatim}
+\afterverb
+%
+The variable {\tt largest} is the ``largest value we have seen so far''.
+Before the loop, we set {\tt largest} to the contstant {\tt None}.  
+{\tt None} is a special value which we can store in a variable to mark 
+the variable as ``empty''.  
 
-\subsection{Searching loop}
+Before the loop starts, the largest value we have seen so far 
+is {\tt None} since we have not yet seen any values.  While the 
+loop is executing, if {\tt largest} is {\tt None} then we take
+the first value we see as the largest so far.   You can see in 
+the first iteration when the value of {\tt iterval} is three,
+since {\tt largest} is {\tt None}, we immediately set 
+{\tt largest} to be three.
 
-% TBD
+After the first iteration, {\tt largest} is no longer {\tt None},
+so the second part of the compound logical expression that checks
+{\tt largest < iterval} triggers only when we see a value that is
+larger than the ``largest so far''.  When we see a new ``even larger''
+value we take that new value for {\tt largest}.  You can see in the 
+program output that {\tt largest} progresses from 3 to 41 to 74.
 
+At the end of the loop, we have scanned all of the values and
+the variable {\tt largest} now does contain the largest value
+in the list.
+
+To compute the smallest number, the code is very similar with one
+small change:
+
+\beforeverb
+\begin{verbatim}
+smallest = None
+print 'Before:', smallest
+for iterval in [3, 41, 12, 9, 74, 15]:
+    if smallest == None or iterval < smallest:
+        smallest = iterval
+    print 'Loop:', iterval, smallest
+print 'Smallest:', smallest
+\end{verbatim}
+\afterverb
+%
+Again, {\tt smallest} is the ``smallest so far'' before, during, and after the 
+loop executes.  When the loop has completed, {\tt smallest} contains the
+minimum value in the list.
+
+Again as in counting and summing, the built-in functions 
+{\tt max()} and {\tt min()} make writing these exact loops
+unnecessary.
+
+The following is a simple version of the Python built-in
+{\tt min()} function:
+
+\beforeverb
+\begin{verbatim}
+def min(values):
+    smallest = None
+    for value in values:
+        if smallest == None or value < smallest:
+            smallest = iterval
+    return smallest
+\end{verbatim}
+\afterverb
+%
 \section{Debugging}
 
 As you start writing bigger programs, you might find yourself
