@@ -534,7 +534,9 @@ about how computers are built.  If you were to take
 apart your computer or cell phone and look deep
 inside, you would find the following parts:
 
-{\large Picture of CPU, Memory, Etc. "What next?" in a thought bubble from the CPU}
+\beforefig
+\centerline{\includegraphics[height=2.50in]{figs2/arch.eps}}
+\afterfig
 
 The high-level definitions of these parts are as follows:
 
@@ -585,12 +587,12 @@ do next.  Sometimes you will tell the CPU to use the main memory,
 secondary memory, network, or the input/output devices.
 
 \beforefig
-\centerline{\includegraphics[height=1.50in]{figs2/arch.eps}}
+\centerline{\includegraphics[height=2.50in]{figs2/arch2.eps}}
 \afterfig
 
 You need to be the person who answers the CPU's "What next?" 
 question.  But it would be very uncomfortable to shrink you 
-down to 10cm tall and insert you into the computer just so you 
+down to 5mm tall and insert you into the computer just so you 
 could issue a command three billion times per second.  So instead,
 you must write down your instructions in advance.
 We call these stored instructions a {\bf program} and the act 
@@ -639,7 +641,7 @@ simple programs and then write increasingly complex programs over time.
 At some point you "get your muse" and see the patterns on your own
 and can see more naturally how to take a problem and 
 write a program that solves that problem.  And once you get 
-to that point, programming becomes a very plesant and creative process.  
+to that point, programming becomes a very pleasant and creative process.  
 
 We start with the vocabulary and structure of Python programs.  Be patient
 as the simple examples remind you of when you started reading for the first
@@ -702,7 +704,7 @@ alternately reading lines and performing computations.
 A compiler reads the program and translates it completely before the
 program starts running.  In this context, the high-level program is
 called the {\bf source code}, and the translated program is called the
-{\bf object code}, {\bf machine language} or the {\bf executable}.  
+{\bf object code}, {\bf machine code} or the {\bf executable}.  
 Once a program is compiled, you can execute it 
 repeatedly without further translation.
 
@@ -1183,14 +1185,14 @@ is designed to be easy for humans to read and write.
 \index{high-level language}
 
 \item[low-level language:]  A programming language that is designed
-to be easy for a computer to execute; also called ``machine language'' or
+to be easy for a computer to execute; also called ``machine code'' or
 ``assembly language.''
 \index{low-level language}
 
-\item[machine language:]  The lowest level language for software which 
+\item[machine code:]  The lowest level language for software which 
 is the language that is directly executed by the central processing unit 
 (CPU).
-\index{machine language}
+\index{machine code}
 
 \item[portability:]  A property of a program that can run on more
 than one kind of computer.
@@ -1875,10 +1877,8 @@ that string concatenation does not?
 \section{Keyboard input}
 \index{keyboard input}
 
-The programs we have written so far are a bit rude in the sense that
-they accept no input from the user.  They just do the same thing every
-time.
-
+Sometimes we would like to take the value for a variable from the user
+via their keyboard.
 Python provides a built-in function called \verb"raw_input" that gets
 input from the keyboard\footnote{In Python 3.0, this function is named
   {\tt input}.}.  When this function is called, the program stops and
@@ -2072,44 +2072,9 @@ for word in words:
 %
 What is happening here?  Which of the tokens (for, word, in, etc.) are reserved words
 and which are just variable names?  Does Python understand at a fundamental level 
-the notion of words?  Beginning programmers have touble separating what parts of the
+the notion of words?  Beginning programmers have 
+trouble separating what parts of the
 code {\em must} be the same as this example and what parts of the code are simply
-choices made by the programmer.
-
-The following code is equivalent to the above code:
-
-\beforeverb
-\begin{verbatim}
-for slice in pizza:
-    print slice
-\end{verbatim}
-\afterverb
-%
-It is easier for the beginning programmer to look at this code and know which 
-parts are reserved words defined by Python and which parts are simply variable
-names chosen by the programmer.  It is pretty clear that Python has no fundamental
-understanding of pizza and slices and the fact that a pizza consists of a set
-of one or more slices.
-
-But if our program is truly about reading data and looking for words in the data,
-{\tt pizza} and {\tt slice} are very un-mnemonic variable names choosing them 
-as variable names distracts from the meaning of the program.
-
-After a pretty short period of time, you will know the most common reserved words
-and you will start to see the reserved words jumping out at you:
-
-{\tt {\bf for} word {\bf in} words{\bf :}\\
-\verb"    "{\bf print} word }
-
-The parts of the code that are defined by 
-Python ({\tt for}, {\tt in}, {\tt print}, and {\tt :}) are in bold
-and the programmer chosen variables ({\tt word} and {\tt words}) are not in bold.  
-Many text editors are aware of Python
-syntax and will color reserved words differently to give you clues to keep 
-your variables and reserved words separate.
-After a while you will begin to read Python and quickly determine what
-is a variable and what is a reserved word.
-
 choices made by the programmer.
 
 The following code is equivalent to the above code:
@@ -2731,8 +2696,8 @@ Python starts by executing the
 sequence of statements in the 
 {\tt try} block.  If all goes
 well, it skips the {\tt except} block and proceeds.  If an
-exception occurs in the {tt try} block, 
-it jumps out of the {\tt try} block and
+exception occurs in the {\tt try} block, 
+Python jumps out of the {\tt try} block and
 executes the sequence of statements in the {\tt except} block.
 
 Handling an exception with a {\tt try} statement is called {\bf
@@ -3646,8 +3611,31 @@ It is a special value that has its own type:
 \end{verbatim}
 \afterverb
 %
-The functions we have written so far are all void.  We will start
-writing fruitful functions in the next chapter.
+To return a result from a function, we use the {\tt return} statement 
+in our function.  For example, we could make a very 
+simple function called {\tt addtwo}
+that adds two numbers together and return a result.
+
+\beforeverb
+\begin{verbatim}
+def addtwo(a, b):
+    added = a + b
+    return added
+
+x = addtwo(3, 5)
+print x
+\end{verbatim}
+\afterverb
+%
+When this script executes, the {\tt print} statement will print out ``8''
+because the {\tt addtwo} function was called with 3 and 5 as arguments.
+Within the function the parameters {\tt a} and {\tt b} were 3 and 5 
+respectively. The function computed the sum of the two numbers and placed
+it in the local function variable named {\tt added} 
+and used the {\tt return} statement 
+to send the computed value back to the calling code 
+as the function result which was assigned
+to the variable {\tt x} and printed out.
 
 
 \section{Why functions?}
@@ -3674,7 +3662,7 @@ Once you write and debug one, you can reuse it.
 
 \end{itemize}
 
-Throught the rest of the book, we often will use a function definition to 
+Throughout the rest of the book, we often will use a function definition to 
 explain a concept.  Part of the skill of creating and using functions is
 to have a function properly capture an idea such as ``find the smallest
 value in a list of values''.  Later we will show you code that finds
@@ -4289,7 +4277,7 @@ print "Done!"
 \end{verbatim}
 \afterverb
 %
-Translating this look to English is not a direct as the 
+Translating this {\tt for} loop to English is not a direct as the 
 {\tt while}, but if you think of friends as a {\bf set},
 it goes like this: ``Run the statements in the body of the 
 for loop once for each friend {\em in} the set named friends.''.
@@ -4384,7 +4372,7 @@ is as follows:
 total = 0
 for iterval in [3, 41, 12, 9, 74, 15]:
     total = total + iterval
-print "Count: ", count
+print "Total: ", total
 \end{verbatim}
 \afterverb
 %
@@ -4392,14 +4380,14 @@ In this loop we {\em do} use the {\bf iteration variable}.
 Instead of simply adding one to the {\tt count} as in the previous loop, 
 we add the actual number (3, 41, 12, etc.) to the running 
 total during each loop iteration.
-If you think about the variable {\tt total}, contains the 
+If you think about the variable {\tt total}, it contains the 
 ``running total of the values so far''.  So before the loop
 starts {\tt total} is zero because we have not yet seen any values,
 during the loop {\tt total} is the running total, and at the end of 
 the loop {\tt total} is the overal total of all the values 
 in the list.
 
-Neither the counting loop not the summing loop are particularly 
+Neither the counting loop nor the summing loop are particularly 
 useful in practice because there are built-in functions 
 {\tt len()} and {\tt sum()} that compute the number of 
 items in a list and the total of the items in the list
@@ -4504,6 +4492,10 @@ def min(values):
 \end{verbatim}
 \afterverb
 %
+In the function version of the smallest code, we removed all of the 
+{\tt print} statements so as to be equivalent to the {\tt min} 
+function which is already built-in to Python.
+
 \section{Debugging}
 
 As you start writing bigger programs, you might find yourself
