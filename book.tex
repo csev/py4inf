@@ -2459,7 +2459,6 @@ This flexibility can be useful, but there are some subtleties to
 it that might be confusing.  You might want to avoid it (unless
 you know what you are doing).
 
-
 \section{Conditional execution}
 \label{conditional execution}
 
@@ -2742,6 +2741,86 @@ prints an error message.  In general,
 catching an exception gives you a chance to fix the problem, or try
 again, or at least end the program gracefully.
 
+\section{Short circuit evaluation of logical expressions}
+\index{short circuit}
+
+When Python is processing a logical expression such as 
+{\tt x >= 2 and (x/y) > 2}, it evaluates the expression
+from left-to-right.  Because of the definition of {\tt and},
+if {\tt x} is less than 2, the expression {\tt x >= 2} is 
+{\tt False} and so the whole expression is {\tt False} regardless
+of whether {\tt (x/y) > 2} evaluates to {\tt True} or {\tt False}.
+
+When Python detects that there is nothing to be gained by evaluating
+the rest of a logical expression, it stops its evaluation and does
+not do the computations in the rest of the logical expression.  
+When the evaulation of a logical expression stops because the overall
+value is already known, it is called {\bf short-circuiting} 
+the evaluation.
+
+\index{guardian pattern}
+\index{pattern!guardian}
+While this may seem like a fine point, the short curcuit behavior
+leads to a clever technique called the {\bf guardian pattern}.  
+Consider the following code sequence in the Python interpreter:
+
+\beforeverb
+\begin{verbatim}
+>>> x = 6 
+>>> y = 2
+>>> x >= 2 and (x/y) > 2
+True
+>>> x = 1 
+>>> y = 0
+>>> x >= 2 and (x/y) > 2
+False
+>>> x = 6
+>>> y = 0
+>>> x >= 2 and (x/y) > 2
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ZeroDivisionError: integer division or modulo by zero
+>>> 
+\end{verbatim}
+\afterverb
+%
+The third calculation failed because Python was evaluating {\tt (x/y)}
+and {\tt y} was zero - which causes a run-time error.  But the second example
+did {\em not} fail because the first part of the expression {\tt x >= 2} 
+evaluated to {\tt False} so the {\tt (x/y)} was not ever executed 
+due to the {\bf short circuit} rule and there was no error.
+
+We can construct the logical expression to strategically place a {\bf guard}
+evaluation just before the evaluation that might cause an error as follows:
+
+\beforeverb
+\begin{verbatim}
+>>> x = 1
+>>> y = 0
+>>> x >= 2 and y != 0 and (x/y) > 2
+False
+>>> x = 6 
+>>> y = 0
+>>> x >= 2 and y != 0 and (x/y) > 2
+False
+>>> x >= 2 and (x/y) > 2 and y != 0
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ZeroDivisionError: integer division or modulo by zero
+>>>
+\end{verbatim}
+\afterverb
+%
+In the first logical expression, {\tt x >= 2} is {\tt False} so the evaluation
+stops at the {\tt and}.  In the second logical expression {\tt x >= 2} is {\tt True}
+but {\tt y != 0} is {\tt False} so we never reach {\tt (x/y)}.
+
+In the third logical expression, the {\tt y != 0} is {\em after} the 
+{\tt (x/y) } calculation so the expression fails with an error.
+
+In the second expression, we say that {\tt y != 0} acts as a {\bf guard}
+to insure that we only execute {\tt (x/y)} if {\tt y} is non-zero.
+
 
 \section{Debugging}
 \label{whitespace}
@@ -2882,6 +2961,17 @@ in one of the branches of another conditional statement.
 \item[traceback:]  A list of the functions that are executing,
 printed when an exception occurs.
 \index{traceback}
+
+\item[short circuit:]  When Python is part-way through evaluating a 
+logical expression and stops the evaluation because Python 
+knows the final value for the expression 
+without needing to evaluate the rest of the expression.
+\index{short circuit}
+
+\item[guardian pattern:] Where we construct a logical expression with additional
+comparisons to take advantage of the short circuit behavior.
+\index{guardian pattern}
+\index{pattern!guardian}
 
 \end{description}
 
