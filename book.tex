@@ -10815,6 +10815,242 @@ a straight line.  Can you estimate the value of $s$?
 \end{ex}
 
 
+\chapter{Networked programs}
+
+\section{The Internet}
+
+\section{Making network connections}
+
+\section{Retrieving web pages}
+
+\section{Parsing HTML and scraping the web}
+
+\section{Exercises}
+
+\begin{ex}
+\label{urllib}
+
+\index{urllib module}
+\index{module!urllib}
+\index{URL}
+
+The {\tt urllib} module provides methods for manipulating URLs
+and downloading information from the web.  The following example
+downloads and prints a secret message from {\tt thinkpython.com}:
+
+\beforeverb
+\begin{verbatim}
+import urllib
+
+conn = urllib.urlopen('http://thinkpython.com/secret.html')
+for line in conn.fp:
+    print line.strip()
+\end{verbatim}
+\afterverb
+
+Run this code and follow the instructions you see there.
+
+\index{secret exercise}
+\index{exercise, secret}
+
+\end{ex}
+
+
+
+\chapter{Using web services}
+
+\section{Serivce Oriented Architeture (SOA)}
+
+\section{Application Programming Intercaces (API)}
+
+\section{eXtensible Markup Language (XML)}
+
+\section{Parsing XML}
+
+\section{Calling web services}
+
+
+\chapter{Using databases}
+
+\section{What is a database?}
+\index{database}
+
+A {\bf database} is a file that is organized for storing data.
+Most databases are organized like a dictionary in the sense
+that they map from keys to values.  The biggest difference
+is that the database is on disk (or other permanent storage),
+so it persists after the program ends.
+
+\index{anydbm module}
+\index{module!anydbm}
+
+The module {\tt anydbm} provides an interface for creating
+and updating database files.  As an example, I'll create a database
+that contains captions for image files.
+
+\index{open function}
+\index{function!open}
+
+Opening a database is similar
+to opening other files:
+
+\beforeverb
+\begin{verbatim}
+>>> import anydbm
+>>> db = anydbm.open('captions.db', 'c')
+\end{verbatim}
+\afterverb
+%
+The mode \verb"'c'" means that the database should be created if
+it doesn't already exist.  The result is a database object
+that can be used (for most operations) like a dictionary.
+If you create a new item, {\tt anydbm} updates the database file.
+
+\index{update!database}
+
+
+\beforeverb
+\begin{verbatim}
+>>> db['cleese.png'] = 'Photo of John Cleese.'
+\end{verbatim}
+\afterverb
+%
+When you access one of the items, {\tt anydbm} reads the file:
+
+\beforeverb
+\begin{verbatim}
+>>> print db['cleese.png']
+Photo of John Cleese.
+\end{verbatim}
+\afterverb
+%
+If you make another assignment to an existing key, {\tt anydbm} replaces
+the old value:
+
+\beforeverb
+\begin{verbatim}
+>>> db['cleese.png'] = 'Photo of John Cleese doing a silly walk.'
+>>> print db['cleese.png']
+Photo of John Cleese doing a silly walk.
+\end{verbatim}
+\afterverb
+%
+Many dictionary methods, like {\tt keys} and {\tt items}, also
+work with database objects.  So does iteration with a {\tt for}
+statement.
+
+\index{dictionary methods!anydbm module}
+
+\beforeverb
+\begin{verbatim}
+for key in db:
+     print key
+\end{verbatim}
+\afterverb
+%
+As with other files, you should close the database when you are
+done:
+
+\beforeverb
+\begin{verbatim}
+>>> db.close()
+\end{verbatim}
+\afterverb
+%
+
+\index{close method}
+\index{method!close}
+
+
+\section{Pickling}
+
+\index{pickling}
+
+A limitation of {\tt anydbm} is that the keys and values have
+to be strings.  If you try to use any other type, you get an
+error.
+
+\index{pickle module}
+\index{module!pickle}
+
+The {\tt pickle} module can help.  It translates
+almost any type of object into a string suitable for storage in a
+database, and then translates strings back into objects.
+
+{\tt pickle.dumps} takes an object as a parameter and returns
+a string representation ({\tt dumps} is short for ``dump string''):
+
+\beforeverb
+\begin{verbatim}
+>>> import pickle
+>>> t = [1, 2, 3]
+>>> pickle.dumps(t)
+'(lp0\nI1\naI2\naI3\na.'
+\end{verbatim}
+\afterverb
+%
+The format isn't obvious to human readers; it is meant to be
+easy for {\tt pickle} to interpret.  {\tt pickle.loads}
+(``load string'') reconstitutes the object:
+
+\beforeverb
+\begin{verbatim}
+>>> t1 = [1, 2, 3]
+>>> s = pickle.dumps(t1)
+>>> t2 = pickle.loads(s)
+>>> print t2
+[1, 2, 3]
+\end{verbatim}
+\afterverb
+%
+Although the new object has the same value as the old, it is
+not (in general) the same object:
+
+\beforeverb
+\begin{verbatim}
+>>> t1 == t2
+True
+>>> t1 is t2
+False
+\end{verbatim}
+\afterverb
+%
+In other words, pickling and then unpickling has the same effect
+as copying the object.
+
+You can use {\tt pickle} to store non-strings in a database.
+In fact, this combination is so common that it has been
+encapsulated in a module called {\tt shelve}.  
+
+\index{shelve module}
+\index{module!shelve}
+
+
+\begin{ex}
+
+\index{anagram set}
+\index{set!anagram}
+
+If you did Exercise~\ref{anagrams}, modify your solution so that
+it creates a database that maps from each word in the list to
+a list of words that use the same set of letters.
+
+Write a different program that opens the database and prints
+the contents in a human-readable format.
+\end{ex}
+
+
+
+\section{Using the SQLite3 database}
+
+\section{The basics of Structured Query Language (SQL)}
+
+\section{Basic data modelling}
+
+\section{Using JOIN to retrieve data}
+
+\section{Python and SQLite3}
+
 \chapter{Regular expressions}
 
 \section{More accurate searching}
@@ -11105,242 +11341,6 @@ compute checksums from Python.
 
 \section{Using Google visualization}
 
-
-\chapter{Networked programs}
-
-\section{The Internet}
-
-\section{Making network connections}
-
-\section{Retrieving web pages}
-
-\section{Parsing HTML and scraping the web}
-
-\section{Exercises}
-
-\begin{ex}
-\label{urllib}
-
-\index{urllib module}
-\index{module!urllib}
-\index{URL}
-
-The {\tt urllib} module provides methods for manipulating URLs
-and downloading information from the web.  The following example
-downloads and prints a secret message from {\tt thinkpython.com}:
-
-\beforeverb
-\begin{verbatim}
-import urllib
-
-conn = urllib.urlopen('http://thinkpython.com/secret.html')
-for line in conn.fp:
-    print line.strip()
-\end{verbatim}
-\afterverb
-
-Run this code and follow the instructions you see there.
-
-\index{secret exercise}
-\index{exercise, secret}
-
-\end{ex}
-
-
-
-\chapter{Using web services}
-
-\section{Serivce Oriented Architeture (SOA)}
-
-\section{Application Programming Intercaces (API)}
-
-\section{eXtensible Markup Language (XML)}
-
-\section{Parsing XML}
-
-\section{Calling web services}
-
-
-\chapter{Using databases}
-
-\section{What is a database?}
-\index{database}
-
-A {\bf database} is a file that is organized for storing data.
-Most databases are organized like a dictionary in the sense
-that they map from keys to values.  The biggest difference
-is that the database is on disk (or other permanent storage),
-so it persists after the program ends.
-
-\index{anydbm module}
-\index{module!anydbm}
-
-The module {\tt anydbm} provides an interface for creating
-and updating database files.  As an example, I'll create a database
-that contains captions for image files.
-
-\index{open function}
-\index{function!open}
-
-Opening a database is similar
-to opening other files:
-
-\beforeverb
-\begin{verbatim}
->>> import anydbm
->>> db = anydbm.open('captions.db', 'c')
-\end{verbatim}
-\afterverb
-%
-The mode \verb"'c'" means that the database should be created if
-it doesn't already exist.  The result is a database object
-that can be used (for most operations) like a dictionary.
-If you create a new item, {\tt anydbm} updates the database file.
-
-\index{update!database}
-
-
-\beforeverb
-\begin{verbatim}
->>> db['cleese.png'] = 'Photo of John Cleese.'
-\end{verbatim}
-\afterverb
-%
-When you access one of the items, {\tt anydbm} reads the file:
-
-\beforeverb
-\begin{verbatim}
->>> print db['cleese.png']
-Photo of John Cleese.
-\end{verbatim}
-\afterverb
-%
-If you make another assignment to an existing key, {\tt anydbm} replaces
-the old value:
-
-\beforeverb
-\begin{verbatim}
->>> db['cleese.png'] = 'Photo of John Cleese doing a silly walk.'
->>> print db['cleese.png']
-Photo of John Cleese doing a silly walk.
-\end{verbatim}
-\afterverb
-%
-Many dictionary methods, like {\tt keys} and {\tt items}, also
-work with database objects.  So does iteration with a {\tt for}
-statement.
-
-\index{dictionary methods!anydbm module}
-
-\beforeverb
-\begin{verbatim}
-for key in db:
-     print key
-\end{verbatim}
-\afterverb
-%
-As with other files, you should close the database when you are
-done:
-
-\beforeverb
-\begin{verbatim}
->>> db.close()
-\end{verbatim}
-\afterverb
-%
-
-\index{close method}
-\index{method!close}
-
-
-\section{Pickling}
-
-\index{pickling}
-
-A limitation of {\tt anydbm} is that the keys and values have
-to be strings.  If you try to use any other type, you get an
-error.
-
-\index{pickle module}
-\index{module!pickle}
-
-The {\tt pickle} module can help.  It translates
-almost any type of object into a string suitable for storage in a
-database, and then translates strings back into objects.
-
-{\tt pickle.dumps} takes an object as a parameter and returns
-a string representation ({\tt dumps} is short for ``dump string''):
-
-\beforeverb
-\begin{verbatim}
->>> import pickle
->>> t = [1, 2, 3]
->>> pickle.dumps(t)
-'(lp0\nI1\naI2\naI3\na.'
-\end{verbatim}
-\afterverb
-%
-The format isn't obvious to human readers; it is meant to be
-easy for {\tt pickle} to interpret.  {\tt pickle.loads}
-(``load string'') reconstitutes the object:
-
-\beforeverb
-\begin{verbatim}
->>> t1 = [1, 2, 3]
->>> s = pickle.dumps(t1)
->>> t2 = pickle.loads(s)
->>> print t2
-[1, 2, 3]
-\end{verbatim}
-\afterverb
-%
-Although the new object has the same value as the old, it is
-not (in general) the same object:
-
-\beforeverb
-\begin{verbatim}
->>> t1 == t2
-True
->>> t1 is t2
-False
-\end{verbatim}
-\afterverb
-%
-In other words, pickling and then unpickling has the same effect
-as copying the object.
-
-You can use {\tt pickle} to store non-strings in a database.
-In fact, this combination is so common that it has been
-encapsulated in a module called {\tt shelve}.  
-
-\index{shelve module}
-\index{module!shelve}
-
-
-\begin{ex}
-
-\index{anagram set}
-\index{set!anagram}
-
-If you did Exercise~\ref{anagrams}, modify your solution so that
-it creates a database that maps from each word in the list to
-a list of words that use the same set of letters.
-
-Write a different program that opens the database and prints
-the contents in a human-readable format.
-\end{ex}
-
-
-
-\section{Using the SQLite3 database}
-
-\section{The basics of Structured Query Language (SQL)}
-
-\section{Basic data modelling}
-
-\section{Using JOIN to retrieve data}
-
-\section{Python and SQLite3}
 
 
 
