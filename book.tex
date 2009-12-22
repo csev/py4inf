@@ -129,7 +129,7 @@ Printing history:
 
 \begin{description}
 
-\item[December 2009:] Begine the work to remix 
+\item[December 2009:] Begin to re-mix 
 {\em Think Python: How to Think Like
 a Computer Scientist}
 to produce 
@@ -172,10 +172,11 @@ and printed.
 The \LaTeX\ source for the 
 {\em Think Python} version of this book is available from
 \url{http://www.thinkpython.com}.
+
 The \LaTeX\ source for the 
 {\em Python for Informatics}
 version of the book is available (for the moment) from 
-\url{https://source.sakaiproject.org/contrib//csev/trunk/pyinf/}.
+\url{http://source.sakaiproject.org/contrib//csev/trunk/pyinf/}.
 
 \vspace{0.2in}
 
@@ -204,28 +205,31 @@ Version \theversion
 
 \chapter{Preface}
 
-\section*{Remixing an Open Book}
+\section*{Python for Informatics: Remixing an Open Book}
 
 It is quite natural for academics who are continuously told to 
 "publish or perish" to want to always create something from scratch
-that is their own contribution.   This book is an for me 
-experiment in "re-mixing"
-an book titled
+that is their own fresh creation.   This book is an 
+experiment in not starting from scratch, but instead "re-mixing"
+the book titled
 {\em Think Python: How to Think Like
 a Computer Scientist}
 written by Allen B. Downey, Jeff Elkner and others.
 
 In December of 2009, I was preparing to teach
-SI502 - Networked Programming at the University of Michigan
+{\bf SI502 - Networked Programming} at the University of Michigan
 for the fifth semester in a row and decided it was time
-to write a Python textbook that focused on exploring data.
+to write a Python textbook that focused on exploring data
+instead of understanding algorithms and abstractions.
 My goal in SI502 is to teach people life-long data handling 
 skills using Python.  Few of my
-students would ever be professional computer programmers - instead, they
-would be librarians, managers, lawyers, biologists, economists, etc.
-In short, they represent every field outside of Computer Science.
+students were planning to be be professional 
+computer programmers - instead, they
+planned be librarians, managers, lawyers, biologists, economists, etc. 
+who happenned to want to skillfully use technology in their chosen field.
 
-I never seemed to find the perfect book for my course so I set out 
+I never seemed to find the perfect data-oriented Python
+book for my course so I set out 
 to write just such a book.  Luckily at a faculty meeting three weeks
 before I was about to start my new book from scratch over 
 the holiday break, 
@@ -234,9 +238,7 @@ used to teach his Python course that semester.
 
 {\em Think Python} follows the structure of most introductory Computer
 Science textbooks.  It is a well-written text with a focus on 
-simple explanations and ease of learning.  Jeff Elkner is a High
-School teacher and so the language in the book is understandable
-at a High School level.
+short, direct explanations and ease of learning.  
 
 The book was available under the 
 GNU Free Documentation License 
@@ -248,20 +250,36 @@ was about to do to their book.
 I expect that by the time I am done with {\em Python for Informatics} 
 over fifty percent of the book will be new.  The overall structure
 will be changed to get to doing data analysis problems as quickly as
-possible and have a series of running examples about data analysis.
-Then I will add sections on regular expressions, data
+possible and have a series of running examples and exercises 
+about data analysis.
+Then I will add chapters on regular expressions, data
 visualization, working with spreadsheet data, structured 
-query launguage using SQLIte3, web scraping, and calling REST-based
-Application Program Interfaces using Twitter.
+query launguage using SQLite, web scraping, and calling REST-based
+Application Program Interfaces.  
 
-What is interesting is how much of the original {\em Think Python} book
-material is completely relevant to this book and how much will fit
+The ultimate goal in the shift from a Computer Science to an Informatics
+focus is to pull topics into the first programming class that can 
+be applied even if one chooses not to become a professional programmer.
+
+What is interesting even with this change of focus 
+is how much of the original {\em Think Python} book
+material is directly relevant to this book and how much will fit
 right into {\em Python for Informatics} with virtually no change.
 
-By starting with the {\em Think Python} book, I won't have to write the
+By starting with the {\em Think Python} book, I don't have to write the
 basic descriptions of the Python language or how to debug programs
 and instead focus on the topical material that is the value-add
 of {\em Python for Informatics}.
+
+Students who find this book interesting and want to further explore
+a career as a professional programmer should probably look at 
+the {\em Think Python} book.  Because there
+is a lot of overlap between the two books, 
+you will quickly pick up skills in the additional
+areas of Computer Science which are covered in {\em Think Python}.
+And given that the books have a similar writing style and at times
+have identical text and examples, you should be 
+able to pick up these new topics with a minimum of effort.
 
 I hope that this book serves an example of why open 
 materials are so important to the future of education,
@@ -2965,6 +2983,44 @@ a result.  The result is called the {\bf return value}.
 \index{argument}
 \index{return value}
 
+\section{Built-in functions}
+
+Python provides a number of important built-in functions that
+we can use without needing to provide the function definition.
+In a sense, the creators or Python wrote a set of functions 
+to solve common problems and included them in Python for us to use.
+
+The {\tt max} and {\tt min} functions give us the largest and 
+smallest values in a list, respectively:
+
+\beforeverb
+\begin{verbatim}
+>>> max('Hello world')
+'w'
+>>> min('Hello world')
+' '
+>>>
+\end{verbatim}
+\afterverb
+%
+The {\tt max} function tells us the ``largest character'' in the 
+string (which turns out to be the letter ``w'') and the {\tt min}
+function shows us the smallest character which turns out to be a 
+space.
+
+Another very common built-in function is the {\tt len} function
+which tells us how many items are in its argument:
+
+\beforeverb
+\begin{verbatim}
+>>> len('Hello world')
+11
+>>>
+\end{verbatim}
+\afterverb
+%
+These functions are not limited to looking at strings, they can operate
+on any set of values as we will see in later chapters.
 
 \section{Type conversion functions}
 \index{conversion!type}
@@ -2978,7 +3034,7 @@ a result.  The result is called the {\bf return value}.
 % they are on the list of ``built-in functions'' so I am
 % willing to call them functions.
 
-Python provides built-in functions that convert values
+Python also provides built-in functions that convert values
 from one type to another.  The {\tt int} function takes any value and
 converts it to an integer, if it can, or complains otherwise:
 
@@ -3035,8 +3091,6 @@ Finally, {\tt str} converts its argument to a string:
 \end{verbatim}
 \afterverb
 %
-
-
 
 \section{Math functions}
 \index{math function}
@@ -3131,56 +3185,14 @@ the square root of two divided by two:
 \afterverb
 %
 
-\section{Composition}
-\index{composition}
-
-So far, we have looked at the elements of a program---variables,
-expressions, and statements---in isolation, without talking about how to
-combine them.
-
-One of the most useful features of programming languages is their
-ability to take small building blocks and {\bf compose} them.  For
-example, the argument of a function can be any kind of expression,
-including arithmetic operators:
-
-\beforeverb
-\begin{verbatim}
-x = math.sin(degrees / 360.0 * 2 * math.pi)
-\end{verbatim}
-\afterverb
-%
-And even function calls:
-
-\beforeverb
-\begin{verbatim}
-x = math.exp(math.log(x+1))
-\end{verbatim}
-\afterverb
-%
-Almost anywhere you can put a value, you can put an arbitrary
-expression, with one exception: the left side of an assignment
-statement has to be a variable name.  Any other expression on the left
-side is a syntax error\footnote{We will see exceptions to this rule
-later.}.
-
-\beforeverb
-\begin{verbatim}
->>> minutes = hours * 60                 # right
->>> hours * 60 = minutes                 # wrong!
-SyntaxError: can't assign to operator
-\end{verbatim}
-\afterverb
-%
-\index{SyntaxError}
-\index{exception!SyntaxError}
-
-
 \section{Adding new functions}
 
 So far, we have only been using the functions that come with Python,
 but it is also possible to add new functions.
 A {\bf function definition} specifies the name of a new function and
 the sequence of statements that execute when the function is called.
+Once we define a function, we can reuse the function over and over 
+throughout our program.
 
 \index{function}
 \index{function definition}
@@ -3357,7 +3369,7 @@ called the {\bf flow of execution}.
 Execution always begins at the first statement of the program.
 Statements are executed one at a time, in order from top to bottom.
 
-Function definitions do not alter the flow of execution of the
+Function {\em definitions} do not alter the flow of execution of the
 program, but remember that statements inside the function are not
 executed until the function is called.
 
@@ -3557,7 +3569,8 @@ a program into functions.  There are several reasons:
 \begin{itemize}
 
 \item Creating a new function gives you an opportunity to name a group
-of statements, which makes your program easier to read and debug.
+of statements, which makes your program easier to read, understand 
+and debug.
 
 \item Functions can make a program smaller by eliminating repetitive
 code.  Later, if you make a change, you only have
@@ -3570,6 +3583,14 @@ parts one at a time and then assemble them into a working whole.
 Once you write and debug one, you can reuse it.
 
 \end{itemize}
+
+Throught the rest of the book, we often will use a function definition to 
+explain a concept.  Part of the skill of creating and using functions is
+to have a function properly capture an idea such as ``find the smallest
+value in a list of values''.  Later we will show you code that finds
+the smallest in a list of values and we will present it to you as a function
+named {\tt min} which takes a list of values as its argument and 
+returns the smallest value in the list.
 
 
 \section{Debugging}
@@ -4330,9 +4351,11 @@ Largest: 74
 \end{verbatim}
 \afterverb
 %
-The variable {\tt largest} is the ``largest value we have seen so far''.
+The variable {\tt largest} is best thought of as 
+the ``largest value we have seen so far''.
 Before the loop, we set {\tt largest} to the contstant {\tt None}.  
-{\tt None} is a special value which we can store in a variable to mark 
+{\tt None} is a special constant value which we can 
+store in a variable to mark 
 the variable as ``empty''.  
 
 Before the loop starts, the largest value we have seen so far 
