@@ -8853,67 +8853,6 @@ python.org
 \afterverb
 %
 
-\section{Tuples as return values}
-
-\index{tuple}
-\index{value!tuple}
-\index{return value!tuple}
-\index{function, tuple as return value}
-
-Strictly speaking, a function can only return one value, but
-if the value is a tuple, the effect is the same as returning
-multiple values.  For example, if you want to divide two integers
-and compute the quotient and remainder, it is inefficient to
-compute {\tt x/y} and then {\tt x\%y}.  It is better to compute
-them both at the same time.
-
-\index{divmod}
-
-The built-in function {\tt divmod} takes two arguments and
-returns a tuple of two values, the quotient and remainder.
-You can store the result as a tuple:
-
-\beforeverb
-\begin{verbatim}
->>> t = divmod(7, 3)
->>> print t
-(2, 1)
-\end{verbatim}
-\afterverb
-%
-Or use tuple assignment to store the elements separately:
-
-\index{tuple assignment}
-\index{assignment!tuple}
-
-\beforeverb
-\begin{verbatim}
->>> quot, rem = divmod(7, 3)
->>> print quot
-2
->>> print rem
-1
-\end{verbatim}
-\afterverb
-%
-Here is an example of a function that returns a tuple:
-
-\beforeverb
-\begin{verbatim}
-def min_max(t):
-    return min(t), max(t)
-\end{verbatim}
-\afterverb
-%
-{\tt max} and {\tt min} are built-in functions that find
-the largest and smallest elements of a sequence.  \verb"min_max"
-computes both and returns a tuple of two values.
-
-\index{max function}
-\index{function!max}
-\index{min function}
-\index{function!min}
-
 \section{Lists and tuples}
 
 \index{zip function}
@@ -10448,6 +10387,68 @@ Write a {\tt compare} function
 that returns {\tt 1} if {\tt x > y},
 {\tt 0} if {\tt x == y}, and {\tt -1} if {\tt x < y}.
 \end{ex}
+
+\section{Tuples as return values}
+
+\index{tuple}
+\index{value!tuple}
+\index{return value!tuple}
+\index{function, tuple as return value}
+
+Strictly speaking, a function can only return one value, but
+if the value is a tuple, the effect is the same as returning
+multiple values.  For example, if you want to divide two integers
+and compute the quotient and remainder, it is inefficient to
+compute {\tt x/y} and then {\tt x\%y}.  It is better to compute
+them both at the same time.
+
+\index{divmod}
+
+The built-in function {\tt divmod} takes two arguments and
+returns a tuple of two values, the quotient and remainder.
+You can store the result as a tuple:
+
+\beforeverb
+\begin{verbatim}
+>>> t = divmod(7, 3)
+>>> print t
+(2, 1)
+\end{verbatim}
+\afterverb
+%
+Or use tuple assignment to store the elements separately:
+
+\index{tuple assignment}
+\index{assignment!tuple}
+
+\beforeverb
+\begin{verbatim}
+>>> quot, rem = divmod(7, 3)
+>>> print quot
+2
+>>> print rem
+1
+\end{verbatim}
+\afterverb
+%
+Here is an example of a function that returns a tuple:
+
+\beforeverb
+\begin{verbatim}
+def min_max(t):
+    return min(t), max(t)
+\end{verbatim}
+\afterverb
+%
+{\tt max} and {\tt min} are built-in functions that find
+the largest and smallest elements of a sequence.  \verb"min_max"
+computes both and returns a tuple of two values.
+
+\index{max function}
+\index{function!max}
+\index{min function}
+\index{function!min}
+
 
 \section{Variable-length argument tuples}
 
