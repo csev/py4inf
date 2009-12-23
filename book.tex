@@ -6117,900 +6117,6 @@ at \url{wikipedia.org/wiki/Shortest_path_problem}.
 \end{ex}
 
 
-\chapter{More on functions}
-\label{fruitchap}
-
-\section{Return values}
-\index{return value}
-
-Some of the built-in functions we have used, such as the math
-functions, produce results.  Calling the function generates a
-value, which we usually assign to a variable or use as part of an
-expression.
-
-\beforeverb
-\begin{verbatim}
-e = math.exp(1.0)
-height = radius * math.sin(radians)
-\end{verbatim}
-\afterverb
-%
-All of the functions we have written so far are void; they print
-something or move turtles around, but their return value is {\tt
-None}.
-
-In this chapter, we are (finally) going to write fruitful functions.
-The first example is {\tt area}, which returns the area of a circle
-with the given radius:
-
-\beforeverb
-\begin{verbatim}
-def area(radius):
-    temp = math.pi * radius**2
-    return temp
-\end{verbatim}
-\afterverb
-%
-We have seen the {\tt return} statement before, but in a fruitful
-function the {\tt return} statement includes
-an expression.  This statement means: ``Return immediately from
-this function and use the following expression as a return value.''
-The expression can be arbitrarily complicated, so we could
-have written this function more concisely:
-
-\index{return statement}
-\index{statement!return}
-
-\beforeverb
-\begin{verbatim}
-def area(radius):
-    return math.pi * radius**2
-\end{verbatim}
-\afterverb
-%
-On the other hand, {\bf temporary variables} like {\tt temp} often make
-debugging easier.
-
-\index{temporary variable}
-\index{variable!temporary}
-
-Sometimes it is useful to have multiple return statements, one in each
-branch of a conditional:
-
-\beforeverb
-\begin{verbatim}
-def absolute_value(x):
-    if x < 0:
-        return -x
-    else:
-        return x
-\end{verbatim}
-\afterverb
-%
-Since these {\tt return} statements are in an alternative conditional,
-only one will be executed.
-
-As soon as a return statement executes, the function
-terminates without executing any subsequent statements.
-Code that appears after a {\tt return} statement, or any other place
-the flow of execution can never reach, is called {\bf dead code}.
-
-\index{dead code}
-
-In a fruitful function, it is a good idea to ensure
-that every possible path through the program hits a
-{\tt return} statement.  For example:
-
-\beforeverb
-\begin{verbatim}
-def absolute_value(x):
-    if x < 0:
-        return -x
-    if x > 0:
-        return x
-\end{verbatim}
-\afterverb
-%
-This function is incorrect because if {\tt x} happens to be 0,
-neither condition is true, and the function ends without hitting a
-{\tt return} statement.  If the flow of execution gets to the end
-of a function, the return value is {\tt None}, which is not
-the absolute value of 0.
-
-\index{None special value}
-\index{special value!None}
-
-\beforeverb
-\begin{verbatim}
->>> print absolute_value(0)
-None
-\end{verbatim}
-\afterverb
-%
-By the way, Python provides a built-in function called 
-{\tt abs} that computes absolute values.
-
-\index{abs function}
-\index{function!abs}
-
-\begin{ex}
-
-\index{compare function}
-\index{function!compare}
-
-Write a {\tt compare} function
-that returns {\tt 1} if {\tt x > y},
-{\tt 0} if {\tt x == y}, and {\tt -1} if {\tt x < y}.
-\end{ex}
-
-\section{Variables and parameters are local}
-\index{local variable}
-\index{variable!local}
-
-When you create a variable inside a function, it is {\bf local},
-which means that it only
-exists inside the function.  For example:
-
-\index{parentheses!parameters in}
-
-\beforeverb
-\begin{verbatim}
-def cat_twice(part1, part2):
-    cat = part1 + part2
-    print_twice(cat)
-\end{verbatim}
-\afterverb
-%
-This function takes two arguments, concatenates them, and prints
-the result twice.  Here is an example that uses it:
-
-\index{concatenation}
-
-\beforeverb
-\begin{verbatim}
->>> line1 = 'Bing tiddle '
->>> line2 = 'tiddle bang.'
->>> cat_twice(line1, line2)
-Bing tiddle tiddle bang.
-Bing tiddle tiddle bang.
-\end{verbatim}
-\afterverb
-%
-When \verb"cat_twice" terminates, the variable {\tt cat}
-is destroyed.  If we try to print it, we get an exception:
-
-\index{NameError}
-\index{exception!NameError}
-
-\beforeverb
-\begin{verbatim}
->>> print cat
-NameError: name 'cat' is not defined
-\end{verbatim}
-\afterverb
-%
-Parameters are also local.
-For example, outside \verb"print_twice", there is no
-such thing as {\tt bruce}.
-
-\index{parameter}
-
-\section{Global variables}
-
-\index{global variable}
-\index{variable!global}
-
-In the previous example, {\tt known} is created outside the function,
-so it belongs to the special frame called \verb"__main__".
-Variables in \verb"__main__" are sometimes called {\bf global}
-because they can be accessed from any function.  Unlike local
-variables, which disappear when their function ends, global variables
-persist from one function call to the next.
-
-\index{flag}
-
-It is common to use global variables for {\bf flags}; that is, 
-boolean variables that indicate (``flag'') whether a condition
-is true.  For example, some programs use
-a flag named {\tt verbose} to control the level of detail in the
-output:
-
-\beforeverb
-\begin{verbatim}
-verbose = True
-
-def example1():
-    if verbose:
-        print 'Running example1'
-\end{verbatim}
-\afterverb
-%
-If you try to reassign a global variable, you might be surprised.
-The following example is supposed to keep track of whether the
-function has been called:
-
-\index{multiple assignment}
-\index{assignment!multiple}
-
-\beforeverb
-\begin{verbatim}
-been_called = False
-
-def example2():
-    been_called = True         # WRONG
-\end{verbatim}
-\afterverb
-%
-But if you run it you will see that the value of \verb"been_called"
-doesn't change.  The problem is that {\tt example2} creates a new local
-variable named \verb"been_called".  The local variable goes away when
-the function ends, and has no effect on the global variable.
-
-\index{global statement}
-\index{statement!global}
-\index{declaration}
-
-To reassign a global variable inside a function you have to
-{\bf declare} the global variable before you use it:
-
-\beforeverb
-\begin{verbatim}
-been_called = False
-
-def example2():
-    global been_called 
-    been_called = True
-\end{verbatim}
-\afterverb
-%
-The {\tt global} statement tells the interpreter
-something like, ``In this function, when I say \verb"been_called", I
-mean the global variable; don't create a local one.''
-
-\index{update!global variable}
-\index{global variable!update}
-
-Here's an example that tries to update a global variable:
-
-\beforeverb
-\begin{verbatim}
-count = 0
-
-def example3():
-    count = count + 1          # WRONG
-\end{verbatim}
-\afterverb
-%
-If you run it you get:
-
-\index{UnboundLocalError}
-\index{exception!UnboundLocalError}
-
-\beforeverb
-\begin{verbatim}
-UnboundLocalError: local variable 'count' referenced before assignment
-\end{verbatim}
-\afterverb
-%
-Python assumes that {\tt count} is local, which means
-that you are reading it before writing it.  The solution, again,
-is to declare {\tt count} global.
-
-\index{counter}
-
-\beforeverb
-\begin{verbatim}
-def example3():
-    global count
-    count += 1
-\end{verbatim}
-\afterverb
-%
-If the global value is mutable, you can modify it without
-declaring it:
-
-\index{mutability}
-
-\beforeverb
-\begin{verbatim}
-known = {0:0, 1:1}
-
-def example4():
-    known[2] = 1
-\end{verbatim}
-\afterverb
-%
-So you can add, remove and replace elements of a global list or
-dictionary, but if you want to reassign the variable, you
-have to declare it:
-
-\beforeverb
-\begin{verbatim}
-def example5():
-    global known
-    known = dict()
-\end{verbatim}
-\afterverb
-%
-
-\section{Incremental development}
-\label{incremental development}
-\index{development plan!incremental}
-
-As you write larger functions, you might find yourself
-spending more time debugging.
-
-To deal with increasingly complex programs,
-you might want to try a process called
-{\bf incremental development}.  The goal of incremental development
-is to avoid long debugging sessions by adding and testing only
-a small amount of code at a time.
-
-\index{testing!incremental development}
-\index{Pythagorean theorem}
-
-As an example, suppose you want to find the distance between two
-points, given by the coordinates $(x_1, y_1)$ and $(x_2, y_2)$.
-By the Pythagorean theorem, the distance is:
-
-\begin{displaymath}
-\mathrm{distance} = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}
-\end{displaymath}
-%
-The first step is to consider what a {\tt distance} function should
-look like in Python.  In other words, what are the inputs (parameters)
-and what is the output (return value)?
-
-In this case, the inputs are two points, which you can represent
-using four numbers.  The return value is the distance, which is
-a floating-point value.
-
-Already you can write an outline of the function:
-
-\beforeverb
-\begin{verbatim}
-def distance(x1, y1, x2, y2):
-    return 0.0
-\end{verbatim}
-\afterverb
-%
-Obviously, this version doesn't compute distances; it always returns
-zero.  But it is syntactically correct, and it runs, which means that
-you can test it before you make it more complicated.
-
-To test the new function, call it with sample arguments:
-
-\beforeverb
-\begin{verbatim}
->>> distance(1, 2, 4, 6)
-0.0
-\end{verbatim}
-\afterverb
-%
-I chose these values so that the horizontal distance is 3 and the
-vertical distance is 4; that way, the result is 5
-(the hypotenuse of a 3-4-5 triangle). When testing a function, it is
-useful to know the right answer.
-
-\index{testing!knowing the answer}
-
-At this point we have confirmed that the function is syntactically
-correct, and we can start adding code to the body.
-A reasonable next step is to find the differences
-$x_2 - x_1$ and $y_2 - y_1$.  The next version stores those values in
-temporary variables and prints them.
-
-\beforeverb
-\begin{verbatim}
-def distance(x1, y1, x2, y2):
-    dx = x2 - x1
-    dy = y2 - y1
-    print 'dx is', dx
-    print 'dy is', dy
-    return 0.0
-\end{verbatim}
-\afterverb
-%
-If the function is working, it should display \verb"'dx is 3'" and {\tt
-'dy is 4'}.  If so, we know that the function is getting the right
-arguments and performing the first computation correctly.  If not,
-there are only a few lines to check.
-
-Next we compute the sum of squares of {\tt dx} and {\tt dy}:
-
-\beforeverb
-\begin{verbatim}
-def distance(x1, y1, x2, y2):
-    dx = x2 - x1
-    dy = y2 - y1
-    dsquared = dx**2 + dy**2
-    print 'dsquared is: ', dsquared
-    return 0.0
-\end{verbatim}
-\afterverb
-%
-Again, you would run the program at this stage and check the output
-(which should be 25).
-Finally, you can use {\tt math.sqrt} to compute and return the result:
-
-\index{sqrt}
-\index{function!sqrt}
-
-\beforeverb
-\begin{verbatim}
-def distance(x1, y1, x2, y2):
-    dx = x2 - x1
-    dy = y2 - y1
-    dsquared = dx**2 + dy**2
-    result = math.sqrt(dsquared)
-    return result
-\end{verbatim}
-\afterverb
-%
-If that works correctly, you are done.  Otherwise, you might
-want to print the value of {\tt result} before the return
-statement.
-
-The final version of the function doesn't display anything when it
-runs; it only returns a value.  The {\tt print} statements we wrote
-are useful for debugging, but once you get the function working, you
-should remove them.  Code like that is called {\bf scaffolding}
-because it is helpful for building the program but is not part of the
-final product.
-
-\index{scaffolding}
-
-When you start out, you should add only a line or two of code at a
-time.  As you gain more experience, you might find yourself writing
-and debugging bigger chunks.  Either way, incremental development
-can save you a lot of debugging time.
-
-The key aspects of the process are:
-
-\begin{enumerate}
-
-\item Start with a working program and make small incremental changes. 
-At any point, if there is an error, you should have a good idea
-where it is.
-
-\item Use temporary variables to hold intermediate values so you can
-display and check them.
-
-\item Once the program is working, you might want to remove some of
-the scaffolding or consolidate multiple statements into compound
-expressions, but only if it does not make the program difficult to
-read.
-
-\end{enumerate}
-
-\begin{ex}
-
-\index{hypotenuse}
-
-Use incremental development to write a function
-called {\tt hypotenuse} that returns the length of the hypotenuse of a
-right triangle given the lengths of the two legs as arguments.
-Record each stage of the development process as you go.
-\end{ex}
-
-
-\section{Composition}
-
-\index{composition}
-\index{function composition}
-
-As you should expect by now, you can call one function from
-within another.  This ability is called {\bf composition}.
-
-As an example, we'll write a function that takes two points,
-the center of the circle and a point on the perimeter, and computes
-the area of the circle.
-
-Assume that the center point is stored in the variables {\tt xc} and
-{\tt yc}, and the perimeter point is in {\tt xp} and {\tt yp}. The
-first step is to find the radius of the circle, which is the distance
-between the two points.  We just wrote a function, {\tt
-distance}, that does that:
-
-\beforeverb
-\begin{verbatim}
-radius = distance(xc, yc, xp, yp)
-\end{verbatim}
-\afterverb
-%
-The next step is to find the area of a circle with that radius;
-we just wrote that, too:
-
-\beforeverb
-\begin{verbatim}
-result = area(radius)
-\end{verbatim}
-\afterverb
-%
-Encapsulating these steps in a function, we get:
-
-\index{encapsulation}
-
-\beforeverb
-\begin{verbatim}
-def circle_area(xc, yc, xp, yp):
-    radius = distance(xc, yc, xp, yp)
-    result = area(radius)
-    return result
-\end{verbatim}
-\afterverb
-%
-The temporary variables {\tt radius} and {\tt result} are useful for
-development and debugging, but once the program is working, we can
-make it more concise by composing the function calls:
-
-\beforeverb
-\begin{verbatim}
-def circle_area(xc, yc, xp, yp):
-    return area(distance(xc, yc, xp, yp))
-\end{verbatim}
-\afterverb
-%
-
-\section{Stack diagrams}
-\label{stackdiagram}
-\index{stack diagram}
-\index{function frame}
-\index{frame}
-
-To keep track of which variables can be used where, it is sometimes
-useful to draw a {\bf stack diagram}.  Like state diagrams, stack
-diagrams show the value of each variable, but they also show the
-function each variable belongs to.
-
-\index{stack diagram}
-\index{diagram!stack}
-
-Each function is represented by a {\bf frame}.  A frame is a box
-with the name of a function
-beside it and the parameters and variables of the function inside it.
-The stack diagram for the
-previous example looks like this:
-
-\beforefig
-\centerline{\includegraphics{figs/stack.eps}}
-\afterfig
-
-The frames are arranged in a stack that indicates which function
-called which, and so on.  In this example, \verb"print_twice"
-was called by \verb"cat_twice", and \verb"cat_twice" was called by 
-\verb"__main__", which is a special name for the topmost frame.  When
-you create a variable outside of any function, it belongs to 
-\verb"__main__".
-
-Each parameter refers to the same value as its corresponding
-argument.  So, {\tt part1} has the same value as
-{\tt line1}, {\tt part2} has the same value as {\tt line2},
-and {\tt bruce} has the same value as {\tt cat}.
-
-If an error occurs during a function call, Python prints the
-name of the function, and the name of the function that called
-it, and the name of the function that called {\em that}, all the
-way back to \verb"__main__".
-
-For example, if you try to access {\tt cat} from within 
-\verb"print_twice", you get a {\tt NameError}:
-
-\beforeverb
-\begin{verbatim}
-Traceback (innermost last):
-  File "test.py", line 13, in __main__
-    cat_twice(line1, line2)
-  File "test.py", line 5, in cat_twice
-    print_twice(cat)
-  File "test.py", line 9, in print_twice
-    print cat
-NameError: name 'cat' is not defined
-\end{verbatim}
-\afterverb
-%
-This list of functions is called a {\bf traceback}.  It tells you what
-program file the error occurred in, and what line, and what functions
-were executing at the time.  It also shows the line of code that
-caused the error.
-
-\index{traceback}
-
-The order of the functions in the traceback is the same as the
-order of the frames in the stack diagram.  The function that is
-currently running is at the bottom.
-
-
-\section{Boolean functions}
-\label{boolean}
-
-\index{boolean function}
-
-Functions can return booleans, which is often convenient for hiding
-complicated tests inside functions.  For example:
-
-\beforeverb
-\begin{verbatim}
-def is_divisible(x, y):
-    if x % y == 0:
-        return True
-    else:
-        return False
-\end{verbatim}
-\afterverb
-%
-It is common to give boolean functions names that sound like yes/no
-questions; \verb"is_divisible" returns either {\tt True} or {\tt False}
-to indicate whether {\tt x} is divisible by {\tt y}.
-
-Here is an example:
-
-\beforeverb
-\begin{verbatim}
->>>   is_divisible(6, 4)
-False
->>>   is_divisible(6, 3)
-True
-\end{verbatim}
-\afterverb
-%
-The result of the {\tt ==} operator is a boolean, so we can write the
-function more concisely by returning it directly:
-
-\beforeverb
-\begin{verbatim}
-def is_divisible(x, y):
-    return x % y == 0
-\end{verbatim}
-\afterverb
-%
-Boolean functions are often used in conditional statements:
-
-\index{conditional statement}
-\index{statement!conditional}
-
-\beforeverb
-\begin{verbatim}
-if is_divisible(x, y):
-    print 'x is divisible by y'
-\end{verbatim}
-\afterverb
-%
-It might be tempting to write something like:
-
-\beforeverb
-\begin{verbatim}
-if is_divisible(x, y) == True:
-    print 'x is divisible by y'
-\end{verbatim}
-\afterverb
-%
-But the extra comparison is unnecessary.
-
-\begin{ex}
-Write a function \verb"is_between(x, y, z)" that
-returns {\tt True} if $x \le y \le z$ or {\tt False} otherwise.
-\end{ex}
-
-% TBD - May want ot talk about "guarding" code here - lots removed
-
-\section{Debugging}
-\label{factdebug}
-
-\index{debugging}
-
-Breaking a large program into smaller functions creates natural
-checkpoints for debugging.  If a function is not working, there are
-three possibilities to consider:
-
-\begin{itemize}
-
-\item There is something wrong with the arguments the function
-is getting; a precondition is violated.
-
-\item There is something wrong with the function; a postcondition
-is violated.
-
-\item There is something wrong with the return value or the
-way it is being used.
-
-\end{itemize}
-
-To rule out the first possibility, you can add a {\tt print} statement
-at the beginning of the function and display the values of the
-parameters (and maybe their types).  Or you can write code
-that checks the preconditions explicitly.
-
-\index{precondition}
-\index{postcondition}
-
-If the parameters look good, add a {\tt print} statement before each
-{\tt return} statement that displays the return value.  If
-possible, check the result by hand.  Consider calling the
-function with values that make it easy to check the result
-(as in Section~\ref{incremental development}).
-
-If the function seems to be working, look at the function call
-to make sure the return value is being used correctly (or used
-at all!).
-
-\index{flow of execution}
-
-Adding print statements at the beginning and end of a function
-can help make the flow of execution more visible.
-
-If you are confused about the flow of execution, this kind of
-output can be helpful.  It takes some time to develop effective
-scaffolding, but a little bit of scaffolding can save a lot of debugging.
-
-
-\section{Glossary}
-
-\begin{description}
-
-\item[temporary variable:]  A variable used to store an intermediate value in
-a complex calculation.
-\index{temporary variable}
-\index{variable!temporary}
-
-\item[dead code:]  Part of a program that can never be executed, often because
-it appears after a {\tt return} statement.
-\index{dead code}
-
-\item[{\tt None}:]  A special value returned by functions that
-have no return statement or a return statement without an argument.
-\index{None special value}
-\index{special value!None}
-
-\item[local variable:]  A variable defined inside a function.  A local
-variable can only be used inside its function.
-\index{local variable}
-
-\item[incremental development:]  A program development plan intended to
-avoid debugging by adding and testing only
-a small amount of code at a time.
-\index{incremental development}
-
-\item[scaffolding:]  Code that is used during program development but is
-not part of the final version.
-\index{scaffolding}
-
-\item[guardian:]  A programming pattern that uses a conditional
-statement to check for and handle circumstances that
-might cause an error.
-\index{guardian pattern}
-\index{pattern!guardian}
-
-\item[stack diagram:]  A graphical representation of a stack of functions,
-their variables, and the values they refer to.
-\index{stack diagram}
-
-\item[frame:]  A box in a stack diagram that represents a function call.
-It contains the local variables and parameters of the function.
-\index{function frame}
-\index{frame}
-
-\item[traceback:]  A list of the functions that are executing,
-printed when an exception occurs.
-\index{traceback}
-
-\end{description}
-
-
-\section{Exercises}
-
-\begin{ex}
-\index{stack diagram}
-
-Draw a stack diagram for the following
-program.  What does the program print?
-
-\beforeverb
-\begin{verbatim}
-def b(z):
-    prod = a(z, z)
-    print z, prod
-    return prod
-
-def a(x, y):
-    x = x + 1
-    return x * y
-
-def c(x, y, z):
-    sum = x + y + z
-    pow = b(sum)**2
-    return pow
-
-x = 1
-y = x + 1
-print c(x, y+3, x+y)
-\end{verbatim}
-\afterverb
-
-\end{ex}
-
-
-
-\begin{ex}
-\label{palindrome}
-
-\index{palindrome}
-
-A palindrome is a word that is spelled the same backward and
-forward, like ``noon'' and ``redivider''.  Recursively, a word
-is a palindrome if the first and last letters are the same
-and the middle is a palindrome.
-
-The following are functions that take a string argument and
-return the first, last, and middle letters:
-
-\beforeverb
-\begin{verbatim}
-def first(word):
-    return word[0]
-
-def last(word):
-    return word[-1]
-
-def middle(word):
-    return word[1:-1]
-\end{verbatim}
-\afterverb
-%
-We'll see how they work in Chapter~\ref{strings}.
-
-\begin{enumerate}
-
-\item Type these functions into a file named {\tt palindrome.py}
-and test them out.  What happens if you call {\tt middle} with
-a string with two letters?  One letter?  What about the empty
-string, which is written \verb"''" and contains no letters?
-
-\item Write a function called \verb"is_palindrome" that takes
-a string argument and returns {\tt True} if it is a palindrome
-and {\tt False} otherwise.  Remember that you can use the
-built-in function {\tt len} to check the length of a string.
-
-\end{enumerate}
-
-\end{ex}
-
-\begin{ex}
-A number, $a$, is a power of $b$ if it is divisible by $b$
-and $a/b$ is a power of $b$.  Write a function called
-\verb"is_power" that takes parameters {\tt a} and {\tt b}
-and returns {\tt True} if {\tt a} is a power of {\tt b}.
-\end{ex}
-
-
-\begin{ex}
-
-\index{greatest common divisor (GCD)}
-\index{GCD (greatest common divisor)}
-
-The greatest common divisor (GCD) of $a$ and $b$ is the largest number
-that divides both of them with no remainder\footnote{This exercise is
-  based on an example from Abelson and Sussman's {\em Structure and
-    Interpretation of Computer Programs}.}.
-
-One way to find the GCD of two numbers is Euclid's algorithm,
-which is based on the observation that if $r$ is the remainder
-when $a$ is divided by $b$, then $gcd(a, b) = gcd(b, r)$.
-As a base case, we can consider $gcd(a, 0) = a$.
-
-\index{Euclid's algorithm}
-\index{algorithm!Euclid}
-
-Write a function called
-\verb"gcd" that takes parameters {\tt a} and {\tt b}
-and returns their greatest common divisor.  If you need
-help, see \url{wikipedia.org/wiki/Euclidean_algorithm}.
-
-\end{ex}
-
-
-
-
 \chapter{Lists}
 
 \index{list}
@@ -9401,115 +8507,6 @@ computes both and returns a tuple of two values.
 \index{min function}
 \index{function!min}
 
-
-\section{Variable-length argument tuples}
-
-\index{variable-length argument tuple}
-\index{argument!variable-length tuple}
-\index{gather}
-\index{parameter!gather}
-\index{argument!gather}
-
-Functions can take a variable number of arguments.  A parameter
-name that begins with {\tt *} {\bf gathers} arguments into
-a tuple.  For example, {\tt printall}
-takes any number of arguments and prints them:
-
-\beforeverb
-\begin{verbatim}
-def printall(*args):
-    print args
-\end{verbatim}
-\afterverb
-%
-The gather parameter can have any name you like, but {\tt args} is
-conventional.  Here's how the function works:
-
-\beforeverb
-\begin{verbatim}
->>> printall(1, 2.0, '3')
-(1, 2.0, '3')
-\end{verbatim}
-\afterverb
-%
-You can combine the gather operator with required and positional
-arguments:
-
-\beforeverb
-\begin{verbatim}
-def pointless(required, optional=0, *args):
-    print required, optional, args
-\end{verbatim}
-\afterverb
-%
-Run this function with 1, 2, 3 and 4 or more arguments and
-make sure you understand what it does.
-
-\index{scatter}
-\index{argument scatter}
-
-The complement of gather is {\bf scatter}.  If you have a
-sequence of values and you want to pass it to a function
-as multiple arguments, you can use the {\tt *} operator.
-For example, {\tt divmod} takes exactly two arguments; it
-doesn't work with a tuple:
-
-\index{TypeError}
-\index{exception!TypeError}
-
-\beforeverb
-\begin{verbatim}
->>> t = (7, 3)
->>> divmod(t)
-TypeError: divmod expected 2 arguments, got 1
-\end{verbatim}
-\afterverb
-%
-But if you scatter the tuple, it works:
-
-\beforeverb
-\begin{verbatim}
->>> divmod(*t)
-(2, 1)
-\end{verbatim}
-\afterverb
-%
-
-\begin{ex}
-Many of the built-in functions use
-variable-length argument tuples.  For example, {\tt max}
-and {\tt min} can take any number of arguments:
-
-\index{max function}
-\index{function!max}
-\index{min function}
-\index{function!min}
-
-\beforeverb
-\begin{verbatim}
->>> max(1,2,3)
-3
-\end{verbatim}
-\afterverb
-%
-But {\tt sum} does not.
-
-\index{sum function}
-\index{function!sum}
-
-\beforeverb
-\begin{verbatim}
->>> sum(1,2,3)
-TypeError: sum expected at most 2 arguments, got 3
-\end{verbatim}
-\afterverb
-%
-Write a function called {\tt sumall} that takes any number
-of arguments and returns their sum.
-
-\end{ex}
-
-
 \section{Lists and tuples}
 
 \index{zip function}
@@ -10909,6 +9906,1009 @@ $\log f$ and $\log r$.  Use the graphing program of your
 choice to plot the results and check whether they form
 a straight line.  Can you estimate the value of $s$?
 \end{ex}
+
+\chapter{Advanced functions}
+\label{fruitchap}
+
+\section{Return values}
+\index{return value}
+
+Some of the built-in functions we have used, such as the math
+functions, produce results.  Calling the function generates a
+value, which we usually assign to a variable or use as part of an
+expression.
+
+\beforeverb
+\begin{verbatim}
+e = math.exp(1.0)
+height = radius * math.sin(radians)
+\end{verbatim}
+\afterverb
+%
+All of the functions we have written so far are void; they print
+something or move turtles around, but their return value is {\tt
+None}.
+
+In this chapter, we are (finally) going to write fruitful functions.
+The first example is {\tt area}, which returns the area of a circle
+with the given radius:
+
+\beforeverb
+\begin{verbatim}
+def area(radius):
+    temp = math.pi * radius**2
+    return temp
+\end{verbatim}
+\afterverb
+%
+We have seen the {\tt return} statement before, but in a fruitful
+function the {\tt return} statement includes
+an expression.  This statement means: ``Return immediately from
+this function and use the following expression as a return value.''
+The expression can be arbitrarily complicated, so we could
+have written this function more concisely:
+
+\index{return statement}
+\index{statement!return}
+
+\beforeverb
+\begin{verbatim}
+def area(radius):
+    return math.pi * radius**2
+\end{verbatim}
+\afterverb
+%
+On the other hand, {\bf temporary variables} like {\tt temp} often make
+debugging easier.
+
+\index{temporary variable}
+\index{variable!temporary}
+
+Sometimes it is useful to have multiple return statements, one in each
+branch of a conditional:
+
+\beforeverb
+\begin{verbatim}
+def absolute_value(x):
+    if x < 0:
+        return -x
+    else:
+        return x
+\end{verbatim}
+\afterverb
+%
+Since these {\tt return} statements are in an alternative conditional,
+only one will be executed.
+
+As soon as a return statement executes, the function
+terminates without executing any subsequent statements.
+Code that appears after a {\tt return} statement, or any other place
+the flow of execution can never reach, is called {\bf dead code}.
+
+\index{dead code}
+
+In a fruitful function, it is a good idea to ensure
+that every possible path through the program hits a
+{\tt return} statement.  For example:
+
+\beforeverb
+\begin{verbatim}
+def absolute_value(x):
+    if x < 0:
+        return -x
+    if x > 0:
+        return x
+\end{verbatim}
+\afterverb
+%
+This function is incorrect because if {\tt x} happens to be 0,
+neither condition is true, and the function ends without hitting a
+{\tt return} statement.  If the flow of execution gets to the end
+of a function, the return value is {\tt None}, which is not
+the absolute value of 0.
+
+\index{None special value}
+\index{special value!None}
+
+\beforeverb
+\begin{verbatim}
+>>> print absolute_value(0)
+None
+\end{verbatim}
+\afterverb
+%
+By the way, Python provides a built-in function called 
+{\tt abs} that computes absolute values.
+
+\index{abs function}
+\index{function!abs}
+
+\begin{ex}
+
+\index{compare function}
+\index{function!compare}
+
+Write a {\tt compare} function
+that returns {\tt 1} if {\tt x > y},
+{\tt 0} if {\tt x == y}, and {\tt -1} if {\tt x < y}.
+\end{ex}
+
+\section{Variable-length argument tuples}
+
+\index{variable-length argument tuple}
+\index{argument!variable-length tuple}
+\index{gather}
+\index{parameter!gather}
+\index{argument!gather}
+
+Functions can take a variable number of arguments.  A parameter
+name that begins with {\tt *} {\bf gathers} arguments into
+a tuple.  For example, {\tt printall}
+takes any number of arguments and prints them:
+
+\beforeverb
+\begin{verbatim}
+def printall(*args):
+    print args
+\end{verbatim}
+\afterverb
+%
+The gather parameter can have any name you like, but {\tt args} is
+conventional.  Here's how the function works:
+
+\beforeverb
+\begin{verbatim}
+>>> printall(1, 2.0, '3')
+(1, 2.0, '3')
+\end{verbatim}
+\afterverb
+%
+You can combine the gather operator with required and positional
+arguments:
+
+\beforeverb
+\begin{verbatim}
+def pointless(required, optional=0, *args):
+    print required, optional, args
+\end{verbatim}
+\afterverb
+%
+Run this function with 1, 2, 3 and 4 or more arguments and
+make sure you understand what it does.
+
+\index{scatter}
+\index{argument scatter}
+
+The complement of gather is {\bf scatter}.  If you have a
+sequence of values and you want to pass it to a function
+as multiple arguments, you can use the {\tt *} operator.
+For example, {\tt divmod} takes exactly two arguments; it
+doesn't work with a tuple:
+
+\index{TypeError}
+\index{exception!TypeError}
+
+\beforeverb
+\begin{verbatim}
+>>> t = (7, 3)
+>>> divmod(t)
+TypeError: divmod expected 2 arguments, got 1
+\end{verbatim}
+\afterverb
+%
+But if you scatter the tuple, it works:
+
+\beforeverb
+\begin{verbatim}
+>>> divmod(*t)
+(2, 1)
+\end{verbatim}
+\afterverb
+%
+
+\begin{ex}
+Many of the built-in functions use
+variable-length argument tuples.  For example, {\tt max}
+and {\tt min} can take any number of arguments:
+
+\index{max function}
+\index{function!max}
+\index{min function}
+\index{function!min}
+
+\beforeverb
+\begin{verbatim}
+>>> max(1,2,3)
+3
+\end{verbatim}
+\afterverb
+%
+But {\tt sum} does not.
+
+\index{sum function}
+\index{function!sum}
+
+\beforeverb
+\begin{verbatim}
+>>> sum(1,2,3)
+TypeError: sum expected at most 2 arguments, got 3
+\end{verbatim}
+\afterverb
+%
+Write a function called {\tt sumall} that takes any number
+of arguments and returns their sum.
+
+\end{ex}
+
+
+
+\section{Variables and parameters are local}
+\index{local variable}
+\index{variable!local}
+
+When you create a variable inside a function, it is {\bf local},
+which means that it only
+exists inside the function.  For example:
+
+\index{parentheses!parameters in}
+
+\beforeverb
+\begin{verbatim}
+def cat_twice(part1, part2):
+    cat = part1 + part2
+    print_twice(cat)
+\end{verbatim}
+\afterverb
+%
+This function takes two arguments, concatenates them, and prints
+the result twice.  Here is an example that uses it:
+
+\index{concatenation}
+
+\beforeverb
+\begin{verbatim}
+>>> line1 = 'Bing tiddle '
+>>> line2 = 'tiddle bang.'
+>>> cat_twice(line1, line2)
+Bing tiddle tiddle bang.
+Bing tiddle tiddle bang.
+\end{verbatim}
+\afterverb
+%
+When \verb"cat_twice" terminates, the variable {\tt cat}
+is destroyed.  If we try to print it, we get an exception:
+
+\index{NameError}
+\index{exception!NameError}
+
+\beforeverb
+\begin{verbatim}
+>>> print cat
+NameError: name 'cat' is not defined
+\end{verbatim}
+\afterverb
+%
+Parameters are also local.
+For example, outside \verb"print_twice", there is no
+such thing as {\tt bruce}.
+
+\index{parameter}
+
+\section{Global variables}
+
+\index{global variable}
+\index{variable!global}
+
+In the previous example, {\tt known} is created outside the function,
+so it belongs to the special frame called \verb"__main__".
+Variables in \verb"__main__" are sometimes called {\bf global}
+because they can be accessed from any function.  Unlike local
+variables, which disappear when their function ends, global variables
+persist from one function call to the next.
+
+\index{flag}
+
+It is common to use global variables for {\bf flags}; that is, 
+boolean variables that indicate (``flag'') whether a condition
+is true.  For example, some programs use
+a flag named {\tt verbose} to control the level of detail in the
+output:
+
+\beforeverb
+\begin{verbatim}
+verbose = True
+
+def example1():
+    if verbose:
+        print 'Running example1'
+\end{verbatim}
+\afterverb
+%
+If you try to reassign a global variable, you might be surprised.
+The following example is supposed to keep track of whether the
+function has been called:
+
+\index{multiple assignment}
+\index{assignment!multiple}
+
+\beforeverb
+\begin{verbatim}
+been_called = False
+
+def example2():
+    been_called = True         # WRONG
+\end{verbatim}
+\afterverb
+%
+But if you run it you will see that the value of \verb"been_called"
+doesn't change.  The problem is that {\tt example2} creates a new local
+variable named \verb"been_called".  The local variable goes away when
+the function ends, and has no effect on the global variable.
+
+\index{global statement}
+\index{statement!global}
+\index{declaration}
+
+To reassign a global variable inside a function you have to
+{\bf declare} the global variable before you use it:
+
+\beforeverb
+\begin{verbatim}
+been_called = False
+
+def example2():
+    global been_called 
+    been_called = True
+\end{verbatim}
+\afterverb
+%
+The {\tt global} statement tells the interpreter
+something like, ``In this function, when I say \verb"been_called", I
+mean the global variable; don't create a local one.''
+
+\index{update!global variable}
+\index{global variable!update}
+
+Here's an example that tries to update a global variable:
+
+\beforeverb
+\begin{verbatim}
+count = 0
+
+def example3():
+    count = count + 1          # WRONG
+\end{verbatim}
+\afterverb
+%
+If you run it you get:
+
+\index{UnboundLocalError}
+\index{exception!UnboundLocalError}
+
+\beforeverb
+\begin{verbatim}
+UnboundLocalError: local variable 'count' referenced before assignment
+\end{verbatim}
+\afterverb
+%
+Python assumes that {\tt count} is local, which means
+that you are reading it before writing it.  The solution, again,
+is to declare {\tt count} global.
+
+\index{counter}
+
+\beforeverb
+\begin{verbatim}
+def example3():
+    global count
+    count += 1
+\end{verbatim}
+\afterverb
+%
+If the global value is mutable, you can modify it without
+declaring it:
+
+\index{mutability}
+
+\beforeverb
+\begin{verbatim}
+known = {0:0, 1:1}
+
+def example4():
+    known[2] = 1
+\end{verbatim}
+\afterverb
+%
+So you can add, remove and replace elements of a global list or
+dictionary, but if you want to reassign the variable, you
+have to declare it:
+
+\beforeverb
+\begin{verbatim}
+def example5():
+    global known
+    known = dict()
+\end{verbatim}
+\afterverb
+%
+
+\section{Incremental development}
+\label{incremental development}
+\index{development plan!incremental}
+
+As you write larger functions, you might find yourself
+spending more time debugging.
+
+To deal with increasingly complex programs,
+you might want to try a process called
+{\bf incremental development}.  The goal of incremental development
+is to avoid long debugging sessions by adding and testing only
+a small amount of code at a time.
+
+\index{testing!incremental development}
+\index{Pythagorean theorem}
+
+As an example, suppose you want to find the distance between two
+points, given by the coordinates $(x_1, y_1)$ and $(x_2, y_2)$.
+By the Pythagorean theorem, the distance is:
+
+\begin{displaymath}
+\mathrm{distance} = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}
+\end{displaymath}
+%
+The first step is to consider what a {\tt distance} function should
+look like in Python.  In other words, what are the inputs (parameters)
+and what is the output (return value)?
+
+In this case, the inputs are two points, which you can represent
+using four numbers.  The return value is the distance, which is
+a floating-point value.
+
+Already you can write an outline of the function:
+
+\beforeverb
+\begin{verbatim}
+def distance(x1, y1, x2, y2):
+    return 0.0
+\end{verbatim}
+\afterverb
+%
+Obviously, this version doesn't compute distances; it always returns
+zero.  But it is syntactically correct, and it runs, which means that
+you can test it before you make it more complicated.
+
+To test the new function, call it with sample arguments:
+
+\beforeverb
+\begin{verbatim}
+>>> distance(1, 2, 4, 6)
+0.0
+\end{verbatim}
+\afterverb
+%
+I chose these values so that the horizontal distance is 3 and the
+vertical distance is 4; that way, the result is 5
+(the hypotenuse of a 3-4-5 triangle). When testing a function, it is
+useful to know the right answer.
+
+\index{testing!knowing the answer}
+
+At this point we have confirmed that the function is syntactically
+correct, and we can start adding code to the body.
+A reasonable next step is to find the differences
+$x_2 - x_1$ and $y_2 - y_1$.  The next version stores those values in
+temporary variables and prints them.
+
+\beforeverb
+\begin{verbatim}
+def distance(x1, y1, x2, y2):
+    dx = x2 - x1
+    dy = y2 - y1
+    print 'dx is', dx
+    print 'dy is', dy
+    return 0.0
+\end{verbatim}
+\afterverb
+%
+If the function is working, it should display \verb"'dx is 3'" and {\tt
+'dy is 4'}.  If so, we know that the function is getting the right
+arguments and performing the first computation correctly.  If not,
+there are only a few lines to check.
+
+Next we compute the sum of squares of {\tt dx} and {\tt dy}:
+
+\beforeverb
+\begin{verbatim}
+def distance(x1, y1, x2, y2):
+    dx = x2 - x1
+    dy = y2 - y1
+    dsquared = dx**2 + dy**2
+    print 'dsquared is: ', dsquared
+    return 0.0
+\end{verbatim}
+\afterverb
+%
+Again, you would run the program at this stage and check the output
+(which should be 25).
+Finally, you can use {\tt math.sqrt} to compute and return the result:
+
+\index{sqrt}
+\index{function!sqrt}
+
+\beforeverb
+\begin{verbatim}
+def distance(x1, y1, x2, y2):
+    dx = x2 - x1
+    dy = y2 - y1
+    dsquared = dx**2 + dy**2
+    result = math.sqrt(dsquared)
+    return result
+\end{verbatim}
+\afterverb
+%
+If that works correctly, you are done.  Otherwise, you might
+want to print the value of {\tt result} before the return
+statement.
+
+The final version of the function doesn't display anything when it
+runs; it only returns a value.  The {\tt print} statements we wrote
+are useful for debugging, but once you get the function working, you
+should remove them.  Code like that is called {\bf scaffolding}
+because it is helpful for building the program but is not part of the
+final product.
+
+\index{scaffolding}
+
+When you start out, you should add only a line or two of code at a
+time.  As you gain more experience, you might find yourself writing
+and debugging bigger chunks.  Either way, incremental development
+can save you a lot of debugging time.
+
+The key aspects of the process are:
+
+\begin{enumerate}
+
+\item Start with a working program and make small incremental changes. 
+At any point, if there is an error, you should have a good idea
+where it is.
+
+\item Use temporary variables to hold intermediate values so you can
+display and check them.
+
+\item Once the program is working, you might want to remove some of
+the scaffolding or consolidate multiple statements into compound
+expressions, but only if it does not make the program difficult to
+read.
+
+\end{enumerate}
+
+\begin{ex}
+
+\index{hypotenuse}
+
+Use incremental development to write a function
+called {\tt hypotenuse} that returns the length of the hypotenuse of a
+right triangle given the lengths of the two legs as arguments.
+Record each stage of the development process as you go.
+\end{ex}
+
+
+\section{Composition}
+
+\index{composition}
+\index{function composition}
+
+As you should expect by now, you can call one function from
+within another.  This ability is called {\bf composition}.
+
+As an example, we'll write a function that takes two points,
+the center of the circle and a point on the perimeter, and computes
+the area of the circle.
+
+Assume that the center point is stored in the variables {\tt xc} and
+{\tt yc}, and the perimeter point is in {\tt xp} and {\tt yp}. The
+first step is to find the radius of the circle, which is the distance
+between the two points.  We just wrote a function, {\tt
+distance}, that does that:
+
+\beforeverb
+\begin{verbatim}
+radius = distance(xc, yc, xp, yp)
+\end{verbatim}
+\afterverb
+%
+The next step is to find the area of a circle with that radius;
+we just wrote that, too:
+
+\beforeverb
+\begin{verbatim}
+result = area(radius)
+\end{verbatim}
+\afterverb
+%
+Encapsulating these steps in a function, we get:
+
+\index{encapsulation}
+
+\beforeverb
+\begin{verbatim}
+def circle_area(xc, yc, xp, yp):
+    radius = distance(xc, yc, xp, yp)
+    result = area(radius)
+    return result
+\end{verbatim}
+\afterverb
+%
+The temporary variables {\tt radius} and {\tt result} are useful for
+development and debugging, but once the program is working, we can
+make it more concise by composing the function calls:
+
+\beforeverb
+\begin{verbatim}
+def circle_area(xc, yc, xp, yp):
+    return area(distance(xc, yc, xp, yp))
+\end{verbatim}
+\afterverb
+%
+
+\section{Stack diagrams}
+\label{stackdiagram}
+\index{stack diagram}
+\index{function frame}
+\index{frame}
+
+To keep track of which variables can be used where, it is sometimes
+useful to draw a {\bf stack diagram}.  Like state diagrams, stack
+diagrams show the value of each variable, but they also show the
+function each variable belongs to.
+
+\index{stack diagram}
+\index{diagram!stack}
+
+Each function is represented by a {\bf frame}.  A frame is a box
+with the name of a function
+beside it and the parameters and variables of the function inside it.
+The stack diagram for the
+previous example looks like this:
+
+\beforefig
+\centerline{\includegraphics{figs/stack.eps}}
+\afterfig
+
+The frames are arranged in a stack that indicates which function
+called which, and so on.  In this example, \verb"print_twice"
+was called by \verb"cat_twice", and \verb"cat_twice" was called by 
+\verb"__main__", which is a special name for the topmost frame.  When
+you create a variable outside of any function, it belongs to 
+\verb"__main__".
+
+Each parameter refers to the same value as its corresponding
+argument.  So, {\tt part1} has the same value as
+{\tt line1}, {\tt part2} has the same value as {\tt line2},
+and {\tt bruce} has the same value as {\tt cat}.
+
+If an error occurs during a function call, Python prints the
+name of the function, and the name of the function that called
+it, and the name of the function that called {\em that}, all the
+way back to \verb"__main__".
+
+For example, if you try to access {\tt cat} from within 
+\verb"print_twice", you get a {\tt NameError}:
+
+\beforeverb
+\begin{verbatim}
+Traceback (innermost last):
+  File "test.py", line 13, in __main__
+    cat_twice(line1, line2)
+  File "test.py", line 5, in cat_twice
+    print_twice(cat)
+  File "test.py", line 9, in print_twice
+    print cat
+NameError: name 'cat' is not defined
+\end{verbatim}
+\afterverb
+%
+This list of functions is called a {\bf traceback}.  It tells you what
+program file the error occurred in, and what line, and what functions
+were executing at the time.  It also shows the line of code that
+caused the error.
+
+\index{traceback}
+
+The order of the functions in the traceback is the same as the
+order of the frames in the stack diagram.  The function that is
+currently running is at the bottom.
+
+
+\section{Boolean functions}
+\label{boolean}
+
+\index{boolean function}
+
+Functions can return booleans, which is often convenient for hiding
+complicated tests inside functions.  For example:
+
+\beforeverb
+\begin{verbatim}
+def is_divisible(x, y):
+    if x % y == 0:
+        return True
+    else:
+        return False
+\end{verbatim}
+\afterverb
+%
+It is common to give boolean functions names that sound like yes/no
+questions; \verb"is_divisible" returns either {\tt True} or {\tt False}
+to indicate whether {\tt x} is divisible by {\tt y}.
+
+Here is an example:
+
+\beforeverb
+\begin{verbatim}
+>>>   is_divisible(6, 4)
+False
+>>>   is_divisible(6, 3)
+True
+\end{verbatim}
+\afterverb
+%
+The result of the {\tt ==} operator is a boolean, so we can write the
+function more concisely by returning it directly:
+
+\beforeverb
+\begin{verbatim}
+def is_divisible(x, y):
+    return x % y == 0
+\end{verbatim}
+\afterverb
+%
+Boolean functions are often used in conditional statements:
+
+\index{conditional statement}
+\index{statement!conditional}
+
+\beforeverb
+\begin{verbatim}
+if is_divisible(x, y):
+    print 'x is divisible by y'
+\end{verbatim}
+\afterverb
+%
+It might be tempting to write something like:
+
+\beforeverb
+\begin{verbatim}
+if is_divisible(x, y) == True:
+    print 'x is divisible by y'
+\end{verbatim}
+\afterverb
+%
+But the extra comparison is unnecessary.
+
+\begin{ex}
+Write a function \verb"is_between(x, y, z)" that
+returns {\tt True} if $x \le y \le z$ or {\tt False} otherwise.
+\end{ex}
+
+% TBD - May want ot talk about "guarding" code here - lots removed
+
+\section{Debugging}
+\label{factdebug}
+
+\index{debugging}
+
+Breaking a large program into smaller functions creates natural
+checkpoints for debugging.  If a function is not working, there are
+three possibilities to consider:
+
+\begin{itemize}
+
+\item There is something wrong with the arguments the function
+is getting; a precondition is violated.
+
+\item There is something wrong with the function; a postcondition
+is violated.
+
+\item There is something wrong with the return value or the
+way it is being used.
+
+\end{itemize}
+
+To rule out the first possibility, you can add a {\tt print} statement
+at the beginning of the function and display the values of the
+parameters (and maybe their types).  Or you can write code
+that checks the preconditions explicitly.
+
+\index{precondition}
+\index{postcondition}
+
+If the parameters look good, add a {\tt print} statement before each
+{\tt return} statement that displays the return value.  If
+possible, check the result by hand.  Consider calling the
+function with values that make it easy to check the result
+(as in Section~\ref{incremental development}).
+
+If the function seems to be working, look at the function call
+to make sure the return value is being used correctly (or used
+at all!).
+
+\index{flow of execution}
+
+Adding print statements at the beginning and end of a function
+can help make the flow of execution more visible.
+
+If you are confused about the flow of execution, this kind of
+output can be helpful.  It takes some time to develop effective
+scaffolding, but a little bit of scaffolding can save a lot of debugging.
+
+
+\section{Glossary}
+
+\begin{description}
+
+\item[temporary variable:]  A variable used to store an intermediate value in
+a complex calculation.
+\index{temporary variable}
+\index{variable!temporary}
+
+\item[dead code:]  Part of a program that can never be executed, often because
+it appears after a {\tt return} statement.
+\index{dead code}
+
+\item[{\tt None}:]  A special value returned by functions that
+have no return statement or a return statement without an argument.
+\index{None special value}
+\index{special value!None}
+
+\item[local variable:]  A variable defined inside a function.  A local
+variable can only be used inside its function.
+\index{local variable}
+
+\item[incremental development:]  A program development plan intended to
+avoid debugging by adding and testing only
+a small amount of code at a time.
+\index{incremental development}
+
+\item[scaffolding:]  Code that is used during program development but is
+not part of the final version.
+\index{scaffolding}
+
+\item[guardian:]  A programming pattern that uses a conditional
+statement to check for and handle circumstances that
+might cause an error.
+\index{guardian pattern}
+\index{pattern!guardian}
+
+\item[stack diagram:]  A graphical representation of a stack of functions,
+their variables, and the values they refer to.
+\index{stack diagram}
+
+\item[frame:]  A box in a stack diagram that represents a function call.
+It contains the local variables and parameters of the function.
+\index{function frame}
+\index{frame}
+
+\item[traceback:]  A list of the functions that are executing,
+printed when an exception occurs.
+\index{traceback}
+
+\end{description}
+
+
+\section{Exercises}
+
+\begin{ex}
+\index{stack diagram}
+
+Draw a stack diagram for the following
+program.  What does the program print?
+
+\beforeverb
+\begin{verbatim}
+def b(z):
+    prod = a(z, z)
+    print z, prod
+    return prod
+
+def a(x, y):
+    x = x + 1
+    return x * y
+
+def c(x, y, z):
+    sum = x + y + z
+    pow = b(sum)**2
+    return pow
+
+x = 1
+y = x + 1
+print c(x, y+3, x+y)
+\end{verbatim}
+\afterverb
+
+\end{ex}
+
+
+
+\begin{ex}
+\label{palindrome}
+
+\index{palindrome}
+
+A palindrome is a word that is spelled the same backward and
+forward, like ``noon'' and ``redivider''.  Recursively, a word
+is a palindrome if the first and last letters are the same
+and the middle is a palindrome.
+
+The following are functions that take a string argument and
+return the first, last, and middle letters:
+
+\beforeverb
+\begin{verbatim}
+def first(word):
+    return word[0]
+
+def last(word):
+    return word[-1]
+
+def middle(word):
+    return word[1:-1]
+\end{verbatim}
+\afterverb
+%
+We'll see how they work in Chapter~\ref{strings}.
+
+\begin{enumerate}
+
+\item Type these functions into a file named {\tt palindrome.py}
+and test them out.  What happens if you call {\tt middle} with
+a string with two letters?  One letter?  What about the empty
+string, which is written \verb"''" and contains no letters?
+
+\item Write a function called \verb"is_palindrome" that takes
+a string argument and returns {\tt True} if it is a palindrome
+and {\tt False} otherwise.  Remember that you can use the
+built-in function {\tt len} to check the length of a string.
+
+\end{enumerate}
+
+\end{ex}
+
+\begin{ex}
+A number, $a$, is a power of $b$ if it is divisible by $b$
+and $a/b$ is a power of $b$.  Write a function called
+\verb"is_power" that takes parameters {\tt a} and {\tt b}
+and returns {\tt True} if {\tt a} is a power of {\tt b}.
+\end{ex}
+
+
+\begin{ex}
+
+\index{greatest common divisor (GCD)}
+\index{GCD (greatest common divisor)}
+
+The greatest common divisor (GCD) of $a$ and $b$ is the largest number
+that divides both of them with no remainder\footnote{This exercise is
+  based on an example from Abelson and Sussman's {\em Structure and
+    Interpretation of Computer Programs}.}.
+
+One way to find the GCD of two numbers is Euclid's algorithm,
+which is based on the observation that if $r$ is the remainder
+when $a$ is divided by $b$, then $gcd(a, b) = gcd(b, r)$.
+As a base case, we can consider $gcd(a, 0) = a$.
+
+\index{Euclid's algorithm}
+\index{algorithm!Euclid}
+
+Write a function called
+\verb"gcd" that takes parameters {\tt a} and {\tt b}
+and returns their greatest common divisor.  If you need
+help, see \url{wikipedia.org/wiki/Euclidean_algorithm}.
+
+\end{ex}
+
+
+
 
 
 \chapter{Networked programs}
