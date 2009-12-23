@@ -4384,6 +4384,11 @@ during the loop {\tt total} is the running total, and at the end of
 the loop {\tt total} is the overal total of all the values 
 in the list.
 
+As the loop executes, {\tt total} accumulates the sum of the
+elements; a variable used this way is sometimes called an
+{\bf accumulator}.
+\index{accumulator!sum}
+
 Neither the counting loop nor the summing loop are particularly 
 useful in practice because there are built-in functions 
 {\tt len()} and {\tt sum()} that compute the number of 
@@ -4555,6 +4560,16 @@ a variable that will be updated.
 \item[iteration:] Repeated execution of a set of statements using
 either a recursive function call or a loop.
 \index{iteration}
+
+\item[counter:] A variable used in a loop to count the number
+of times something happenned.  We initialize a counter to 
+zero and then increment the counter each time we want to
+``count'' something.
+\index{counter}
+
+\item[accumulator:] A variable used in a loop to add up or
+accumulate a result.
+\index{accumulator}
 
 \item[infinite loop:] A loop in which the terminating condition is
 never satisfied.
@@ -6014,6 +6029,8 @@ of the lines and processing lines which meet a particular criteria.
 We can combine the pattern for reading a file with string {\bf methods}
 to build simple search mechanisms.
 
+\index{filter pattern}
+\index{pattern!filter}
 For example, if we wanted to read a file and only print out lines
 which started with the prefis ``From:'', we could use the 
 string method {\bf startswith} to select only those lines with
@@ -7116,139 +7133,6 @@ with the result.
 \index{None special value}
 \index{special value!None}
 
-
-\section{Map, filter and reduce}
-
-To add up all the numbers in a list, you can use a loop like this:
-
-% see add.py
-
-\beforeverb
-\begin{verbatim}
-def add_all(t):
-    total = 0
-    for x in t:
-        total += x
-    return total
-\end{verbatim}
-\afterverb
-%
-{\tt total} is initialized to 0.  Each time through the loop,
-{\tt x} gets one element from the list.  The {\tt +=} operator
-provides a short way to update a variable:
-
-\index{update operator}
-\index{operator!update}
-
-\beforeverb
-\begin{verbatim}
-    total += x
-\end{verbatim}
-\afterverb
-%
-is equivalent to:
-
-\beforeverb
-\begin{verbatim}
-    total = total + x
-\end{verbatim}
-\afterverb
-%
-As the loop executes, {\tt total} accumulates the sum of the
-elements; a variable used this way is sometimes called an
-{\bf accumulator}.
-
-\index{accumulator!sum}
-
-Adding up the elements of a list is such a common operation
-that Python provides it as a built-in function, {\tt sum}:
-
-\beforeverb
-\begin{verbatim}
->>> t = [1, 2, 3]
->>> sum(t)
-6
-\end{verbatim}
-\afterverb
-%
-An operation like this that combines a sequence of elements into
-a single value is sometimes called {\bf reduce}.
-
-\index{reduce pattern}
-\index{pattern!reduce}
-\index{traversal}
-
-Sometimes you want to traverse one list while building
-another.  For example, the following function takes a list of strings
-and returns a new list that contains capitalized strings:
-
-\beforeverb
-\begin{verbatim}
-def capitalize_all(t):
-    res = []
-    for s in t:
-        res.append(s.capitalize())
-    return res
-\end{verbatim}
-\afterverb
-%
-{\tt res} is initialized with an empty list; each time through
-the loop, we append the next element.  So {\tt res} is another
-kind of accumulator.
-
-\index{accumulator!list}
-
-An operation like \verb"capitalize_all" is sometimes called a {\bf
-map} because it ``maps'' a function (in this case the method {\tt
-capitalize}) onto each of the elements in a sequence.
-
-\index{map pattern}
-\index{pattern!map}
-\index{filter pattern}
-\index{pattern!filter}
-
-Another common operation is to select some of the elements from
-a list and return a sublist.  For example, the following
-function takes a list of strings and returns a list that contains
-only the uppercase strings:
-
-\beforeverb
-\begin{verbatim}
-def only_upper(t):
-    res = []
-    for s in t:
-        if s.isupper():
-            res.append(s)
-    return res
-\end{verbatim}
-\afterverb
-%
-{\tt isupper} is a string method that returns {\tt True} if
-the string contains only upper case letters.
-
-An operation like \verb"only_upper" is called a {\bf filter} because
-it selects some of the elements and filters out the others.
-
-Most common list operations can be expressed as a combination
-of map, filter and reduce.  Because these operations are
-so common, Python provides language features to support them,
-including the built-in function {\tt map} and an operator
-called a ``list comprehension.''
-
-\index{list!comprehension}
-
-\begin{ex}
-\label{cumulative}
-\index{cumulative sum}
-
-Write a function that takes a list of numbers and returns the
-cumulative sum; that is, a new list where the $i$th element
-is the sum of the first $i+1$ elements from the original list.
-For example, the cumulative sum of {\tt [1, 2, 3]} is
-{\tt [1, 3, 6]}. 
-\end{ex}
-
-
 \section{Deleting elements}
 
 \index{element deletion}
@@ -7821,32 +7705,6 @@ also called items.
 
 \item[list traversal:] The sequential accessing of each element in a list.
 \index{list!traversal}
-
-\item[mapping:] A relationship in which each element of one set
-corresponds to an element of another set.  For example, a list is
-a mapping from indices to elements.
-\index{mapping}
-
-\item[accumulator:] A variable used in a loop to add up or
-accumulate a result.
-\index{accumulator}
-
-\index{traversal}
-
-\item[reduce:] A processing pattern that traverses a sequence 
-and accumulates the elements into a single result.
-\index{reduce pattern}
-\index{pattern!reduce}
-
-\item[map:] A processing pattern that traverses a sequence and
-performs an operation on each element.
-\index{map pattern}
-\index{pattern!map}
-
-\item[filter:] A processing pattern that traverses a list and
-selects the elements that satisfy some criterion.
-\index{filter pattern}
-\index{pattern!filter}
 
 \item[object:] Something a variable can refer to.  An object
 has a type and a value.
