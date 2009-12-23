@@ -8646,9 +8646,15 @@ You can see my solution at \url{thinkpython.com/code/homophone.py}.
 
 A tuple is a sequence of values.  The values can be any type, and
 they are indexed by integers, so in that respect tuples are a lot
-like lists.  The important difference is that tuples are immutable.
+like lists.  The important difference is that tuples are {\bf immutable}.
+Tuples are also {\bf comparable} and {\bf hashable} as long as the 
+values which make up the tuple are comparable and hashable.
 
+At first, this may not seem like such as signficant difference, but
+it allows us to to many more things with tuples than with lists.
 \index{mutability}
+\index{hashable}
+\index{comparable}
 \index{immutability}
 
 Syntactically, a tuple is a comma-separated list of values:
@@ -8660,7 +8666,8 @@ Syntactically, a tuple is a comma-separated list of values:
 \afterverb
 %
 Although it is not necessary, it is common to enclose tuples in
-parentheses:
+parentheses to help use quickly identify tuples when we look at
+Python code:
 
 \index{parentheses!tuples in}
 
@@ -8777,6 +8784,242 @@ one tuple with another:
 \end{verbatim}
 \afterverb
 %
+
+\section{Comparing tuples}
+
+\index{comparison!tuple}
+\index{tuple!comparison}
+\index{sort method}
+\index{method!sort}
+
+The comparison operators work with tuples and other sequences;
+Python starts by comparing the first element from each
+sequence.  If they are equal, it goes on to the next elements,
+and so on, until it finds elements that differ.  Subsequent
+elements are not considered (even if they are really big).
+
+\beforeverb
+\begin{verbatim}
+>>> (0, 1, 2) < (0, 3, 4)
+True
+>>> (0, 1, 2000000) < (0, 3, 4)
+True
+\end{verbatim}
+\afterverb
+%
+The {\tt sort} function works the same way.  It sorts 
+primarily by first element, but in the case of a tie, it sorts
+by second element, and so on.  
+
+This feature lends itself to a pattern called {\bf DSU} for 
+
+\begin{description}
+
+\item[Decorate] a sequence by building a list of tuples
+with one or more sort keys preceding the elements from the sequence,
+
+\item[Sort] the list of tuples, and
+
+\item[Undecorate] by extracting the sorted elements of the sequence.
+
+\end{description}
+
+\label{DSU}
+\index{DSU pattern}
+\index{pattern!DSU}
+\index{decorate-sort-undecorate pattern}
+\index{pattern!decorate-sort-undecorate}
+
+For example, suppose you have a list of words and you want to
+sort them from longest to shortest:
+
+\beforeverb
+\begin{verbatim}
+def sort_by_length(words):
+    t = []
+    for word in words:
+       t.append((len(word), word))
+
+    t.sort(reverse=True)
+
+    res = []
+    for length, word in t:
+        res.append(word)
+    return res
+\end{verbatim}
+\afterverb
+%
+The first loop builds a list of tuples, where each
+tuple is a word preceded by its length.
+
+{\tt sort} compares the first element, length, first, and
+only considers the second element to break ties.  The keyword argument
+{\tt reverse=True} tells {\tt sort} to go in decreasing order.
+
+\index{keyword argument}
+\index{argument!keyword}
+\index{traversal}
+
+The second loop traverses the list of tuples and builds a list of
+words in descending order of length.
+
+\begin{ex}
+In this example, ties are broken by comparing words, so words
+with the same length appear in alphabetical order.  For other
+applications you might want to break ties at random.  Modify
+this example so that words with the same length appear in
+random order.  Hint: see the {\tt random} function in the
+{\tt random} module.
+
+\index{random module}
+\index{module!random}
+\index{random function}
+\index{function!random}
+
+\end{ex}
+
+
+\section{Dictionaries and tuples}
+
+\index{dictionary}
+\index{items method}
+\index{method!items}
+\index{key-value pair}
+
+Dictionaries have a method called {\tt items} that returns a list of
+tuples, where each tuple is a key-value pair\footnote{This behavior is
+  slightly different in Python 3.0.}.
+
+\beforeverb
+\begin{verbatim}
+>>> d = {'a':0, 'b':1, 'c':2}
+>>> t = d.items()
+>>> print t
+[('a', 0), ('c', 2), ('b', 1)]
+\end{verbatim}
+\afterverb
+%
+As you should expect from a dictionary, the items are in no
+particular order.
+
+\index{dictionary!initialize}
+
+Conversely, you can use a list of tuples to initialize
+a new dictionary:
+
+\beforeverb
+\begin{verbatim}
+>>> t = [('a', 0), ('c', 2), ('b', 1)]
+>>> d = dict(t)
+>>> print d
+{'a': 0, 'c': 2, 'b': 1}
+\end{verbatim}
+\afterverb
+
+Combining {\tt dict} with {\tt zip} yields a concise way
+to create a dictionary:
+
+\index{zip function!use with dict}
+
+\beforeverb
+\begin{verbatim}
+>>> d = dict(zip('abc', range(3)))
+>>> print d
+{'a': 0, 'c': 2, 'b': 1}
+\end{verbatim}
+\afterverb
+%
+The dictionary method {\tt update} also takes a list of tuples
+and adds them, as key-value pairs, to an existing dictionary.
+
+\index{update method}
+\index{method!update}
+
+\section{Multiple assignment with dictionaries}
+
+\index{traverse!dictionary}
+\index{dictionary!traversal}
+
+Combining {\tt items}, tuple assignment and {\tt for}, you
+get the idiom for traversing the keys and values of a dictionary:
+
+\beforeverb
+\begin{verbatim}
+for key, val in d.items():
+    print val, key
+\end{verbatim}
+\afterverb
+%
+The output of this loop is:
+
+\beforeverb
+\begin{verbatim}
+0 a
+2 c
+1 b
+\end{verbatim}
+\afterverb
+%
+Again.
+
+\index{tuple!as key in dictionary}
+\index{hashable}
+
+It is common to use tuples as keys in dictionaries (primarily because
+you can't use lists).  For example, a telephone directory might map
+from last-name, first-name pairs to telephone numbers.  Assuming
+that we have defined {\tt last}, {\tt first} and {\tt number}, we
+could write:
+
+\beforeverb
+\begin{verbatim}
+directory[last,first] = number
+\end{verbatim}
+\afterverb
+%
+The expression in brackets is a tuple.  We could use tuple
+assignment to traverse this dictionary.
+
+\index{tuple!in brackets}
+
+\beforeverb
+\begin{verbatim}
+for last, first in directory:
+    print first, last, directory[last,first]
+\end{verbatim}
+\afterverb
+%
+This loop traverses the keys in {\tt directory}, which are tuples.  It
+assigns the elements of each tuple to {\tt last} and {\tt first}, then
+prints the name and corresponding telephone number.
+
+There are two ways to represent tuples in a state diagram.  The more
+detailed version shows the indices and elements just as they appear in
+a list.  For example, the tuple \verb"('Cleese', 'John')" would appear:
+
+\index{state diagram}
+\index{diagram!state}
+
+\beforefig
+\centerline{\includegraphics{figs/tuple1.eps}}
+\afterfig
+
+But in a larger diagram you might want to leave out the
+details.  For example, a diagram of the telephone directory might
+appear:
+
+\beforefig
+\centerline{\includegraphics{figs/dict2.eps}}
+\afterfig
+
+Here the tuples are shown using Python syntax as a graphical
+shorthand.
+
+The telephone number in the diagram is the complaints line for the
+BBC, so please don't call it.
+
+
+
 
 \section{Tuple assignment}
 \label{tuple assignment}
@@ -8966,63 +9209,6 @@ The output of this loop is:
 %
 Again.
 
-
-\section{Dictionaries and tuples}
-
-\index{dictionary}
-\index{items method}
-\index{method!items}
-\index{key-value pair}
-
-Dictionaries have a method called {\tt items} that returns a list of
-tuples, where each tuple is a key-value pair\footnote{This behavior is
-  slightly different in Python 3.0.}.
-
-\beforeverb
-\begin{verbatim}
->>> d = {'a':0, 'b':1, 'c':2}
->>> t = d.items()
->>> print t
-[('a', 0), ('c', 2), ('b', 1)]
-\end{verbatim}
-\afterverb
-%
-As you should expect from a dictionary, the items are in no
-particular order.
-
-\index{dictionary!initialize}
-
-Conversely, you can use a list of tuples to initialize
-a new dictionary:
-
-\beforeverb
-\begin{verbatim}
->>> t = [('a', 0), ('c', 2), ('b', 1)]
->>> d = dict(t)
->>> print d
-{'a': 0, 'c': 2, 'b': 1}
-\end{verbatim}
-\afterverb
-
-Combining {\tt dict} with {\tt zip} yields a concise way
-to create a dictionary:
-
-\index{zip function!use with dict}
-
-\beforeverb
-\begin{verbatim}
->>> d = dict(zip('abc', range(3)))
->>> print d
-{'a': 0, 'c': 2, 'b': 1}
-\end{verbatim}
-\afterverb
-%
-The dictionary method {\tt update} also takes a list of tuples
-and adds them, as key-value pairs, to an existing dictionary.
-
-\index{update method}
-\index{method!update}
-
 \section{Multiple assignment}
 
 \index{assignment}
@@ -9093,186 +9279,7 @@ Although multiple assignment is frequently helpful, you should use it
 with caution.  If the values of variables change frequently, it can
 make the code difficult to read and debug.
 
-\section{Multiple assignment with dictionaries}
-
-\index{traverse!dictionary}
-\index{dictionary!traversal}
-
-Combining {\tt items}, tuple assignment and {\tt for}, you
-get the idiom for traversing the keys and values of a dictionary:
-
-\beforeverb
-\begin{verbatim}
-for key, val in d.items():
-    print val, key
-\end{verbatim}
-\afterverb
-%
-The output of this loop is:
-
-\beforeverb
-\begin{verbatim}
-0 a
-2 c
-1 b
-\end{verbatim}
-\afterverb
-%
-Again.
-
-\index{tuple!as key in dictionary}
-\index{hashable}
-
-It is common to use tuples as keys in dictionaries (primarily because
-you can't use lists).  For example, a telephone directory might map
-from last-name, first-name pairs to telephone numbers.  Assuming
-that we have defined {\tt last}, {\tt first} and {\tt number}, we
-could write:
-
-\beforeverb
-\begin{verbatim}
-directory[last,first] = number
-\end{verbatim}
-\afterverb
-%
-The expression in brackets is a tuple.  We could use tuple
-assignment to traverse this dictionary.
-
-\index{tuple!in brackets}
-
-\beforeverb
-\begin{verbatim}
-for last, first in directory:
-    print first, last, directory[last,first]
-\end{verbatim}
-\afterverb
-%
-This loop traverses the keys in {\tt directory}, which are tuples.  It
-assigns the elements of each tuple to {\tt last} and {\tt first}, then
-prints the name and corresponding telephone number.
-
-There are two ways to represent tuples in a state diagram.  The more
-detailed version shows the indices and elements just as they appear in
-a list.  For example, the tuple \verb"('Cleese', 'John')" would appear:
-
-\index{state diagram}
-\index{diagram!state}
-
-\beforefig
-\centerline{\includegraphics{figs/tuple1.eps}}
-\afterfig
-
-But in a larger diagram you might want to leave out the
-details.  For example, a diagram of the telephone directory might
-appear:
-
-\beforefig
-\centerline{\includegraphics{figs/dict2.eps}}
-\afterfig
-
-Here the tuples are shown using Python syntax as a graphical
-shorthand.
-
-The telephone number in the diagram is the complaints line for the
-BBC, so please don't call it.
-
-
-
-\section{Comparing tuples}
-
-\index{comparison!tuple}
-\index{tuple!comparison}
-\index{sort method}
-\index{method!sort}
-
-The comparison operators work with tuples and other sequences;
-Python starts by comparing the first element from each
-sequence.  If they are equal, it goes on to the next elements,
-and so on, until it finds elements that differ.  Subsequent
-elements are not considered (even if they are really big).
-
-\beforeverb
-\begin{verbatim}
->>> (0, 1, 2) < (0, 3, 4)
-True
->>> (0, 1, 2000000) < (0, 3, 4)
-True
-\end{verbatim}
-\afterverb
-%
-The {\tt sort} function works the same way.  It sorts 
-primarily by first element, but in the case of a tie, it sorts
-by second element, and so on.  
-
-This feature lends itself to a pattern called {\bf DSU} for 
-
-\begin{description}
-
-\item[Decorate] a sequence by building a list of tuples
-with one or more sort keys preceding the elements from the sequence,
-
-\item[Sort] the list of tuples, and
-
-\item[Undecorate] by extracting the sorted elements of the sequence.
-
-\end{description}
-
-\label{DSU}
-\index{DSU pattern}
-\index{pattern!DSU}
-\index{decorate-sort-undecorate pattern}
-\index{pattern!decorate-sort-undecorate}
-
-For example, suppose you have a list of words and you want to
-sort them from longest to shortest:
-
-\beforeverb
-\begin{verbatim}
-def sort_by_length(words):
-    t = []
-    for word in words:
-       t.append((len(word), word))
-
-    t.sort(reverse=True)
-
-    res = []
-    for length, word in t:
-        res.append(word)
-    return res
-\end{verbatim}
-\afterverb
-%
-The first loop builds a list of tuples, where each
-tuple is a word preceded by its length.
-
-{\tt sort} compares the first element, length, first, and
-only considers the second element to break ties.  The keyword argument
-{\tt reverse=True} tells {\tt sort} to go in decreasing order.
-
-\index{keyword argument}
-\index{argument!keyword}
-\index{traversal}
-
-The second loop traverses the list of tuples and builds a list of
-words in descending order of length.
-
-\begin{ex}
-In this example, ties are broken by comparing words, so words
-with the same length appear in alphabetical order.  For other
-applications you might want to break ties at random.  Modify
-this example so that words with the same length appear in
-random order.  Hint: see the {\tt random} function in the
-{\tt random} module.
-
-\index{random module}
-\index{module!random}
-\index{random function}
-\index{function!random}
-
-\end{ex}
-
-
-\section{Sequences of sequences}
+\section{Sequences: strings, lists, and tuples--Oh My!}
 \index{sequence}
 
 I have focused on lists of tuples, but almost all of the examples in
@@ -9417,6 +9424,17 @@ If you are having trouble keeping track of your data structures,
 \item[tuple:] An immutable sequence of elements.
 \index{tuple}
 
+\item[hashable:] A type that has a hash function.  Immutable
+types like integers,
+floats and strings are hashable; mutable types like lists and
+dictionaries are not.
+\index{hashable}
+
+\item[comparable:] A type where one value can be checked to see if it is
+greater than, less than or equal to another value of the same type.
+Types which are comparable can be put in a list and sorted.
+\index{comparable}
+
 \item[tuple assignment:] An assignment with a sequence on the
 right side and a tuple of variables on the left.  The right
 side is evaluated and then its elements are assigned to the
@@ -9435,11 +9453,6 @@ argument tuple.
 arguments.
 \index{scatter}
 
-\item[hashable:] A type that has a hash function.  Immutable
-types like integers,
-floats and strings are hashable; mutable types like lists and
-dictionaries are not.
-\index{hashable}
 
 \item[DSU:] Abbreviation of ``decorate-sort-undecorate,'' a
 pattern that involves building a list of tuples, sorting, and
