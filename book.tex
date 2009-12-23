@@ -5663,6 +5663,11 @@ contains format sequences.
 
 \item[format sequence:] A sequence of characters in a format string,
 like {\tt \%d}, that specifies how a value should be formatted.
+
+\item[flag:] A boolean variable used to indicate whether a condition
+is true.
+\index{flag}
+
 \index{format sequence}
 
 \end{description}
@@ -8177,8 +8182,9 @@ should be able to eliminate the {\tt if} statement.
 
 \section{Dictionaries and files}
 
-On of the best uses of a dictionary is to count the occurance
-of something in a file.  Lets start with a very simple file of
+One of the common uses of a dictionary is to count the occurance
+of words in a file with some written text.  
+Lets start with a very simple file of
 words taken from the text of {\em Romeo and Juliet}
 thanks to 
 \url{http://shakespeare.mit.edu/Tragedy/romeoandjuliet/romeo_juliet.2.2.html}.
@@ -8199,6 +8205,23 @@ Who is already sick and pale with grief
 We will write a Python program to read through the lines of the file, 
 break each line into a list of words, and then loop through each 
 of the words in the line, and count each word using a dictionary.
+
+\index{nested loops}
+\index{loop!nested}
+You will see that we have two {\tt for} loops.  The outer loop is reading the
+lines of the file and the inner loop is iterating through each
+of the words on that particular line.  This is an example
+of a pattern called {\bf nested loops} because one of the loops
+is the {\em outer} loop and the other loop is the {\em inner}
+loop.  
+
+Because the inner loop executes all of its iterations each time
+the outer loop makes a single iteration, we think of the inner
+loop as iterating ``more quickly'' and the outer loop as iterating 
+more slowly.
+
+The combination of the two nested loops insures that we will count
+every word on every line of the input file.
 
 \beforeverb
 \begin{verbatim}
@@ -8224,7 +8247,7 @@ print counts
 %
 When we run the program, we see a raw dump of all of the counts in unsorted
 hash order.
-( The {\tt romeo.txt} file is available at
+(the {\tt romeo.txt} file is available at
 \url{www.py4inf.com/romeo.txt})
 
 \beforeverb
@@ -8353,6 +8376,73 @@ be a 256-character string giving the translation for each
 character value, indexed by its ordinal. If table is None, 
 then only the character deletion step is performed.}
 
+We will not specify the {\tt table} but we will use 
+the {\tt deletechars} parameter to delete all of the punctuation.
+We will even let Python tell us the list of characters
+that it considers ``punctuation'':
+
+\beforeverb
+\begin{verbatim}
+>>> import string
+>>> string.punctuation
+'!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
+\end{verbatim}
+\afterverb
+%
+We make the following modifications to our program:
+
+\beforeverb
+\begin{verbatim}
+import string                                          # New Code
+
+fname = raw_input("Enter the file name: ")
+try:
+    fhand = open(fname)
+except:
+    print 'File cannot be opened:', fname
+    exit()
+
+counts = dict()
+for line in fhand:
+    line = line.translate(None, string.punctuation)    # New Code
+    line = line.lower()                                # New Code
+    words = line.split()
+    for word in words:
+        if word not in counts:
+            counts[word] = 1
+        else:
+            counts[word] += 1
+
+print counts
+\end{verbatim}
+\afterverb
+%
+We use {\tt translate} to remove all punctuation and {\tt lower} to 
+force the line to lower case.  Otherwise the program is unchanged.
+
+Part of learning the ``Art of Python'' or ``Thinking Pythonically''
+is realizing that Python
+often has built-in capabilities for many common data-analysis
+problems.  Over time, you will see enough example code and read
+enough of the documentation to know where to look to see if someone
+has already written something that makes your job much easier.
+
+The following is an abbreviated version of the output:
+\beforeverb
+\begin{verbatim}
+Enter the file name: romeo-full.txt
+{'swearst': 1, 'all': 6, 'afeard': 1, 'leave': 2, 'these': 2, 
+'kinsmen': 2, 'what': 11, 'thinkst': 1, 'love': 24, 'cloak': 1, 
+a': 24, 'orchard': 2, 'light': 5, 'lovers': 2, 'romeo': 40, 
+'maiden': 1, 'whiteupturned': 1, 'juliet': 32, 'gentleman': 1, 
+'it': 22, 'leans': 1, 'canst': 1, 'having': 1, ...}
+\end{verbatim}
+\afterverb
+%
+Looking through this output is still unweildy and we can use
+Python to gives us exactly what we are looking for, but to do 
+so, we need to learn about Python {\bf tuples}.  We
+will pick up this example once we learn about tuples.
 
 \section{Debugging}
 \index{debugging}
@@ -8420,13 +8510,6 @@ the time you spend debugging.
 corresponding values.
 \index{dictionary}
 
-\item[key-value pair:] The representation of the mapping from
-a key to a value.
-\index{key-value pair}
-
-\item[item:] Another name for a key-value pair.
-\index{item!dictionary}
-
 \item[key:] An object that appears in a dictionary as the
 first part of a key-value pair.
 \index{key}
@@ -8435,6 +8518,13 @@ first part of a key-value pair.
 second part of a key-value pair.  This is more specific than
 our previous use of the word ``value.''
 \index{value}
+
+\item[key-value pair:] The representation of the mapping from
+a key to a value.
+\index{key-value pair}
+
+\item[item:] Another name for a key-value pair.
+\index{item!dictionary}
 
 \item[implementation:] A way of performing a computation.
 \index{implementation}
@@ -8447,47 +8537,18 @@ dictionaries.
 location for a key.
 \index{hash function}
 
-\item[hashable:] A type that has a hash function.  Immutable
-types like integers,
-floats and strings are hashable; mutable types like lists and
-dictionaries are not.
-\index{hashable}
-
 \item[lookup:] A dictionary operation that takes a key and finds
 the corresponding value.
 \index{lookup}
 
-\item[reverse lookup:] A dictionary operation that takes a value and finds
-one or more keys that map to it.
-\index{reverse lookup, dictionary}
-
-\item[singleton:] A list (or other sequence) with a single element.
-\index{singleton}
-
-\item[call graph:] A diagram that shows every frame created during
-the execution of a program, with an arrow from each caller to
-each callee. 
-\index{call graph}
-\index{diagram!call graph}
-
 \item[histogram:] A set of counters.
 \index{histogram}
 
-\item[memo:] A computed value stored to avoid unnecessary future 
-computation.
-\index{memo}
-
-\item[global variable:]  A variable defined outside a function.  Global
-variables can be accessed from any function.
-\index{global variable}
-
-\item[flag:] A boolean variable used to indicate whether a condition
-is true.
-\index{flag}
-
-\item[declaration:] A statement like {\tt global} that tells the
-interpreter something about a variable.
-\index{declaration}
+\item[nested loops:] When there is one or more loops ``inside'' of 
+another loop.  The inner loop runs to completion each time the outer
+loop runs once.
+\index{nested loops}
+\index{loop!nested}
 
 \end{description}
 
@@ -9424,6 +9485,9 @@ variables on the left.
 \index{tuple assignment}
 \index{assignment!tuple}
 
+\item[singleton:] A list (or other sequence) with a single element.
+\index{singleton}
+
 \item[gather:] The operation of assembling a variable-length
 argument tuple.
 \index{gather}
@@ -9431,6 +9495,12 @@ argument tuple.
 \item[scatter:] The operation of treating a sequence as a list of
 arguments.
 \index{scatter}
+
+\item[hashable:] A type that has a hash function.  Immutable
+types like integers,
+floats and strings are hashable; mutable types like lists and
+dictionaries are not.
+\index{hashable}
 
 \item[DSU:] Abbreviation of ``decorate-sort-undecorate,'' a
 pattern that involves building a list of tuples, sorting, and
@@ -11111,6 +11181,15 @@ have no return statement or a return statement without an argument.
 variable can only be used inside its function.
 \index{local variable}
 
+\item[global variable:]  A variable defined outside a function.  Global
+variables can be accessed from any function.
+\index{global variable}
+
+\item[declaration:] A statement like {\tt global} that tells the
+interpreter something about a variable.
+\index{declaration}
+
+
 \item[incremental development:]  A program development plan intended to
 avoid debugging by adding and testing only
 a small amount of code at a time.
@@ -11135,9 +11214,21 @@ It contains the local variables and parameters of the function.
 \index{function frame}
 \index{frame}
 
+\item[call graph:] A diagram that shows every frame created during
+the execution of a program, with an arrow from each caller to
+each callee. 
+
+\index{call graph}
+\index{diagram!call graph}
+
 \item[traceback:]  A list of the functions that are executing,
 printed when an exception occurs.
 \index{traceback}
+
+\item[flag:] A boolean variable used to indicate whether a condition
+is true.
+\index{flag}
+
 
 \end{description}
 
