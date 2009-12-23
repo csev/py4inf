@@ -5774,34 +5774,229 @@ of them.
 \section{Persistence}
 
 \index{persistence}
+\index{secondary memory}
 
-Most of the programs we have seen so far are transient in the
-sense that they run for a short time and produce some output,
-but when they end, their data disappears.  If you run the program
-again, it starts with a clean slate.
+So far, we have learned how to write programs and communicate 
+our intentions to the {\bf Central Processing Unit} using conditional
+execution, functions, and iterations.  We have learned how to 
+create and use data structures in the {\bf Main Memory}.  The CPU 
+and memory are where our software works and runs.  It is where 
+all of the "thinking" happens.  
 
-Other programs are {\bf persistent}: they run for a long time
-(or all the time); they keep at least some of their data
-in permanent storage (a hard drive, for example); and
-if they shut down and restart, they pick up where they left off.
+But if you recall from our hardware architecture discussions,
+once the power is turned off, anything stored in either
+the CPU or main memory is erased.  So up to now, our
+programs have just been transient fun exercises to learn Python.
 
-Examples of persistent programs are operating systems, which
-run pretty much whenever a computer is on, and web servers,
-which run all the time, waiting for requests to come in on
-the network.
+\beforefig
+\centerline{\includegraphics[height=2.50in]{figs2/arch3.eps}}
+\afterfig
+
+In this chapter, we start to work with {\bf Secondary Memory} 
+(or files).
+Secondary memory not erased even when the power is turned off.  
+Or in the case of a USB memory drive, the
+data can we write from our programs can be removed from the 
+system and transported to another system.
 
 One of the simplest ways for programs to maintain their data
 is by reading and writing text files.  We have already seen
 programs that read text files; in this chapters we will see programs
 that write them.
 
-An alternative is to store the state of the program in a database.
-In this chapter I will present a simple database and a module,
-{\tt pickle}, that makes it easy to store program data.
+We will primarily focus on reading and writing text files such as 
+those we create in a text editor.  Later we will see how to work
+with database files which are binary files, specificially designed to be read
+and written through database software.
 
-\index{pickle module}
-\index{module!pickle}
+\section{Opening files}
+\index{file!open}
 
+When we want to read or write a file (say on your hard drive), we first
+must {\tt open} the file.  Opening the file communicates with your operating
+system which knows where the data for each file is stored.  When you open
+a file, you are asking the operating system to find the file by name
+and make sure the file exists.
+
+\beforeverb
+\begin{verbatim}
+>>> fhand = open('mbox.txt')
+>>> print fhand
+<open file 'mbox.txt', mode 'r' at 0x1005088b0>
+\end{verbatim}
+\afterverb
+%
+\index{file handle}
+If the {\tt open} is successful, the operating system gives a 
+{\bf file handle}.  The file handle is not the actual data contained
+in the file, but instead it is a ``handle'' that we can use to 
+read the data.   You are given a handle if the requested file
+exists and you have the proper permissions to read the file.
+
+If the file does not exist, {\tt open} will fail with a traceback and you 
+will not get a handle to access the contents of the file:
+
+\beforeverb
+\begin{verbatim}
+>>> fhand = open("stuff.txt")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IOError: [Errno 2] No such file or directory: 'stuff.txt'
+\end{verbatim}
+\afterverb
+%
+Later we will use {\tt try} and {\tt except} to deal more gracefully
+with the situation where we attempt to open a file that does 
+not exist.
+
+\section{Text files and lines}
+
+A text file can be thought of as a sequence of lines, much like a Python
+string can be through of as a sequence of characters.  For example, this
+is an example of a text file which records mail activity from various
+individuals in an open source project development team:
+
+{\tt
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008\\
+Return-Path: <postmaster@collab.sakaiproject.org>\\
+Date: Sat, 5 Jan 2008 09:12:18 -0500\\
+To: source@collab.sakaiproject.org\\
+From: stephen.marquard@uct.ac.za\\
+Subject: [sakai] svn commit: r39772 - content/branches/\\
+Details: http://source.sakaiproject.org/viewsvn/?view=rev\&rev=39772\\
+...
+}
+
+The entire file is of mail interactions is available from 
+\url{www.py4inf.com/mbox.txt} 
+and a shortened version of the file is available from
+\url{www.py4inf.com/mbox-short.txt}.
+
+To break the file into lines, there is a special character that 
+represents the ``end of the line'' called the {\bf newline} character.
+
+\index{newline}
+In Python, we represent the {\bf newline} character as a backslash-n in 
+string constants.  Even though this looks like two characters, it
+is actually a single character.  When we look at the varible by entering
+``stuff'' in the interpreter, it shows us the \verb"\n" in the string, 
+but when we use {\tt print} to show the string, we see the string broken
+into two lines by the newline character.
+
+\beforeverb
+\begin{verbatim}
+>>> stuff = 'Hello\nWorld!'
+>>> stuff
+'Hello\nWorld!'
+>>> print stuff
+Hello
+World!
+>>> stuff = 'X\nY'
+>>> print stuff
+X
+Y
+>>> len(stuff)
+3
+\end{verbatim}
+\afterverb
+%
+
+You can also see that the length of the string \verb"'X\nY'" is {\em three}
+characters because the newline character is a single character.
+
+So when we look at the lines in a file, we need to {\em imagine}
+that there is a special invisible character at the end of each line
+that marks the end of the line called the newline.  
+
+{\tt
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008\verb"\n"\\
+Return-Path: <postmaster@collab.sakaiproject.org>\verb"\n"\\
+Date: Sat, 5 Jan 2008 09:12:18 -0500\verb"\n"\\
+To: source@collab.sakaiproject.org\verb"\n"\\
+From: stephen.marquard@uct.ac.za\verb"\n"\\
+Subject: [sakai] svn commit: r39772 - content/branches/\verb"\n"\\
+Details: http://source.sakaiproject.org/viewsvn/?view=rev\&rev=39772\verb"\n"\\
+...
+}
+
+So the newline character separates the characters 
+in in the file into lines.
+
+\section{Reading files}
+\index{file!reading}
+
+While the {\bf file handle} does not contain the data for the file,
+it is quite easy to construct a {\tt for} loop to read through 
+and count each of the lines in a file:
+
+\beforeverb
+\begin{verbatim}
+fhand = open("mbox.txt")
+count = 0
+for line in fhand:
+    count = count + 1
+print "Line Count:", count
+
+python open.py 
+Line Count: 132045
+\end{verbatim}
+\afterverb
+%
+We can use the file handle as the sequence in our {\tt for} loop.  
+Our {\tt for} loop simply counts the number of lines in the 
+file and prints them out.  The rough translation of the {\tt for}
+loop into English is, ``for each line in the file represented by the file
+handle, add one to the {\tt count} variable.''
+
+The reason that the {\tt open} function does not read the entire file
+is that the file might be quite large with many gigabytes of data.
+The {\tt open} statement takes the same amount of time regardless of the
+size of the file.  The {\tt for} loop actually causes the data to be 
+read from the file.
+
+When the file is read using a {\tt for} loop in this manner, Python
+takes care of splitting the data in the file into separate lines using
+the newline character.  Python reads line through the newline and includes
+the newline as the last character in the {\tt line} variable for each 
+iteration of the {\tt for} loop.
+
+Because the for loop reads the data one line at a time, it can efficiently
+read and count the lines in very large files without running 
+out of main memory to store the data.  The above program can 
+count the lines in any sized file using very little memory since 
+each line is read, counted, and then discarded.
+
+If you know the file is relatively small compared to the size of 
+your main memory, you can read the whole file into one string
+using the {\tt read} method on the file handle.
+
+\beforeverb
+\begin{verbatim}
+>>> fhand = open("mbox-short.txt")
+>>> inp = fhand.read()
+>>> print len(inp)
+94626
+>>> print inp[:20]
+From stephen.marquar
+\end{verbatim}
+\afterverb
+%
+In this example, the entire contents (all 94,626 characters) 
+of the file {\tt mbox-short.txt} are read directly into the 
+variable {\tt inp}.  We use string slicing to print out the first
+20 characters of the dstring data stored in {\tt inp}.
+
+When the file is read in this manner, all the characters including 
+all of the newlines are in the variable {\bf inp}.  Remember
+that this form of the {\tt open} function should only be used
+if the file data will fit comfortably in the main memory 
+of your computer.
+
+If the file is too large to fit in main memory, you should write
+your program to read the file in chunks using a {\tt for} or {\tt while}
+loop.
+
+\section{Searching through a file}
 
 \section{Reading and writing}
 
