@@ -8647,11 +8647,10 @@ You can see my solution at \url{thinkpython.com/code/homophone.py}.
 A tuple is a sequence of values.  The values can be any type, and
 they are indexed by integers, so in that respect tuples are a lot
 like lists.  The important difference is that tuples are {\bf immutable}.
-Tuples are also {\bf comparable} and {\bf hashable} as long as the 
-values which make up the tuple are comparable and hashable.
+Tuples are also {\bf comparable} and {\bf hashable} so we can 
+sort lists of them and use tuples as key values in Python
+dictionaries.
 
-At first, this may not seem like such as signficant difference, but
-it allows us to to many more things with tuples than with lists.
 \index{mutability}
 \index{hashable}
 \index{comparable}
@@ -8702,7 +8701,7 @@ parentheses:
 \end{verbatim}
 \afterverb
 %
-Another way to create a tuple is the built-in function {\tt tuple}.
+Another way to construct a tuple is the built-in function {\tt tuple}.
 With no argument, it creates an empty tuple:
 
 \index{tuple function}
@@ -8717,6 +8716,7 @@ With no argument, it creates an empty tuple:
 \afterverb
 %
 If the argument is a sequence (string, list or tuple), the result
+of the call to {\tt tuple}
 is a tuple with the elements of the sequence:
 
 \beforeverb
@@ -8727,7 +8727,7 @@ is a tuple with the elements of the sequence:
 \end{verbatim}
 \afterverb
 %
-Because {\tt tuple} is the name of a built-in function, you should
+Because {\tt tuple} is the name of a constructor, you should
 avoid using it as a variable name.
 
 Most list operators also work on tuples.  The bracket operator
@@ -8794,7 +8794,7 @@ one tuple with another:
 
 The comparison operators work with tuples and other sequences;
 Python starts by comparing the first element from each
-sequence.  If they are equal, it goes on to the next elements,
+sequence.  If they are equal, it goes on to the next element,
 and so on, until it finds elements that differ.  Subsequent
 elements are not considered (even if they are really big).
 
@@ -8842,7 +8842,7 @@ def sort_by_length(words):
 
     t.sort(reverse=True)
 
-    res = []
+    res = list()                # Create an empty list
     for length, word in t:
         res.append(word)
     return res
@@ -8863,163 +8863,6 @@ only considers the second element to break ties.  The keyword argument
 The second loop traverses the list of tuples and builds a list of
 words in descending order of length.
 
-\begin{ex}
-In this example, ties are broken by comparing words, so words
-with the same length appear in alphabetical order.  For other
-applications you might want to break ties at random.  Modify
-this example so that words with the same length appear in
-random order.  Hint: see the {\tt random} function in the
-{\tt random} module.
-
-\index{random module}
-\index{module!random}
-\index{random function}
-\index{function!random}
-
-\end{ex}
-
-
-\section{Dictionaries and tuples}
-
-\index{dictionary}
-\index{items method}
-\index{method!items}
-\index{key-value pair}
-
-Dictionaries have a method called {\tt items} that returns a list of
-tuples, where each tuple is a key-value pair\footnote{This behavior is
-  slightly different in Python 3.0.}.
-
-\beforeverb
-\begin{verbatim}
->>> d = {'a':0, 'b':1, 'c':2}
->>> t = d.items()
->>> print t
-[('a', 0), ('c', 2), ('b', 1)]
-\end{verbatim}
-\afterverb
-%
-As you should expect from a dictionary, the items are in no
-particular order.
-
-\index{dictionary!initialize}
-
-Conversely, you can use a list of tuples to initialize
-a new dictionary:
-
-\beforeverb
-\begin{verbatim}
->>> t = [('a', 0), ('c', 2), ('b', 1)]
->>> d = dict(t)
->>> print d
-{'a': 0, 'c': 2, 'b': 1}
-\end{verbatim}
-\afterverb
-
-Combining {\tt dict} with {\tt zip} yields a concise way
-to create a dictionary:
-
-\index{zip function!use with dict}
-
-\beforeverb
-\begin{verbatim}
->>> d = dict(zip('abc', range(3)))
->>> print d
-{'a': 0, 'c': 2, 'b': 1}
-\end{verbatim}
-\afterverb
-%
-The dictionary method {\tt update} also takes a list of tuples
-and adds them, as key-value pairs, to an existing dictionary.
-
-\index{update method}
-\index{method!update}
-
-\section{Multiple assignment with dictionaries}
-
-\index{traverse!dictionary}
-\index{dictionary!traversal}
-
-Combining {\tt items}, tuple assignment and {\tt for}, you
-get the idiom for traversing the keys and values of a dictionary:
-
-\beforeverb
-\begin{verbatim}
-for key, val in d.items():
-    print val, key
-\end{verbatim}
-\afterverb
-%
-The output of this loop is:
-
-\beforeverb
-\begin{verbatim}
-0 a
-2 c
-1 b
-\end{verbatim}
-\afterverb
-%
-Again.
-
-\index{tuple!as key in dictionary}
-\index{hashable}
-
-It is common to use tuples as keys in dictionaries (primarily because
-you can't use lists).  For example, a telephone directory might map
-from last-name, first-name pairs to telephone numbers.  Assuming
-that we have defined {\tt last}, {\tt first} and {\tt number}, we
-could write:
-
-\beforeverb
-\begin{verbatim}
-directory[last,first] = number
-\end{verbatim}
-\afterverb
-%
-The expression in brackets is a tuple.  We could use tuple
-assignment to traverse this dictionary.
-
-\index{tuple!in brackets}
-
-\beforeverb
-\begin{verbatim}
-for last, first in directory:
-    print first, last, directory[last,first]
-\end{verbatim}
-\afterverb
-%
-This loop traverses the keys in {\tt directory}, which are tuples.  It
-assigns the elements of each tuple to {\tt last} and {\tt first}, then
-prints the name and corresponding telephone number.
-
-There are two ways to represent tuples in a state diagram.  The more
-detailed version shows the indices and elements just as they appear in
-a list.  For example, the tuple \verb"('Cleese', 'John')" would appear:
-
-\index{state diagram}
-\index{diagram!state}
-
-\beforefig
-\centerline{\includegraphics{figs/tuple1.eps}}
-\afterfig
-
-But in a larger diagram you might want to leave out the
-details.  For example, a diagram of the telephone directory might
-appear:
-
-\beforefig
-\centerline{\includegraphics{figs/dict2.eps}}
-\afterfig
-
-Here the tuples are shown using Python syntax as a graphical
-shorthand.
-
-The telephone number in the diagram is the complaints line for the
-BBC, so please don't call it.
-
-
-
 
 \section{Tuple assignment}
 \label{tuple assignment}
@@ -9029,19 +8872,65 @@ BBC, so please don't call it.
 \index{swap pattern}
 \index{pattern!swap}
 
-It is often useful to swap the values of two variables.
-With conventional assignments, you have to use a temporary
-variable.  For example, to swap {\tt a} and {\tt b}:
+One of the unique syntactic features of the Python language
+is the ability to have a tuple on the left hand
+side of an assignment statement.  This allows you to assign
+more than one variable at a time when the left hand side is a 
+sequence.
+
+In this example we have a two element list (which is a sequence) and
+assign the first and second elements of the sequence
+to the variables {\tt x} and {\tt y} in a single statement.
 
 \beforeverb
 \begin{verbatim}
->>> temp = a
->>> a = b
->>> b = temp
+>>> m = [ 'have', 'fun' ]
+>>> x, y = m
+>>> x
+'have'
+>>> y
+'fun'
+>>> 
 \end{verbatim}
 \afterverb
 %
-This solution is cumbersome; {\bf tuple assignment} is more elegant:
+It is not magic, Python {\em roughly} translates the 
+tuple assignment syntax
+to be the following:\footnote{Python does not translate the 
+syntax literally - for example if you try this with a dictionary
+it will not work as might expect.}
+
+\beforeverb
+\begin{verbatim}
+>>> m = [ 'have', 'fun' ]
+>>> x = m[0]
+>>> y = m[1]
+>>> x
+'have'
+>>> y
+'fun'
+>>> 
+\end{verbatim}
+\afterverb
+
+Stylistically when we use a tuple on the left hand side of the assignment
+statement, we omit the prarenthesis, but the following is equally 
+valid syntax:
+
+\beforeverb
+\begin{verbatim}
+>>> m = [ 'have', 'fun' ]
+>>> (x, y) = m
+>>> x
+'have'
+>>> y
+'fun'
+>>> 
+\end{verbatim}
+\afterverb
+%
+A particularly clever application of tuple assignment allows
+us to {\bf swap} the values of two variables in a single statement:
 
 \beforeverb
 \begin{verbatim}
@@ -9049,8 +8938,10 @@ This solution is cumbersome; {\bf tuple assignment} is more elegant:
 \end{verbatim}
 \afterverb
 %
-The left side is a tuple of variables; the right side is a tuple of
-expressions.  Each value is assigned to its respective variable.  
+Both sides of this statement are tuples, but
+the left side is a tuple of variables; the right side is a tuple of
+expressions.  Each value on the right side 
+is assigned to its respective variable on the left side.  
 All the expressions on the right side are evaluated before any
 of the assignments.
 
@@ -9096,188 +8987,247 @@ python.org
 \afterverb
 %
 
-\section{Lists and tuples}
+\section{Dictionaries and tuples}
 
-\index{zip function}
-\index{function!zip}
+\index{dictionary}
+\index{items method}
+\index{method!items}
+\index{key-value pair}
 
-{\tt zip} is a built-in function that takes two or more sequences and
-``zips'' them into a list\footnote{In Python 3.0, {\tt zip} returns an
-  iterator of tuples, but for most purposes, an iterator behaves like
-  a list.} of tuples where each tuple contains one element from each
-sequence.
-
-\index{Python 3.0}
-
-This example zips a string and a list:
+Dictionaries have a method called {\tt items} that returns a list of
+tuples, where each tuple is a key-value 
+pair\footnote{This behavior is slightly different in Python 3.0.}.
 
 \beforeverb
 \begin{verbatim}
->>> s = 'abc'
->>> t = [0, 1, 2]
->>> zip(s, t)
-[('a', 0), ('b', 1), ('c', 2)]
+>>> d = {'a':10, 'b':1, 'c':22}
+>>> t = d.items()
+>>> print t
+[('a', 10), ('c', 22), ('b', 1)]
 \end{verbatim}
 \afterverb
 %
-The result is a list of tuples where each tuple contains
-a character from the string and the corresponding element from
-the list.
+As you should expect from a dictionary, the items are in no
+particular order.
 
-\index{list!of tuples}
-
-If the sequences are not the same length, the result has the
-length of the shorter one.
+However, since the list of tuples is a list, and tuples are comparable,
+we can now sort the list of tuples.  Converting a dictionary
+to a list of tuples is a way for us to output the contents of a 
+dictionary sorted by key:
 
 \beforeverb
 \begin{verbatim}
->>> zip('Anne', 'Elk')
-[('A', 'E'), ('n', 'l'), ('n', 'k')]
+>>> d = {'a':10, 'b':1, 'c':22}
+>>> t = d.items()
+>>> t
+[('a', 10), ('c', 22), ('b', 1)]
+>>> t.sort()
+>>> t
+[('a', 10), ('b', 1), ('c', 22)]
 \end{verbatim}
 \afterverb
 %
-You can use tuple assignment in a {\tt for} loop to traverse a list of
-tuples:
+The new list is sorted in ascending order by the key value.
 
-\index{traversal}
-\index{tuple assignment}
-\index{assignment!tuple}
+\section{Multiple assignment with dictionaries}
+
+\index{traverse!dictionary}
+\index{dictionary!traversal}
+
+Combining {\tt items}, tuple assignment and {\tt for}, you
+get the idiom for traversing the keys and values of a dictionary
+in a single loop:
 
 \beforeverb
 \begin{verbatim}
-t = [('a', 0), ('b', 1), ('c', 2)]
-for letter, number in t:
-    print number, letter
+for key, val in d.items():
+    print val, key
 \end{verbatim}
 \afterverb
 %
-Each time through the loop, Python selects the next tuple in
-the list and assigns the elements to {\tt letter} and 
-{\tt number}.  The output of this loop is:
+This loop has two {\bf iteration variables} because {\tt items} returns
+a list of tuples and {\tt key, val} is a tuple assignment
+that successively iterates through each of the key/value pairs in the dictionary.  
 
-\index{loop}
+For each iteration
+through the loop, both {\tt key} and {\tt value} are advanced to the
+next key/value pair in the dictionary (still in hash order).
 
-\beforeverb
-\begin{verbatim}
-0 a
-1 b
-2 c
-\end{verbatim}
-\afterverb
-%
-If you combine {\tt zip}, {\tt for} and tuple assignment, you get a
-useful idiom for traversing two (or more) sequences at the same
-time.  For example, \verb"has_match" takes two sequences, {\tt t1} and
-{\tt t2}, and returns {\tt True} if there is an index {\tt i}
-such that {\tt t1[i] == t2[i]}:
-
-\index{for loop}
-
-\beforeverb
-\begin{verbatim}
-def has_match(t1, t2):
-    for x, y in zip(t1, t2):
-        if x == y:
-            return True
-    return False
-\end{verbatim}
-\afterverb
-%
-If you need to traverse the elements of a sequence and their
-indices, you can use the built-in function {\tt enumerate}:
-
-\index{traversal}
-\index{enumerate function}
-\index{function!enumerate}
-
-\beforeverb
-\begin{verbatim}
-for index, element in enumerate('abc'):
-    print index, element
-\end{verbatim}
-\afterverb
-%
 The output of this loop is:
 
 \beforeverb
 \begin{verbatim}
 0 a
-1 b
 2 c
+1 b
 \end{verbatim}
 \afterverb
 %
-Again.
+Again in hash key order (i.e. no particular order).
 
-\section{Multiple assignment}
+If we combine these two techniques, we can print out the contents
+of a dictionary sorted by the {\em value} stored in each key/value
+pair.
 
-\index{assignment}
-\index{statement!assignment}
-\index{multiple assignment}
-
-As you may have discovered, it is legal to
-make more than one assignment to the same variable.  A
-new assignment makes an existing variable refer to a new
-value (and stop referring to the old value).
+To do this, we first make a list of tuples where each tuple is 
+{\tt (value, key)}.  The {\tt items} method would give us a list of 
+{\tt (key, value)} tuples--but this time we want to sort by value not key.
+Once we have constructed the list with the value/key tuples, it is a simple
+matter to sort the list in reverse order and print out the new, sorted list.
 
 \beforeverb
 \begin{verbatim}
-bruce = 5
-print bruce,
-bruce = 7
-print bruce
+>>> d = {'a':10, 'b':1, 'c':22}
+>>> l = list()
+>>> for key, val in d.items() :
+...     l.append( (val, key) )
+... 
+>>> l
+[(10, 'a'), (22, 'c'), (1, 'b')]
+>>> l.sort(reverse=True)
+>>> l
+[(22, 'c'), (10, 'a'), (1, 'b')]
+>>> 
 \end{verbatim}
 \afterverb
 %
-The output of this program is {\tt 5 7}, because the first time
-{\tt bruce} is printed, its value is 5, and the second time, its
-value is 7.  The
-comma at the end of the first {\tt print} statement suppresses
-the newline, which is why both outputs
-appear on the same line.
+By hand-constructing the list of tuples to have the value as the first
+element of each tuple, we can sort the list of tuples and get our dictionary
+contents sorted by value.
 
-\index{newline}
+\section{The most common words}
 
-Here is what {\bf multiple assignment} looks like in a state diagram:
+Coming back to our running example of the text from {\em Romeo and Juliet} 
+Act 2, Scene 2, we can augment our program to use this technique to 
+print the ten most common words in the text as follows:
+
+\beforeverb
+\begin{verbatim}
+import string
+fhand = open('romeo-full.txt')
+counts = dict()
+for line in fhand:
+    line = line.translate(None, string.punctuation)
+    line = line.lower()
+    words = line.split()
+    for word in words:
+        if word not in counts:
+            counts[word] = 1
+        else:
+            counts[word] += 1
+
+# Sort the dictionary by value
+lst = list()
+for key, val in counts.items():
+    lst.append( (val, key) )
+
+lst.sort(reverse=True)
+
+for key, val in lst[:10] :
+    print key, val
+\end{verbatim}
+\afterverb
+%
+The first part of the program which reads the file and computes 
+the dictionary which maps each word to the count of words in the 
+document is unchanged.  But instead of simply printing out 
+{\tt counts} and ending the program, we construct a list 
+of {\tt (val, key)} tuples and then sort the list in reverse order.
+
+Since the value is first, it will be used for the comparisons and 
+if there is more than one tuple with the same value, it will look
+at the second element (the key) and so tuples where the value is the
+same will be further sorted by the alphabetical order of the key.
+
+And at the end we write a nice {\t for loop} which does a multiple
+assignment iteration and prints out the ten most common words
+by iterating through a slice of the list ({\tt lst[:10]}).
+
+So now the output finally looks like what we want for our word 
+frequency analysis.
+
+\beforeverb
+\begin{verbatim}
+61 i
+42 and
+40 romeo
+34 to
+34 the
+32 thou
+32 juliet
+30 that
+29 my
+24 thee
+\end{verbatim}
+\afterverb
+%
+The fact that this relatively complex data parsing and analysis 
+can be done with a relatively easy-to-understand 19 line Python
+program is one reason why Python is a good choice as a language 
+for exploring information.
+
+\section{Using tuples as keys in dictionaries}
+
+\index{tuple!as key in dictionary}
+\index{hashable}
+
+Because tuples are {\bf hashable} and lists are not hashable, if we want to 
+create a {\bf composite} key to use in a dictionary we must use a tuple as
+the key.
+
+We would enounter a composite key if we wanted to create a 
+telephone directory that maps
+from last-name, first-name pairs to telephone numbers.  Assuming
+that we have defined the variables 
+{\tt last}, {\tt first} and {\tt number}, we could write
+a dictionary assignment statement as follows:
+
+\beforeverb
+\begin{verbatim}
+directory[last,first] = number
+\end{verbatim}
+\afterverb
+%
+The expression in brackets is a tuple.  We could use tuple
+assignment in a for loop to traverse this dictionary.
+
+\index{tuple!in brackets}
+
+\beforeverb
+\begin{verbatim}
+for last, first in directory:
+    print first, last, directory[last,first]
+\end{verbatim}
+\afterverb
+%
+This loop traverses the keys in {\tt directory}, which are tuples.  It
+assigns the elements of each tuple to {\tt last} and {\tt first}, then
+prints the name and corresponding telephone number.
+
+There are two ways to represent tuples in a state diagram.  The more
+detailed version shows the indices and elements just as they appear in
+a list.  For example, the tuple \verb"('Cleese', 'John')" would appear:
 
 \index{state diagram}
 \index{diagram!state}
 
 \beforefig
-\centerline{\includegraphics{figs/assign2.eps}}
+\centerline{\includegraphics{figs/tuple1.eps}}
 \afterfig
 
-With multiple assignment it is especially important to distinguish
-between an assignment operation and a statement of equality.  Because
-Python uses the equal sign ({\tt =}) for assignment, it is tempting to
-interpret a statement like {\tt a = b} as a statement of equality. It
-is not!
+But in a larger diagram you might want to leave out the
+details.  For example, a diagram of the telephone directory might
+appear:
 
-\index{equality and assignment}
+\beforefig
+\centerline{\includegraphics{figs/dict2.eps}}
+\afterfig
 
-First, equality is a symmetric relation and assignment is not.  For
-example, in mathematics, if $a = 7$ then $7 = a$.  But in Python, the
-statement {\tt a = 7} is legal and {\tt 7 = a} is not.
+Here the tuples are shown using Python syntax as a graphical
+shorthand.
 
-Furthermore, in mathematics, a statement of equality is either true or
-false, for all time.  If $a = b$ now, then $a$ will always equal $b$.
-In Python, an assignment statement can make two variables equal, but
-they don't have to stay that way:
-
-\beforeverb
-\begin{verbatim}
-a = 5
-b = a    # a and b are now equal
-a = 3    # a and b are no longer equal
-\end{verbatim}
-\afterverb
-%
-The third line changes the value of {\tt a} but does not change the
-value of {\tt b}, so they are no longer equal. 
-
-Although multiple assignment is frequently helpful, you should use it
-with caution.  If the values of variables change frequently, it can
-make the code difficult to read and debug.
+The telephone number in the diagram is the complaints line for the
+BBC, so please don't call it.
 
 \section{Sequences: strings, lists, and tuples--Oh My!}
 \index{sequence}
@@ -9346,75 +9296,86 @@ Lists, dictionaries and tuples are known generically as {\bf data
 structures, like lists of tuples, and dictionaries that contain tuples
 as keys and lists as values.  Compound data structures are useful, but
 they are prone to what I call {\bf shape errors}; that is, errors
-caused when a data structure has the wrong type, size or composition.
+caused when a data structure has the wrong type, size or composition
+or perhaps you write some code and forget the shape of your data
+and introduce an error.
+
 For example, if you are expecting a list with one integer and I
 give you a plain old integer (not in a list), it won't work.
 
-\index{structshape module}
-\index{module!structshape}
+When you are debugging a program, and especially if you are
+working on a hard bug, there are four things to try:
 
-To help debug these kinds of errors, I have written a module
-called {\tt structshape} that provides a function, also called
-{\tt structshape}, that takes any kind of data structure as
-an argument and returns a string that summarizes its shape.
-You can download it from \url{thinkpython.com/code/structshape.py}
+\begin{description}
 
-Here's the result for a simple list:
+\item[reading:] Examine your code, read it back to yourself, and
+check that it says what you meant to say.
 
-\beforeverb
-\begin{verbatim}
->>> from structshape import structshape
->>> t = [1,2,3]
->>> print structshape(t)
-list of 3 int
-\end{verbatim}
-\afterverb
-%
-A fancier program might write ``list of 3 int{\em s},'' but it
-was easier not to deal with plurals.  Here's a list of lists:
+\item[running:] Experiment by making changes and running different
+versions.  Often if you display the right thing at the right place
+in the program, the problem becomes obvious, but sometimes you have to
+spend some time to build scaffolding.
 
-\beforeverb
-\begin{verbatim}
->>> t2 = [[1,2], [3,4], [5,6]]
->>> print structshape(t2)
-list of 3 list of 2 int
-\end{verbatim}
-\afterverb
-%
-If the elements of the list are not the same type,
-{\tt structshape} groups them, in order, by type:
+\item[ruminating:] Take some time to think!  What kind of error
+is it: syntax, runtime, semantic?  What information can you get from
+the error messages, or from the output of the program?  What kind of
+error could cause the problem you're seeing?  What did you change
+last, before the problem appeared?
 
-\beforeverb
-\begin{verbatim}
->>> t3 = [1, 2, 3, 4.0, '5', '6', [7], [8], 9]
->>> print structshape(t3)
-list of (3 int, float, 2 str, 2 list of int, int)
-\end{verbatim}
-\afterverb
-%
-Here's a list of tuples:
+\item[retreating:] At some point, the best thing to do is back
+off, undoing recent changes, until you get back to a program that
+works and that you understand.  Then you can starting rebuilding.
 
-\beforeverb
-\begin{verbatim}
->>> s = 'abc'
->>> lt = zip(t, s)
->>> print structshape(lt)
-list of 3 tuple of (int, str)
-\end{verbatim}
-\afterverb
-%
-And here's a dictionary with 3 items that map integers to strings.
+\end{description}
 
-\beforeverb
-\begin{verbatim}
->>> d = dict(lt) 
->>> print structshape(d)
-dict of 3 int->str
-\end{verbatim}
-\afterverb
-%
-If you are having trouble keeping track of your data structures,
-{\tt structshape} can help.
+Beginning programmers sometimes get stuck on one of these activities
+and forget the others.  Each activity comes with its own failure
+mode.
+
+\index{typographical error}
+
+For example, reading your code might help if the problem is a
+typographical error, but not if the problem is a conceptual
+misunderstanding.  If you don't understand what your program does, you
+can read it 100 times and never see the error, because the error is in
+your head.
+
+\index{experimental debugging}
+
+Running experiments can help, especially if you run small, simple
+tests.  But if you run experiments without thinking or reading your
+code, you might fall into a pattern I call ``random walk programming,''
+which is the process of making random changes until the program
+does the right thing.  Needless to say, random walk programming
+can take a long time.
+
+\index{random walk programming}
+\index{development plan!random walk programming}
+
+You have to take time to think.  Debugging is like an
+experimental science.  You should have at least one hypothesis about
+what the problem is.  If there are two or more possibilities, try to
+think of a test that would eliminate one of them.
+
+Taking a break helps with the thinking.  So does talking.
+If you explain the problem to someone else (or even yourself), you
+will sometimes find the answer before you finish asking the question.
+
+But even the best debugging techniques will fail if there are too many
+errors, or if the code you are trying to fix is too big and
+complicated.  Sometimes the best option is to retreat, simplifying the
+program until you get to something that works and that you
+understand.
+
+Beginning programmers are often reluctant to retreat because
+they can't stand to delete a line of code (even if it's wrong).
+If it makes you feel better, copy your program into another file
+before you start stripping it down.  Then you can paste the pieces
+back in a little bit at a time.
+
+Finding a hard bug requires reading, running, ruminating, and
+sometimes retreating.  If you get stuck on one of these activities,
+try the others.
 
 
 \section{Glossary}
@@ -10132,82 +10093,9 @@ word from the book.
 
 
 
-\section{Debugging}
-\index{debugging}
-
-When you are debugging a program, and especially if you are
-working on a hard bug, there are four things to try:
-
-\begin{description}
-
-\item[reading:] Examine your code, read it back to yourself, and
-check that it says what you meant to say.
-
-\item[running:] Experiment by making changes and running different
-versions.  Often if you display the right thing at the right place
-in the program, the problem becomes obvious, but sometimes you have to
-spend some time to build scaffolding.
-
-\item[ruminating:] Take some time to think!  What kind of error
-is it: syntax, runtime, semantic?  What information can you get from
-the error messages, or from the output of the program?  What kind of
-error could cause the problem you're seeing?  What did you change
-last, before the problem appeared?
-
-\item[retreating:] At some point, the best thing to do is back
-off, undoing recent changes, until you get back to a program that
-works and that you understand.  Then you can starting rebuilding.
-
-\end{description}
-
-Beginning programmers sometimes get stuck on one of these activities
-and forget the others.  Each activity comes with its own failure
-mode.
-
-\index{typographical error}
-
-For example, reading your code might help if the problem is a
-typographical error, but not if the problem is a conceptual
-misunderstanding.  If you don't understand what your program does, you
-can read it 100 times and never see the error, because the error is in
-your head.
-
-\index{experimental debugging}
-
-Running experiments can help, especially if you run small, simple
-tests.  But if you run experiments without thinking or reading your
-code, you might fall into a pattern I call ``random walk programming,''
-which is the process of making random changes until the program
-does the right thing.  Needless to say, random walk programming
-can take a long time.
-
-\index{random walk programming}
-\index{development plan!random walk programming}
-
-You have to take time to think.  Debugging is like an
-experimental science.  You should have at least one hypothesis about
-what the problem is.  If there are two or more possibilities, try to
-think of a test that would eliminate one of them.
-
-Taking a break helps with the thinking.  So does talking.
-If you explain the problem to someone else (or even yourself), you
-will sometimes find the answer before you finish asking the question.
-
-But even the best debugging techniques will fail if there are too many
-errors, or if the code you are trying to fix is too big and
-complicated.  Sometimes the best option is to retreat, simplifying the
-program until you get to something that works and that you
-understand.
-
-Beginning programmers are often reluctant to retreat because
-they can't stand to delete a line of code (even if it's wrong).
-If it makes you feel better, copy your program into another file
-before you start stripping it down.  Then you can paste the pieces
-back in a little bit at a time.
-
-Finding a hard bug requires reading, running, ruminating, and
-sometimes retreating.  If you get stuck on one of these activities,
-try the others.
+% Text moved into the tuple chapter
+% \section{Debugging}
+% \index{debugging}
 
 
 \section{Glossary}
