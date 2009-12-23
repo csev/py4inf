@@ -1,0 +1,2200 @@
+\chapter{Case study: data structure selection}
+
+\section{Word frequency analysis}
+\label{analysis}
+
+As usual, you should at least attempt the following exercises
+before you read my solutions.
+
+\begin{ex}
+Write a program that reads a file, breaks each line into
+words, strips whitespace and punctuation from the words, and
+converts them to lowercase.
+
+\index{string module}
+\index{module!string}
+
+Hint: The {\tt string} module provides strings named {\tt whitespace},
+which contains space, tab, newline, etc., and {\tt
+  punctuation} which contains the punctuation characters.  Let's see
+if we can make Python swear:
+
+\beforeverb
+\begin{verbatim}
+>>> import string
+>>> print string.punctuation
+!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+\end{verbatim}
+\afterverb
+%
+Also, you might consider using the string methods {\tt strip},
+{\tt replace} and {\tt translate}.
+
+\index{strip method}
+\index{method!strip}
+\index{replace method}
+\index{method!replace}
+\index{translate method}
+\index{method!translate}
+
+\end{ex}
+
+
+\begin{ex}
+
+\index{Project Gutenberg}
+
+Go to Project Gutenberg (\url{gutenberg.net}) and download 
+your favorite out-of-copyright book in plain text format.
+
+\index{plain text}
+\index{text!plain}
+
+Modify your program from the previous exercise to read the book
+you downloaded, skip over the header information at the beginning
+of the file, and process the rest of the words as before.
+
+Then modify the program to count the total number of words in
+the book, and the number of times each word is used.
+
+\index{word frequency}
+\index{frequency!word}
+
+Print the number of different words used in the book.  Compare
+different books by different authors, written in different eras.
+Which author uses the most extensive vocabulary?
+\end{ex}
+
+
+\begin{ex}
+Modify the program from the previous exercise to print the
+20 most frequently-used words in the book.
+\end{ex}
+
+
+\begin{ex}
+Modify the previous program to read a word list (see
+Section~\ref{wordlist}) and then print all the words in the book that
+are not in the word list.  How many of them are typos?  How many of
+them are common words that {\em should} be in the word list, and how
+many of them are really obscure?
+\end{ex}
+
+
+\section{Random numbers}
+
+\index{random number}
+\index{number, random}
+\index{deterministic}
+\index{pseudorandom}
+
+Given the same inputs, most computer programs generate the same
+outputs every time, so they are said to be {\bf deterministic}.
+Determinism is usually a good thing, since we expect the same
+calculation to yield the same result.  For some applications, though,
+we want the computer to be unpredictable.  Games are an obvious
+example, but there are more.
+
+Making a program truly nondeterministic turns out to be not so easy,
+but there are ways to make it at least seem nondeterministic.  One of
+them is to use algorithms that generate {\bf pseudorandom} numbers.
+Pseudorandom numbers are not truly random because they are generated
+by a deterministic computation, but just by looking at the numbers it
+is all but impossible to distinguish them from random.
+
+\index{random module}
+\index{module!random}
+
+The {\tt random} module provides functions that generate
+pseudorandom numbers (which I will simply call ``random'' from
+here on).
+
+\index{random function}
+\index{function!random}
+
+The function {\tt random} returns a random float
+between 0.0 and 1.0 (including 0.0 but not 1.0).  Each time you
+call {\tt random}, you get the next number in a long series.  To see a
+sample, run this loop:
+
+\beforeverb
+\begin{verbatim}
+import random
+
+for i in range(10):
+    x = random.random()
+    print x
+\end{verbatim}
+\afterverb
+%
+The function {\tt randint} takes parameters {\tt low} and
+{\tt high} and returns an integer between {\tt low} and
+{\tt high} (including both).
+
+\index{randint function}
+\index{function!randint}
+
+\beforeverb
+\begin{verbatim}
+>>> random.randint(5, 10)
+5
+>>> random.randint(5, 10)
+9
+\end{verbatim}
+\afterverb
+%
+To choose an element from a sequence at random, you can use
+{\tt choice}:
+
+\index{choice function}
+\index{function!choice}
+
+\beforeverb
+\begin{verbatim}
+>>> t = [1, 2, 3]
+>>> random.choice(t)
+2
+>>> random.choice(t)
+3
+\end{verbatim}
+\afterverb
+%
+The {\tt random} module also provides functions to generate
+random values from continuous distributions including
+Gaussian, exponential, gamma, and a few more.
+
+\begin{ex}
+
+\index{histogram!random choice}
+
+Write a function named \verb"choose_from_hist" that takes
+a histogram as defined in Section~\ref{histogram} and returns a 
+random value from the histogram, chosen with probability
+in proportion to frequency.  For example, for this histogram:
+
+\beforeverb
+\begin{verbatim}
+>>> t = ['a', 'a', 'b']
+>>> h = histogram(t)
+>>> print h
+{'a': 2, 'b': 1}
+\end{verbatim}
+\afterverb
+%
+your function should {\tt 'a'} with probability $2/3$ and \verb"'b'"
+with probability $1/3$.
+\end{ex}
+
+
+\section{Word histogram}
+
+Here is a program that reads a file and builds a histogram of the
+words in the file:
+
+\index{histogram!word frequencies}
+
+\beforeverb
+\begin{verbatim}
+import string
+
+def process_file(filename):
+    h = dict()
+    fp = open(filename)
+    for line in fp:
+        process_line(line, h)
+    return h
+
+def process_line(line, h):
+    line = line.replace('-', ' ')
+    
+    for word in line.split():
+        word = word.strip(string.punctuation + string.whitespace)
+        word = word.lower()
+
+        h[word] = h.get(word, 0) + 1
+
+hist = process_file('emma.txt')
+\end{verbatim}
+\afterverb
+%
+This program reads {\tt emma.txt}, which contains the text of {\em
+  Emma} by Jane Austen.
+
+\index{Austin, Jane}
+
+\verb"process_file" loops through the lines of the file,
+passing them one at a time to \verb"process_line".  The histogram
+{\tt h} is being used as an accumulator.
+
+\index{accumulator!histogram}
+\index{traversal}
+
+\verb"process_line" uses the string method {\tt replace} to replace
+hyphens with spaces before using {\tt split} to break the line into a
+list of strings.  It traverses the list of words and uses {\tt strip}
+and {\tt lower} to remove punctuation and convert to lower case.  (It
+is a shorthand to say that strings are ``converted;'' remember that
+string are immutable, so methods like {\tt strip} and {\tt lower}
+return new strings.)
+
+Finally, \verb"process_line" updates the histogram by creating a new
+item or incrementing an existing one.
+
+\index{update!histogram}
+
+To count the total number of words in the file, we can add up
+the frequencies in the histogram:
+
+\beforeverb
+\begin{verbatim}
+def total_words(h):
+    return sum(h.values())
+\end{verbatim}
+\afterverb
+%
+The number of different words is just the number of items in
+the dictionary:
+
+\beforeverb
+\begin{verbatim}
+def different_words(h):
+    return len(h)
+\end{verbatim}
+\afterverb
+%
+Here is some code to print the results:
+
+\beforeverb
+\begin{verbatim}
+print 'Total number of words:', total_words(hist)
+print 'Number of different words:', different_words(hist)
+\end{verbatim}
+\afterverb
+%
+And the results:
+
+\beforeverb
+\begin{verbatim}
+Total number of words: 161073
+Number of different words: 7212
+\end{verbatim}
+\afterverb
+%
+
+\section{Most common words}
+
+\index{DSU pattern}
+\index{pattern!DSU}
+
+To find the most common words, we can apply the DSU pattern;
+\verb"most_common" takes a histogram and returns a list of
+word-frequency tuples, sorted in reverse order by frequency:
+
+\beforeverb
+\begin{verbatim}
+def most_common(h):
+    t = []
+    for key, value in h.items():
+        t.append((value, key))
+
+    t.sort(reverse=True)
+    return t
+\end{verbatim}
+\afterverb
+%
+Here is a loop that prints the ten most common words:
+
+\beforeverb
+\begin{verbatim}
+t = most_common(hist)
+print 'The most common words are:'
+for freq, word in t[0:10]:
+    print word, '\t', freq
+\end{verbatim}
+\afterverb
+%
+And here are the results from {\em Emma}:
+
+\beforeverb
+\begin{verbatim}
+The most common words are:
+to      5242
+the     5204
+and     4897
+of      4293
+i       3191
+a       3130
+it      2529
+her     2483
+was     2400
+she     2364
+\end{verbatim}
+\afterverb
+%
+
+\section{Optional parameters}
+
+\index{optional parameter}
+\index{parameter!optional}
+
+We have seen built-in functions and methods that take a variable
+number of arguments.  It is possible to write user-defined functions
+with optional arguments, too.  For example, here is a function that
+prints the most common words in a histogram
+
+\beforeverb
+\begin{verbatim}
+def print_most_common(hist, num=10)
+    t = most_common(hist)
+    print 'The most common words are:'
+    for freq, word in t[0:num]:
+        print word, '\t', freq
+\end{verbatim}
+\afterverb
+
+The first parameter is required; the second is optional.
+The {\bf default value} of {\tt num} is 10.
+
+\index{default value}
+\index{value!default}
+
+If you only provide one argument:
+
+\beforeverb
+\begin{verbatim}
+print_most_common(hist)
+\end{verbatim}
+\afterverb
+
+{\tt num} gets the default value.  If you provide two arguments:
+
+\beforeverb
+\begin{verbatim}
+print_most_common(hist, 20)
+\end{verbatim}
+\afterverb
+
+{\tt num} gets the value of the argument instead.  In other
+words, the optional argument {\bf overrides} the default value.
+
+\index{override}
+
+If a function has both required and optional parameters, all
+the required parameters have to come first, followed by the
+optional ones.
+
+
+\section{Dictionary subtraction}
+
+\index{dictionary!subtraction}
+\index{subtraction!dictionary}
+
+Finding the words from the book that are not in the word list
+from {\tt words.txt} is a problem you might recognize as set
+subtraction; that is, we want to find all the words from one
+set (the words in the book) that are not in another set (the
+words in the list).
+
+{\tt subtract} takes dictionaries {\tt d1} and {\tt d2} and returns a
+new dictionary that contains all the keys from {\tt d1} that are not
+in {\tt d2}.  Since we don't really care about the values, we
+set them all to None.
+
+\beforeverb
+\begin{verbatim}
+def subtract(d1, d2):
+    res = dict()
+    for key in d1:
+        if key not in d2:
+            res[key] = None
+    return res
+\end{verbatim}
+\afterverb
+%
+To find the words in the book that are not in {\tt words.txt},
+we can use \verb"process_file" to build a histogram for
+{\tt words.txt}, and then subtract:
+
+\beforeverb
+\begin{verbatim}
+words = process_file('words.txt')
+diff = subtract(hist, words)
+
+print "The words in the book that aren't in the word list are:"
+for word in diff.keys():
+    print word,
+\end{verbatim}
+\afterverb
+%
+Here are some of the results from {\em Emma}:
+
+\beforeverb
+\begin{verbatim}
+The words in the book that aren't in the word list are:
+ rencontre jane's blanche woodhouses disingenuousness 
+friend's venice apartment ...
+\end{verbatim}
+\afterverb
+%
+Some of these words are names and possessives.  Others, like
+``rencontre,'' are no longer in common use.  But a few are common
+words that should really be in the list!
+
+\begin{ex}
+
+\index{set}
+\index{type!set}
+
+Python provides a data structure called {\tt set} that provides many
+common set operations.  Read the documentation at
+\url{docs.python.org/lib/types-set.html} and write a program
+that uses set subtraction to find words in the book that are not in
+the word list.
+\end{ex}
+
+
+\section{Random words}
+\label{randomwords}
+
+\index{histogram!random choice}
+
+To choose a random word from the histogram, the simplest algorithm
+is to build a list with multiple copies of each word, according
+to the observed frequency, and then choose from the list:
+
+\beforeverb
+\begin{verbatim}
+def random_word(h):
+    t = []
+    for word, freq in h.items():
+        t.extend([word] * freq)
+
+    return random.choice(t)
+\end{verbatim}
+\afterverb
+%
+The expression {\tt [word] * freq} creates a list with {\tt freq}
+copies of the string {\tt word}.  The {\tt extend}
+method is similar to {\tt append} except that the argument is
+a sequence.
+
+\begin{ex}
+\label{randhist}
+
+\index{algorithm}
+
+This algorithm works, but it is not very efficient; each time you
+choose a random word, it rebuilds the list, which is as big as
+the original book.  An obvious improvement is to build the list
+once and then make multiple selections, but the list is still big.
+
+An alternative is:
+
+\begin{enumerate}
+
+\item Use {\tt keys} to get a list of the words in the book.
+
+\item Build a list that contains the cumulative sum of the word
+  frequencies (see Exercise~\ref{cumulative}).  The last item
+  in this list is the total number of words in the book, $n$.
+  
+\item Choose a random number from 1 to $n$.  Use a bisection search
+  (See Exercise~\ref{bisection}) to find the index where the random
+  number would be inserted in the cumulative sum.
+
+\item Use the index to find the corresponding word in the word list.
+
+\end{enumerate}
+
+Write a program that uses this algorithm to choose a random
+word from the book.
+\end{ex}
+
+
+
+
+% Text moved into the tuple chapter
+% \section{Debugging}
+% \index{debugging}
+
+
+\section{Glossary}
+
+\begin{description}
+
+\item[deterministic:] Pertaining to a program that does the same
+thing each time it runs, given the same inputs.
+\index{deterministic}
+
+\item[pseudorandom:] Pertaining to a sequence of numbers that appear
+to be random, but are generated by a deterministic program.
+\index{pseudorandom}
+
+\item[default value:] The value given to an optional parameter if no
+argument is provided.
+\index{default value}
+
+\item[override:] To replace a default value with an argument.
+\index{override}
+
+\item[benchmarking:] The process of choosing between data structures
+by implementing alternatives and testing them on a sample of the
+possible inputs.  
+\index{benchmarking}
+
+\end{description}
+
+
+\section{Exercises}
+
+\begin{ex}
+
+\index{word frequency}
+\index{frequency!word}
+\index{Zipf's law}
+
+The ``rank'' of a word is its position in a list of words
+sorted by frequency: the most common word has rank 1, the
+second most common has rank 2, etc.
+
+Zipf's law describes a relationship between the ranks and frequencies
+of words in natural languages\footnote{See
+  \url{wikipedia.org/wiki/Zipf's_law}}.  Specifically, it
+predicts that the frequency, $f$, of the word with rank $r$ is:
+
+\[ f = c r^{-s} \]
+%
+where $s$ and $c$ are parameters that depend on the language and the
+text.  If you take the logarithm of both sides of this equation, you
+get:
+
+\index{logarithm}
+
+\[ \log f = \log c - s \log r \]
+%
+So if you plot $\log f$ versus $\log r$, you should get
+a straight line with slope $-s$ and intercept $\log c$.
+
+Write a program that reads a text from a file, counts
+word frequencies, and prints one line
+for each word, in descending order of frequency, with
+$\log f$ and $\log r$.  Use the graphing program of your
+choice to plot the results and check whether they form
+a straight line.  Can you estimate the value of $s$?
+\end{ex}
+
+\chapter{Advanced functions}
+\label{fruitchap}
+
+\section{Return values}
+\index{return value}
+
+Some of the built-in functions we have used, such as the math
+functions, produce results.  Calling the function generates a
+value, which we usually assign to a variable or use as part of an
+expression.
+
+\beforeverb
+\begin{verbatim}
+e = math.exp(1.0)
+height = radius * math.sin(radians)
+\end{verbatim}
+\afterverb
+%
+All of the functions we have written so far are void; they print
+something or move turtles around, but their return value is {\tt
+None}.
+
+In this chapter, we are (finally) going to write fruitful functions.
+The first example is {\tt area}, which returns the area of a circle
+with the given radius:
+
+\beforeverb
+\begin{verbatim}
+def area(radius):
+    temp = math.pi * radius**2
+    return temp
+\end{verbatim}
+\afterverb
+%
+We have seen the {\tt return} statement before, but in a fruitful
+function the {\tt return} statement includes
+an expression.  This statement means: ``Return immediately from
+this function and use the following expression as a return value.''
+The expression can be arbitrarily complicated, so we could
+have written this function more concisely:
+
+\index{return statement}
+\index{statement!return}
+
+\beforeverb
+\begin{verbatim}
+def area(radius):
+    return math.pi * radius**2
+\end{verbatim}
+\afterverb
+%
+On the other hand, {\bf temporary variables} like {\tt temp} often make
+debugging easier.
+
+\index{temporary variable}
+\index{variable!temporary}
+
+Sometimes it is useful to have multiple return statements, one in each
+branch of a conditional:
+
+\beforeverb
+\begin{verbatim}
+def absolute_value(x):
+    if x < 0:
+        return -x
+    else:
+        return x
+\end{verbatim}
+\afterverb
+%
+Since these {\tt return} statements are in an alternative conditional,
+only one will be executed.
+
+As soon as a return statement executes, the function
+terminates without executing any subsequent statements.
+Code that appears after a {\tt return} statement, or any other place
+the flow of execution can never reach, is called {\bf dead code}.
+
+\index{dead code}
+
+In a fruitful function, it is a good idea to ensure
+that every possible path through the program hits a
+{\tt return} statement.  For example:
+
+\beforeverb
+\begin{verbatim}
+def absolute_value(x):
+    if x < 0:
+        return -x
+    if x > 0:
+        return x
+\end{verbatim}
+\afterverb
+%
+This function is incorrect because if {\tt x} happens to be 0,
+neither condition is true, and the function ends without hitting a
+{\tt return} statement.  If the flow of execution gets to the end
+of a function, the return value is {\tt None}, which is not
+the absolute value of 0.
+
+\index{None special value}
+\index{special value!None}
+
+\beforeverb
+\begin{verbatim}
+>>> print absolute_value(0)
+None
+\end{verbatim}
+\afterverb
+%
+By the way, Python provides a built-in function called 
+{\tt abs} that computes absolute values.
+
+\index{abs function}
+\index{function!abs}
+
+\begin{ex}
+
+\index{compare function}
+\index{function!compare}
+
+Write a {\tt compare} function
+that returns {\tt 1} if {\tt x > y},
+{\tt 0} if {\tt x == y}, and {\tt -1} if {\tt x < y}.
+\end{ex}
+
+\section{Tuples as return values}
+
+\index{tuple}
+\index{value!tuple}
+\index{return value!tuple}
+\index{function, tuple as return value}
+
+Strictly speaking, a function can only return one value, but
+if the value is a tuple, the effect is the same as returning
+multiple values.  For example, if you want to divide two integers
+and compute the quotient and remainder, it is inefficient to
+compute {\tt x/y} and then {\tt x\%y}.  It is better to compute
+them both at the same time.
+
+\index{divmod}
+
+The built-in function {\tt divmod} takes two arguments and
+returns a tuple of two values, the quotient and remainder.
+You can store the result as a tuple:
+
+\beforeverb
+\begin{verbatim}
+>>> t = divmod(7, 3)
+>>> print t
+(2, 1)
+\end{verbatim}
+\afterverb
+%
+Or use tuple assignment to store the elements separately:
+
+\index{tuple assignment}
+\index{assignment!tuple}
+
+\beforeverb
+\begin{verbatim}
+>>> quot, rem = divmod(7, 3)
+>>> print quot
+2
+>>> print rem
+1
+\end{verbatim}
+\afterverb
+%
+Here is an example of a function that returns a tuple:
+
+\beforeverb
+\begin{verbatim}
+def min_max(t):
+    return min(t), max(t)
+\end{verbatim}
+\afterverb
+%
+{\tt max} and {\tt min} are built-in functions that find
+the largest and smallest elements of a sequence.  \verb"min_max"
+computes both and returns a tuple of two values.
+
+\index{max function}
+\index{function!max}
+\index{min function}
+\index{function!min}
+
+
+\section{Variable-length argument tuples}
+
+\index{variable-length argument tuple}
+\index{argument!variable-length tuple}
+\index{gather}
+\index{parameter!gather}
+\index{argument!gather}
+
+Functions can take a variable number of arguments.  A parameter
+name that begins with {\tt *} {\bf gathers} arguments into
+a tuple.  For example, {\tt printall}
+takes any number of arguments and prints them:
+
+\beforeverb
+\begin{verbatim}
+def printall(*args):
+    print args
+\end{verbatim}
+\afterverb
+%
+The gather parameter can have any name you like, but {\tt args} is
+conventional.  Here's how the function works:
+
+\beforeverb
+\begin{verbatim}
+>>> printall(1, 2.0, '3')
+(1, 2.0, '3')
+\end{verbatim}
+\afterverb
+%
+You can combine the gather operator with required and positional
+arguments:
+
+\beforeverb
+\begin{verbatim}
+def pointless(required, optional=0, *args):
+    print required, optional, args
+\end{verbatim}
+\afterverb
+%
+Run this function with 1, 2, 3 and 4 or more arguments and
+make sure you understand what it does.
+
+\index{scatter}
+\index{argument scatter}
+
+The complement of gather is {\bf scatter}.  If you have a
+sequence of values and you want to pass it to a function
+as multiple arguments, you can use the {\tt *} operator.
+For example, {\tt divmod} takes exactly two arguments; it
+doesn't work with a tuple:
+
+\index{TypeError}
+\index{exception!TypeError}
+
+\beforeverb
+\begin{verbatim}
+>>> t = (7, 3)
+>>> divmod(t)
+TypeError: divmod expected 2 arguments, got 1
+\end{verbatim}
+\afterverb
+%
+But if you scatter the tuple, it works:
+
+\beforeverb
+\begin{verbatim}
+>>> divmod(*t)
+(2, 1)
+\end{verbatim}
+\afterverb
+%
+
+\begin{ex}
+Many of the built-in functions use
+variable-length argument tuples.  For example, {\tt max}
+and {\tt min} can take any number of arguments:
+
+\index{max function}
+\index{function!max}
+\index{min function}
+\index{function!min}
+
+\beforeverb
+\begin{verbatim}
+>>> max(1,2,3)
+3
+\end{verbatim}
+\afterverb
+%
+But {\tt sum} does not.
+
+\index{sum function}
+\index{function!sum}
+
+\beforeverb
+\begin{verbatim}
+>>> sum(1,2,3)
+TypeError: sum expected at most 2 arguments, got 3
+\end{verbatim}
+\afterverb
+%
+Write a function called {\tt sumall} that takes any number
+of arguments and returns their sum.
+
+\end{ex}
+
+
+
+\section{Variables and parameters are local}
+\index{local variable}
+\index{variable!local}
+
+When you create a variable inside a function, it is {\bf local},
+which means that it only
+exists inside the function.  For example:
+
+\index{parentheses!parameters in}
+
+\beforeverb
+\begin{verbatim}
+def cat_twice(part1, part2):
+    cat = part1 + part2
+    print_twice(cat)
+\end{verbatim}
+\afterverb
+%
+This function takes two arguments, concatenates them, and prints
+the result twice.  Here is an example that uses it:
+
+\index{concatenation}
+
+\beforeverb
+\begin{verbatim}
+>>> line1 = 'Bing tiddle '
+>>> line2 = 'tiddle bang.'
+>>> cat_twice(line1, line2)
+Bing tiddle tiddle bang.
+Bing tiddle tiddle bang.
+\end{verbatim}
+\afterverb
+%
+When \verb"cat_twice" terminates, the variable {\tt cat}
+is destroyed.  If we try to print it, we get an exception:
+
+\index{NameError}
+\index{exception!NameError}
+
+\beforeverb
+\begin{verbatim}
+>>> print cat
+NameError: name 'cat' is not defined
+\end{verbatim}
+\afterverb
+%
+Parameters are also local.
+For example, outside \verb"print_twice", there is no
+such thing as {\tt bruce}.
+
+\index{parameter}
+
+\section{Global variables}
+
+\index{global variable}
+\index{variable!global}
+
+In the previous example, {\tt known} is created outside the function,
+so it belongs to the special frame called \verb"__main__".
+Variables in \verb"__main__" are sometimes called {\bf global}
+because they can be accessed from any function.  Unlike local
+variables, which disappear when their function ends, global variables
+persist from one function call to the next.
+
+\index{flag}
+
+It is common to use global variables for {\bf flags}; that is, 
+boolean variables that indicate (``flag'') whether a condition
+is true.  For example, some programs use
+a flag named {\tt verbose} to control the level of detail in the
+output:
+
+\beforeverb
+\begin{verbatim}
+verbose = True
+
+def example1():
+    if verbose:
+        print 'Running example1'
+\end{verbatim}
+\afterverb
+%
+If you try to reassign a global variable, you might be surprised.
+The following example is supposed to keep track of whether the
+function has been called:
+
+\index{multiple assignment}
+\index{assignment!multiple}
+
+\beforeverb
+\begin{verbatim}
+been_called = False
+
+def example2():
+    been_called = True         # WRONG
+\end{verbatim}
+\afterverb
+%
+But if you run it you will see that the value of \verb"been_called"
+doesn't change.  The problem is that {\tt example2} creates a new local
+variable named \verb"been_called".  The local variable goes away when
+the function ends, and has no effect on the global variable.
+
+\index{global statement}
+\index{statement!global}
+\index{declaration}
+
+To reassign a global variable inside a function you have to
+{\bf declare} the global variable before you use it:
+
+\beforeverb
+\begin{verbatim}
+been_called = False
+
+def example2():
+    global been_called 
+    been_called = True
+\end{verbatim}
+\afterverb
+%
+The {\tt global} statement tells the interpreter
+something like, ``In this function, when I say \verb"been_called", I
+mean the global variable; don't create a local one.''
+
+\index{update!global variable}
+\index{global variable!update}
+
+Here's an example that tries to update a global variable:
+
+\beforeverb
+\begin{verbatim}
+count = 0
+
+def example3():
+    count = count + 1          # WRONG
+\end{verbatim}
+\afterverb
+%
+If you run it you get:
+
+\index{UnboundLocalError}
+\index{exception!UnboundLocalError}
+
+\beforeverb
+\begin{verbatim}
+UnboundLocalError: local variable 'count' referenced before assignment
+\end{verbatim}
+\afterverb
+%
+Python assumes that {\tt count} is local, which means
+that you are reading it before writing it.  The solution, again,
+is to declare {\tt count} global.
+
+\index{counter}
+
+\beforeverb
+\begin{verbatim}
+def example3():
+    global count
+    count += 1
+\end{verbatim}
+\afterverb
+%
+If the global value is mutable, you can modify it without
+declaring it:
+
+\index{mutability}
+
+\beforeverb
+\begin{verbatim}
+known = {0:0, 1:1}
+
+def example4():
+    known[2] = 1
+\end{verbatim}
+\afterverb
+%
+So you can add, remove and replace elements of a global list or
+dictionary, but if you want to reassign the variable, you
+have to declare it:
+
+\beforeverb
+\begin{verbatim}
+def example5():
+    global known
+    known = dict()
+\end{verbatim}
+\afterverb
+%
+
+\section{Incremental development}
+\label{incremental development}
+\index{development plan!incremental}
+
+As you write larger functions, you might find yourself
+spending more time debugging.
+
+To deal with increasingly complex programs,
+you might want to try a process called
+{\bf incremental development}.  The goal of incremental development
+is to avoid long debugging sessions by adding and testing only
+a small amount of code at a time.
+
+\index{testing!incremental development}
+\index{Pythagorean theorem}
+
+As an example, suppose you want to find the distance between two
+points, given by the coordinates $(x_1, y_1)$ and $(x_2, y_2)$.
+By the Pythagorean theorem, the distance is:
+
+\begin{displaymath}
+\mathrm{distance} = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}
+\end{displaymath}
+%
+The first step is to consider what a {\tt distance} function should
+look like in Python.  In other words, what are the inputs (parameters)
+and what is the output (return value)?
+
+In this case, the inputs are two points, which you can represent
+using four numbers.  The return value is the distance, which is
+a floating-point value.
+
+Already you can write an outline of the function:
+
+\beforeverb
+\begin{verbatim}
+def distance(x1, y1, x2, y2):
+    return 0.0
+\end{verbatim}
+\afterverb
+%
+Obviously, this version doesn't compute distances; it always returns
+zero.  But it is syntactically correct, and it runs, which means that
+you can test it before you make it more complicated.
+
+To test the new function, call it with sample arguments:
+
+\beforeverb
+\begin{verbatim}
+>>> distance(1, 2, 4, 6)
+0.0
+\end{verbatim}
+\afterverb
+%
+I chose these values so that the horizontal distance is 3 and the
+vertical distance is 4; that way, the result is 5
+(the hypotenuse of a 3-4-5 triangle). When testing a function, it is
+useful to know the right answer.
+
+\index{testing!knowing the answer}
+
+At this point we have confirmed that the function is syntactically
+correct, and we can start adding code to the body.
+A reasonable next step is to find the differences
+$x_2 - x_1$ and $y_2 - y_1$.  The next version stores those values in
+temporary variables and prints them.
+
+\beforeverb
+\begin{verbatim}
+def distance(x1, y1, x2, y2):
+    dx = x2 - x1
+    dy = y2 - y1
+    print 'dx is', dx
+    print 'dy is', dy
+    return 0.0
+\end{verbatim}
+\afterverb
+%
+If the function is working, it should display \verb"'dx is 3'" and {\tt
+'dy is 4'}.  If so, we know that the function is getting the right
+arguments and performing the first computation correctly.  If not,
+there are only a few lines to check.
+
+Next we compute the sum of squares of {\tt dx} and {\tt dy}:
+
+\beforeverb
+\begin{verbatim}
+def distance(x1, y1, x2, y2):
+    dx = x2 - x1
+    dy = y2 - y1
+    dsquared = dx**2 + dy**2
+    print 'dsquared is: ', dsquared
+    return 0.0
+\end{verbatim}
+\afterverb
+%
+Again, you would run the program at this stage and check the output
+(which should be 25).
+Finally, you can use {\tt math.sqrt} to compute and return the result:
+
+\index{sqrt}
+\index{function!sqrt}
+
+\beforeverb
+\begin{verbatim}
+def distance(x1, y1, x2, y2):
+    dx = x2 - x1
+    dy = y2 - y1
+    dsquared = dx**2 + dy**2
+    result = math.sqrt(dsquared)
+    return result
+\end{verbatim}
+\afterverb
+%
+If that works correctly, you are done.  Otherwise, you might
+want to print the value of {\tt result} before the return
+statement.
+
+The final version of the function doesn't display anything when it
+runs; it only returns a value.  The {\tt print} statements we wrote
+are useful for debugging, but once you get the function working, you
+should remove them.  Code like that is called {\bf scaffolding}
+because it is helpful for building the program but is not part of the
+final product.
+
+\index{scaffolding}
+
+When you start out, you should add only a line or two of code at a
+time.  As you gain more experience, you might find yourself writing
+and debugging bigger chunks.  Either way, incremental development
+can save you a lot of debugging time.
+
+The key aspects of the process are:
+
+\begin{enumerate}
+
+\item Start with a working program and make small incremental changes. 
+At any point, if there is an error, you should have a good idea
+where it is.
+
+\item Use temporary variables to hold intermediate values so you can
+display and check them.
+
+\item Once the program is working, you might want to remove some of
+the scaffolding or consolidate multiple statements into compound
+expressions, but only if it does not make the program difficult to
+read.
+
+\end{enumerate}
+
+\begin{ex}
+
+\index{hypotenuse}
+
+Use incremental development to write a function
+called {\tt hypotenuse} that returns the length of the hypotenuse of a
+right triangle given the lengths of the two legs as arguments.
+Record each stage of the development process as you go.
+\end{ex}
+
+
+\section{Composition}
+
+\index{composition}
+\index{function composition}
+
+As you should expect by now, you can call one function from
+within another.  This ability is called {\bf composition}.
+
+As an example, we'll write a function that takes two points,
+the center of the circle and a point on the perimeter, and computes
+the area of the circle.
+
+Assume that the center point is stored in the variables {\tt xc} and
+{\tt yc}, and the perimeter point is in {\tt xp} and {\tt yp}. The
+first step is to find the radius of the circle, which is the distance
+between the two points.  We just wrote a function, {\tt
+distance}, that does that:
+
+\beforeverb
+\begin{verbatim}
+radius = distance(xc, yc, xp, yp)
+\end{verbatim}
+\afterverb
+%
+The next step is to find the area of a circle with that radius;
+we just wrote that, too:
+
+\beforeverb
+\begin{verbatim}
+result = area(radius)
+\end{verbatim}
+\afterverb
+%
+Encapsulating these steps in a function, we get:
+
+\index{encapsulation}
+
+\beforeverb
+\begin{verbatim}
+def circle_area(xc, yc, xp, yp):
+    radius = distance(xc, yc, xp, yp)
+    result = area(radius)
+    return result
+\end{verbatim}
+\afterverb
+%
+The temporary variables {\tt radius} and {\tt result} are useful for
+development and debugging, but once the program is working, we can
+make it more concise by composing the function calls:
+
+\beforeverb
+\begin{verbatim}
+def circle_area(xc, yc, xp, yp):
+    return area(distance(xc, yc, xp, yp))
+\end{verbatim}
+\afterverb
+%
+
+\section{Stack diagrams}
+\label{stackdiagram}
+\index{stack diagram}
+\index{function frame}
+\index{frame}
+
+To keep track of which variables can be used where, it is sometimes
+useful to draw a {\bf stack diagram}.  Like state diagrams, stack
+diagrams show the value of each variable, but they also show the
+function each variable belongs to.
+
+\index{stack diagram}
+\index{diagram!stack}
+
+Each function is represented by a {\bf frame}.  A frame is a box
+with the name of a function
+beside it and the parameters and variables of the function inside it.
+The stack diagram for the
+previous example looks like this:
+
+\beforefig
+\centerline{\includegraphics{figs/stack.eps}}
+\afterfig
+
+The frames are arranged in a stack that indicates which function
+called which, and so on.  In this example, \verb"print_twice"
+was called by \verb"cat_twice", and \verb"cat_twice" was called by 
+\verb"__main__", which is a special name for the topmost frame.  When
+you create a variable outside of any function, it belongs to 
+\verb"__main__".
+
+Each parameter refers to the same value as its corresponding
+argument.  So, {\tt part1} has the same value as
+{\tt line1}, {\tt part2} has the same value as {\tt line2},
+and {\tt bruce} has the same value as {\tt cat}.
+
+If an error occurs during a function call, Python prints the
+name of the function, and the name of the function that called
+it, and the name of the function that called {\em that}, all the
+way back to \verb"__main__".
+
+For example, if you try to access {\tt cat} from within 
+\verb"print_twice", you get a {\tt NameError}:
+
+\beforeverb
+\begin{verbatim}
+Traceback (innermost last):
+  File "test.py", line 13, in __main__
+    cat_twice(line1, line2)
+  File "test.py", line 5, in cat_twice
+    print_twice(cat)
+  File "test.py", line 9, in print_twice
+    print cat
+NameError: name 'cat' is not defined
+\end{verbatim}
+\afterverb
+%
+This list of functions is called a {\bf traceback}.  It tells you what
+program file the error occurred in, and what line, and what functions
+were executing at the time.  It also shows the line of code that
+caused the error.
+
+\index{traceback}
+
+The order of the functions in the traceback is the same as the
+order of the frames in the stack diagram.  The function that is
+currently running is at the bottom.
+
+
+\section{Boolean functions}
+\label{boolean}
+
+\index{boolean function}
+
+Functions can return booleans, which is often convenient for hiding
+complicated tests inside functions.  For example:
+
+\beforeverb
+\begin{verbatim}
+def is_divisible(x, y):
+    if x % y == 0:
+        return True
+    else:
+        return False
+\end{verbatim}
+\afterverb
+%
+It is common to give boolean functions names that sound like yes/no
+questions; \verb"is_divisible" returns either {\tt True} or {\tt False}
+to indicate whether {\tt x} is divisible by {\tt y}.
+
+Here is an example:
+
+\beforeverb
+\begin{verbatim}
+>>>   is_divisible(6, 4)
+False
+>>>   is_divisible(6, 3)
+True
+\end{verbatim}
+\afterverb
+%
+The result of the {\tt ==} operator is a boolean, so we can write the
+function more concisely by returning it directly:
+
+\beforeverb
+\begin{verbatim}
+def is_divisible(x, y):
+    return x % y == 0
+\end{verbatim}
+\afterverb
+%
+Boolean functions are often used in conditional statements:
+
+\index{conditional statement}
+\index{statement!conditional}
+
+\beforeverb
+\begin{verbatim}
+if is_divisible(x, y):
+    print 'x is divisible by y'
+\end{verbatim}
+\afterverb
+%
+It might be tempting to write something like:
+
+\beforeverb
+\begin{verbatim}
+if is_divisible(x, y) == True:
+    print 'x is divisible by y'
+\end{verbatim}
+\afterverb
+%
+But the extra comparison is unnecessary.
+
+\begin{ex}
+Write a function \verb"is_between(x, y, z)" that
+returns {\tt True} if $x \le y \le z$ or {\tt False} otherwise.
+\end{ex}
+
+% TBD - May want ot talk about "guarding" code here - lots removed
+
+\section{Debugging}
+\label{factdebug}
+
+\index{debugging}
+
+Breaking a large program into smaller functions creates natural
+checkpoints for debugging.  If a function is not working, there are
+three possibilities to consider:
+
+\begin{itemize}
+
+\item There is something wrong with the arguments the function
+is getting; a precondition is violated.
+
+\item There is something wrong with the function; a postcondition
+is violated.
+
+\item There is something wrong with the return value or the
+way it is being used.
+
+\end{itemize}
+
+To rule out the first possibility, you can add a {\tt print} statement
+at the beginning of the function and display the values of the
+parameters (and maybe their types).  Or you can write code
+that checks the preconditions explicitly.
+
+\index{precondition}
+\index{postcondition}
+
+If the parameters look good, add a {\tt print} statement before each
+{\tt return} statement that displays the return value.  If
+possible, check the result by hand.  Consider calling the
+function with values that make it easy to check the result
+(as in Section~\ref{incremental development}).
+
+If the function seems to be working, look at the function call
+to make sure the return value is being used correctly (or used
+at all!).
+
+\index{flow of execution}
+
+Adding print statements at the beginning and end of a function
+can help make the flow of execution more visible.
+
+If you are confused about the flow of execution, this kind of
+output can be helpful.  It takes some time to develop effective
+scaffolding, but a little bit of scaffolding can save a lot of debugging.
+
+
+\section{Glossary}
+
+\begin{description}
+
+\item[temporary variable:]  A variable used to store an intermediate value in
+a complex calculation.
+\index{temporary variable}
+\index{variable!temporary}
+
+\item[dead code:]  Part of a program that can never be executed, often because
+it appears after a {\tt return} statement.
+\index{dead code}
+
+\item[{\tt None}:]  A special value returned by functions that
+have no return statement or a return statement without an argument.
+\index{None special value}
+\index{special value!None}
+
+\item[local variable:]  A variable defined inside a function.  A local
+variable can only be used inside its function.
+\index{local variable}
+
+\item[global variable:]  A variable defined outside a function.  Global
+variables can be accessed from any function.
+\index{global variable}
+
+\item[declaration:] A statement like {\tt global} that tells the
+interpreter something about a variable.
+\index{declaration}
+
+
+\item[incremental development:]  A program development plan intended to
+avoid debugging by adding and testing only
+a small amount of code at a time.
+\index{incremental development}
+
+\item[scaffolding:]  Code that is used during program development but is
+not part of the final version.
+\index{scaffolding}
+
+\item[guardian:]  A programming pattern that uses a conditional
+statement to check for and handle circumstances that
+might cause an error.
+\index{guardian pattern}
+\index{pattern!guardian}
+
+\item[stack diagram:]  A graphical representation of a stack of functions,
+their variables, and the values they refer to.
+\index{stack diagram}
+
+\item[frame:]  A box in a stack diagram that represents a function call.
+It contains the local variables and parameters of the function.
+\index{function frame}
+\index{frame}
+
+\item[call graph:] A diagram that shows every frame created during
+the execution of a program, with an arrow from each caller to
+each callee. 
+
+\index{call graph}
+\index{diagram!call graph}
+
+\item[traceback:]  A list of the functions that are executing,
+printed when an exception occurs.
+\index{traceback}
+
+\item[flag:] A boolean variable used to indicate whether a condition
+is true.
+\index{flag}
+
+
+\end{description}
+
+
+\section{Exercises}
+
+\begin{ex}
+\index{stack diagram}
+
+Draw a stack diagram for the following
+program.  What does the program print?
+
+\beforeverb
+\begin{verbatim}
+def b(z):
+    prod = a(z, z)
+    print z, prod
+    return prod
+
+def a(x, y):
+    x = x + 1
+    return x * y
+
+def c(x, y, z):
+    sum = x + y + z
+    pow = b(sum)**2
+    return pow
+
+x = 1
+y = x + 1
+print c(x, y+3, x+y)
+\end{verbatim}
+\afterverb
+
+\end{ex}
+
+
+
+\begin{ex}
+\label{palindrome}
+
+\index{palindrome}
+
+A palindrome is a word that is spelled the same backward and
+forward, like ``noon'' and ``redivider''.  Recursively, a word
+is a palindrome if the first and last letters are the same
+and the middle is a palindrome.
+
+The following are functions that take a string argument and
+return the first, last, and middle letters:
+
+\beforeverb
+\begin{verbatim}
+def first(word):
+    return word[0]
+
+def last(word):
+    return word[-1]
+
+def middle(word):
+    return word[1:-1]
+\end{verbatim}
+\afterverb
+%
+We'll see how they work in Chapter~\ref{strings}.
+
+\begin{enumerate}
+
+\item Type these functions into a file named {\tt palindrome.py}
+and test them out.  What happens if you call {\tt middle} with
+a string with two letters?  One letter?  What about the empty
+string, which is written \verb"''" and contains no letters?
+
+\item Write a function called \verb"is_palindrome" that takes
+a string argument and returns {\tt True} if it is a palindrome
+and {\tt False} otherwise.  Remember that you can use the
+built-in function {\tt len} to check the length of a string.
+
+\end{enumerate}
+
+\end{ex}
+
+\begin{ex}
+A number, $a$, is a power of $b$ if it is divisible by $b$
+and $a/b$ is a power of $b$.  Write a function called
+\verb"is_power" that takes parameters {\tt a} and {\tt b}
+and returns {\tt True} if {\tt a} is a power of {\tt b}.
+\end{ex}
+
+
+\begin{ex}
+
+\index{greatest common divisor (GCD)}
+\index{GCD (greatest common divisor)}
+
+The greatest common divisor (GCD) of $a$ and $b$ is the largest number
+that divides both of them with no remainder\footnote{This exercise is
+  based on an example from Abelson and Sussman's {\em Structure and
+    Interpretation of Computer Programs}.}.
+
+One way to find the GCD of two numbers is Euclid's algorithm,
+which is based on the observation that if $r$ is the remainder
+when $a$ is divided by $b$, then $gcd(a, b) = gcd(b, r)$.
+As a base case, we can consider $gcd(a, 0) = a$.
+
+\index{Euclid's algorithm}
+\index{algorithm!Euclid}
+
+Write a function called
+\verb"gcd" that takes parameters {\tt a} and {\tt b}
+and returns their greatest common divisor.  If you need
+help, see \url{wikipedia.org/wiki/Euclidean_algorithm}.
+
+\end{ex}
+
+
+
+
+
+\chapter{Networked programs}
+
+\section{The Internet}
+
+\section{Making network connections}
+
+\section{Retrieving web pages}
+
+\section{Parsing HTML and scraping the web}
+
+\section{Exercises}
+
+\begin{ex}
+\label{urllib}
+
+\index{urllib module}
+\index{module!urllib}
+\index{URL}
+
+The {\tt urllib} module provides methods for manipulating URLs
+and downloading information from the web.  The following example
+downloads and prints a secret message from {\tt thinkpython.com}:
+
+\beforeverb
+\begin{verbatim}
+import urllib
+
+conn = urllib.urlopen('http://thinkpython.com/secret.html')
+for line in conn.fp:
+    print line.strip()
+\end{verbatim}
+\afterverb
+
+Run this code and follow the instructions you see there.
+
+\index{secret exercise}
+\index{exercise, secret}
+
+\end{ex}
+
+
+
+\chapter{Using web services}
+
+\section{Serivce Oriented Architeture (SOA)}
+
+\section{Application Programming Intercaces (API)}
+
+\section{eXtensible Markup Language (XML)}
+
+\section{Parsing XML}
+
+\section{Calling web services}
+
+
+\chapter{Using databases}
+
+\section{What is a database?}
+\index{database}
+
+A {\bf database} is a file that is organized for storing data.
+Most databases are organized like a dictionary in the sense
+that they map from keys to values.  The biggest difference
+is that the database is on disk (or other permanent storage),
+so it persists after the program ends.
+
+\index{anydbm module}
+\index{module!anydbm}
+
+The module {\tt anydbm} provides an interface for creating
+and updating database files.  As an example, I'll create a database
+that contains captions for image files.
+
+\index{open function}
+\index{function!open}
+
+Opening a database is similar
+to opening other files:
+
+\beforeverb
+\begin{verbatim}
+>>> import anydbm
+>>> db = anydbm.open('captions.db', 'c')
+\end{verbatim}
+\afterverb
+%
+The mode \verb"'c'" means that the database should be created if
+it doesn't already exist.  The result is a database object
+that can be used (for most operations) like a dictionary.
+If you create a new item, {\tt anydbm} updates the database file.
+
+\index{update!database}
+
+
+\beforeverb
+\begin{verbatim}
+>>> db['cleese.png'] = 'Photo of John Cleese.'
+\end{verbatim}
+\afterverb
+%
+When you access one of the items, {\tt anydbm} reads the file:
+
+\beforeverb
+\begin{verbatim}
+>>> print db['cleese.png']
+Photo of John Cleese.
+\end{verbatim}
+\afterverb
+%
+If you make another assignment to an existing key, {\tt anydbm} replaces
+the old value:
+
+\beforeverb
+\begin{verbatim}
+>>> db['cleese.png'] = 'Photo of John Cleese doing a silly walk.'
+>>> print db['cleese.png']
+Photo of John Cleese doing a silly walk.
+\end{verbatim}
+\afterverb
+%
+Many dictionary methods, like {\tt keys} and {\tt items}, also
+work with database objects.  So does iteration with a {\tt for}
+statement.
+
+\index{dictionary methods!anydbm module}
+
+\beforeverb
+\begin{verbatim}
+for key in db:
+     print key
+\end{verbatim}
+\afterverb
+%
+As with other files, you should close the database when you are
+done:
+
+\beforeverb
+\begin{verbatim}
+>>> db.close()
+\end{verbatim}
+\afterverb
+%
+
+\index{close method}
+\index{method!close}
+
+
+\section{Pickling}
+
+\index{pickling}
+
+A limitation of {\tt anydbm} is that the keys and values have
+to be strings.  If you try to use any other type, you get an
+error.
+
+\index{pickle module}
+\index{module!pickle}
+
+The {\tt pickle} module can help.  It translates
+almost any type of object into a string suitable for storage in a
+database, and then translates strings back into objects.
+
+{\tt pickle.dumps} takes an object as a parameter and returns
+a string representation ({\tt dumps} is short for ``dump string''):
+
+\beforeverb
+\begin{verbatim}
+>>> import pickle
+>>> t = [1, 2, 3]
+>>> pickle.dumps(t)
+'(lp0\nI1\naI2\naI3\na.'
+\end{verbatim}
+\afterverb
+%
+The format isn't obvious to human readers; it is meant to be
+easy for {\tt pickle} to interpret.  {\tt pickle.loads}
+(``load string'') reconstitutes the object:
+
+\beforeverb
+\begin{verbatim}
+>>> t1 = [1, 2, 3]
+>>> s = pickle.dumps(t1)
+>>> t2 = pickle.loads(s)
+>>> print t2
+[1, 2, 3]
+\end{verbatim}
+\afterverb
+%
+Although the new object has the same value as the old, it is
+not (in general) the same object:
+
+\beforeverb
+\begin{verbatim}
+>>> t1 == t2
+True
+>>> t1 is t2
+False
+\end{verbatim}
+\afterverb
+%
+In other words, pickling and then unpickling has the same effect
+as copying the object.
+
+You can use {\tt pickle} to store non-strings in a database.
+In fact, this combination is so common that it has been
+encapsulated in a module called {\tt shelve}.  
+
+\index{shelve module}
+\index{module!shelve}
+
+
+\begin{ex}
+
+\index{anagram set}
+\index{set!anagram}
+
+If you did Exercise~\ref{anagrams}, modify your solution so that
+it creates a database that maps from each word in the list to
+a list of words that use the same set of letters.
+
+Write a different program that opens the database and prints
+the contents in a human-readable format.
+\end{ex}
+
+
+
+\section{Using the SQLite3 database}
+
+\section{The basics of Structured Query Language (SQL)}
+
+\section{Basic data modelling}
+
+\section{Using JOIN to retrieve data}
+
+\section{Python and SQLite3}
+
+\chapter{Regular expressions}
+
+\section{More accurate searching}
+
+\section{Building regular expressions}
+
+\section{Applications of regular expressions}
+
+\section{Regular expressions at the command line (Advanced)}
+
+
+\chapter{Automating common tasks}
+
+
+\section{Filenames and paths}
+\label{paths}
+
+\index{filename}
+\index{path}
+\index{directory}
+\index{folder}
+
+Files are organized into {\bf directories} (also called ``folders'').
+Every running program has a ``current directory,'' which is the
+default directory for most operations.  
+For example, when you open a file for reading, Python looks for it in the
+current directory.
+
+\index{os module}
+\index{module!os}
+
+The {\tt os} module provides functions for working with files and
+directories (``os'' stands for ``operating system'').  {\tt os.getcwd}
+returns the name of the current directory:
+
+\index{getcwd function}
+\index{function!getcwd}
+
+\beforeverb
+\begin{verbatim}
+>>> import os
+>>> cwd = os.getcwd()
+>>> print cwd
+/home/dinsdale
+\end{verbatim}
+\afterverb
+%
+{\tt cwd} stands for ``current working directory.''  The result in
+this example is {\tt /home/dinsdale}, which is the home directory of a
+user named {\tt dinsdale}.
+
+\index{working directory}
+\index{directory!working}
+
+A string like {\tt cwd} that identifies a file is called a {\bf path}.
+A {\bf relative path} starts from the current directory;
+an {\bf absolute path} starts from the topmost directory in the
+file system.
+
+\index{relative path}
+\index{path!relative}
+\index{absolute path}
+\index{path!absolute}
+
+The paths we have seen so far are simple filenames, so they are
+relative to the current directory.  To find the absolute path to
+a file, you can use {\tt os.path.abspath}:
+
+\beforeverb
+\begin{verbatim}
+>>> os.path.abspath('memo.txt')
+'/home/dinsdale/memo.txt'
+\end{verbatim}
+\afterverb
+%
+{\tt os.path.exists} checks
+whether a file or directory exists:
+
+\index{exists function}
+\index{function!exists}
+
+\beforeverb
+\begin{verbatim}
+>>> os.path.exists('memo.txt')
+True
+\end{verbatim}
+\afterverb
+%
+If it exists, {\tt os.path.isdir} checks whether it's a directory:
+
+\beforeverb
+\begin{verbatim}
+>>> os.path.isdir('memo.txt')
+False
+>>> os.path.isdir('music')
+True
+\end{verbatim}
+\afterverb
+%
+Similarly, {\tt os.path.isfile} checks whether it's a file.
+
+{\tt os.listdir} returns a list of the files (and other directories)
+in the given directory:
+
+\beforeverb
+\begin{verbatim}
+>>> os.listdir(cwd)
+['music', 'photos', 'memo.txt']
+\end{verbatim}
+\afterverb
+%
+To demonstrate these functions, the following example
+``walks'' through a directory, prints
+the names of all the files, and calls itself recursively on
+all the directories.
+
+\index{walk, directory}
+\index{directory!walk}
+
+\beforeverb
+\begin{verbatim}
+def walk(dir):
+    for name in os.listdir(dir):
+        path = os.path.join(dir, name)
+
+        if os.path.isfile(path):
+            print path
+        else:
+            walk(path)
+\end{verbatim}
+\afterverb
+%
+{\tt os.path.join} takes a directory and a file name and joins
+them into a complete path.  
+
+\begin{ex}
+Modify {\tt walk} so that instead of printing the names of
+the files, it returns a list of names.
+\end{ex}
+
+\begin{ex}
+The {\tt os} module provides a function called {\tt walk}
+that is similar to this one but more versatile.  Read
+the documentation and use it to print the names of the
+files in a given directory and its subdirectories.
+\end{ex}
+
+
+\section{Pipes}
+
+\index{shell}
+\index{pipe}
+
+Most operating systems provide a command-line interface,
+also known as a {\bf shell}.  Shells usually provide commands
+to navigate the file system and launch applications.  For
+example, in Unix, you can change directories with {\tt cd},
+display the contents of a directory with {\tt ls}, and launch
+a web browser by typing (for example) {\tt firefox}.
+
+\index{ls (Unix command)}
+\index{Unix command!ls}
+
+Any program that you can launch from the shell can also be
+launched from Python using a {\bf pipe}.  A pipe is an object
+that represents a running process.
+
+For example, the Unix command {\tt ls -l} normally displays the
+contents of the current directory (in long format).  You can
+launch {\tt ls} with {\tt os.popen}:
+
+\index{popen function}
+\index{function!popen}
+
+\beforeverb
+\begin{verbatim}
+>>> cmd = 'ls -l'
+>>> fp = os.popen(cmd)
+\end{verbatim}
+\afterverb
+%
+The argument is a string that contains a shell command.  The
+return value is a file pointer that behaves just like an open
+file.  You can read the output from the {\tt ls} process one
+line at a time with {\tt readline} or get the whole thing at
+once with {\tt read}:
+
+\index{readline method}
+\index{method!readline}
+\index{read method}
+\index{method!read}
+
+\beforeverb
+\begin{verbatim}
+>>> res = fp.read()
+\end{verbatim}
+\afterverb
+%
+When you are done, you close the pipe like a file:
+
+\index{close method}
+\index{method!close}
+
+\beforeverb
+\begin{verbatim}
+>>> stat = fp.close()
+>>> print stat
+None
+\end{verbatim}
+\afterverb
+%
+The return value is the final status of the {\tt ls} process;
+{\tt None} means that it ended normally (with no errors).
+
+\index{file!compression}
+\index{compression!file}
+\index{Unix command!gunzip}
+\index{gunzip (Unix command)}
+
+A common use of pipes is to read a compressed file incrementally;
+that is, without uncompressing the whole thing at once.  The
+following function takes the name of a compressed file as a
+parameter and returns a pipe that uses {\tt gunzip} to decompress
+the contents:
+
+\beforeverb
+\begin{verbatim}
+def open_gunzip(filename):
+    cmd = 'gunzip -c ' + filename
+    fp = os.popen(cmd)
+    return fp
+\end{verbatim}
+\afterverb
+%
+If you read lines from {\tt fp} one at a time, you never have
+to store the uncompressed file in memory or on disk.
+
+\section{Exercises}
+
+\begin{ex}
+\label{checksum}
+
+\index{MP3}
+
+In a large collection of MP3 files, there may be more than one
+copy of the same song, stored in different directories or with
+different file names.  The goal of this exercise is to search for
+these duplicates.
+
+\begin{enumerate}
+
+\item Write a program that searches a directory and all of its
+subdirectories, recursively, and returns a list of complete paths
+for all files with a given suffix (like {\tt .mp3}).
+Hint: {\tt os.path} provides several useful functions for
+manipulating file and path names.
+
+\index{duplicate}
+\index{MD5 algorithm}
+\index{algorithm!MD5}
+\index{checksum}
+
+\item To recognize duplicates, you can use a hash function that
+reads the file and generates a short summary
+of the contents.  For example,
+MD5 (Message-Digest algorithm 5) takes an arbitrarily-long
+``message'' and returns a 128-bit ``checksum.''  The probability
+is very small that two files with different contents will
+return the same checksum.
+
+You can read about MD5 at \url{wikipedia.org/wiki/Md5}.  On
+a Unix system you can use the program {\tt md5sum} and a pipe to
+compute checksums from Python.
+
+\index{pipe}
+
+\end{enumerate}
+
+\end{ex}
+
+
+
+\chapter{Visualizing data}
+
+\section{Simple graphics in Python}
+
+\section{Python and spreadsheets}
+
+\section{Using Google visualization}
+
+
+
