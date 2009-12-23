@@ -4958,8 +4958,8 @@ This is the first example we have seen of a {\tt return} statement
 inside a loop.  If {\tt word[index] == letter}, the function breaks
 out of the loop and returns immediately.
 
-If the character doesn't appear in the string, the program
-exits the loop normally and  returns {\tt -1}.
+If the character doesn't appear in the string, the loop
+exits normally at the bottom and returns {\tt -1}.
 
 This pattern of computation---traversing a sequence and returning
 when we find what we are looking for---is a called a {\bf search}.
@@ -5016,107 +5016,6 @@ Rewrite this function so that instead of
 traversing the string, it uses the three-parameter version of {\tt
 find} from the previous section.
 \end{ex}
-
-
-\section{{\tt string} methods}
-
-A {\bf method} is similar to a function---it takes arguments and
-returns a value---but the syntax is different.  For example, the
-method {\tt upper} takes a string and returns a new string with
-all uppercase letters:
-
-\index{method}
-\index{string!method}
-
-Instead of the function syntax {\tt upper(word)}, it uses
-the method syntax {\tt word.upper()}.
-
-\index{dot notation}
-
-\beforeverb
-\begin{verbatim}
->>> word = 'banana'
->>> new_word = word.upper()
->>> print new_word
-BANANA
-\end{verbatim}
-\afterverb
-%
-This form of dot notation specifies the name of the method, {\tt
-upper}, and the name of the string to apply the method to, {\tt
-word}.  The empty parentheses indicate that this method takes no
-argument.
-
-\index{parentheses!empty}
-
-A method call is called an {\bf invocation}; in this case, we would
-say that we are invoking {\tt upper} on the {\tt word}.
-
-\index{invocation}
-
-As it turns out, there is a string method named {\tt find} that
-is remarkably similar to the function we wrote:
-
-\beforeverb
-\begin{verbatim}
->>> word = 'banana'
->>> index = word.find('a')
->>> print index
-1
-\end{verbatim}
-\afterverb
-%
-In this example, we invoke {\tt find} on {\tt word} and pass
-the letter we are looking for as a parameter.
-
-Actually, the {\tt find} method is more general than our function;
-it can find substrings, not just characters:
-
-\beforeverb
-\begin{verbatim}
->>> word.find('na')
-2
-\end{verbatim}
-\afterverb
-%
-It can take as a second argument the index where it should start:
-
-\index{optional argument}
-\index{argument!optional}
-
-\beforeverb
-\begin{verbatim}
->>> word.find('na', 3)
-4
-\end{verbatim}
-\afterverb
-%
-And as a third argument the index where it should stop:
-
-\beforeverb
-\begin{verbatim}
->>> name = 'bob'
->>> name.find('b', 1, 2)
--1
-\end{verbatim}
-\afterverb
-%
-This search fails because {\tt b} does not
-appear in the index range from {\tt 1} to {\tt 2} (not including {\tt
-2}).
-
-
-\begin{ex}
-\index{count method}
-\index{method!count}
-
-There is a string method called {\tt count} that is similar
-to the function in the previous exercise.  Read the documentation
-of this method
-and write an invocation that counts the number of {\tt a}s
-in \verb"'banana'".
-\end{ex}
-
 
 \section{The {\tt in} operator}
 \label{inboth}
@@ -5209,6 +5108,184 @@ A common way to address this problem is to convert strings to a
 standard format, such as all lowercase, before performing the
 comparison.  Keep that in mind in case you have to defend yourself
 against a man armed with a Pineapple.
+
+
+\section{{\tt string} methods}
+
+Strings are an example of Python {\bf objects}.  An object contains
+both data (the actual string itself) as well as {\bf methods} which
+are effectively functions which are built into the object and 
+available to any {\bf instance} of the object.
+
+Python has a function called {\tt dir} that lists the methods available
+for an object.  The {\tt type} function shows the type of an object 
+and the {\tt dir} function shows the available methods.
+\beforeverb
+\begin{verbatim}
+>>> stuff = 'Hello world'
+>>> type(stuff)
+<type 'str'>
+>>> dir(stuff)
+['capitalize', 'center', 'count', 'decode', 'encode', 
+'endswith', 'expandtabs', 'find', 'format', 'index', 
+'isalnum', 'isalpha', 'isdigit', 'islower', 'isspace', 
+'istitle', 'isupper', 'join', 'ljust', 'lower', 'lstrip', 
+'partition', 'replace', 'rfind', 'rindex', 'rjust', 
+'rpartition', 'rsplit', 'rstrip', 'split', 'splitlines', 
+'startswith', 'strip', 'swapcase', 'title', 'translate', 
+'upper', 'zfill']
+>>> help(str.capitalize)
+Help on method_descriptor:
+
+capitalize(...)
+    S.capitalize() -> string
+    
+    Return a copy of the string S with only its first character
+    capitalized.
+>>>
+\end{verbatim}
+\afterverb
+%
+
+While the {\tt dir} function lists the methods, and you 
+can use {\tt help} to get some simple documentation on a method, 
+a better source of documentation for string methods would be
+\url{docs.python.org/library/string.html}.
+
+Calling a {\bf method} is similar to calling a function---it 
+takes arguments and
+returns a value---but the syntax is different.  We call a method
+by appending the method name to the variable name using the period 
+as a delimiter.
+
+For example, the
+method {\tt upper} takes a string and returns a new string with
+all uppercase letters:
+
+\index{method}
+\index{string!method}
+
+Instead of the function syntax {\tt upper(word)}, it uses
+the method syntax {\tt word.upper()}.
+
+\index{dot notation}
+
+\beforeverb
+\begin{verbatim}
+>>> word = 'banana'
+>>> new_word = word.upper()
+>>> print new_word
+BANANA
+\end{verbatim}
+\afterverb
+%
+This form of dot notation specifies the name of the method, {\tt
+upper}, and the name of the string to apply the method to, {\tt
+word}.  The empty parentheses indicate that this method takes no
+argument.
+
+\index{parentheses!empty}
+
+A method call is called an {\bf invocation}; in this case, we would
+say that we are invoking {\tt upper} on the {\tt word}.
+
+\index{invocation}
+
+As it turns out, there is a string method named {\tt find} that
+is remarkably similar to the function we wrote:
+
+\beforeverb
+\begin{verbatim}
+>>> word = 'banana'
+>>> index = word.find('a')
+>>> print index
+1
+\end{verbatim}
+\afterverb
+%
+In this example, we invoke {\tt find} on {\tt word} and pass
+the letter we are looking for as a parameter.
+
+Actually, the {\tt find} method is more general than our function;
+it can find substrings, not just characters:
+
+\beforeverb
+\begin{verbatim}
+>>> word.find('na')
+2
+\end{verbatim}
+\afterverb
+%
+It can take as a second argument the index where it should start:
+
+\index{optional argument}
+\index{argument!optional}
+
+\beforeverb
+\begin{verbatim}
+>>> word.find('na', 3)
+4
+\end{verbatim}
+\afterverb
+%
+One common task is to remove white space (spaces, tabs, or newlines) from
+the beginning and end of a string using the {\tt strip} method:
+
+\beforeverb
+\begin{verbatim}
+>>> line = '  Here we go  '
+>>> line.strip()
+'Here we go'
+\end{verbatim}
+\afterverb
+%
+Some methods such as {\bf startswith} return boolean values.
+
+\beforeverb
+\begin{verbatim}
+>>> line = 'Please have a nice day'
+>>> line.startswith('Please')
+True
+>>> line.startswith('p')
+False
+\end{verbatim}
+\afterverb
+%
+You will note that {\tt startswith} requres case to match so sometimes
+we take a line ane map it all to lower case before we do any checking
+using the {\tt lower} method.
+
+\beforeverb
+\begin{verbatim}
+>>> line = 'Please have a nice day'
+>>> line.startswith('p')
+False
+>>> line.lower()
+'please have a nice day'
+>>> line.lower().startswith('p')
+True
+\end{verbatim}
+\afterverb
+%
+In the last example, then method {\tt lower} is called
+and then we use {\tt startswith}
+check to see if the resulting lower case string
+starts with the letter ``p''.  As long as we are careful
+with the order, we can make multiple method calls in a
+single expression.
+
+\begin{ex}
+\index{count method}
+\index{method!count}
+
+There is a string method called {\tt count} that is similar
+to the function in the previous exercise.  Read the documentation
+of this method at
+\url{docs.python.org/library/string.html}
+and write an invocation that counts the number of {\tt a}s
+in \verb"'banana'".
+\end{ex}
+
 
 \section{Format operator}
 
@@ -5337,6 +5414,7 @@ print 'Done!'
 \afterverb
 %
 Look what happens when the user enters an empty line of input:
+
 \beforeverb
 \begin{verbatim}
 > hello there
@@ -5351,14 +5429,41 @@ Traceback (most recent call last):
 \end{verbatim}
 \afterverb
 %
+The code works fine until it is presented an empty line.  Then
+there is no zeroth character so we get a traceback.  There are two
+solutions to this to make line three "safe" even if the line is 
+empty.
 
-% TBD - Talk about the guardian pattern
+One possibility is to simply use the {\tt startswith} method
+which returns {\tt False} if the string is empty.
+
+\beforeverb
+\begin{verbatim}
+    if line.startswith('#') :
+\end{verbatim}
+\afterverb
+%
+\index{guardian pattern}
+\index{pattern!guardian}
+Another way to safely write the if statment using the {\bf guardian}
+pattern and make sure the second logical expression is evaluated 
+only where there is at least one character in the string.:
+
+\beforeverb
+\begin{verbatim}
+    if len(line) > 0 and line[0] == '#' :
+\end{verbatim}
+\afterverb
+%
 
 \index{traversal}
 
-When you use indices to traverse the values in a sequence,
-it is tricky to get the beginning and end of the traversal
-right.  Here is a function that is supposed to compare two
+Another common source of problems is when you hand-construct 
+index values to move through a sequence.
+It can be quite tricky to get the beginning and 
+end of the traversal right. 
+
+Here is a function that is supposed to compare two
 words and return {\tt True} if one of the words is the reverse
 of the other, but it contains two errors:
 
@@ -5384,8 +5489,7 @@ def is_reverse(word1, word2):
 The first {\tt if} statement checks whether the words are the
 same length.  If not, we can return {\tt False} immediately
 and then, for the rest of the function, we can assume that the words
-are the same length.  This is an example of the guardian pattern
-in Section~\ref{guardian}.
+are the same length.  This is another example of the guardian pattern.
 
 \index{guardian pattern}
 \index{pattern!guardian}
