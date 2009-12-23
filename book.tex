@@ -8175,6 +8175,74 @@ Use {\tt get} to write {\tt histogram} more concisely.  You
 should be able to eliminate the {\tt if} statement.
 \end{ex}
 
+\section{Dictionaries and files}
+
+On of the best uses of a dictionary is to count the occurance
+of something in a file.  Lets start with a very simple file of
+words taken from the text of {\em Romeo and Juliet}
+thanks to 
+\url{http://shakespeare.mit.edu/Tragedy/romeoandjuliet/romeo_juliet.2.2.html}.
+
+For the first set of examples, we will use a shortened and simplified version
+of the text with no punctuation.  Later we will work with the text of the 
+scene with punctuation included.
+
+\beforeverb
+\begin{verbatim}
+But soft what light through yonder window breaks
+It is the east and Juliet is the sun
+Arise fair sun and kill the envious moon
+Who is already sick and pale with grief
+\end{verbatim}
+\afterverb
+%
+We will write a Python program to read through the lines of the file, 
+break each line into a list of words, and then loop through each 
+of the words in the line, and count each word using a dictionary.
+
+\beforeverb
+\begin{verbatim}
+fname = raw_input("Enter the file name: ")
+try:
+    fhand = open(fname)
+except:
+    print 'File cannot be opened:', fname
+    exit()
+
+counts = dict()
+for line in fhand:
+    words = line.split()
+    for word in words:
+        if word not in counts:
+            counts[word] = 1
+        else:
+            counts[word] += 1
+
+print counts
+\end{verbatim}
+\afterverb
+%
+When we run the program, we see a raw dump of all of the counts in unsorted
+hash order.
+( The {\tt romeo.txt} file is available at
+\url{www.py4inf.com/romeo.txt})
+
+\beforeverb
+\begin{verbatim}
+python count1.py 
+Enter the file name: romeo.txt
+{'and': 3, 'envious': 1, 'already': 1, 'fair': 1, 
+'is': 3, 'through': 1, 'pale': 1, 'yonder': 1, 
+'what': 1, 'sun': 2, 'Who': 1, 'But': 1, 'moon': 1, 
+'window': 1, 'sick': 1, 'east': 1, 'breaks': 1, 
+'grief': 1, 'with': 1, 'light': 1, 'It': 1, 'Arise': 1, 
+'kill': 1, 'the': 3, 'soft': 1, 'Juliet': 1}
+\end{verbatim}
+\afterverb
+%
+It is a bit inconvienent to look through the dictionary to find the
+most common words and their counts, so we need to add some more 
+Python code to get us the output that will be more helpful.
 
 \section{Looping and dictionaries}
 
@@ -8182,7 +8250,8 @@ should be able to eliminate the {\tt if} statement.
 \index{looping!with dictionaries}
 \index{traversal}
 
-If you use a dictionary in a {\tt for} statement, it traverses
+If you use a dictionary as the sequence 
+in a {\tt for} statement, it traverses
 the keys of the dictionary.  For example, \verb"print_hist"
 prints each key and the corresponding value:
 
@@ -8210,239 +8279,79 @@ o 1
 %
 Again, the keys are in no particular order.
 
-\begin{ex}
-
 \index{keys method}
 \index{method!keys}
-
-Dictionaries have a method called {\tt keys} that returns
-the keys of the dictionary, in no particular order, as a list.
-
-Modify \verb"print_hist" to print the keys and their values
-in alphabetical order.
-\end{ex}
-
-
-
-\section{Reverse lookup}
-
-\index{dictionary!lookup}
-\index{dictionary!reverse lookup}
-\index{lookup, dictionary}
-\index{reverse lookup, dictionary}
-
-Given a dictionary {\tt d} and a key {\tt k}, it is easy to
-find the corresponding value {\tt v = d[k]}.  This operation
-is called a {\bf lookup}.
-
-But what if you have {\tt v} and you want to find {\tt k}?
-You have two problems: first, there might be more than one
-key that maps to the value {\tt v}.  Depending on the application,
-you might be able to pick one, or you might have to make
-a list that contains all of them.  Second, there is no
-simple syntax to do a {\bf reverse lookup}; you have to search.
-
-Here is a function that takes a value and returns the first
-key that maps to that value:
+If you want to print the keys in alphabetical order, you first 
+make a list of the keys in the dictionary using the 
+{\tt keys} method available in dictionary objects,
+and then sort that list
+and loop through the sorted list, looking up each
+key printing out key/value pairs in sorted order as follows
+as follows:
 
 \beforeverb
 \begin{verbatim}
-def reverse_lookup(d, v):
-    for k in d:
-        if d[k] == v:
-            return k
-    raise ValueError
+def print_sorted_hist(h):
+    lst = h.keys()
+    lst.sort()
+    for c in lst:
+        print c, h[c]
 \end{verbatim}
 \afterverb
 %
-This function is yet another example of the search pattern, but it
-uses a feature we haven't seen before, {\tt raise}.  The {\tt raise}
-statement causes an exception; in this case it causes a {\tt
-  ValueError}, which generally indicates that there is something wrong
-with the value of a parameter.
-
-\index{search}
-\index{pattern!search}
-\index{raise statement}
-\index{statement!raise}
-\index{exception!ValueError}
-\index{ValueError}
-
-If we get to the end of the loop, that means {\tt v}
-doesn't appear in the dictionary as a value, so we raise an
-exception.
-
-Here is an example of a successful reverse lookup:
+Here's what the output looks like:
 
 \beforeverb
 \begin{verbatim}
 >>> h = histogram('parrot')
->>> k = reverse_lookup(h, 2)
->>> print k
-r
+>>> print_sorted_hist(h)
+a 1
+o 1
+p 1
+r 2
+t 1
 \end{verbatim}
 \afterverb
 %
-And an unsuccessful one:
+So now the keys are in alphabetical order.
+
+\section{Advanced text parsing}
+
+In the above example using the file {\tt romeo.txt},
+we made the file as simple as possible by removing 
+any and all punctuation by hand.  The real text 
+has lots of punctuation as shown below:
 
 \beforeverb
 \begin{verbatim}
->>> k = reverse_lookup(h, 3)
-Traceback (most recent call last):
-  File "<stdin>", line 1, in ?
-  File "<stdin>", line 5, in reverse_lookup
-ValueError
+But, soft! what light through yonder window breaks?
+It is the east, and Juliet is the sun.
+Arise, fair sun, and kill the envious moon,
+Who is already sick and pale with grief,
 \end{verbatim}
 \afterverb
 %
-The result when you raise an exception is the same as when
-Python raises one: it prints a traceback and an error message.
+Since the Python {\tt split} function looks for spaces and
+treats words as tokens separated by spaces, we would treat the
+words ``soft!'' and ``soft'' as {\em different} words and create
+a separate dictionary entry for each word.
 
-\index{traceback}
-\index{optional argument}
-\index{argument!optional}
+Also since the file has capitalization, we will treat
+``who'' and ``Who'' as different words with different 
+counts.
 
-The {\tt raise} statement takes a detailed error message as an
-optional argument.  For example:
+We can solve both these problems by using the string
+methods {\tt lower}, {\tt punctuation}, and {\tt translate}.  The 
+{\tt translate} is the most subtle of the methods.  
+Here is the documentation for {\tt translate}:
 
-\beforeverb
-\begin{verbatim}
->>> raise ValueError, 'value does not appear in the dictionary'
-Traceback (most recent call last):
-  File "<stdin>", line 1, in ?
-ValueError: value does not appear in the dictionary
-\end{verbatim}
-\afterverb
-%
-A reverse lookup is much slower than a forward lookup; if you
-have to do it often, or if the dictionary gets big, the performance
-of your program will suffer.
+\verb"string.translate(s, table[, deletechars])"
 
-\begin{ex}
-Modify \verb"reverse_lookup" so that it builds and returns a list
-of {\em all} keys that map to {\tt v}, or an empty list if there
-are none.
-\end{ex}
-
-
-\section{Dictionaries and lists}
-
-Lists can appear as values in a dictionary.  For example, if you
-were given a dictionary that maps from letters to frequencies, you
-might want to invert it; that is, create a dictionary that maps
-from frequencies to letters.  Since there might be several letters
-with the same frequency, each value in the inverted dictionary
-should be a list of letters.
-
-\index{invert dictionary}
-\index{dictionary!invert}
-
-Here is a function that inverts a dictionary:
-
-\beforeverb
-\begin{verbatim}
-def invert_dict(d):
-    inv = dict()
-    for key in d:
-        val = d[key]
-        if val not in inv:
-            inv[val] = [key]
-        else:
-            inv[val].append(key)
-    return inv
-\end{verbatim}
-\afterverb
-%
-Each time through the loop, {\tt key} gets a key from {\tt d} and 
-{\tt val} gets the corresponding value.  If {\tt val} is not in {\tt inv},
-that means we haven't seen it before, so we create a new item and
-initialize it with a {\bf singleton} (a list that contains a
-single element).  Otherwise we have seen this value before, so we
-append the corresponding key to the list.
-
-\index{singleton}
-
-Here is an example:
-
-\beforeverb
-\begin{verbatim}
->>> hist = histogram('parrot')
->>> print hist
-{'a': 1, 'p': 1, 'r': 2, 't': 1, 'o': 1}
->>> inv = invert_dict(hist)
->>> print inv
-{1: ['a', 'p', 't', 'o'], 2: ['r']}
-\end{verbatim}
-\afterverb
-%
-And here is a diagram showing {\tt hist} and {\tt inv}:
-
-\index{state diagram}
-\index{diagram!state}
-
-\beforefig
-\centerline{\includegraphics{figs/dict1.eps}}
-\afterfig
-
-A dictionary is represented as a box with the type {\tt dict} above it
-and the key-value pairs inside.  If the values are integers, floats or
-strings, I usually draw them inside the box, but I usually draw lists
-outside the box, just to keep the diagram simple.
-
-Lists can be values in a dictionary, as this example shows, but they
-cannot be keys.  Here's what happens if you try:
-
-\index{TypeError}
-\index{exception!TypeError}
-
-
-\beforeverb
-\begin{verbatim}
->>> t = [1, 2, 3]
->>> d = dict()
->>> d[t] = 'oops'
-Traceback (most recent call last):
-  File "<stdin>", line 1, in ?
-TypeError: list objects are unhashable
-\end{verbatim}
-\afterverb
-%
-I mentioned earlier that a dictionary is implemented using
-a hashtable and that means that the keys have to be {\bf hashable}.
-
-\index{hash function}
-\index{hashable}
-
-A {\bf hash} is a function that takes a value (of any kind)
-and returns an integer.  Dictionaries use these integers,
-called hash values, to store and look up key-value pairs.
-
-\index{immutability}
-
-This system works fine if the keys are immutable.  But if the
-keys are mutable, like lists, bad things happen.  For example,
-when you create a key-value pair, Python hashes the key and 
-stores it in the corresponding location.  If you modify the
-key and then hash it again, it would go to a different location.
-In that case you might have two entries for the same key,
-or you might not be able to find a key.  Either way, the
-dictionary wouldn't work correctly.
-
-That's why the keys have to be hashable, and why mutable types like
-lists aren't.  The simplest way to get around this limitation is to
-use tuples, which we will see in the next chapter.
-
-Since dictionaries are mutable, they can't be used as keys,
-but they {\em can} be used as values.
-
-\begin{ex}
-Read the documentation of the dictionary method {\tt setdefault}
-and use it to write a more concise version of \verb"invert_dict".
-
-\index{setdefault method}
-\index{method!setdefault}
-
-\end{ex}
+{\em Delete all characters from s that are in deletechars (if present), 
+and then translate the characters using table, which must 
+be a 256-character string giving the translation for each 
+character value, indexed by its ordinal. If table is None, 
+then only the character deletion step is performed.}
 
 
 \section{Debugging}
