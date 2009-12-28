@@ -486,8 +486,8 @@ Our ``personal information analysis assistant'' quickly
 told us that the word ``to'' was used sixteen times in the
 first three paragraphs of this chapter.
 
-It is this very fact that computers are good at things 
-that humans are not so good at is why you need to become
+This very fact that computers are good at things 
+that humans are not is why you need to become
 skilled at talking ``computer language''.  Once you learn
 this new language, you can delegate mundane tasks
 to your partner (the computer), leaving more time 
@@ -518,7 +518,7 @@ perhaps the following figure is a more sensible version of our PDA:
 For now, our primary motivation is not to make money or please end-users, but
 instead for us to be more productive in handling the data and 
 information that we will encounter in our lives.
-When you first start out, you will be both the programmer and end-user of
+When you first start, you will be both the programmer and end-user of
 your programs.  As you gain skill as a programmer and
 programming feels more creative to you, your thoughts may turn
 toward developing programs for others.
@@ -527,10 +527,10 @@ toward developing programs for others.
 \index{hardware}
 \index{hardware!architecture}
 
-Before we start out learning the language we 
+Before we start learning the language we 
 speak to give instructions to computers to 
-develop software, we need to learn about more 
-about how computers are built.  If you were to take
+develop software, we need to learn a small amount about 
+how computers are built.  If you were to take
 apart your computer or cell phone and look deep
 inside, you would find the following parts:
 
@@ -581,7 +581,7 @@ so we can talk about these different parts as we write our programs.
 
 As a programmer, your job is to use and orchestrate 
 each of these resources to solve the problem that you need solving
-and analyze the data you need analysed.  As a programmer you will 
+and analyze the data you need.  As a programmer you will 
 mostly be "talking" to the CPU and telling it what to 
 do next.  Sometimes you will tell the CPU to use the main memory,
 secondary memory, network, or the input/output devices.
@@ -616,10 +616,10 @@ In a sense, you need two skills to be a programmer:
 \item First you need to know the programming language (Python) -
 you need to know the vocabulary and the grammar.  You need to be able 
 spell the words in this new language properly and how to construct 
-well-formed ``sentances'' in this new languages.
+well-formed ``sentences'' in this new languages.
 
 \item Second you need to to "tell a story".  In writing a story,
-you combine words and sentances to convey an idea to the reader. 
+you combine words and sentences to convey an idea to the reader. 
 There is a skill and art in constructing the story and skill in
 story writing is improved by doing some writing and getting some
 feedback.  In programming, our program is the "story" and the 
@@ -633,7 +633,7 @@ as JavaScript or C++.  The new programming language has very different
 vocabulary and grammar but once you learn problem solving skills, 
 they will be the same across all programming languages.
 
-You will learn the "vocabulary" and "sentances" of Python pretty quickly.
+You will learn the "vocabulary" and "sentences" of Python pretty quickly.
 It will take longer for you to be able to write a coherent program
 to solve a brand new problem.  We teach programming much like we teach
 writing.  We start reading and explaining programs and then we write 
@@ -930,7 +930,7 @@ between printing AAAA and BBBB.  This later evolved to Linux.''
 Later chapters will make more suggestions about debugging and other
 programming practices.
 
-\section{Building ``sentances'' in Python}
+\section{Building ``sentences'' in Python}
 \index{formal language}
 \index{natural language}
 \index{language!formal}
@@ -2628,15 +2628,15 @@ stops in its tracks with a traceback.
 It does not execute the following statement. 
 \index{traceback}
 
-Here is a sample program to convert a Fahrenheit temparature 
-to a Celius temparature:
+Here is a sample program to convert a Fahrenheit temperature 
+to a Celius temperature:
 \index{fahrenheit}
 \index{celsius}
-\index{temparature conversion}
+\index{temperature conversion}
 
 \beforeverb
 \begin{verbatim}
-inp = raw_input("Enter Fahrenheit Temparature:")
+inp = raw_input("Enter Fahrenheit Temperature:")
 fahr = float(inp)
 cel = (fahr - 32.0) * 5.0 / 9.0
 print cel
@@ -2649,11 +2649,11 @@ with an unfriendly error message:
 \beforeverb
 \begin{verbatim}
 python fahren.py 
-Enter Fahrenheit Temparature:72
+Enter Fahrenheit Temperature:72
 22.2222222222
 
 python fahren.py 
-Enter Fahrenheit Temparature:fred
+Enter Fahrenheit Temperature:fred
 Traceback (most recent call last):
   File "fahren.py", line 2, in <module>
     fahr = float(inp)
@@ -2674,11 +2674,11 @@ You can think of the {\tt try} and {\tt except} feature
 in Python as an ``insurance policy'' on a sequence of
 statements.
 
-We can rewrite our temparature converter as follows:
+We can rewrite our temperature converter as follows:
 
 \beforeverb
 \begin{verbatim}
-inp = raw_input("Enter Fahrenheit Temparature:")
+inp = raw_input("Enter Fahrenheit Temperature:")
 try:
     fahr = float(inp)
     cel = (fahr - 32.0) * 5.0 / 9.0
@@ -4254,7 +4254,7 @@ skipping the {\tt print} statement.
 
 Sometimes we want to loop through a {\bf set} of things such 
 as a list of words, the lines in a file or a list of numbers.
-When we have some know list of things to loop through, we can
+When we have a list of things to loop through, we can
 construct a {\em definite} loop using a {\tt for} statement.
 We call the {\tt while} statement an {\em indefinite} loop
 because it simply loops until some condition becomes {\tt False} 
@@ -4274,7 +4274,7 @@ print "Done!"
 \end{verbatim}
 \afterverb
 %
-Translating this {\tt for} loop to English is not a direct as the 
+Translating this {\tt for} loop to English is not as direct as the 
 {\tt while}, but if you think of friends as a {\bf set},
 it goes like this: ``Run the statements in the body of the 
 for loop once for each friend {\em in} the set named friends.''.
@@ -4318,11 +4318,10 @@ These loops are generally constructed by:
 
 \begin{itemize}
 
-\item Create one or more variables and initialize them before the loop
-starts.
+\item Initialize one or more variables them before the loop starts.
 
-\item Look at each of the items in the loop and perform some computation
-on each item, possibly changing the variables in the body of the loop
+\item Perform some computation on each item in the loop body, 
+possibly changing the variables in the body of the loop
 
 \item At the end of the loop, the variables contain the information
 we are looking for
@@ -10216,7 +10215,7 @@ work.  The goal is to learn how to make the program work.
 \chapter{Contributor List}
 \section*{Contributor List for ``Python for Informatics''}
 
-TBD
+Bruce Shields for copy editing early drafts,
 
 \section*{Contributor List for ``Think Python''}
 
