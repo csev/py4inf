@@ -2940,6 +2940,12 @@ comparisons to take advantage of the short circuit behavior.
 \section{Exercises}
 
 \begin{ex}
+Write a program which prompts the user for a Celsius temperature,
+convert the temperature to Fahrenheit and print out the converted
+temperature.
+\end{ex}
+
+\begin{ex}
 \index{Fermat's Last Theorem}
 
 Fermat's Last Theorem says that there are no integers
@@ -5899,6 +5905,12 @@ The entire file is of mail interactions is available from
 \url{www.py4inf.com/code/mbox.txt} 
 and a shortened version of the file is available from
 \url{www.py4inf.com/code/mbox-short.txt}.
+These files are in a standard format for a file containing 
+multiple mail messages. The lines which start with 
+"From " separate the messages and the lines which start 
+with "From:" are part of the messages. 
+For more information, see 
+\url{en.wikipedia.org/wiki/Mbox}. 
 
 To break the file into lines, there is a special character that 
 represents the ``end of the line'' called the {\bf newline} character.
@@ -6694,6 +6706,57 @@ missing files.''.
 
 \section{Exercises}
 
+\begin{ex}
+Write a program to will read through a file and print the contents 
+of the file (line by line) all in upper case.  Executing the program 
+will look as follows:
+
+\beforeverb
+\begin{verbatim}
+python shout.py
+Enter a file name: mbox-short.txt
+FROM STEPHEN.MARQUARD@UCT.AC.ZA SAT JAN  5 09:14:16 2008
+RETURN-PATH: <POSTMASTER@COLLAB.SAKAIPROJECT.ORG>
+RECEIVED: FROM MURDER (MAIL.UMICH.EDU [141.211.14.90])
+	 BY FRANKENSTEIN.MAIL.UMICH.EDU (CYRUS V2.3.8) WITH LMTPA;
+	 SAT, 05 JAN 2008 09:14:16 -0500
+\end{verbatim}
+\afterverb
+\end{ex}
+
+\begin{ex}
+Write a program to read through the mail box data and when you find 
+line that starts with ``From'', you will split the line into 
+words using the {\tt split} function. We are interested in 
+who sent the message which is the second word on the From line.
+
+{\tt From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008 }
+
+You will parse the From line and print out the second word for 
+each From line and then you will also count the number of 
+From (not From:) lines and print out a count at the end.
+
+This is a sample good output with a few lines removed:
+
+\beforeverb
+\begin{verbatim}
+python fromcount.py 
+Enter a file name: mbox-short.txt
+stephen.marquard@uct.ac.za
+louis@media.berkeley.edu
+zqian@umich.edu
+
+[...some output removed...]
+
+ray@media.berkeley.edu
+cwen@iupui.edu
+cwen@iupui.edu
+cwen@iupui.edu
+There were 27 lines in the file with From as the first word
+\end{verbatim}
+\afterverb
+
+\end{ex}
 
 \begin{ex}
 Sometimes when programmers get bored or want to have a bit of fun,
@@ -8555,85 +8618,66 @@ loop runs once.
 \section{Exercises}
 
 \begin{ex}
-\index{duplicate}
+Write a program that categorizes each mail message by which 
+day of the week the commit was done. To do this look for 
+lines which start with "From " and then look for the 
+third word and then keep a running count of each of the 
+days of the week. At the end of the program print out the 
+contents of your dictionary. (order does not matter)
 
-If you did Exercise~\ref{duplicate}, you already have
-a function named \verb"has_duplicates" that takes a list
-as a parameter and returns {\tt True} if there is any object
-that appears more than once in the list.
+\beforeverb
+\begin{verbatim}
+Sample Line:
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
 
-Use a dictionary to write a faster, simpler version of
-\verb"has_duplicates".
+Sample Execution:
+python dow.py
+Enter a file name: mbox-short.txt
+{'Fri': 20, 'Thu': 6, 'Sat': 1}
+\end{verbatim}
+\afterverb
 \end{ex}
-
 
 \begin{ex}
-\label{exrotatepairs}
+Write a program to read through a mail log, and figure 
+out who had the most messages in the file.  The program looks 
+for From lines and takes the second parameter on those 
+lines as the person who sent the mail.
 
-\index{letter rotation}
-\index{rotation!letters}
+The program creates a Python dictionary that maps 
+E-Mail address to the total number of messages for that person.
 
-Two words are ``rotate pairs'' if you can rotate one of them
-and get the other (see \verb"rotate_word" in Exercise~\ref{exrotate}).
+After all the data has been read - the program looks 
+through the dictionary to find who has the most Mail 
+messages and how many messages the person has.
 
-Write a program that reads a wordlist and finds all the rotate
-pairs.
+\beforeverb
+\begin{verbatim}
+$ python whomost.py 
+Enter a file name: mbox-short.txt
+cwen@iupui.edu 5
+$ python whomost.py 
+Enter a file name: mbox.txt
+zqian@umich.edu 195
+\end{verbatim}
+\afterverb
 \end{ex}
-
 
 \begin{ex}
-\index{Car Talk}
-\index{Puzzler}
+This program records the domain name (instead of the e-Mail address) 
+where the message was sent from insead of who the mail 
+came from (i.e. the whole e-mail address). At the end 
+of the program print out the contents of your dictionary. 
 
-Here's another Puzzler from {\em Car
-Talk}\footnote{\url{www.cartalk.com/content/puzzler/transcripts/200717}}:
-
-\begin{quote}
-This was sent in by a fellow named Dan O'Leary. He came upon a common
-one-syllable, five-letter word recently that has the following unique
-property. When you remove the first letter, the remaining letters form
-a homophone of the original word, that is a word that sounds exactly
-the same. Replace the first letter, that is, put it back and remove
-the second letter and the result is yet another homophone of the
-original word. And the question is, what's the word?
-
-Now I'm going to give you an example that doesn't work. Let's look at
-the five-letter word, `wrack.' W-R-A-C-K, you know like to `wrack with
-pain.' If I remove the first letter, I am left with a four-letter
-word, 'R-A-C-K.' As in, `Holy cow, did you see the rack on that buck!
-It must have been a nine-pointer!' It's a perfect homophone. If you
-put the `w' back, and remove the `r,' instead, you're left with the
-word, `wack,' which is a real word, it's just not a homophone of the
-other two words.
-
-But there is, however, at least one word that Dan and we know of,
-which will yield two homophones if you remove either of the first two
-letters to make two, new four-letter words. The question is, what's
-the word?
-\end{quote}
-
-\index{homophone}
-\index{reducible word}
-\index{word, reducible}
-
-You can use the dictionary from Exercise~\ref{wordlist2} to check
-whether a string is in the word list.
-
-To check whether two words are homophones, you can use the CMU
-Pronouncing Dictionary.  You can download it from
-\url{www.speech.cs.cmu.edu/cgi-bin/cmudict} or from
-\url{thinkpython.com/code/c06d} and you can also download
-\url{thinkpython.com/code/pronounce.py}, which provides a function
-named \verb"read_dictionary" that reads the pronouncing dictionary and
-returns a Python dictionary that maps from each word to a string that
-describes its primary pronunciation.
-
-Write a program that lists all the words that solve the Puzzler.
-You can see my solution at \url{thinkpython.com/code/homophone.py}.
-
+\beforeverb
+\begin{verbatim}
+python schoolcount.py
+Enter a file name: mbox-short.txt
+{'media.berkeley.edu': 4, 'uct.ac.za': 6, 'umich.edu': 7, 
+'gmail.com': 1, 'caret.cam.ac.uk': 1, 'iupui.edu': 8}
+\end{verbatim}
+\afterverb
 \end{ex}
-
-
 
 \chapter{Tuples}
 \label{tuplechap}
@@ -9432,6 +9476,38 @@ size and composition of a data structure.
 
 
 \section{Exercises}
+
+\begin{ex}
+This program counts the distribution of the hour of the day for 
+each of the messages. You can pull the hour from the "From " 
+line by finding the time string and then splitting that string 
+into parts using the colon character. Once you have accumulated 
+the counts for each hour, print out the counts, one per line, 
+sorted by hour as shown below. 
+\beforeverb
+\begin{verbatim}
+Sample Line:
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+
+Sample Execution:
+python timeofday.py
+Enter a file name: mbox-short.txt
+04 3
+06 1
+07 1
+09 2
+10 3
+11 6
+14 1
+15 2
+16 4
+17 2
+18 1
+19 1
+\end{verbatim}
+\afterverb
+\end{ex}
+
 
 \begin{ex}
 Write a function called \verb"most_frequent" that takes a string and
