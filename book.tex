@@ -7736,154 +7736,28 @@ string should be split.
 \section{Exercises}
 
 \begin{ex}
-Write a function called \verb"is_sorted" that takes a list as a
-parameter and returns {\tt True} if the list is sorted in ascending
-order and {\tt False} otherwise.  You can assume (as a precondition)
-that the elements of the list can be compared with the comparison
-operators {\tt <}, {\tt >}, etc.
+Write a program to open the file {\tt romeo.txt} and read the file
+line by line.  For each line, split the line into  a list of 
+words using the {\tt split} function.
 
-\index{precondition}
+For each word, check to see if the word is already in a list.  
+If the word is not in the list, add it to the list.  
 
-For example, \verb"is_sorted([1,2,2])" should return {\tt True}
-and \verb"is_sorted(['b','a'])" should return {\tt False}.
+When the program completes, sort and print the resulting words
+in alphabetical order.
+
+You can get a copy of the file from 
+\url{www.py4inf.com/code/romeo.txt}
+
+\begin{verbatim}
+Enter file: romeo.txt
+['Arise', 'But', 'It', 'Juliet', 'Who', 'already', 
+'and', 'breaks', 'east', 'envious', 'fair', 'grief', 
+'is', 'kill', 'light', 'moon', 'pale', 'sick', 'soft', 
+'sun', 'the', 'through', 'what', 'window', 
+'with', 'yonder']
+\end{verbatim}
 \end{ex}
-
-
-\begin{ex}
-\label{anagram}
-
-\index{anagram}
-
-Two words are anagrams if you can rearrange the letters from one
-to spell the other.  Write a function called \verb"is_anagram"
-that takes two strings and returns {\tt True} if they are anagrams.
-\end{ex}
-
-
-\begin{ex}
-\label{duplicate}
-
-The (so-called) Birthday Paradox:
-
-\begin{enumerate}
-
-\index{birthday paradox}
-\index{duplicate}
-
-\item Write a function called \verb"has_duplicates" that takes
-a list and returns {\tt True} if there is any element that
-appears more than once.  It should not modify the original
-list.
-
-\item If there are 23 students in your class, what are the chances
-that two of you have the same birthday?  You can estimate this
-probability by generating random samples of 23 birthdays
-and checking for matches.  Hint: you can generate random birthdays
-with the {\tt randint} function in the {\tt random} module.
-
-\index{random module}
-\index{module!random}
-\index{randint function}
-\index{function!randint}
-
-\end{enumerate}
-
-You can read about this problem at
-\url{wikipedia.org/wiki/Birthday_paradox}, and you can see my solution
-at \url{thinkpython.com/code/birthday.py}.
-
-\end{ex}
-
-
-\begin{ex}
-
-\index{duplicate}
-\index{uniqueness}
-
-Write a function called \verb"remove_duplicates" that takes
-a list and returns a new list with only the unique elements from
-the original.  Hint: they don't have to be in the same order.
-\end{ex}
-
-
-\begin{ex}
-\index{append method}
-\index{method append}
-\index{list!concatenation}
-\index{concatenation!list}
-
-Write a function that reads the file {\tt words.txt} and builds
-a list with one element per word.  Write two versions of
-this function, one using the {\tt append} method and the
-other using the idiom {\tt t = t + [x]}.  Which one takes
-longer to run?  Why?
-
-You can see my solution at \url{thinkpython.com/code/wordlist.py}.
-\end{ex}
-
-
-\begin{ex}
-\label{wordlist1}
-\label{bisection}
-
-\index{membership!bisection search}
-\index{bisection search}
-\index{search, bisection}
-
-To check whether a word is in the word list, you could use
-the {\tt in} operator, but it would be slow because it searches
-through the words in order.
-
-Because the words are in alphabetical order, we can speed things up
-with a bisection search, which is similar to what you do when you look
-a word up in the dictionary.  You start in the middle and check to see
-whether the word you are looking for comes before the word in the
-middle of the list.  If so, then you search the first half of the list
-the same way.  Otherwise you search the second half.
-
-Either way, you cut the remaining search space in half.  If the
-word list has 113,809 words, it will take about 17 steps to
-find the word or conclude that it's not there.
-
-Write a function called {\tt bisect} that takes a sorted list
-and a target value and returns the index of the value
-in the list, if it's there, or {\tt None} if it's not.
-
-\index{bisect module}
-\index{module!bisect}
-
-Or you could read the documentation of the {\tt bisect} module
-and use that!
-\end{ex}
-
-\begin{ex}
-\index{reverse word pair}
-
-Two words are a ``reverse pair'' if each is the reverse of the
-other.  Write a program that finds all the reverse pairs in the
-word list. 
-\end{ex}
-
-\begin{ex}
-\index{interlocking words}
-
-Two words ``interlock'' if taking alternating letters from each forms
-a new word\footnote{This exercise is inspired by an example at
-  \url{puzzlers.org}.}.  For example, ``shoe'' and ``cold''
-interlock to form ``schooled.''
-
-\begin{enumerate}
-
-\item Write a program that finds all pairs of words that interlock.
-  Hint: don't enumerate all pairs!
-
-\item Can you find any words that are three-way interlocked; that is,
-  every third letter forms a word, starting from the first, second or
-  third?
-
-\end{enumerate}
-\end{ex}
-
 
 \chapter{Dictionaries}
 \index{dictionary}
@@ -8062,10 +7936,6 @@ stores them as keys in a dictionary.  It doesn't matter what the
 values are.  Then you can use the {\tt in} operator
 as a fast way to check whether a string is in
 the dictionary.
-
-If you did Exercise~\ref{wordlist1}, you can compare the speed
-of this implementation with the list {\tt in} operator and the
-bisection search.
 
 \end{ex}
 
@@ -8576,15 +8446,15 @@ The program creates a Python dictionary that maps
 E-Mail address to the total number of messages for that person.
 
 After all the data has been read - the program looks 
-through the dictionary to find who has the most Mail 
+through the dictionary using a maximum loop
+to find who has the most Mail 
 messages and how many messages the person has.
 
 \beforeverb
 \begin{verbatim}
-$ python whomost.py 
 Enter a file name: mbox-short.txt
 cwen@iupui.edu 5
-$ python whomost.py 
+
 Enter a file name: mbox.txt
 zqian@umich.edu 195
 \end{verbatim}
@@ -9406,6 +9276,32 @@ size and composition of a data structure.
 \section{Exercises}
 
 \begin{ex}
+Revise a previous program as follows:  Read and 
+parse the ``From '' lines and pull out the 
+E-Mail addresses from the line.   Count the number of
+messages from each person using a dictionary.
+
+After all the data has been read - print 
+the person with the most commits by creating
+a list of (count, email) tuples from the 
+dictionary and then sorting the list in reverse
+order and print out the person who has the most
+commits.
+
+\beforeverb
+\begin{verbatim}
+Sample Line:
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+
+Enter a file name: mbox-short.txt
+cwen@iupui.edu 5
+
+Enter a file name: mbox.txt
+zqian@umich.edu 195
+\end{verbatim}
+\afterverb
+\end{ex}
+\begin{ex}
 This program counts the distribution of the hour of the day for 
 each of the messages. You can pull the hour from the "From " 
 line by finding the time string and then splitting that string 
@@ -9414,9 +9310,6 @@ the counts for each hour, print out the counts, one per line,
 sorted by hour as shown below. 
 \beforeverb
 \begin{verbatim}
-Sample Line:
-From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
-
 Sample Execution:
 python timeofday.py
 Enter a file name: mbox-short.txt
@@ -9449,64 +9342,6 @@ varies between languages.  Compare your results with the tables at
 
 \end{ex}
 
-
-\begin{ex}
-\label{anagrams}
-
-\index{anagram set}
-\index{set!anagram}
-
-More anagrams!
-
-\begin{enumerate}
-
-\item Write a program
-that reads a word list from a file and
-prints all the sets of words that are anagrams.
-
-Here is an example of what the output might look like:
-
-\beforeverb
-\begin{verbatim}
-['deltas', 'desalt', 'lasted', 'salted', 'slated', 'staled']
-['retainers', 'ternaries']
-['generating', 'greatening']
-['resmelts', 'smelters', 'termless']
-\end{verbatim}
-\afterverb
-%
-Hint: you might want to build a dictionary that maps from a
-set of letters to a list of words that can be spelled with those
-letters.  The question is, how can you represent the set of
-letters in a way that can be used as a key?
-
-\item Modify the previous program so that it prints the largest set
-of anagrams first, followed by the second largest set, and so on.
-
-\index{Scrabble}
-\index{bingo}
-
-\item In Scrabble a ``bingo'' is when you play all seven tiles in
-your rack, along with a letter on the board, to form an eight-letter
-word.  What set of 8 letters forms the most possible bingos?
-Hint: there are seven.
-
-% (7, ['angriest', 'astringe', 'ganister', 'gantries', 'granites',
-% 'ingrates', 'rangiest'])
-
-\index{metathesis}
-
-\item Two words form a ``metathesis pair'' if you can transform one
-  into the other by swapping two letters\footnote{This exercise is
-    inspired by an example at \url{puzzlers.org}.}; for example,
-  ``converse'' and ``conserve.''  Write a program that finds all of
-  the metathesis pairs in the dictionary.  Hint: don't test all pairs
-  of words, and don't test all possible swaps.
-
-You can download a solution from \url{thinkpython.com/code/anagram_sets.py}.
-
-\end{enumerate}
-\end{ex}
 
 
 %\begin{ex}
@@ -10154,7 +9989,7 @@ work.  The goal is to learn how to make the program work.
 \chapter{Contributor List}
 \section*{Contributor List for ``Python for Informatics''}
 
-Bruce Shields for copy editing early drafts,
+Bruce Shields for copy editing early drafts.
 
 \section*{Contributor List for ``Think Python''}
 
