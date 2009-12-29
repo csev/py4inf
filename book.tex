@@ -30,7 +30,7 @@
 \usepackage{upquote}
 
 \newcommand{\thetitle}{Python for Informatics: Exploring Information}
-\newcommand{\theversion}{0.0.1}
+\newcommand{\theversion}{0.0.2}
 
 \makeindex
 
@@ -3809,7 +3809,7 @@ Pay: 375.0
 \begin{ex}
 Rewrite the grade program from the previous chapter 
 using a function called {\tt computegrade} that takes
-a score and returns a grade as a string.
+a score as its parameter and returns a grade as a string.
 
 \begin{verbatim}
 Score   Grade
@@ -5232,6 +5232,48 @@ letter a  occurs
 in \verb"'banana'".
 \end{ex}
 
+\section{Parsing strings}
+
+Often, we want to look into a string and find a substring.  For example
+if we were presented a series of lines formatted as follows:
+
+{\tt
+From stephen.marquard@{\bf uct.ac.za} Sat Jan  5 09:14:16 2008
+}
+
+And we wanted to pull out only the second half of the E-Mail address (i.e.
+{\tt uct.ac.za}) from each line.  We can do this by using the {\tt find}
+method and string slicing.   
+
+First, we will find the position of the at-sign in the string.  Then we will
+find the position of the first space {\em after} the at-sign.  And then we
+will use string slicing to extract the portion of the string which we 
+are looking for.
+
+\beforeverb
+\begin{verbatim}
+>>> data = 'From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008'
+>>> atpos = data.find('@')
+>>> print atpos
+21
+>>> sppos = data.find(' ',atpos)
+>>> print sppos
+31
+>>> host = data[atpos+1:sppos]
+>>> print host
+uct.ac.za
+>>> 
+\end{verbatim}
+\afterverb
+%
+We use a version of the {\tt find} method which allows us to specify
+a position in the string where we want to {\tt find} to start looking.
+When we slice, we extract the characters 
+from ``one beyond the at-sign throught up to {\em but not including} the 
+space character''.  
+
+The documentation for the {\tt find} method is available at
+\url{docs.python.org/library/string.html}.
 
 \section{Format operator}
 
@@ -5610,6 +5652,20 @@ is true.
 \section{Exercises}
 
 \begin{ex}
+Write some code to parse lines of the form:
+
+{\tt
+X-DSPAM-Confidence: {\bf 0.8475}
+}
+
+Use {\tt find} and string slicing to extract the portion
+or the string after the colon character and then use the 
+{\tt float} function to convert the extracted string 
+int o a floating point number.
+
+\end{ex}
+
+\begin{ex}
 
 \index{step size}
 \index{slice operator}
@@ -5631,10 +5687,6 @@ etc.
 A step size of -1 goes through the word backwards, so
 the slice \verb"[::-1]" generates a reversed string.
 
-\index{palindrome}
-
-Use this idiom to write a one-line version of \verb"is_palindrome"
-from Exercise~\ref{palindrome}.
 \end{ex}
 
 
@@ -6648,6 +6700,32 @@ RETURN-PATH: <POSTMASTER@COLLAB.SAKAIPROJECT.ORG>
 RECEIVED: FROM MURDER (MAIL.UMICH.EDU [141.211.14.90])
 	 BY FRANKENSTEIN.MAIL.UMICH.EDU (CYRUS V2.3.8) WITH LMTPA;
 	 SAT, 05 JAN 2008 09:14:16 -0500
+\end{verbatim}
+\afterverb
+\end{ex}
+
+\begin{ex}
+Write a program to loop through a mailbox-format file 
+and look for lines of the form:
+
+{\tt
+X-DSPAM-Confidence: {\bf 0.8475}
+}
+
+When you encounter a line that starts with 
+``X-DSPAM-Confidence:'' pull apart the line to extract the
+floating point number on the line.  Compute the count of these 
+lines and the total of the spam confidence from these lines.
+When you reach the end of the file, print out the average
+spam confidence.
+
+\beforeverb
+\begin{verbatim}
+Enter the file name: mbox.txt
+Average spam confidence: 0.894128046745
+
+Enter the file name: mbox-short.txt
+Average spam confidence: 0.750718518519
 \end{verbatim}
 \afterverb
 \end{ex}
