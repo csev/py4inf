@@ -2261,8 +2261,28 @@ execution of the program.
 
 \end{description}
 
-
 \section{Exercises}
+
+\begin{ex}
+Write a program that prompts a user for their name and then 
+welcomes them.
+
+\begin{verbatim}
+Enter your name: Chuck
+Hello Chuck
+\end{verbatim}
+
+\end{ex}
+
+\begin{ex}
+Write a program to prompt the use for hours and rate per hour to compute
+gross pay.
+\begin{verbatim}
+Enter Hours: 35
+Enter Rate: 2.75
+Pay: 96.25
+\end{verbatim}
+\end{ex}
 
 \begin{ex}
 Assume that we execute the following assignment statements:
@@ -2299,9 +2319,6 @@ Practice using the Python interpreter as a calculator:
 
 \begin{enumerate}
 
-\item The volume of a sphere with radius $r$ is $\frac{4}{3} \pi r^3$.
-  What is the volume of a sphere with radius 5?  Hint: 392.6 is wrong!
-
 \item Suppose the cover price of a book is \$24.95, but bookstores get a
   40\% discount.  Shipping costs \$3 for the first copy and 75 cents
   for each additional copy.  What is the total wholesale cost for
@@ -2314,6 +2331,12 @@ Practice using the Python interpreter as a calculator:
 \index{running pace}
 
 \end{enumerate}
+\end{ex}
+n
+\begin{ex}
+Write a program which prompts the user for a Celsius temperature,
+convert the temperature to Fahrenheit and print out the converted
+temperature.
 \end{ex}
 
 
@@ -2930,7 +2953,8 @@ knows the final value for the expression
 without needing to evaluate the rest of the expression.
 \index{short circuit}
 
-\item[guardian pattern:] Where we construct a logical expression with additional
+\item[guardian pattern:] Where we construct a logical expression 
+with additional
 comparisons to take advantage of the short circuit behavior.
 \index{guardian pattern}
 \index{pattern!guardian}
@@ -2940,73 +2964,62 @@ comparisons to take advantage of the short circuit behavior.
 \section{Exercises}
 
 \begin{ex}
-Write a program which prompts the user for a Celsius temperature,
-convert the temperature to Fahrenheit and print out the converted
-temperature.
+Rewrite your pay computation to give the employee 1.5 
+times the hourly rate for 
+hours worked about 40 hours.
+
+\begin{verbatim}
+Enter Hours: 45
+Enter Rate: 10
+Pay: 375.0
+\end{verbatim}
 \end{ex}
 
 \begin{ex}
-\index{Fermat's Last Theorem}
+Rewrite your pay program using {\tt try} and {\tt except} 
+so that your program handles non-numeric input gracefully.
 
-Fermat's Last Theorem says that there are no integers
-$a$, $b$, and $c$ such that
+\begin{verbatim}
+Enter Hours: 20
+Enter Rate: nine
+Error, please enter numeric input
 
-\[ a^n + b^n = c^n \]
-%
-for any values of $n$ greater than 2.
-
-\begin{enumerate}
-
-\item Write a function named \verb"check_fermat" that takes four
-parameters---{\tt a}, {\tt b}, {\tt c} and {\tt n}---and
-that checks to see if Fermat's theorem holds.  If
-$n$ is greater than 2 and it turns out to be true that 
-
-\[a^n + b^n = c^n \]
-%
-the program should print, ``Holy smokes, Fermat was wrong!''
-Otherwise the program should print, ``No, that doesn't work.''
-
-\item Write a function that prompts the user to input values
-for {\tt a}, {\tt b}, {\tt c} and {\tt n}, converts them to
-integers, and uses \verb"check_fermat" to check whether they
-violate Fermat's theorem.
-
-\end{enumerate}
-
+Enter Hours: fourty
+Error, please enter numeric input
+\end{verbatim}
 \end{ex}
 
-
 \begin{ex}
-\index{triangle}
+Write a program to prompt for a score between 0.0 and 1.0.
+If the score is out of range print an error.  If the score
+is between 0.0 and 1.0, print a grade using the following 
+table:
+\begin{verbatim}
+Score   Grade
+> 90.0    A
+> 80.0    B
+> 70.0    C
+> 60.0    D
+<= 60.0   F
 
-If you are given three sticks, you may or may not be able to arrange
-them in a triangle.  For example, if one of the sticks is 12 inches
-long and the other two are one inch long, it is clear that you will
-not be able to get the short sticks to meet in the middle.  For any
-three lengths, there is a simple test to see if it is possible to form
-a triangle:
+Enter score: 0.95
+A
 
-\begin{quotation}
-``If any of the three lengths is greater than the sum of the other
-  two, then you cannot form a triangle.  Otherwise, you
-  can\footnote{If the sum of two lengths equals the third, they form
-    what is called a ``degenerate'' triangle.}.''
-\end{quotation}
+Enter score: perfect
+Bad score
 
-\begin{enumerate}
+Enter score: 10.0
+Bad score
 
-\item Write a function named \verb"is_triangle" that takes three
-  integers as arguments, and that prints either ``Yes'' or ``No,'' depending
-  on whether you can or cannot form a triangle from sticks with the
-  given lengths.
+Enter score: 0.75
+C
 
-\item Write a function that prompts the user to input three stick
-  lengths, converts them to integers, and uses \verb"is_triangle" to
-  check whether sticks with the given lengths can form a triangle.
+Enter score: 0.5
+F
+\end{verbatim}
 
-\end{enumerate}
-
+Run the program repeatedly to test the various different values
+for input.
 \end{ex}
 
 \chapter{Functions}
@@ -3782,146 +3795,50 @@ a program run.
 \section{Exercises}
 
 \begin{ex}
+Rewrite your pay computation with time-and-a-half for overtime
+and create a function called {\tt computepay} which takes
+two parameters ({\tt hours} and {\tt rate}).
 
-\index{len function}
-\index{function!len}
-
-Python provides a built-in function called {\tt len} that
-returns the length of a string, so the value of \verb"len('allen')" is 5.
-
-Write a function named \verb"right_justify" that takes a string
-named {\tt s} as a parameter and prints the string with enough
-leading spaces so that the last letter of the string is in column 70
-of the display.
-
-\beforeverb
 \begin{verbatim}
->>> right_justify('allen')
-                                                                 allen
+Enter Hours: 45
+Enter Rate: 10
+Pay: 375.0
 \end{verbatim}
-\afterverb
-
 \end{ex}
-
 
 \begin{ex}
-\index{function object}
-\index{object!function}
+Rewrite the grade program from the previous chapter 
+using a function called {\tt computegrade} that takes
+a score and returns a grade as a string.
 
-A function object is a value you can assign to a variable
-or pass as an argument.  For example, \verb"do_twice" is a function
-that takes a function object as an argument and calls it twice:
-
-\beforeverb
 \begin{verbatim}
-def do_twice(f):
-    f()
-    f()
+Score   Grade
+> 90.0    A
+> 80.0    B
+> 70.0    C
+> 60.0    D
+<= 60.0   F
+
+Enter score: 0.95
+A
+
+Enter score: perfect
+Bad score
+
+Enter score: 10.0
+Bad score
+
+Enter score: 0.75
+C
+
+Enter score: 0.5
+F
 \end{verbatim}
-\afterverb
 
-Here's an example that uses \verb"do_twice" to call a function
-named \verb"print_spam" twice.
-
-\beforeverb
-\begin{verbatim}
-def print_spam():
-    print 'spam'
-
-do_twice(print_spam)
-\end{verbatim}
-\afterverb
-
-\begin{enumerate}
-
-\item Type this example into a script and test it.
-
-\item Modify \verb"do_twice" so that it takes two arguments, a
-function object and a value, and calls the function twice,
-passing the value as an argument.
-
-\item Write a more general version of \verb"print_spam", called
-\verb"print_twice", that takes a string as a parameter and prints
-it twice.
-
-\item Use the modified version of \verb"do_twice" to call
-\verb"print_twice" twice, passing \verb"'spam'" as an argument.
-
-\item Define a new function called 
-\verb"do_four" that takes a function object and a value
-and calls the function four times, passing the value
-as a parameter.  There should be only
-two statements in the body of this function, not four.
-
-\end{enumerate}
-
-You can see my solution at \url{thinkpython.com/code/do_four.py}.
-
+Run the program repeatedly to test the various different values
+for input.
 \end{ex}
 
-
-
-\begin{ex}
-This exercise\footnote{Based on an exercise in Oualline, {\em
-    Practical C Programming, Third Edition}, O'Reilly (1997)} can be
-done using only the statements and other features we have learned so
-far.  
-
-\index{grid}
-
-\begin{enumerate}
-
-\item Write a function that draws a grid like the
-  following:
-
-\beforeverb
-\begin{verbatim}
-+ - - - - + - - - - +
-|         |         |
-|         |         |
-|         |         |
-|         |         |
-+ - - - - + - - - - +
-|         |         |
-|         |         |
-|         |         |
-|         |         |
-+ - - - - + - - - - +
-\end{verbatim}
-\afterverb
-%
-Hint: to print more than one value on a line, you can print
-a comma-separated sequence:
-
-\beforeverb
-\begin{verbatim}
-print '+', '-'
-\end{verbatim}
-\afterverb
-%
-If the sequence ends with a comma, Python leaves the line unfinished,
-so the value printed next appears on the same line.
-
-\beforeverb
-\begin{verbatim}
-print '+', 
-print '-'
-\end{verbatim}
-\afterverb
-%
-The output of these statements is \verb"'+ -'".
-
-A {\tt print} statement all by itself ends the current line and
-goes to the next line.
-
-\item Use the previous function to draw a similar grid
-with four rows and four columns.
-
-\end{enumerate}
-
-You can see my solution at \url{thinkpython.com/code/grid.py}.
-
-\end{ex}
 
 
 
