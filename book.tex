@@ -5293,7 +5293,8 @@ There is a string method called {\tt count} that is similar
 to the function in the previous exercise.  Read the documentation
 of this method at
 \url{docs.python.org/library/string.html}
-and write an invocation that counts the number of {\tt a}s
+and write an invocation that counts the number of times the 
+letter a  occurs
 in \verb"'banana'".
 \end{ex}
 
@@ -6142,7 +6143,8 @@ of Capetown in South Africa):
 fhand = open("mbox-short.txt")
 for line in fhand:
     line = line.rstrip()
-    if line.find('@uct.ac.za') == -1 : continue
+    if line.find('@uct.ac.za') == -1 : 
+        continue
     print line
 \end{verbatim}
 \afterverb
@@ -6214,6 +6216,12 @@ for line in fhand:
 \end{verbatim}
 \afterverb
 %
+We also use the contracted form of the {\tt if}
+statement where we put the {\tt continue } on the
+same line as the {\tt if}.  This contracted form
+of the {\tt if} functions the same as if the
+{\tt continue} were on the next line and intended.
+
 The program produces the following output:
 
 \beforeverb
@@ -6370,7 +6378,7 @@ which of two equivalent solutions to a problem is
 ``more Pythonic''.  The goal to be ``more Pythonic'' 
 captures the notion that programming is part engineering
 and part art.  We are not always interested
-in just makeing something work - we also want
+in just making something work - we also want
 our solution to be elegant.
 
 
@@ -6599,7 +6607,7 @@ Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772
 \afterverb
 %
 The error occurs when our program encounters a blank line! Of course there
-are ``zero words'' on a blank line - why did't we think of that 
+are ``zero words'' on a blank line - why didn't we think of that 
 when we were writing the code.  When the code looks for the first
 word (\verb"word[0]") to check to see if it matches ``From'', 
 we get an ``index out of range'' error.
@@ -8485,14 +8493,7 @@ computations to see if they are consistent.  This is called a
 ``consistency check.''
 
 \item[Pretty print the output:] Formatting debugging output
-can make it easier to spot an error.  We saw an example in
-Section~\ref{factdebug}.  The {\tt pprint} module provides
-a {\tt pprint} function that displays built-in types in
-a more human-readable format.
-
-\index{pretty print}
-\index{pprint module}
-\index{module!pprint}
+can make it easier to spot an error.  
 
 \end{description}
 
@@ -9456,7 +9457,7 @@ More anagrams!
 \begin{enumerate}
 
 \item Write a program
-that reads a word list from a file (see Section~\ref{wordlist}) and
+that reads a word list from a file and
 prints all the sets of words that are anagrams.
 
 Here is an example of what the output might look like:
