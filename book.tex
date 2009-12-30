@@ -122,18 +122,19 @@ Charles Severance\\
 \thispagestyle{empty}
 
 {\small
-Copyright \copyright ~2009 Charles Severance.
+Copyright \copyright ~2009, 2010 Charles Severance.
 
 
 Printing history:
 
 \begin{description}
 
-\item[December 2009:] Begin to re-mix 
+\item[December 2009:] Begin to 
+produce 
+{\em Python for Informatics: Exploring Information}
+by re-mixing
 {\em Think Python: How to Think Like
 a Computer Scientist}
-to produce 
-{\em Python for Informatics: Exploring Information}
 
 \item[June 2008:] Major revision, changed title to
 {\em Think Python: How to Think Like
@@ -170,11 +171,13 @@ representation of a textbook, which can be converted to other formats
 and printed.
 
 The \LaTeX\ source for the 
-{\em Think Python} version of this book is available from
+{\em Think Python: How to Think Like
+a Computer Scientist}
+version of this book is available from
 \url{http://www.thinkpython.com}.
 
 The \LaTeX\ source for the 
-{\em Python for Informatics}
+{\em Python for Informatics: Exploring Information}
 version of the book is available (for the moment) from 
 \url{http://source.sakaiproject.org/contrib//csev/trunk/pyinf/}.
 
@@ -296,6 +299,38 @@ December 19, 2009
 Charles Severance is a 
 Clinical Assistant Professor 
 at the University of Michigan School of Information.
+
+\subsection*{Draft Version Instructions}
+
+The copy of this book you are looking at is currently a draft and still in
+development.  The general roadmap for the rest of the development book 
+is as follows:
+
+\begin{itemize}
+
+\item Teach SI502 - Networked Programming at University of Michigan
+Winter 2009.  The first 10 chapters of the book will be 
+used for the first four weeks of the course.  At least three more 
+chapters will be written for SI502 and distributed during the semester
+that line up with the topics in the second half of SI502 
+(Networked Programming, Databases, and Using Web Services).
+
+\item There are four more chapters planned at some point 
+(Advanced Functions, Regular Expressions, Automating Common Tasks,
+and Visualizing data).  These are not currently in the scope of SI502
+for Winter 2010.
+
+\end{itemize}
+
+Like all books being written and used in a course at the same time, 
+student feedback is essential to producing a strong book.  So I 
+hope that students will look at the book and help me find simple 
+errors, places where ideas jump too fast, improvements in the glossary, 
+debugging, and exercises in each chapter.  
+
+You can also send comments to csev (at) umich.edu at any time.
+
+Thanks in advance for your patience and assistance.
 
 \section*{Preface for ``Think Python''}
 
@@ -2275,7 +2310,7 @@ Hello Chuck
 \end{ex}
 
 \begin{ex}
-Write a program to prompt the use for hours and rate per hour to compute
+Write a program to prompt the user for hours and rate per hour to compute
 gross pay.
 \begin{verbatim}
 Enter Hours: 35
@@ -2332,7 +2367,7 @@ Practice using the Python interpreter as a calculator:
 
 \end{enumerate}
 \end{ex}
-n
+
 \begin{ex}
 Write a program which prompts the user for a Celsius temperature,
 convert the temperature to Fahrenheit and print out the converted
@@ -2996,11 +3031,11 @@ is between 0.0 and 1.0, print a grade using the following
 table:
 \begin{verbatim}
 Score   Grade
-> 90.0    A
-> 80.0    B
-> 70.0    C
-> 60.0    D
-<= 60.0   F
+> 0.9     A
+> 0.8     B
+> 0.7     C
+> 0.6     D
+<= 0.6    F
 
 Enter score: 0.95
 A
@@ -3813,11 +3848,11 @@ a score as its parameter and returns a grade as a string.
 
 \begin{verbatim}
 Score   Grade
-> 90.0    A
-> 80.0    B
-> 70.0    C
-> 60.0    D
-<= 60.0   F
+> 0.9     A
+> 0.8     B
+> 0.7     C
+> 0.6     D
+<= 0.6    F
 
 Enter score: 0.95
 A
@@ -5241,7 +5276,7 @@ if we were presented a series of lines formatted as follows:
 From stephen.marquard@{\bf uct.ac.za} Sat Jan  5 09:14:16 2008
 }
 
-And we wanted to pull out only the second half of the E-Mail address (i.e.
+And we wanted to pull out only the second half of the address (i.e.
 {\tt uct.ac.za}) from each line.  We can do this by using the {\tt find}
 method and string slicing.   
 
@@ -5267,9 +5302,9 @@ uct.ac.za
 \afterverb
 %
 We use a version of the {\tt find} method which allows us to specify
-a position in the string where we want to {\tt find} to start looking.
+a position in the string where we want {\tt find} to start looking.
 When we slice, we extract the characters 
-from ``one beyond the at-sign throught up to {\em but not including} the 
+from ``one beyond the at-sign through up to {\em but not including} the 
 space character''.  
 
 The documentation for the {\tt find} method is available at
@@ -5659,9 +5694,9 @@ X-DSPAM-Confidence: {\bf 0.8475}
 }
 
 Use {\tt find} and string slicing to extract the portion
-or the string after the colon character and then use the 
+of the string after the colon character and then use the 
 {\tt float} function to convert the extracted string 
-int o a floating point number.
+into a floating point number.
 
 \end{ex}
 
@@ -6687,7 +6722,7 @@ missing files.''.
 \section{Exercises}
 
 \begin{ex}
-Write a program to will read through a file and print the contents 
+Write a program to read through a file and print the contents 
 of the file (line by line) all in upper case.  Executing the program 
 will look as follows:
 
@@ -6714,8 +6749,9 @@ X-DSPAM-Confidence: {\bf 0.8475}
 
 When you encounter a line that starts with 
 ``X-DSPAM-Confidence:'' pull apart the line to extract the
-floating point number on the line.  Compute the count of these 
-lines and the total of the spam confidence from these lines.
+floating point number on the line.  Count these 
+lines and the compute the total of the spam confidence 
+values from these lines.
 When you reach the end of the file, print out the average
 spam confidence.
 
@@ -8521,11 +8557,11 @@ for From lines and takes the second parameter on those
 lines as the person who sent the mail.
 
 The program creates a Python dictionary that maps 
-E-Mail address to the total number of messages for that person.
+the sender's address to the total number of messages for that person.
 
 After all the data has been read - the program looks 
 through the dictionary using a maximum loop
-to find who has the most Mail 
+to find who has the most 
 messages and how many messages the person has.
 
 \beforeverb
@@ -8540,7 +8576,7 @@ zqian@umich.edu 195
 \end{ex}
 
 \begin{ex}
-This program records the domain name (instead of the e-Mail address) 
+This program records the domain name (instead of the address) 
 where the message was sent from insead of who the mail 
 came from (i.e. the whole e-mail address). At the end 
 of the program print out the contents of your dictionary. 
@@ -9356,7 +9392,7 @@ size and composition of a data structure.
 \begin{ex}
 Revise a previous program as follows:  Read and 
 parse the ``From '' lines and pull out the 
-E-Mail addresses from the line.   Count the number of
+addresses from the line.   Count the number of
 messages from each person using a dictionary.
 
 After all the data has been read - print 
