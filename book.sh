@@ -1,6 +1,8 @@
 #! /bin/sh
 
 latex book
+makeindex book
+latex book
 dvipdf book.dvi book.pdf
 open book.pdf
 exit
