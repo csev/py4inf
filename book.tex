@@ -218,7 +218,7 @@ instead of understanding algorithms and abstractions.
 My goal in SI502 is to teach people life-long data handling 
 skills using Python.  Few of my
 students were planning to be be professional 
-computer programmers - instead, they
+computer programmers.  Instead, they
 planned be librarians, managers, lawyers, biologists, economists, etc. 
 who happenned to want to skillfully use technology in their chosen field.
 
@@ -241,7 +241,7 @@ Allen has given me permission to change the book's license
 from the
 GNU Free Documentation License 
 to the more recent
-Creative Commons Attribution - Share Alike
+Creative Commons Attribution --- Share Alike
 license.
 This follows a general shift in open documentation licenses moving 
 from the GFDL to the CC-BY-SA (i.e. Wikipedia).
@@ -637,7 +637,7 @@ be correct {\bf programming}.
 
 In the rest of this book, we will try to turn you into a person
 who is skilled in the art of programming.  In the end you will be a 
-{\bf programmer} - perhaps not a professional programmer - but 
+{\bf programmer} --- perhaps not a professional programmer but 
 at least you will have the skills to look at a data/information
 analysis problem and develop a program to solve the problem.
 
@@ -768,7 +768,7 @@ The chevron, {\tt >>>}, is the
 you type {\tt 1 + 1}, the interpreter replies {\tt 2}.
 The chevron is the Python interpreter's way of asking you, "What
 do you want me to do next?".  You will notice that as soon as 
-Python finishes one statement - it immediately is ready for you to type 
+Python finishes one statement it immediately is ready for you to type 
 another statement.
 
 \index{prompt}
@@ -2804,7 +2804,7 @@ ZeroDivisionError: integer division or modulo by zero
 \afterverb
 %
 The third calculation failed because Python was evaluating {\tt (x/y)}
-and {\tt y} was zero - which causes a run-time error.  But the second example
+and {\tt y} was zero which causes a run-time error.  But the second example
 did {\em not} fail because the first part of the expression {\tt x >= 2} 
 evaluated to {\tt False} so the {\tt (x/y)} was not ever executed 
 due to the {\bf short circuit} rule and there was no error.
@@ -6311,7 +6311,7 @@ in the eyes of our users?''.
 
 \section{Using {\tt try, catch,} and {\tt open}}
 
-I told you not to peek - this is your last chance.
+I told you not to peek.  This is your last chance.
 
 What if our user types something that is not a file name?
 \beforeverb
@@ -6333,7 +6333,7 @@ IOError: [Errno 2] No such file or directory: 'na na boo boo'
 \afterverb
 %
 Do not laugh, users will eventually do every possible thing they can do 
-to break your programs - either on purpose or with mailcious intent.
+to break your programs --- either on purpose or with mailcious intent.
 As a matter of fact, an important part of any software development
 team is a person or group called {\bf Quality Assurance} (or QA for short)
 whose very job it is to do the craziest things possible in an attempt
@@ -6404,7 +6404,7 @@ which of two equivalent solutions to a problem is
 ``more Pythonic''.  The goal to be ``more Pythonic'' 
 captures the notion that programming is part engineering
 and part art.  We are not always interested
-in just making something work - we also want
+in just making something work, we also want
 our solution to be elegant.
 
 
@@ -6571,7 +6571,7 @@ IndexError: list index out of range
 \end{verbatim}
 \afterverb
 %
-It kind of works - we see the day from the first from line
+It kind of works and we see the day from the first from line
 (Sat) but then the program fails with a traceback error.
 What went wrong?  What messed-up data caused our elegant, 
 clever and very Pythonic program to fail?
@@ -6583,7 +6583,7 @@ to add the print statement is right before the line where
 the program failed and print out the data that seems to be causing
 the failure.
 
-Now this approach may generate a lot of lines of output - but at 
+Now this approach may generate a lot of lines of output but at 
 least you will immediately have some clue as to the 
 problem at hand.  So we add a print of the variable
 {\tt words} right before line five.  We even 
@@ -6633,7 +6633,7 @@ Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772
 \afterverb
 %
 The error occurs when our program encounters a blank line! Of course there
-are ``zero words'' on a blank line - why didn't we think of that 
+are ``zero words'' on a blank line.  Why didn't we think of that 
 when we were writing the code.  When the code looks for the first
 word (\verb"word[0]") to check to see if it matches ``From'', 
 we get an ``index out of range'' error.
@@ -8558,7 +8558,7 @@ lines as the person who sent the mail.
 The program creates a Python dictionary that maps 
 the sender's address to the total number of messages for that person.
 
-After all the data has been read - the program looks 
+After all the data has been read the program looks 
 through the dictionary using a maximum loop
 to find who has the most 
 messages and how many messages the person has.
@@ -8852,7 +8852,7 @@ to the variables {\tt x} and {\tt y} in a single statement.
 It is not magic, Python {\em roughly} translates the 
 tuple assignment syntax
 to be the following:\footnote{Python does not translate the 
-syntax literally - for example if you try this with a dictionary
+syntax literally.  For example if you try this with a dictionary
 it will not work as might expect.}
 
 \beforeverb
@@ -9394,7 +9394,7 @@ parse the ``From '' lines and pull out the
 addresses from the line.   Count the number of
 messages from each person using a dictionary.
 
-After all the data has been read - print 
+After all the data has been read print 
 the person with the most commits by creating
 a list of (count, email) tuples from the 
 dictionary and then sorting the list in reverse
