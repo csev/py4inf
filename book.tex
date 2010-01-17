@@ -1,5 +1,5 @@
 % LaTeX source for ``Python for Informatics: Exploring Information''
-% Copyright (c)  2009  Charles R. Severance
+% Copyright (c)  2010  Charles R. Severance
 
 % Permission is granted to copy, distribute and/or modify this
 % document under the terms of the 
@@ -308,7 +308,7 @@ is as follows:
 \begin{itemize}
 
 \item Teach SI502 - Networked Programming at University of Michigan
-Winter 2009.  The first 10 chapters of the book will be 
+Winter 2010.  The first 10 chapters of the book will be 
 used for the first four weeks of the course.  At least three more 
 chapters will be written for SI502 and distributed during the semester
 that line up with the topics in the second half of SI502 
@@ -486,6 +486,10 @@ is essentially built to continuously ask us the question,
 \centerline{\includegraphics[height=1.00in]{figs2/pda.eps}}
 \afterfig
 
+Programmers add and operating system and a set of applications
+to the hardware and we end up with a Personal Digital
+Assistant that is quite helpful and calable of helping
+many different things.
 
 Our computers are fast and have vast amounts of memory and 
 could be very helpful to us if we only knew the language to
@@ -874,10 +878,9 @@ For example, parentheses have to come in matching pairs, so
 
 \index{parentheses!matching}
 \index{syntax}
-\index{cummings, e. e.}
 
 In English readers can tolerate most syntax errors, which is why we
-can read the poetry of e. e. cummings without spewing error messages.
+can read certain abstract poetry.
 Python is not so forgiving.  If there is a single syntax error
 anywhere in your program, Python will display an error message and quit,
 and you will not be able to run your program. During the first few
@@ -1537,37 +1540,6 @@ The type of a variable is the type of the value it refers to.
 \end{verbatim}
 \afterverb
 %
-\begin{ex}
-If you type an integer with a leading zero, you might get
-a confusing error:
-
-\beforeverb
-\begin{verbatim}
->>> zipcode = 02492
-                  ^
-SyntaxError: invalid token
-\end{verbatim}
-\afterverb
-
-Other numbers seem to work, but the results are bizarre:
-
-\beforeverb
-\begin{verbatim}
->>> zipcode = 02132
->>> print zipcode
-1114
-\end{verbatim}
-\afterverb
-
-Can you figure out what is going on?  Hint: print the
-values {\tt 01}, {\tt 010}, {\tt 0100} and {\tt 01000}.
-
-\index{octal}
-
-\end{ex}
-
-
-
 
 \section{Variable names and keywords}
 \index{keyword}
@@ -2069,6 +2041,11 @@ print x1q3p9afd
 \end{verbatim}
 \afterverb
 %
+We won't worry about making sure our pay has exactly two digits after
+the decimal place for now.  If you want, you can play with the 
+built-in Python {\tt round} function to properly round the resulting pay
+to two decimal places.
+
 The Python interpreter sees all three of these programs as {\em exactly the 
 same} but humans see and understand these programs quite differently.  
 Humans will most quickly understand the {\bf intent} 
@@ -2087,7 +2064,7 @@ in the first place.
 While this all sounds great, and it is a very good idea to use mnemonic variable
 names, mnemonic variable names can get in the way of a beginning programmer's 
 ability to parse and understand code.  This is because beginning programmers 
-have not yet memorized the reserved words (there is only 31 of them) and sometimes
+have not yet memorized the reserved words (there are only 31 of them) and sometimes
 variables which have names that are too descriptive start to look like 
 part of the language and not just well-chosen variable names.
 
@@ -3000,12 +2977,12 @@ comparisons to take advantage of the short circuit behavior.
 \begin{ex}
 Rewrite your pay computation to give the employee 1.5 
 times the hourly rate for 
-hours worked about 40 hours.
+hours worked above 40 hours.
 
 \begin{verbatim}
 Enter Hours: 45
 Enter Rate: 10
-Pay: 375.0
+Pay: 475.0
 \end{verbatim}
 \end{ex}
 
@@ -3836,7 +3813,7 @@ two parameters ({\tt hours} and {\tt rate}).
 \begin{verbatim}
 Enter Hours: 45
 Enter Rate: 10
-Pay: 375.0
+Pay: 475.0
 \end{verbatim}
 \end{ex}
 
@@ -10103,7 +10080,13 @@ work.  The goal is to learn how to make the program work.
 \section*{Contributor List for ``Python for Informatics''}
 
 Bruce Shields for copy editing early drafts,
-Sarah Hegge for catching errors,
+Sarah Hegge,
+Steven Cherry,
+Sarah Kathleen Barbarow,
+Andrea Parker,
+Megan Hixon,
+
+% CONTRIB
 
 \section*{Contributor List for ``Think Python''}
 
