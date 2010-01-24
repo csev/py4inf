@@ -6166,78 +6166,6 @@ Author: david.horwitz@uct.ac.za
 \afterverb
 %
 
-\section{Parsing lines}
-
-Usually we want to do something to the lines other than just 
-printing the whole line.  Often we want to find the ``interesting
-lines'' and then {\bf parse} the line to find some interesting
-{\em part} of the line.  What if we wanted to print out the day of the 
-week from those lines that start with ``From ''.
-
-{\tt
-From stephen.marquard@uct.ac.za {\bf Sat} Jan  5 09:14:16 2008
-}
-
-Python provides a very useful string method called {\tt split}
-which breaks a string into parts based on whitespace:
-
-\beforeverb
-\begin{verbatim}
->>> line = 'Have a nice day'
->>> words = line.split()
->>> print words
-['Have', 'a', 'nice', 'day']
->>> print len(words)
-4
->>> print words[2]
-nice
-\end{verbatim}
-\afterverb
-%
-The {\tt split} method reads through the string and returns a
-list of strings representing each {\bf token} in the string.
-We store this list of words in a mnemonically-named variable
-called {\tt words}.  Using the {\tt len} function, we see that
-splitting the string yielded four words and the third word 
-({\tt word[2]}) is ``nice''.
-
-So we can write a small program that looks for lines where the 
-line starts with ``From '' and then print out the third word in the 
-line:
-
-\beforeverb
-\begin{verbatim}
-fhand = open("mbox-short.txt")
-for line in fhand:
-    line = line.rstrip()
-    if not line.startswith('From ') : continue
-    words = line.split()
-    print words[2]
-\end{verbatim}
-\afterverb
-%
-We also use the contracted form of the {\tt if}
-statement where we put the {\tt continue } on the
-same line as the {\tt if}.  This contracted form
-of the {\tt if} functions the same as if the
-{\tt continue} were on the next line and intended.
-
-The program produces the following output:
-
-\beforeverb
-\begin{verbatim}
-Sat
-Fri
-Fri
-Fri
-    ...
-\end{verbatim}
-\afterverb
-%
-Later, we will learn increasingly sophisticated techniques for
-picking the lines to work on and how we pull those lines apart
-to find the exact bit of information we are looking for.
-
 \section{Letting the user choose the file name}
 
 We really do not want to have to edit our Python code
@@ -6501,165 +6429,6 @@ could write one yourself.
 
 % TBD - Doesn't Python take care of this for us????
 
-When we read and parse files, there are many opportunities
-to encounter input that can crash our program so it is a good 
-idea to revisit the {\bf guardian} pattern when it comes
-writing programs that read through a file 
-and look for a ``needle in the haystack''.
-
-Lets revisit our program that is looking for the day of the
-week on the from lines of our file.:
-
-{\tt
-From stephen.marquard@uct.ac.za {\bf Sat} Jan  5 09:14:16 2008
-}
-
-Since we are breaking this line into words, we could dispense
-with the use of {\tt startswith} and simply look at the 
-first word of the line to determine if we are interested
-in the line at all.  We can use {\tt continue} to skip lines
-that don't have ``From'' as the first word as follows:
-
-\beforeverb
-\begin{verbatim}
-fhand = open("mbox-short.txt")
-for line in fhand:
-    words = line.split()
-    if words[0] != 'From' : continue
-    print words[2]
-\end{verbatim}
-\afterverb
-%
-This looks much simpler and we don't even need to do the 
-{\tt rstrip} to remove the newline at the end of the file.
-But is it better?
-
-\beforeverb
-\begin{verbatim}
-python search8.py 
-Sat
-Traceback (most recent call last):
-  File "search8.py", line 5, in <module>
-    if words[0] != 'From' : continue
-IndexError: list index out of range
-\end{verbatim}
-\afterverb
-%
-It kind of works and we see the day from the first from line
-(Sat) but then the program fails with a traceback error.
-What went wrong?  What messed-up data caused our elegant, 
-clever and very Pythonic program to fail?
-
-You could stare at it for a long time and puzzle through
-it or ask someone for help, but the quicker and smarter
-approach is to add a {\tt print statement}.  And the best place
-to add the print statement is right before the line where
-the program failed and print out the data that seems to be causing
-the failure.
-
-Now this approach may generate a lot of lines of output but at 
-least you will immediately have some clue as to the 
-problem at hand.  So we add a print of the variable
-{\tt words} right before line five.  We even 
-add a prefix ``Debug:'' to the line so we can keep
-our regular output separate from our debug output.
-
-\beforeverb
-\begin{verbatim}
-for line in fhand:
-    words = line.split()
-    print 'Debug:', words
-    if words[0] != 'From' : continue
-    print words[2
-\end{verbatim}
-\afterverb
-%
-When we run the program, a lot of output scrolls off the screen
-but at the end, we see our debug output and the traceback so 
-we know what happened just before the traceback.
-
-\beforeverb
-\begin{verbatim}
-Debug: ['X-DSPAM-Confidence:', '0.8475']
-Debug: ['X-DSPAM-Probability:', '0.0000']
-Debug: []
-Traceback (most recent call last):
-  File "search9.py", line 6, in <module>
-    if words[0] != 'From' : continue
-IndexError: list index out of range
-\end{verbatim}
-\afterverb
-%
-Each debug line is printing the list of words which we get
-when we {\tt split} the line into words.  When the program fails
-the list of words is empty \verb"[]".  If we open the file in a text editor
-and look at the file, at that point it looks as follows:
-
-\beforeverb
-\begin{verbatim}
-X-DSPAM-Result: Innocent
-X-DSPAM-Processed: Sat Jan  5 09:14:16 2008
-X-DSPAM-Confidence: 0.8475
-X-DSPAM-Probability: 0.0000
-
-Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772
-\end{verbatim}
-\afterverb
-%
-The error occurs when our program encounters a blank line! Of course there
-are ``zero words'' on a blank line.  Why didn't we think of that 
-when we were writing the code.  When the code looks for the first
-word (\verb"word[0]") to check to see if it matches ``From'', 
-we get an ``index out of range'' error.
-
-This of course is the perfect place to add some {\bf guardian} code 
-to avoid checking the first word if the first word is not there.
-There are many ways to protect this code, we will choose to 
-check the number of words we have before we look at the first word:
-
-\beforeverb
-\begin{verbatim}
-fhand = open("mbox-short.txt")
-count = 0
-for line in fhand:
-    words = line.split()
-    # print 'Debug:', words
-    if len(words) == 0 : continue
-    if words[0] != 'From' : continue
-    print words[2]
-\end{verbatim}
-\afterverb
-%
-First we commented out the debug print statement instead of removing it 
-in case our modification fails and we need to debug again.  Then we added
-a guardian statement that checks to see if we have zero words, and if so, 
-we use {\tt continue} to skip to the next line in the file.
-
-We can think of the two {\tt continue} statements as helping us refine
-the set of lines which are ``interesting'' to us and which we want 
-to process some more.  A line which has no words is uninteresting to 
-us so we skip to the next line.  A line which does not have ``From''
-as its first word is uninteresting to us so we skip it.
-
-The program as modified runs successfully so perhaps it is correct.  Our
-guardian statement does make sure that the {\tt words[0]} will never fail, 
-but perhaps it is not enough.  When we are programming, we must always be 
-thinking, ``What might go wrong?''.
-
-\begin{ex}
-Figure out which line of the above program is still not properly guarded.
-See if you can construct a text file which causes the program to fail
-and then modify the program so that the line is properly guarded and 
-test it to make sure it handles your new text file.
-\end{ex}
-
-\begin{ex}
-Rewrite the guardian code in the above example without two
-{\tt if} statements.  Instead use a compound logical expression using the
-{\tt and} logical operator with a single {\tt if} statement.
-\end{ex}
-
-
 \section{Glossary}
 
 \begin{description}
@@ -6737,40 +6506,6 @@ Enter the file name: mbox-short.txt
 Average spam confidence: 0.750718518519
 \end{verbatim}
 \afterverb
-\end{ex}
-
-\begin{ex}
-Write a program to read through the mail box data and when you find 
-line that starts with ``From'', you will split the line into 
-words using the {\tt split} function. We are interested in 
-who sent the message which is the second word on the From line.
-
-{\tt From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008 }
-
-You will parse the From line and print out the second word for 
-each From line and then you will also count the number of 
-From (not From:) lines and print out a count at the end.
-
-This is a sample good output with a few lines removed:
-
-\beforeverb
-\begin{verbatim}
-python fromcount.py 
-Enter a file name: mbox-short.txt
-stephen.marquard@uct.ac.za
-louis@media.berkeley.edu
-zqian@umich.edu
-
-[...some output removed...]
-
-ray@media.berkeley.edu
-cwen@iupui.edu
-cwen@iupui.edu
-cwen@iupui.edu
-There were 27 lines in the file with From as the first word
-\end{verbatim}
-\afterverb
-
 \end{ex}
 
 \begin{ex}
@@ -7342,10 +7077,17 @@ method:
 >>> t = s.split()
 >>> print t
 ['pining', 'for', 'the', 'fjords']
+>>> print t[2]
+the
 \end{verbatim}
 \afterverb
 %
-An optional argument called a {\bf delimiter} specifies which
+Once you have used {\tt split} to break the string into 
+a list of tokens, you can use the index operator (square
+bracket) to look at a particular word in the list.
+
+You can call {\tt split} with 
+an optional argument called a {\bf delimiter} specifies which
 characters to use as word boundaries.
 The following example
 uses a hyphen as a delimiter:
@@ -7390,6 +7132,58 @@ strings without spaces, you can use the empty string,
 \index{empty string}
 \index{string!empty}
 
+
+\section{Parsing lines}
+
+Usually when we are reading a file 
+we want to do something to the lines other than just 
+printing the whole line.  Often we want to find the ``interesting
+lines'' and then {\bf parse} the line to find some interesting
+{\em part} of the line.  What if we wanted to print out the day of the 
+week from those lines that start with ``From ''.
+
+{\tt
+From stephen.marquard@uct.ac.za {\bf Sat} Jan  5 09:14:16 2008
+}
+
+The {\tt split} method is very effective when faced with this 
+kind of problem.
+We can write a small program that looks for lines where the 
+line starts with ``From '' and then {\tt split} those lines 
+and then print out the third word in the line:
+
+\beforeverb
+\begin{verbatim}
+fhand = open("mbox-short.txt")
+for line in fhand:
+    line = line.rstrip()
+    if not line.startswith('From ') : continue
+    words = line.split()
+    print words[2]
+\end{verbatim}
+\afterverb
+%
+We also use the contracted form of the {\tt if}
+statement where we put the {\tt continue } on the
+same line as the {\tt if}.  This contracted form
+of the {\tt if} functions the same as if the
+{\tt continue} were on the next line and intended.
+
+The program produces the following output:
+
+\beforeverb
+\begin{verbatim}
+Sat
+Fri
+Fri
+Fri
+    ...
+\end{verbatim}
+\afterverb
+%
+Later, we will learn increasingly sophisticated techniques for
+picking the lines to work on and how we pull those lines apart
+to find the exact bit of information we are looking for.
 
 \section{Objects and values}
 
@@ -7772,6 +7566,167 @@ which returns a new, sorted list and leaves the original alone.
 But in that case you should avoid using {\tt sorted} as a variable
 name!
 
+\item Lists, {\tt split}, and files
+
+When we read and parse files, there are many opportunities
+to encounter input that can crash our program so it is a good 
+idea to revisit the {\bf guardian} pattern when it comes
+writing programs that read through a file 
+and look for a ``needle in the haystack''.
+
+Lets revisit our program that is looking for the day of the
+week on the from lines of our file.:
+
+{\tt
+From stephen.marquard@uct.ac.za {\bf Sat} Jan  5 09:14:16 2008
+}
+
+Since we are breaking this line into words, we could dispense
+with the use of {\tt startswith} and simply look at the 
+first word of the line to determine if we are interested
+in the line at all.  We can use {\tt continue} to skip lines
+that don't have ``From'' as the first word as follows:
+
+\beforeverb
+\begin{verbatim}
+fhand = open("mbox-short.txt")
+for line in fhand:
+    words = line.split()
+    if words[0] != 'From' : continue
+    print words[2]
+\end{verbatim}
+\afterverb
+%
+This looks much simpler and we don't even need to do the 
+{\tt rstrip} to remove the newline at the end of the file.
+But is it better?
+
+\beforeverb
+\begin{verbatim}
+python search8.py 
+Sat
+Traceback (most recent call last):
+  File "search8.py", line 5, in <module>
+    if words[0] != 'From' : continue
+IndexError: list index out of range
+\end{verbatim}
+\afterverb
+%
+It kind of works and we see the day from the first from line
+(Sat) but then the program fails with a traceback error.
+What went wrong?  What messed-up data caused our elegant, 
+clever and very Pythonic program to fail?
+
+You could stare at it for a long time and puzzle through
+it or ask someone for help, but the quicker and smarter
+approach is to add a {\tt print statement}.  And the best place
+to add the print statement is right before the line where
+the program failed and print out the data that seems to be causing
+the failure.
+
+Now this approach may generate a lot of lines of output but at 
+least you will immediately have some clue as to the 
+problem at hand.  So we add a print of the variable
+{\tt words} right before line five.  We even 
+add a prefix ``Debug:'' to the line so we can keep
+our regular output separate from our debug output.
+
+\beforeverb
+\begin{verbatim}
+for line in fhand:
+    words = line.split()
+    print 'Debug:', words
+    if words[0] != 'From' : continue
+    print words[2
+\end{verbatim}
+\afterverb
+%
+When we run the program, a lot of output scrolls off the screen
+but at the end, we see our debug output and the traceback so 
+we know what happened just before the traceback.
+
+\beforeverb
+\begin{verbatim}
+Debug: ['X-DSPAM-Confidence:', '0.8475']
+Debug: ['X-DSPAM-Probability:', '0.0000']
+Debug: []
+Traceback (most recent call last):
+  File "search9.py", line 6, in <module>
+    if words[0] != 'From' : continue
+IndexError: list index out of range
+\end{verbatim}
+\afterverb
+%
+Each debug line is printing the list of words which we get
+when we {\tt split} the line into words.  When the program fails
+the list of words is empty \verb"[]".  If we open the file in a text editor
+and look at the file, at that point it looks as follows:
+
+\beforeverb
+\begin{verbatim}
+X-DSPAM-Result: Innocent
+X-DSPAM-Processed: Sat Jan  5 09:14:16 2008
+X-DSPAM-Confidence: 0.8475
+X-DSPAM-Probability: 0.0000
+
+Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772
+\end{verbatim}
+\afterverb
+%
+The error occurs when our program encounters a blank line! Of course there
+are ``zero words'' on a blank line.  Why didn't we think of that 
+when we were writing the code.  When the code looks for the first
+word (\verb"word[0]") to check to see if it matches ``From'', 
+we get an ``index out of range'' error.
+
+This of course is the perfect place to add some {\bf guardian} code 
+to avoid checking the first word if the first word is not there.
+There are many ways to protect this code, we will choose to 
+check the number of words we have before we look at the first word:
+
+\beforeverb
+\begin{verbatim}
+fhand = open("mbox-short.txt")
+count = 0
+for line in fhand:
+    words = line.split()
+    # print 'Debug:', words
+    if len(words) == 0 : continue
+    if words[0] != 'From' : continue
+    print words[2]
+\end{verbatim}
+\afterverb
+%
+First we commented out the debug print statement instead of removing it 
+in case our modification fails and we need to debug again.  Then we added
+a guardian statement that checks to see if we have zero words, and if so, 
+we use {\tt continue} to skip to the next line in the file.
+
+We can think of the two {\tt continue} statements as helping us refine
+the set of lines which are ``interesting'' to us and which we want 
+to process some more.  A line which has no words is uninteresting to 
+us so we skip to the next line.  A line which does not have ``From''
+as its first word is uninteresting to us so we skip it.
+
+The program as modified runs successfully so perhaps it is correct.  Our
+guardian statement does make sure that the {\tt words[0]} will never fail, 
+but perhaps it is not enough.  When we are programming, we must always be 
+thinking, ``What might go wrong?''.
+
+\begin{ex}
+Figure out which line of the above program is still not properly guarded.
+See if you can construct a text file which causes the program to fail
+and then modify the program so that the line is properly guarded and 
+test it to make sure it handles your new text file.
+\end{ex}
+
+\begin{ex}
+Rewrite the guardian code in the above example without two
+{\tt if} statements.  Instead use a compound logical expression using the
+{\tt and} logical operator with a single {\tt if} statement.
+\end{ex}
+
+
 \end{enumerate}
 
 
@@ -7845,6 +7800,41 @@ Enter file: romeo.txt
 'with', 'yonder']
 \end{verbatim}
 \end{ex}
+
+\begin{ex}
+Write a program to read through the mail box data and when you find 
+line that starts with ``From'', you will split the line into 
+words using the {\tt split} function. We are interested in 
+who sent the message which is the second word on the From line.
+
+{\tt From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008 }
+
+You will parse the From line and print out the second word for 
+each From line and then you will also count the number of 
+From (not From:) lines and print out a count at the end.
+
+This is a sample good output with a few lines removed:
+
+\beforeverb
+\begin{verbatim}
+python fromcount.py 
+Enter a file name: mbox-short.txt
+stephen.marquard@uct.ac.za
+louis@media.berkeley.edu
+zqian@umich.edu
+
+[...some output removed...]
+
+ray@media.berkeley.edu
+cwen@iupui.edu
+cwen@iupui.edu
+cwen@iupui.edu
+There were 27 lines in the file with From as the first word
+\end{verbatim}
+\afterverb
+
+\end{ex}
+
 
 \chapter{Dictionaries}
 \index{dictionary}
