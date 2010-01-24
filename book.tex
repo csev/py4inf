@@ -202,9 +202,9 @@ Version \theversion
 \section*{Python for Informatics: Remixing an Open Book}
 
 It is quite natural for academics who are continuously told to 
-"publish or perish" to want to always create something from scratch
+``publish or perish'' to want to always create something from scratch
 that is their own fresh creation.   This book is an 
-experiment in not starting from scratch, but instead "re-mixing"
+experiment in not starting from scratch, but instead ``re-mixing''
 the book titled
 {\em Think Python: How to Think Like
 a Computer Scientist}
@@ -583,7 +583,7 @@ The high-level definitions of these parts are as follows:
 \item The {\bf Central Processing Unit} (or CPU) is 
 that part of the computer that is built to be obsessed 
 with ``what is next?''.  If your computer is rated
-at 3.0 Gigahertz, it means that the CPU will ask "What next?"
+at 3.0 Gigahertz, it means that the CPU will ask ``What next?''
 three billion times per second.  You are going to have to 
 learn how to talk fast to keep up with the CPU.
 
@@ -607,7 +607,7 @@ They are all of the ways we interact with the computer.
 \item These days, most computers also have a
 {\bf Network Connection} to retrieve information over a network.
 We can think of the network as a very slow place to store and
-retrieve data that might not always be "up".  So in a sense,
+retrieve data that might not always be ``up''.  So in a sense,
 the network is a slower and at times unreliable form of
 {\bf Secondary Memory}
 
@@ -620,7 +620,7 @@ so we can talk about these different parts as we write our programs.
 As a programmer, your job is to use and orchestrate 
 each of these resources to solve the problem that you need solving
 and analyze the data you need.  As a programmer you will 
-mostly be "talking" to the CPU and telling it what to 
+mostly be ``talking'' to the CPU and telling it what to 
 do next.  Sometimes you will tell the CPU to use the main memory,
 secondary memory, network, or the input/output devices.
 
@@ -628,7 +628,7 @@ secondary memory, network, or the input/output devices.
 \centerline{\includegraphics[height=2.50in]{figs2/arch2.eps}}
 \afterfig
 
-You need to be the person who answers the CPU's "What next?" 
+You need to be the person who answers the CPU's ``What next?'' 
 question.  But it would be very uncomfortable to shrink you 
 down to 5mm tall and insert you into the computer just so you 
 could issue a command three billion times per second.  So instead,
@@ -656,12 +656,12 @@ you need to know the vocabulary and the grammar.  You need to be able
 spell the words in this new language properly and how to construct 
 well-formed ``sentences'' in this new languages.
 
-\item Second you need to to "tell a story".  In writing a story,
+\item Second you need to to ``tell a story''.  In writing a story,
 you combine words and sentences to convey an idea to the reader. 
 There is a skill and art in constructing the story and skill in
 story writing is improved by doing some writing and getting some
-feedback.  In programming, our program is the "story" and the 
-problem you are trying to solve is the "idea".
+feedback.  In programming, our program is the ``story'' and the 
+problem you are trying to solve is the ``idea''.
 
 \end{itemize}
 
@@ -671,12 +671,12 @@ as JavaScript or C++.  The new programming language has very different
 vocabulary and grammar but once you learn problem solving skills, 
 they will be the same across all programming languages.
 
-You will learn the "vocabulary" and "sentences" of Python pretty quickly.
+You will learn the ``vocabulary'' and ``sentences'' of Python pretty quickly.
 It will take longer for you to be able to write a coherent program
 to solve a brand new problem.  We teach programming much like we teach
 writing.  We start reading and explaining programs and then we write 
 simple programs and then write increasingly complex programs over time.
-At some point you "get your muse" and see the patterns on your own
+At some point you ``get your muse'' and see the patterns on your own
 and can see more naturally how to take a problem and 
 write a program that solves that problem.  And once you get 
 to that point, programming becomes a very pleasant and creative process.  
@@ -770,8 +770,8 @@ the result:
 The chevron, {\tt >>>}, is the
 {\bf prompt} the interpreter uses to indicate that it is ready.  If
 you type {\tt 1 + 1}, the interpreter replies {\tt 2}.
-The chevron is the Python interpreter's way of asking you, "What
-do you want me to do next?".  You will notice that as soon as 
+The chevron is the Python interpreter's way of asking you, ``What
+do you want me to do next?''.  You will notice that as soon as 
 Python finishes one statement it immediately is ready for you to type 
 another statement.
 
@@ -2567,11 +2567,11 @@ at the end, but there doesn't have to be one.
 \beforeverb
 \begin{verbatim}
 if choice == 'a':
-    print "Bad guess"
+    print 'Bad guess'
 elif choice == 'b':
-    print "Good guess"
+    print 'Good guess'
 elif choice == 'c':
-    print "Close, but not correct"
+    print 'Close, but not correct'
 \end{verbatim}
 \afterverb
 %
@@ -2718,7 +2718,7 @@ try:
     cel = (fahr - 32.0) * 5.0 / 9.0
     print cel
 except:
-    print "Please enter a number"
+    print 'Please enter a number'
 \end{verbatim}
 \afterverb
 %
@@ -3286,7 +3286,7 @@ Here is an example:
 \begin{verbatim}
 def print_lyrics():
     print "I'm a lumberjack, and I'm okay."
-    print "I sleep all night and I work all day."
+    print 'I sleep all night and I work all day.'
 \end{verbatim}
 \afterverb
 %
@@ -3332,7 +3332,7 @@ isn't complete:
 \begin{verbatim}
 >>> def print_lyrics():
 ...     print "I'm a lumberjack, and I'm okay."
-...     print "I sleep all night and I work all day."
+...     print 'I sleep all night and I work all day.'
 ...
 \end{verbatim}
 \afterverb
@@ -3405,7 +3405,7 @@ whole program looks like this:
 \begin{verbatim}
 def print_lyrics():
     print "I'm a lumberjack, and I'm okay."
-    print "I sleep all night and I work all day."
+    print 'I sleep all night and I work all day.'
 
 def repeat_lyrics():
     print_lyrics()
@@ -3904,9 +3904,6 @@ subtracting 1 is called a {\bf decrement}.
 \index{increment}
 \index{decrement}
 
-
-
-
 \section{The {\tt while} statement}
 
 \index{statement!while}
@@ -4204,7 +4201,7 @@ in that there is a {\tt for} statement and a loop body:
 friends = ['Joseph', 'Glenn', 'Sally']
 for friend in friends:
     print 'Happy New Year:', friend
-print "Done!"
+print 'Done!'
 \end{verbatim}
 \afterverb
 %
@@ -4275,7 +4272,7 @@ in a list, we would write the following {\tt for} loop:
 count = 0
 for iterval in [3, 41, 12, 9, 74, 15]:
     count = count + 1
-print "Count: ", count
+print 'Count: ', count
 \end{verbatim}
 \afterverb
 %
@@ -4302,7 +4299,7 @@ is as follows:
 total = 0
 for iterval in [3, 41, 12, 9, 74, 15]:
     total = total + iterval
-print "Total: ", total
+print 'Total: ', total
 \end{verbatim}
 \afterverb
 %
@@ -5430,7 +5427,7 @@ Traceback (most recent call last):
 %
 The code works fine until it is presented an empty line.  Then
 there is no zeroth character so we get a traceback.  There are two
-solutions to this to make line three "safe" even if the line is 
+solutions to this to make line three ``safe'' even if the line is 
 empty.
 
 One possibility is to simply use the {\tt startswith} method
@@ -5809,7 +5806,7 @@ our intentions to the {\bf Central Processing Unit} using conditional
 execution, functions, and iterations.  We have learned how to 
 create and use data structures in the {\bf Main Memory}.  The CPU 
 and memory are where our software works and runs.  It is where 
-all of the "thinking" happens.  
+all of the ``thinking'' happens.  
 
 But if you recall from our hardware architecture discussions,
 once the power is turned off, anything stored in either
@@ -5898,8 +5895,8 @@ and a shortened version of the file is available from
 \url{www.py4inf.com/code/mbox-short.txt}.
 These files are in a standard format for a file containing 
 multiple mail messages. The lines which start with 
-"From " separate the messages and the lines which start 
-with "From:" are part of the messages. 
+``From '' separate the messages and the lines which start 
+with ``From:'' are part of the messages. 
 For more information, see 
 \url{en.wikipedia.org/wiki/Mbox}. 
 
@@ -5967,7 +5964,7 @@ fhand = open("mbox.txt")
 count = 0
 for line in fhand:
     count = count + 1
-print "Line Count:", count
+print 'Line Count:', count
 
 python open.py 
 Line Count: 132045
@@ -6186,7 +6183,7 @@ which breaks a string into parts based on whitespace:
 
 \beforeverb
 \begin{verbatim}
->>> line = "Have a nice day"
+>>> line = 'Have a nice day'
 >>> words = line.split()
 >>> print words
 ['Have', 'a', 'nice', 'day']
@@ -6254,7 +6251,7 @@ the user using \verb"raw_input" as follows:
 
 \beforeverb
 \begin{verbatim}
-fname = raw_input("Enter the file name: ")
+fname = raw_input('Enter the file name: ')
 fhand = open(fname)
 count = 0
 for line in fhand:
@@ -6336,7 +6333,7 @@ as follows:
 
 \beforeverb
 \begin{verbatim}
-fname = raw_input("Enter the file name: ")
+fname = raw_input('Enter the file name: ')
 try:
     fhand = open(fname)
 except:
@@ -6409,7 +6406,7 @@ puts data into the file.
 
 \beforeverb
 \begin{verbatim}
->>> line1 = "This here's the wattle,\n"
+>>> line1 = 'This here's the wattle,\n'
 >>> fout.write(line1)
 \end{verbatim}
 \afterverb
@@ -6426,7 +6423,7 @@ method does not add the newline automatically.
 
 \beforeverb
 \begin{verbatim}
->>> line2 = "the emblem of our land.\n"
+>>> line2 = 'the emblem of our land.\n'
 >>> fout.write(line2)
 \end{verbatim}
 \afterverb
@@ -6508,7 +6505,7 @@ When we read and parse files, there are many opportunities
 to encounter input that can crash our program so it is a good 
 idea to revisit the {\bf guardian} pattern when it comes
 writing programs that read through a file 
-and look for a "needle in the haystack".
+and look for a ``needle in the haystack''.
 
 Lets revisit our program that is looking for the day of the
 week on the from lines of our file.:
@@ -8183,7 +8180,7 @@ every word on every line of the input file.
 
 \beforeverb
 \begin{verbatim}
-fname = raw_input("Enter the file name: ")
+fname = raw_input('Enter the file name: ')
 try:
     fhand = open(fname)
 except:
@@ -8353,7 +8350,7 @@ We make the following modifications to our program:
 \begin{verbatim}
 import string                                          # New Code
 
-fname = raw_input("Enter the file name: ")
+fname = raw_input('Enter the file name: ')
 try:
     fhand = open(fname)
 except:
@@ -8508,7 +8505,7 @@ loop runs once.
 \begin{ex}
 Write a program that categorizes each mail message by which 
 day of the week the commit was done. To do this look for 
-lines which start with "From " and then look for the 
+lines which start with ``From '' and then look for the 
 third word and then keep a running count of each of the 
 days of the week. At the end of the program print out the 
 contents of your dictionary. (order does not matter)
@@ -9393,7 +9390,7 @@ zqian@umich.edu 195
 \end{ex}
 \begin{ex}
 This program counts the distribution of the hour of the day for 
-each of the messages. You can pull the hour from the "From " 
+each of the messages. You can pull the hour from the ``From '' 
 line by finding the time string and then splitting that string 
 into parts using the colon character. Once you have accumulated 
 the counts for each hour, print out the counts, one per line, 
@@ -9667,9 +9664,9 @@ while x > 0 and y < 0 :
     # do something to x
     # do something to y
 
-    print  "x: ", x
-    print  "y: ", y
-    print  "condition: ", (x > 0 and y < 0)
+    print  'x: ', x
+    print  'y: ', y
+    print  'condition: ', (x > 0 and y < 0)
 \end{verbatim}
 \afterverb
 %
