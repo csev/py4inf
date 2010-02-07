@@ -6949,7 +6949,7 @@ This example leaves {\tt t2} unmodified.
 \end{verbatim}
 \afterverb
 %
-List methods are all void; they modify the list and return {\tt None}.
+Most list methods are void; they modify the list and return {\tt None}.
 If you accidentally write {\tt t = t.sort()}, you will be disappointed
 with the result.
 
@@ -7637,7 +7637,7 @@ for line in fhand:
     words = line.split()
     print 'Debug:', words
     if words[0] != 'From' : continue
-    print words[2
+    print words[2]
 \end{verbatim}
 \afterverb
 %
@@ -8364,7 +8364,16 @@ print counts
 %
 We use {\tt translate} to remove all punctuation and {\tt lower} to 
 force the line to lower case.  Otherwise the program is unchanged.
+Note for Python 2.5 and earlier, {\tt ttranslate} does not 
+accept {\tt None} as the first parameter so use this code for the translate 
+call:
 
+\beforeverb
+\begin{verbatim}
+print a.translate(string.maketrans(' ',' '), string.punctuation
+\end{verbatim}
+\afterverb
+%
 Part of learning the ``Art of Python'' or ``Thinking Pythonically''
 is realizing that Python
 often has built-in capabilities for many common data-analysis
@@ -8755,13 +8764,13 @@ sort them from longest to shortest:
 \beforeverb
 \begin{verbatim}
 def sort_by_length(words):
-    t = []
+    t = list()
     for word in words:
        t.append((len(word), word))
 
     t.sort(reverse=True)
 
-    res = list()                # Create an empty list
+    res = list()
     for length, word in t:
         res.append(word)
     return res
@@ -10073,6 +10082,8 @@ Sarah Kathleen Barbarow,
 Andrea Parker,
 Radaphat Chongthammakun,
 Megan Hixon,
+Kirb Urner,
+Sarah Kathleen Barbrow,
 
 % CONTRIB
 
