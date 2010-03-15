@@ -1714,7 +1714,7 @@ RFC2616 you will find the syntax for the GET request.  If you read in detail, yo
 find that to reqest a document from a web server, we make a connection to port 80, 
 and then send a line of the form:
 
-GET http://www.py4inf.com/code/romeo.txt HTTP/1.0
+{\tt GET http://www.py4inf.com/code/romeo.txt HTTP/1.0 }
 
 Where the second parameter is the web page we are requesting and then 
 we also send a blank line.  The web server will respond with some 
@@ -1863,7 +1863,7 @@ we can read it like a local file.
 One of the common uses of the {\tt urllib} capability in Python is 
 to "scrape" the web.   Web scraping is when we write a program
 that pretends to be a web browser and retrieves pages and then 
-examines the data in those pages lookig for patterns.
+examines the data in those pages looking for patterns.
 
 As an example, a search engine such as Google will look at source 
 of one web page and extract the links to other pages and retrieve
@@ -1926,7 +1926,7 @@ It then searches for the next double quote in the rest of the
 line and treats the link as the text up to but not 
 including the second double quote.
 
-WHen the program is run it looks as follows:
+When the program is run it looks as follows:
 
 \beforeverb
 \begin{verbatim}
@@ -2017,9 +2017,10 @@ and extracts some data elements from the XML:
 
 \beforeverb
 \begin{verbatim}
-import xml.dom.minidom
+import xml.etree.ElementTree as ET
 
-data = '''<person>
+data = '''
+<person>
   <name>Chuck</name>
   <phone type="intl">
      +1 734 303 4456
@@ -2027,81 +2028,87 @@ data = '''<person>
    <email hide="yes"/>
 </person>'''
 
-dom = xml.dom.minidom.parseString(data)
-
-for usr in dom.getElementsByTagName('name') :
-    print 'Name:', usr.firstChild.nodeValue
-
-for em in dom.getElementsByTagName('email') :
-    print 'Email:', em.getAttribute('hide')
+tree = ET.fromstring(data)
+print 'Name:',tree.find('name').text
+print 'Attr:',tree.find('email').get('hide')
 \end{verbatim}
 \afterverb
 %
-The call to {\tt parseString} converts the string representation
-of the XML into a {\bf Document Object Model} (or DOM).  When the
-XML is in a DOM, we have a seties of methods which we can call to 
-extract portions of data from the XML.  The DOM has the advantage
-in that while the XML in this example is quite simple, it turns
-out that there are many rules regarding valid XML and using 
-{\tt minidom} allows us not to worry about those rules.
+The call to {\tt fromstring} converts the string representation
+of the XML into a 'tree' of XML Elements.  When the
+XML is in a tree, we have a seties of methods which we can call to 
+extract portions of data from the XML.  
 
-The {\tt getElementsByTagName} function searches through the 
-DOM and retrieves a list of {\bf nodes} that match the specified tag.
+The {\tt find} function searches through the 
+XML tree and retrieves a {\bf node} that matches the specified tag.
 Each node can have some text, some attributes (i.e. like hide) and
 some ``child'' nodes.   Each node can be the top of a tree of nodes.
-
-The code to pull out all of the elements which are in the {\tt name}
-tag is as follows:
-
-\beforeverb
-\begin{verbatim}
-for usr in dom.getElementsByTagName('name') :
-    print 'Name:', usr.firstChild.nodeValue
-\end{verbatim}
-\afterverb
-%
-We wrte this as a {\tt for} loop because there may be multiple name
-tags and the {\tt dom.getElementsByTagName} returns a list of nodes
-even if it only finds a single node.  To retrieve the text in between
-the open and close tags, we must go to the {\tt firstChild} node and
-retrieve its ``value''.   The text within a node is modelled as a child
-of the node.
 
 \beforeverb
 \begin{verbatim}
 Name: Chuck
+Attr: yes
 \end{verbatim}
 \afterverb
 %
-It is somewhat easier to retrieve an attribute because attributes 
-ate modelled at the node and can be retrieved using the
-{\tt getAtribute} method:
+Using an XML parser such as {\tt ElementTree} has the advantage
+in that while the XML in this example is quite simple, it turns
+out that there are many rules regarding valid XML and using 
+{\tt ElementTree} allows us not to worry about those rules.
+
+\section{Looping through nodes}
+
+Often the XML has multiple nodes and we need to write a loop
+to process all of the nodes.  In the following program, 
+we loop through all of the {\tt user} nodes:
 
 \beforeverb
 \begin{verbatim}
-for em in dom.getElementsByTagName('email') :
-    print 'Email:', em.getAttribute('hide')
+import xml.etree.ElementTree as ET
+
+input = '''
+<stuff>
+    <users>
+        <user x="2">
+            <id>001</id>
+            <name>Chuck</name>
+        </user>
+        <user x="7">
+            <id>009</id>
+            <name>Brent</name>
+            </user>
+        </users>
+</stuff>'''
+
+stuff = ET.fromstring(input)
+lst = stuff.findall("users/user")
+print 'User count:', len(lst)
+
+for item in lst:
+    print 'Name', item.find('name').text
+    print 'Id', item.find('id').text
+    print 'Attribute', item.get("x")
 \end{verbatim}
 \afterverb
 %
-This extracts the value of the hide attribute of the email node(s):
+The {\tt findall} method retrieves a Python list of sub-trees that
+represent the {\tt user} structures in the XML tree.  Then we can 
+write a {\tt for} loop that looks at each of the user nodes, and 
+prints the {\tt name} and {\tt id} text elements as well as the 
+{\tt x} attribute from the user node.
+
 \beforeverb
 \begin{verbatim}
-Email: yes
+User count: 2
+Name Chuck
+Id 001
+Attribute 2
+Name Brent
+Id 009
+Attribute 7
 \end{verbatim}
 \afterverb
 %
-Many (including me) find using the DOM to extract data from XML a bit
-``clunky'' and other Python packages such as {\bf ElementTree} gives
-a more ``Pythonic'' way to parse XML.   The DOM has the advantage in that
-once you can use the DOM, it is relatively similar across languages 
-such as Python, Java, C++, etc.  These other languages also have DOM-style
-XML parsers.
-
-For the purposes of the examples in this book, we will stick with the
-``classic'' DOM-based XML parsing approach - but as you do more work 
-with XML you may want to explore these other XML parsers.
-
 
 \section{Application Programming Interfaces (API)}
 
@@ -2146,8 +2153,204 @@ to have good performance and meet the user's needs.
 When an application makes a set of services in its API available over the web, 
 we call these {\bf web services}. 
 
-\section{Calling web services}
+\section{Twitter web services}
 
+Many of you many be familiar with the Twitter web site and many Twitter
+applications \url{http://www.twitter.com}.  Twitter has a very unique
+approach to its API/web services in that all of its data is available
+to non-Twitter applications using the Twitter API.
+
+Because Twitter has been so liberal in allowing access to its data,
+it has enabled thousands of software developers to build their own
+customized Twitter-based software.  These additional applications greatly
+increase the value of Twitter far beyond simply a web-site.  The 
+Twitter web services allow the building of whole new applications that
+the Twitter team may never of thought of.  It is said that over 90 percent
+of the use of Twitter is through the API (i.e. not through the Twitter
+web user inteface).
+
+You can view the Twitter API documentation at 
+\url{http://apiwiki.twitter.com/}.  We will focus on the API
+to retrieve a list of a user's friends and their statuses.  As an 
+example, you can visit the following URL:
+
+\url{http://api.twitter.com/1/statuses/friends/drchuck.xml}
+
+To see a list of the friends of the twitter account {\tt drchuck}.
+It may look like a mess in your browser.   To see the actual XML
+returned by Twitter, you can view the source of the returned
+``web page''.
+
+We can retrieve this same XML using Python using the {\tt urllib}
+utility:
+
+\beforeverb
+\begin{verbatim}
+import urllib
+
+TWITTER_URL = 'http://api.twitter.com/l/statuses/friends/ACCT.xml'
+
+while True:
+    print ''
+    acct = raw_input('Enter Twitter Account:')
+    if ( len(acct) < 1 ) : break
+    url = TWITTER_URL.replace('ACCT', acct)
+    print 'Retrieving', url
+    document = urllib.urlopen (url).read()
+    print document[:250]
+\end{verbatim}
+\afterverb
+%
+The program prompts for a Twitter account and opens the URL
+for the friends and statuses API and then retrieves the 
+text from the URL and shows us the first 250 characters of
+the text.
+
+\beforeverb
+\begin{verbatim}
+python twitter1.py
+
+Enter Twitter Account:drchuck
+Retrieving http://api.twitter.com/l/statuses/friends/drchuck.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<users type="array">
+<user>
+  <id>115636613</id>
+  <name>Steve Coppin</name>
+  <screen_name>steve_coppin</screen_name>
+  <location>Kent, UK</location>
+  <description>Software developing, best practicing, agile e
+
+Enter Twitter Account:
+\end{verbatim}
+\afterverb
+%
+In this application, we have retrieved the XML exactly as if it were
+an HTML web page.  If we wanted to extract data from the XML, we 
+could use Python string functions but this would become pretty complex
+as we tried to really start to dig into the XML in detail.
+
+If we were to dump out the retrieved XML it would look roughly as follows:
+
+\beforeverb
+\begin{verbatim}
+<?xml version="1.0" encoding="UTF-8"?>
+<users type="array">
+  <user>
+    <id>115636613</id>
+    <name>Steve Coppin</name>
+    <screen_name>steve_coppin</screen_name>
+    <location>Kent, UK</location>
+    <status>
+      <id>10174607039</id>
+      <source>web</source>
+      </status>
+  </user>
+  <user>
+    <id>17428929</id>
+    <name>davidkocher</name>
+    <screen_name>davidkocher</screen_name>
+    <location>Bern</location>
+    <status>
+      <id>10306231257</id>
+      <text>@MikeGrace If possible please post a detailed bug report </text>
+    </status>
+  </user>
+  ...
+\end{verbatim}
+\afterverb
+%
+The top level tag is a {\tt users} and there are multiple {\tt user} tags
+below within the {\tt users} tag.   There is also a {\tt status} tag below
+the {\tt user} tag.  
+
+\section{Handling XML data from an API}
+
+When we receive well-formed XML data from an API, we generally use
+an XML parser such as {\tt ElementTree} to extract information from
+the XML data.
+
+In the program below, we retrieve the friends and statuses from
+the Twitter API and then parse the returned XML to show the first
+four friends and their statuses.
+
+\beforeverb
+\begin{verbatim}
+import urllib
+import xml.etree.ElementTree as ET
+
+TWITTER_URL = 'http://api.twitter.com/l/statuses/friends/ACCT.xml'
+
+while True:
+    print ''
+    acct = raw_input('Enter Twitter Account:')
+    if ( len(acct) < 1 ) : break
+    url = TWITTER_URL.replace('ACCT', acct)
+    print 'Retrieving', url
+    document = urllib.urlopen (url).read()
+    print 'Retrieved', len(document), 'characters.' 
+    tree = ET.fromstring(document)
+    count = 0
+    for user in tree.findall('user'):
+        count = count + 1
+        if count > 4 : break
+        print user.find('screen_name').text
+        status =  user.find('status')
+        if status : 
+            txt = status.find('text').text
+            print '  ',txt[:50]
+\end{verbatim}
+\afterverb
+%
+We use the {\tt findall} method to get a list of the {\tt user} 
+nodes and loop through the list using a {\tt for } loop.  
+For each {\tt user} node, we pull out the text of the \verb"screen_name" node
+and then pull out the {\tt status} node.   If there is a {\tt status}
+node, we pull out the text of the {\tt text} node and print the first 50 
+characters of the status text.
+
+The pattern is pretty straightforward, we use {\tt findall} and {\tt find}
+to pull out a list of nodes or a single node and then if a node is a complex
+element with more sub-nodes we look deeper into the node unti we reach the 
+text element that we are interested in.
+
+The program runs as follows:
+
+\beforeverb
+\begin{verbatim}
+python twitter2.py 
+
+Enter Twitter Account:drchuck
+Retrieving http://api.twitter.com/l/statuses/friends/drchuck.xml
+Retrieved 193310 characters.
+steve_coppin
+   Looking forward to some "oh no the markets closed,
+davidkocher
+   @MikeGrace If possible please post a detailed bug 
+hrheingold
+   From today's Columbia Journalism Review, on crap d
+huge_idea
+   @drchuck  #cnx2010 misses you, too.  Thanks for co
+
+Enter Twitter Account:hrheingold
+Retrieving http://api.twitter.com/l/statuses/friends/hrheingold.xml
+Retrieved 208081 characters.
+carr2n
+   RT @tysone: Saturday's proclaimation by @carr2n pr
+tiffanyshlain
+   RT @ScottKirsner: Turning smartphones into a tool 
+soniasimone
+   @ACCompanyC Funny, smart, cute, and also nice! He 
+JenStone7617
+   Watching "Changing The Equation: High Tech Answers
+
+Enter Twitter Account:
+\end{verbatim}
+\afterverb
+%
+While the code for this takes a few lines to express what we are looking for 
+in the XML, it is much simpler than trying to use Python string parsing
+to pull apart the XML and find the data elements we are looking for.
 
 \chapter{Using databases}
 
