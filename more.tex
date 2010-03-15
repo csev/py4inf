@@ -1672,13 +1672,282 @@ help, see \url{wikipedia.org/wiki/Euclidean_algorithm}.
 
 \chapter{Networked programs}
 
-\section{The Internet}
+While many of the examples in this book have focused on reading
+files and looking for data in those files, there are many different
+sources of information when one considers the Internet.
 
-\section{Making network connections}
+In this chapter we will pretend to be a web browser and retrieve web
+pages using the HyperText Transport Protocol (HTTP).  Then we will read
+through the web page data and parse it.
 
-\section{Retrieving web pages}
+\section{HyperText Transport Protocol - HTTP}
+
+The network protocol that powers the web is actually quite simple and 
+there is built-in support in Python which makes it very 
+(i.e. sockets) easy to make network connections and retrieve data over those
+sockets.
+
+A socket is much like a file, except that it is a two-way connection between two 
+programs.  You can both read and write the same socket.  If you write somthing to 
+a socket is is sent to the application at the other end of the socket.  If you 
+read from the socket, you are given the data which the other application has sent.
+
+But if you try to read a socket when the program on the other end of the socket
+has not send any data - you just sit and wait.  And if the programs on both ends
+of the socket simply wait for some data without sending anything, they will wait for
+a very long time.
+
+So an important part of programs which communicate over the Internet is to have some
+sort of protocol.   A protocol is a set of precise rules that determine who
+is to go first, what they are to do, and then what are the responses to that message,
+and who sends next and so far.  In a sense the two applications at either end 
+of the socket are doing a dance and makeing sure not to step on each other's toes.
+
+There are many documents which describe these network protocols.  The HyperText Transport 
+Protocol is described in the following document:
+
+http://www.w3.org/Protocols/rfc2616/rfc2616.txt
+
+This is a long and complex 176 page document with a lot of detail.  If you 
+find it interesting feel free to read it all.  But if you take a look around page 36 of
+RFC2616 you will find the syntax for the GET request.  If you read in detail, you will
+find that to reqest a document from a web server, we make a connection to port 80, 
+and then send a line of the form:
+
+GET http://www.py4inf.com/code/romeo.txt HTTP/1.0
+
+Where the second parameter is the web page we are requesting and then 
+we also send a blank line.  The web server will respond with some 
+header information about the document and a blank line
+followed by the document content.
+
+\section{The World's Simplest Web Browser}
+
+Perhaps the easiest way to show how the HTTP protocol works is to write a very 
+simple Python program that makes a connection to a web server and requests a document 
+and displays what the server sends back.
+
+\beforeverb
+\begin{verbatim}
+import socket
+
+mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+mysock.connect(("www.py4inf.com", 80))
+mysock.send("GET http://www.py4inf.com/code/romeo.txt HTTP/1.0\n\n")
+
+while True:
+    data = mysock.recv(512)
+    if ( len(data) < 1 ) :
+        break
+    print data
+
+mysock.close()
+\end{verbatim}
+\afterverb
+%
+First the program makes a connection to port 80 on 
+the server www.py4inf.com.
+Since our program is playing the role of the "web browser" the HTTP
+protocol says we must send the GET command followed by a blank line.
+
+Once we send that blank line, we write a loop that receives data 
+in 512 character chunks from the socket and prints the data out 
+until there is no more data to read (i.e. the recv() returns 
+an empty string).
+
+The program prodces the following output:
+
+\beforeverb
+\begin{verbatim}
+HTTP/1.1 200 OK
+Date: Sun, 14 Mar 2010 23:52:41 GMT
+Server: Apache
+Last-Modified: Tue, 29 Dec 2009 01:31:22 GMT
+ETag: "143c1b33-a7-4b395bea"
+Accept-Ranges: bytes
+Content-Length: 167
+Connection: close
+Content-Type: text/plain
+
+But soft what light through yonder window breaks
+It is the east and Juliet is the sun
+Arise fair sun and kill the envious moon
+Who is already sick and pale with grief
+\end{verbatim}
+\afterverb
+%
+The output starts with headers which the web server sends
+to describe the document.
+For example, the {\tt Content-Type } header indicated that
+the document is a plain text document ({\tt text/plain}).
+
+This example shows how to make a low-level network connection
+with sockets.   Sockets can be use to communicate with a web
+server or with a mail server or many kineds of servers.
+All that is needed is to find the document shich describes
+the protocol and rite code to send and receive the data
+according to the protocol.
+
+However since the protocol that we use most commonly is
+the HTTP (i.e. the web) protocol, Python has a special 
+library specifically designed to support the HTTP protocol 
+for retrieval of
+documents and data over the web.
+
+\section{Retrieving web pages with {\tt urllib}}
+
+The {\tt urllib} library makes it very easy to retrieve
+web pages and process the data in Python.   Using {\tt utllib}
+you can treat a web page much like a file.   You simply
+indiate which web page you would like to retrieve and
+{\tt urllib} handles all of the HTTP protocol details.
+
+The equivalent code to read the {\tt romeo.txt} file
+from the web using {\tt urllib} is as follows:
+
+\beforeverb
+\begin{verbatim}
+import urllib
+
+fhand = urllib.urlopen('http://www.py4inf.com/code/romeo.txt')
+for line in fhand:
+   print line.strip()
+\end{verbatim}
+\afterverb
+%
+When the program runs, we only see the output
+of the contents of the file.   The headers
+are still sent, but the {\tt urllib} code
+consumes the headers and only returns the 
+data to us.
+
+\beforeverb
+\begin{verbatim}
+But soft what light through yonder window breaks
+It is the east and Juliet is the sun
+Arise fair sun and kill the envious moon
+Who is already sick and pale with grief
+\end{verbatim}
+\afterverb
+%
+
+Once the web page has been openned with 
+{\tt urllib.urlopen} we can treat it like 
+a file and read through it using a 
+{\tt for} loop.   
+
+As an example, we can write 
+a program to retrieve the data for
+{\tt romeo.txt} and compute the frequency
+of each word in the file as follows:
+
+\beforeverb
+\begin{verbatim}
+import urllib
+
+counts = dict()
+fhand = urllib.urlopen('http://www.py4inf.com/code/romeo.txt')
+for line in fhand:
+   words = line.split()
+   for word in words:
+      counts[word] = counts.get(word,0) + 1   
+print counts
+\end{verbatim}
+\afterverb
+%
+Again, once we have opened the web page, 
+we can read it like a local file.
 
 \section{Parsing HTML and scraping the web}
+
+One of the common uses of the {\tt urllib} capability in Python is 
+to "scrape" the web.   Web scraping is when we write a program
+that pretends to be a web browser and retrieves pages and then 
+examines the data in those pages lookig for patterns.
+
+As an example, a search engine such as Google will look at source 
+of one web page and extract the links to other pages and retrieve
+those pages, extracting links, and so on.   Using this technique,
+Google finds nearly all of the pages on the web (at least it 
+finds those pages that are linked from some other page).   
+Google also uses the frequency of links to a particular page
+as one measure of how ``important'' a page is and how highly
+the page should appear in its search results.
+
+There are a number of Python libraries which can help you parse
+HTML and extract data from the pages.  Each of the libraries
+has its strengths and weaknesses and you can pick one based on 
+your needs.
+
+As an example, we will simply parse some HTML input 
+and extract links using Python string functions.   Here is a 
+simple web page:
+
+\beforeverb
+\begin{verbatim}
+<h1>The First Page</h1>
+<p>
+If you like, you can switch to the
+<a href="http://www.dr-chuck.com/page2.htm">
+Second Page</a>.
+</p>
+\end{verbatim}
+\afterverb
+%
+We will read through the page and key off the ``href'' string
+in the line.   We will then use simple string manipulation
+to  extract the information between the double quotes as follows:
+
+\beforeverb
+\begin{verbatim}
+import urllib
+
+url = raw_input('Enter - ')
+fhand = urllib.urlopen(url)
+for line in fhand:
+   pos = line.find('href="')
+   if pos < 1 : continue
+   rest = line[pos+6:]
+   end = rest.find('"')
+   if end < 1 : continue
+   link = rest[:end]
+   print link
+\end{verbatim}
+\afterverb
+%
+The program prompts for a web address, then opens the web
+address and starts looping through the lines of the web page.
+First it loks for lines with ``href'' and skips the lines
+that do not have the ``href'' string.  On lines with the 
+``href'' string, the code skips past the ``href'', equals sign, 
+and double quote and takes the rest of the line.
+
+It then searches for the next double quote in the rest of the 
+line and treats the link as the text up to but not 
+including the second double quote.
+
+WHen the program is run it looks as follows:
+
+\beforeverb
+\begin{verbatim}
+
+python urllinks.py 
+Enter - http://www.dr-chuck.com/page1.htm
+http://www.dr-chuck.com/page2.htm
+
+python urllinks.py 
+Enter - http://www.py4inf.com/
+/glike.css
+py4inf_cover.jpg
+http://www.greenteapress.com/thinkpython/thinkpython.html
+http://allendowney.com/
+http://www.si502.com/
+http://www.lib.umich.edu/espresso-book-machine
+http://www.py4inf.com/code
+http://www.pythonlearn.com/
+\end{verbatim}
+\afterverb
+%
 
 \section{Exercises}
 
@@ -1702,7 +1971,7 @@ for line in conn.fp:
     print line.strip()
 \end{verbatim}
 \afterverb
-
+%
 Run this code and follow the instructions you see there.
 
 \index{secret exercise}
@@ -1711,16 +1980,171 @@ Run this code and follow the instructions you see there.
 \end{ex}
 
 
+\chapter{Using Web Services}
 
-\chapter{Using web services}
+Once it becomes easy to retrieve documents and parse documents 
+over HTTP using programs, it did not take long to develop 
+an approach where we started producing documents that were specifically
+designed to be consumed by other programs instead docuents
+intended to be viewed in a browser using HyperText Markup Language
+(HTML).
 
-\section{Serivce Oriented Architeture (SOA)}
+The most common approach when two programs are exchanging data across 
+the web is to exchage the data in a format called the ``eXtensible Markup 
+Language'' or XML.  
+
+\section{eXtensible Markup Language - XML}
+
+XML looks very similar to HTML, but XML is more structured 
+than HTML.  Here is a sample of an XML document:
+
+\beforeverb
+\begin{verbatim}
+<person>
+  <name>Chuck</name>
+  <phone type="intl">
+     +1 734 303 4456
+   </phone>
+   <email hide="yes"/>
+</person>
+\end{verbatim}
+\afterverb
+%
+\section{Parsing XML}
+
+Here is a simple application that parses some XML
+and extracts some data elements from the XML:
+
+\beforeverb
+\begin{verbatim}
+import xml.dom.minidom
+
+data = '''<person>
+  <name>Chuck</name>
+  <phone type="intl">
+     +1 734 303 4456
+   </phone>
+   <email hide="yes"/>
+</person>'''
+
+dom = xml.dom.minidom.parseString(data)
+
+for usr in dom.getElementsByTagName('name') :
+    print 'Name:', usr.firstChild.nodeValue
+
+for em in dom.getElementsByTagName('email') :
+    print 'Email:', em.getAttribute('hide')
+\end{verbatim}
+\afterverb
+%
+The call to {\tt parseString} converts the string representation
+of the XML into a {\bf Document Object Model} (or DOM).  When the
+XML is in a DOM, we have a seties of methods which we can call to 
+extract portions of data from the XML.  The DOM has the advantage
+in that while the XML in this example is quite simple, it turns
+out that there are many rules regarding valid XML and using 
+{\tt minidom} allows us not to worry about those rules.
+
+The {\tt getElementsByTagName} function searches through the 
+DOM and retrieves a list of {\bf nodes} that match the specified tag.
+Each node can have some text, some attributes (i.e. like hide) and
+some ``child'' nodes.   Each node can be the top of a tree of nodes.
+
+The code to pull out all of the elements which are in the {\tt name}
+tag is as follows:
+
+\beforeverb
+\begin{verbatim}
+for usr in dom.getElementsByTagName('name') :
+    print 'Name:', usr.firstChild.nodeValue
+\end{verbatim}
+\afterverb
+%
+We wrte this as a {\tt for} loop because there may be multiple name
+tags and the {\tt dom.getElementsByTagName} returns a list of nodes
+even if it only finds a single node.  To retrieve the text in between
+the open and close tags, we must go to the {\tt firstChild} node and
+retrieve its ``value''.   The text within a node is modelled as a child
+of the node.
+
+\beforeverb
+\begin{verbatim}
+Name: Chuck
+\end{verbatim}
+\afterverb
+%
+It is somewhat easier to retrieve an attribute because attributes 
+ate modelled at the node and can be retrieved using the
+{\tt getAtribute} method:
+
+\beforeverb
+\begin{verbatim}
+for em in dom.getElementsByTagName('email') :
+    print 'Email:', em.getAttribute('hide')
+\end{verbatim}
+\afterverb
+%
+This extracts the value of the hide attribute of the email node(s):
+\beforeverb
+\begin{verbatim}
+Email: yes
+\end{verbatim}
+\afterverb
+%
+Many (including me) find using the DOM to extract data from XML a bit
+``clunky'' and other Python packages such as {\bf ElementTree} gives
+a more ``Pythonic'' way to parse XML.   The DOM has the advantage in that
+once you can use the DOM, it is relatively similar across languages 
+such as Python, Java, C++, etc.  These other languages also have DOM-style
+XML parsers.
+
+For the purposes of the examples in this book, we will stick with the
+``classic'' DOM-based XML parsing approach - but as you do more work 
+with XML you may want to explore these other XML parsers.
+
 
 \section{Application Programming Interfaces (API)}
 
-\section{eXtensible Markup Language (XML)}
+We now have the ability to exchange data between applications using HyperText
+Transport Protocol (HTTP) and a way to represent complex data that we are 
+sending back and forth between these applications using eXtensible 
+Markup Language (XML).
 
-\section{Parsing XML}
+The next step is to begin to define and document ``contracts'' between 
+applications usig these techniques. The general name for these 
+application-to-application contracts is {\bf Application Program 
+Interfaces} or APIs.  When we use an API, generally one program
+makes a set of {\bf services} available for use by other applications
+and publishes the APIs (i.e. the ``rules'') which must be followed to 
+access the services provided by the program.
+
+When we begin to build our programs where the functionality of
+our program includes access to services provided by other programs, 
+we call the approach a {\bf Service-Oriented Architecture} or SOA.
+An SOA approach is one where our overall application makes use of 
+the services of other applications.  A non-SOA approach is where the
+application is a single stand-alone application which contains all of the
+code necessary to implement the application.
+
+We see many examples of SOA when we use the web.  We can go to a single 
+web site and bok air travel, hotels, and automobiles all from a 
+single site.  The data for hotels is not stored on the airline computers. 
+Instead, the airline computers contact the services on the hotel computers
+and retrieve the hotel data and present it to the user.  When the user
+makes a hotel reservation using the airline site, the airline site uses
+another web service on the hotel systems to actually make the reservation.
+And when it comes to charge your credit card for the whole transaation, 
+still other computers become involved in the process.
+
+A Servce-Oriented Approach has many advantages including: (1) we 
+always maintain only one copy of data - this is particularly important
+for things like hotel reservations where we do not want to over-commit
+and (2) the owners of the data can set the rules about the use of their 
+data.   With these advantages, a SOA system must be carefully designed
+to have good performance and meet the user's needs.
+
+When an application makes a set of services in its API available over the web, 
+we call these {\bf web services}. 
 
 \section{Calling web services}
 
