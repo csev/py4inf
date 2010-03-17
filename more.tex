@@ -1683,36 +1683,37 @@ through the web page data and parse it.
 \section{HyperText Transport Protocol - HTTP}
 
 The network protocol that powers the web is actually quite simple and 
-there is built-in support in Python which makes it very 
-(i.e. sockets) easy to make network connections and retrieve data over those
-sockets.
+there is built-in support in Python called {\tt sockets} which makes it very 
+easy to make network connections and retrieve data over those
+sockets in a Python program.
 
-A socket is much like a file, except that it is a two-way connection between two 
-programs.  You can both read and write the same socket.  If you write somthing to 
+A socket is much like a file, except that it provides a two-way connection between two 
+programs with a single socket.  
+You can both read from and write to the same socket.  If you write somthing to 
 a socket is is sent to the application at the other end of the socket.  If you 
 read from the socket, you are given the data which the other application has sent.
 
 But if you try to read a socket when the program on the other end of the socket
-has not send any data - you just sit and wait.  And if the programs on both ends
+has not sent any data - you just sit and wait.  And if the programs on both ends
 of the socket simply wait for some data without sending anything, they will wait for
 a very long time.
 
 So an important part of programs which communicate over the Internet is to have some
 sort of protocol.   A protocol is a set of precise rules that determine who
 is to go first, what they are to do, and then what are the responses to that message,
-and who sends next and so far.  In a sense the two applications at either end 
-of the socket are doing a dance and makeing sure not to step on each other's toes.
+and who sends next and so no.  In a sense the two applications at either end 
+of the socket are doing a dance and making sure not to step on each other's toes.
 
 There are many documents which describe these network protocols.  The HyperText Transport 
 Protocol is described in the following document:
 
-http://www.w3.org/Protocols/rfc2616/rfc2616.txt
+\url{http://www.w3.org/Protocols/rfc2616/rfc2616.txt}
 
 This is a long and complex 176 page document with a lot of detail.  If you 
 find it interesting feel free to read it all.  But if you take a look around page 36 of
 RFC2616 you will find the syntax for the GET request.  If you read in detail, you will
-find that to reqest a document from a web server, we make a connection to port 80, 
-and then send a line of the form:
+find that to reqest a document from a web server, we make a connection to 
+the {\tt www.py4inf.com} server on port 80, and then send a line of the form:
 
 {\tt GET http://www.py4inf.com/code/romeo.txt HTTP/1.0 }
 
@@ -1724,7 +1725,8 @@ followed by the document content.
 \section{The World's Simplest Web Browser}
 
 Perhaps the easiest way to show how the HTTP protocol works is to write a very 
-simple Python program that makes a connection to a web server and requests a document 
+simple Python program that makes a connection to a web server and following
+the rules of the HTTP protocol, requests a document 
 and displays what the server sends back.
 
 \beforeverb
@@ -1781,6 +1783,10 @@ to describe the document.
 For example, the {\tt Content-Type } header indicated that
 the document is a plain text document ({\tt text/plain}).
 
+After the server sends us the headers, it adds a blank line
+to indicate the end of the headers and then sends the actual
+data of the file {\tt romeo.txt}.
+
 This example shows how to make a low-level network connection
 with sockets.   Sockets can be use to communicate with a web
 server or with a mail server or many kineds of servers.
@@ -1797,7 +1803,7 @@ documents and data over the web.
 \section{Retrieving web pages with {\tt urllib}}
 
 The {\tt urllib} library makes it very easy to retrieve
-web pages and process the data in Python.   Using {\tt utllib}
+web pages and process the data in Python.   Using {\tt urllib}
 you can treat a web page much like a file.   You simply
 indiate which web page you would like to retrieve and
 {\tt urllib} handles all of the HTTP protocol details.
@@ -1815,6 +1821,11 @@ for line in fhand:
 \end{verbatim}
 \afterverb
 %
+Once the web page has been openned with 
+{\tt urllib.urlopen} we can treat it like 
+a file and read through it using a 
+{\tt for} loop.   
+
 When the program runs, we only see the output
 of the contents of the file.   The headers
 are still sent, but the {\tt urllib} code
@@ -1830,11 +1841,6 @@ Who is already sick and pale with grief
 \end{verbatim}
 \afterverb
 %
-
-Once the web page has been openned with 
-{\tt urllib.urlopen} we can treat it like 
-a file and read through it using a 
-{\tt for} loop.   
 
 As an example, we can write 
 a program to retrieve the data for
@@ -1868,11 +1874,11 @@ examines the data in those pages looking for patterns.
 As an example, a search engine such as Google will look at source 
 of one web page and extract the links to other pages and retrieve
 those pages, extracting links, and so on.   Using this technique,
-Google finds nearly all of the pages on the web (at least it 
-finds those pages that are linked from some other page).   
-Google also uses the frequency of links to a particular page
-as one measure of how ``important'' a page is and how highly
-the page should appear in its search results.
+Google ``spiders'' its way through nearly all of the pages on 
+the web.   
+Google also uses the frequency of links from pages it finds 
+to a particular page as one measure of how ``important'' 
+a page is and how highly the page should appear in its search results.
 
 There are a number of Python libraries which can help you parse
 HTML and extract data from the pages.  Each of the libraries
@@ -1930,7 +1936,6 @@ When the program is run it looks as follows:
 
 \beforeverb
 \begin{verbatim}
-
 python urllinks.py 
 Enter - http://www.dr-chuck.com/page1.htm
 http://www.dr-chuck.com/page2.htm
@@ -1952,37 +1957,46 @@ http://www.pythonlearn.com/
 \section{Exercises}
 
 \begin{ex}
-\label{urllib}
+Download the Google Application Engine Python SDK from 
 
-\index{urllib module}
-\index{module!urllib}
-\index{URL}
+\url{http://code.google.com/appengine/downloads.html}
 
-The {\tt urllib} module provides methods for manipulating URLs
-and downloading information from the web.  The following example
-downloads and prints a secret message from {\tt thinkpython.com}:
+And create the ``hello world'' application and get it up and running
+on your computer.  Then adapt the simple {\tt socket} program to 
+connect to your web server running at {\tt http://localhost:8080/}
+instead of {\tt http://www.py4inf.com/code/romeo.txt}.  Remember that
+the ``8080'' is the non-default HTTP port number while 80 is the 
+default http port number.
 
+The output should look as follows:
 \beforeverb
 \begin{verbatim}
-import urllib
+HTTP/1.0 200 Good to go
 
-conn = urllib.urlopen('http://thinkpython.com/secret.html')
-for line in conn.fp:
-    print line.strip()
+Server: Development/1.0
+Date: Wed, 17 Mar 2010 20:30:59 GMT
+Content-Type: text/plain
+Cache-Control: no-cache
+Expires: Fri, 01 Jan 1990 00:00:00 GMT
+Content-Length: 17
+
+Hello there Chuck
 \end{verbatim}
 \afterverb
 %
-Run this code and follow the instructions you see there.
+\end{ex}
 
-\index{secret exercise}
-\index{exercise, secret}
-
+\begin{ex}
+Change the program which uses {\tt urllib} and reads and prints
+the data to talk to your web server running at 
+{\tt http://localhost:8080/}.
+How is the ouput different from the previous exercise and why?
 \end{ex}
 
 
 \chapter{Using Web Services}
 
-Once it becomes easy to retrieve documents and parse documents 
+Once it became easy to retrieve documents and parse documents 
 over HTTP using programs, it did not take long to develop 
 an approach where we started producing documents that were specifically
 designed to be consumed by other programs instead docuents
@@ -1990,7 +2004,7 @@ intended to be viewed in a browser using HyperText Markup Language
 (HTML).
 
 The most common approach when two programs are exchanging data across 
-the web is to exchage the data in a format called the ``eXtensible Markup 
+the web is to exchange the data in a format called the ``eXtensible Markup 
 Language'' or XML.  
 
 \section{eXtensible Markup Language - XML}
@@ -2054,7 +2068,8 @@ Attr: yes
 Using an XML parser such as {\tt ElementTree} has the advantage
 in that while the XML in this example is quite simple, it turns
 out that there are many rules regarding valid XML and using 
-{\tt ElementTree} allows us not to worry about those rules.
+{\tt ElementTree} allows us to extract data from XML without 
+worrying about the rules of XML syntax.
 
 \section{Looping through nodes}
 
@@ -2134,16 +2149,16 @@ application is a single stand-alone application which contains all of the
 code necessary to implement the application.
 
 We see many examples of SOA when we use the web.  We can go to a single 
-web site and bok air travel, hotels, and automobiles all from a 
+web site and book air travel, hotels, and automobiles all from a 
 single site.  The data for hotels is not stored on the airline computers. 
 Instead, the airline computers contact the services on the hotel computers
 and retrieve the hotel data and present it to the user.  When the user
-makes a hotel reservation using the airline site, the airline site uses
+agrees to make a hotel reservation using the airline site, the airline site uses
 another web service on the hotel systems to actually make the reservation.
 And when it comes to charge your credit card for the whole transaation, 
 still other computers become involved in the process.
 
-A Servce-Oriented Approach has many advantages including: (1) we 
+A Servce-Oriented Architecture has many advantages including: (1) we 
 always maintain only one copy of data - this is particularly important
 for things like hotel reservations where we do not want to over-commit
 and (2) the owners of the data can set the rules about the use of their 
@@ -2166,7 +2181,7 @@ customized Twitter-based software.  These additional applications greatly
 increase the value of Twitter far beyond simply a web-site.  The 
 Twitter web services allow the building of whole new applications that
 the Twitter team may never of thought of.  It is said that over 90 percent
-of the use of Twitter is through the API (i.e. not through the Twitter
+of the use of Twitter is through the API (i.e. not through the {\tt twitter.com}
 web user inteface).
 
 You can view the Twitter API documentation at 
@@ -2230,7 +2245,7 @@ an HTML web page.  If we wanted to extract data from the XML, we
 could use Python string functions but this would become pretty complex
 as we tried to really start to dig into the XML in detail.
 
-If we were to dump out the retrieved XML it would look roughly as follows:
+If we were to dump out some of the retrieved XML it would look roughly as follows:
 
 \beforeverb
 \begin{verbatim}
@@ -2311,7 +2326,7 @@ characters of the status text.
 
 The pattern is pretty straightforward, we use {\tt findall} and {\tt find}
 to pull out a list of nodes or a single node and then if a node is a complex
-element with more sub-nodes we look deeper into the node unti we reach the 
+element with more sub-nodes we look deeper into the node until we reach the 
 text element that we are interested in.
 
 The program runs as follows:
@@ -2348,9 +2363,40 @@ Enter Twitter Account:
 \end{verbatim}
 \afterverb
 %
-While the code for this takes a few lines to express what we are looking for 
-in the XML, it is much simpler than trying to use Python string parsing
-to pull apart the XML and find the data elements we are looking for.
+While the code for parsig the XML and extracting the fields
+using {\tt ElementTree} takes a few lines to express what 
+we are looking for in the XML, it is much simpler than trying 
+to use Python string parsing to pull apart the XML and find 
+the data elements.
+
+\section{Exercises}
+
+\begin{ex}
+Change the program that retrieves twitter data to also
+print out the location for each of the friends
+indented under the name by two spaces as follows:
+
+\beforeverb
+\begin{verbatim}
+Enter Twitter Account:drchuck
+Retrieving http://api.twitter.com/l/statuses/friends/drchuck.xml
+Retrieved 194533 characters.
+steve_coppin
+   Kent, UK
+   Looking forward to some "oh no the markets closed,
+davidkocher
+   Bern
+   @MikeGrace If possible please post a detailed bug 
+hrheingold
+   San Francisco Bay Area
+   RT @barrywellman: Lovely AmBerhSci Internet & Comm
+huge_idea
+   Boston, MA
+   @drchuck  #cnx2010 misses you, too.  Thanks for co
+\end{verbatim}
+\afterverb
+%
+\end{ex}
 
 \chapter{Using databases}
 
