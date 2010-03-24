@@ -1701,7 +1701,7 @@ a very long time.
 So an important part of programs which communicate over the Internet is to have some
 sort of protocol.   A protocol is a set of precise rules that determine who
 is to go first, what they are to do, and then what are the responses to that message,
-and who sends next and so no.  In a sense the two applications at either end 
+and who sends next and so on.  In a sense the two applications at either end 
 of the socket are doing a dance and making sure not to step on each other's toes.
 
 There are many documents which describe these network protocols.  The HyperText Transport 
@@ -2056,6 +2056,9 @@ than HTML.  Here is a sample of an XML document:
 Here is a simple application that parses some XML
 and extracts some data elements from the XML:
 
+\index{ElementTree}
+\index{ElementTree!fromstring}
+\index{ElementTree!find}
 \beforeverb
 \begin{verbatim}
 import xml.etree.ElementTree as ET
@@ -2104,6 +2107,8 @@ Often the XML has multiple nodes and we need to write a loop
 to process all of the nodes.  In the following program, 
 we loop through all of the {\tt user} nodes:
 
+\index{ElementTree!findall}
+\index{ElementTree!get}
 \beforeverb
 \begin{verbatim}
 import xml.etree.ElementTree as ET
@@ -2212,7 +2217,9 @@ of the use of Twitter is through the API (i.e. not through the {\tt twitter.com}
 web user inteface).
 
 You can view the Twitter API documentation at 
-\url{http://apiwiki.twitter.com/}.  We will focus on the API
+\url{http://apiwiki.twitter.com/}.  The Twitter API is an example
+of the REST style of web services.
+We will focus on the Twitter API
 to retrieve a list of a user's friends and their statuses.  As an 
 example, you can visit the following URL:
 
@@ -2395,6 +2402,35 @@ using {\tt ElementTree} takes a few lines to express what
 we are looking for in the XML, it is much simpler than trying 
 to use Python string parsing to pull apart the XML and find 
 the data elements.
+
+\section{Glossary}
+
+\begin{description}
+
+\item[API:] Application Program Interface - A contract between
+applications that defines the patterns of interaction between 
+two application components.
+\index{API}
+
+\item[ElementTree:] A built-in Python library used to parse XML data.
+\index{ElementTree}
+
+\item[REST:] REpresentational State Transfer - A style of Web Services 
+that provide access to resources within an application using the HTTP
+protocol.
+\index{ElementTree}
+
+\item[SOA:] Service Oriented Architecture - when an application is 
+made of components connected across a network.
+\index{SOA}
+\index{Service Oriented Architecture}
+
+\item[XML:] eXtensible Markup Language - A format that allows for 
+the markup of structured data.
+\index{XML}
+\index{eXtensible Markup Language}
+
+\end{description}
 
 \section{Exercises}
 
