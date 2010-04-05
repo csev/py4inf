@@ -3011,7 +3011,7 @@ be very careful when running this Twitter spidering program.
 You do not want to pull too much data or run the program for 
 too long and end up having your Twitter access shut off.}
 
-\section{Structured Query Language (SQL)}
+\section{Structured Query Language (SQL) summary}
 
 So far, we have been using the Structured Query Langauage in our Python
 examples and have covered many of the basics of the SQL commands in those
@@ -3289,7 +3289,7 @@ while True:
             friend_id = cur.fetchone()[0]
             countold = countold + 1
         except:
-            cur.execute('''INSERT INTO People (name, retrieved) 
+            cur.execute('''INSERT OR IGNORE INTO People (name, retrieved) 
                 VALUES ( ?, 0)''', ( friend, ) )
             conn.commit()
             friend_id = cur.lastrowid
@@ -3303,11 +3303,136 @@ cur.close()
 \end{verbatim}
 \afterverb
 %
+This program is starting to get a bit complicated but it illustrates
+the primary needed patterns which we need to make use of when we are
+using integer keys to link tables. The basic patterns are:
+
+\begin{enumerate}
+
+\item Creating tables with primary keys and specifying constraints.
+
+\item When we take an account name from the user or the XML and need
+to either look up the {\tt id} for the user or add a new record for 
+the user if we do not have a row for the user.
+
+\item Insert the row that captures the ``friend'' relationship.
+
+\end{enumerate}
+
+We will cover each of these in turn.
+
+\subsection{Constraints in database tables}
+
+As we design our table structures, we can tell the database system 
+that we would like it to enforce a few rules on us.   These rules
+help us from making mistakes and introducing incorrect data into 
+out tables.   When we create our tables:
+
+\beforeverb
+\begin{verbatim}
+cur.execute('''CREATE TABLE IF NOT EXISTS People 
+    (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)''')
+cur.execute('''CREATE TABLE IF NOT EXISTS Friends 
+    (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id))''')
+\end{verbatim}
+\afterverb
+%
+We indicate that the {\tt name} column in the {\tt People} table must be
+{\tt UNIQUE}.   We also indicate that the combination of the two numbers
+in each row of the {\tt Friends} table must be unique.  These constraints
+keep us from making mistakes.
+
+We can take advantage of these constraints in the following code:
+
+\beforeverb
+\begin{verbatim}
+cur.execute('INSERT OR IGNORE INTO People (name, retrieved) VALUES ( ?, 0)',
+    ( acct, ) )
+\end{verbatim}
+\afterverb
+%
+We add the {\tt OR IGNORE} clause to our {\tt INSERT} statement to indicate
+that if this particular {\tt INSERT} would cause a violation of the
+``{\tt name} must be unique'' rule, the database system can just ignore the 
+{\tt INSERT}.  We are using the database constraint as a safety net
+to make sure we don't inadvertently do something dumb.
+
+Similarly, the following code insures that we don't add the 
+exact same {\tt Follows} relationship twice.
+
+\beforeverb
+\begin{verbatim}
+cur.execute('''INSERT OR IGNORE INTO Friends 
+    (from_id, to_id) VALUES (?, ?)''', (id, friend_id) )
+\end{verbatim}
+\afterverb
+%
+Again we simply tell the database to ignore our attempted 
+{\tt INSERT} if it would violate the uniqueness constraint
+that we specifies for the {\tt Friends} rows.
+
+\subsection{Retrieve and/or insert a record}
+
+When we prompt the user for a Twitter account, if the account 
+exists, we must look up it's {\tt id} value and if the account
+does not yet exist in the {\tt People} table, we must insert 
+the record and get the {\tt id} value from the inserted
+row.
+
+This is a very common pattern and is done twice in the above 
+program.  This code shows how we look up the {\tt id} for a 
+friend's account when we have extract a \verb"screen_name"
+from a {\tt user} node in the retrieved Twitter XML.
+
+Since over time it will be increasingly likely that the account
+will already be in the database, we first check to see if the
+{\tt People} record exists using a {\tt SELECT} statement.
+
+If all goes well\footnote{In general, when a sentance starts 
+with ``if all goes well'' you will find that the code needs
+to use try/except.} inside the {\tt try} section, we retrieve the
+record using {\tt fetchone()} and then retrieve the
+first(and only) element of the returned tuple and store it in 
+{\tt id}.
+
+If the {\tt SELECT} fails, the {\tt fetchone()[0]} code will fail
+and contraol will transfer into the {\tt except} section.
+
+\beforeverb
+\begin{verbatim}
+        friend = user.find('screen_name').text
+        cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1',
+            (friend, ) )
+        try:
+            friend_id = cur.fetchone()[0]
+            countold = countold + 1
+        except:
+            cur.execute('''INSERT OR IGNORE INTO People (name, retrieved) 
+                VALUES ( ?, 0)''', ( friend, ) )
+            conn.commit()
+            if cur.rowcount != 1 :
+                print 'Error inserting account:',friend
+                continue
+            friend_id = cur.lastrowid
+            countnew = countnew + 1
+\end{verbatim}
+\afterverb
+%
+If we end up in the {\tt except} code, it simply means that the row
+was not found so we must insert the row.  We use {\tt INSERT OR 
+IGNORE} just to avoid errors and then call {\tt commit()} to 
+force the database to really be updated.  After the write is done, we can 
+check the {\tt cur.rowcount} to see how many rows were affected.  Since
+we are attempting to insert a single row, if the number of 
+affected rows is something other than one, it is an error.  
+
+If the {\tt INSERT} is successful, we can look at {\tt cur.lastrowid} 
+to find out what value the database assigned to the {\tt id} column in 
+our newly created row.
 
 
 \section{Using JOIN to retrieve data}
 
-\section{Python and SQLite3}
 
 \chapter{Regular expressions}
 
