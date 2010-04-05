@@ -2494,11 +2494,11 @@ table, row, and column are more formally referred
 to as {\bf relation}, {\bf tuple} and {\bf attribute} respectively.
 We will use the less formal terms in this chapter.
 
-\section{SQLite2 Database Browser}
+\section{SQLite Database Browser}
 
 While this chapter will focus on using Python to work with data 
-in SQLite3 database files, many operations can be done more
-convienently using a desktop program called the {\bf SQLite3
+in SQLite database files, many operations can be done more
+convienently using a desktop program called the {\bf SQLite
 Database Browser} which is freely available from:
 
 \url{http://sqlite.org/}
@@ -2520,7 +2520,7 @@ will be most convienently done in Python.
 \section{Creating a database table}
 
 Databases require more defined structure than Python lists 
-or dictionaries\footnote{SQLite3 actualy does allow some 
+or dictionaries\footnote{SQLite actualy does allow some 
 flexibility in the type of data stored in a column 
 but we will keep our data types strict in this chapter
 so the concepts apply equally to other database systems 
@@ -2533,7 +2533,7 @@ knows the type of data in each column, it can choose the most
 efficient way to store and lookup the data based on the type of
 the data. 
 
-you can look at the various data types supported by SQLite3
+you can look at the various data types supported by SQLite
 at the following url:
 
 \url{http://www.sqlite.org/datatypes.html}
@@ -2543,7 +2543,7 @@ at the beginning but the payoff is fast access to your data,
 even when the size of your data is large.
 
 The code to create a database file and create a table 
-named {\tt tracks} with two columns in the 
+named {\tt Tracks} with two columns in the 
 database is as follows:
 
 \index{sqlite3 module}
@@ -2555,8 +2555,8 @@ import sqlite3
 conn = sqlite3.connect('music.db')
 cur = conn.cursor()
 
-cur.execute('DROP TABLE IF EXISTS tracks ')
-cur.execute('CREATE TABLE tracks (title TEXT, plays INTEGER)')
+cur.execute('DROP TABLE IF EXISTS Tracks ')
+cur.execute('CREATE TABLE Tracks (title TEXT, plays INTEGER)')
 
 conn.close()
 \end{verbatim}
@@ -2597,30 +2597,30 @@ As a convention, we will show the SQL keywords in upper case
 and the parts of the command that we are adding (such as the
 table and column names) will be shown in lower case.
 
-The first SQL command removes the {\tt tracks} table from the 
+The first SQL command removes the {\tt Tracks} table from the 
 database if it exists.  This pattern is simply to allow us to 
-run the same program to create the {\tt tracks} table over 
+run the same program to create the {\tt Tracks} table over 
 and over again without causeing an error.  Note that the
 {\tt DROP TABLE} does drop the table and all of its contents
 from the database.
 
 \beforeverb
 \begin{verbatim}
-cur.execute('DROP TABLE IF EXISTS tracks ')
+cur.execute('DROP TABLE IF EXISTS Tracks ')
 \end{verbatim}
 \afterverb
 %
 The second command actually creates a table named
-{\tt tracks} with a text column named {\tt title}
+{\tt Tracks} with a text column named {\tt title}
 and an integer column named {\tt plays}.
 
 \beforeverb
 \begin{verbatim}
-cur.execute('CREATE TABLE tracks (title TEXT, plays INTEGER)')
+cur.execute('CREATE TABLE Tracks (title TEXT, plays INTEGER)')
 \end{verbatim}
 \afterverb
 %
-Now that we have created a table named {\tt tracks}, lets put some data
+Now that we have created a table named {\tt Tracks}, lets put some data
 into that table using the SQL {\tt INSERT} operation.   Again, we begin
 be making a connection to the database and obtaining the {\tt cursor}.
 We can then execute SQL commands using the cursor.
@@ -2640,18 +2640,18 @@ import sqlite3
 conn = sqlite3.connect('music.db')
 cur = conn.cursor()
 
-cur.execute('INSERT INTO tracks (title, plays) VALUES ( ?, ? )', 
+cur.execute('INSERT INTO Tracks (title, plays) VALUES ( ?, ? )', 
     ( 'Thunderstruck', 20 ) )
-cur.execute('INSERT INTO tracks (title, plays) VALUES ( ?, ? )', 
+cur.execute('INSERT INTO Tracks (title, plays) VALUES ( ?, ? )', 
     ( 'My Way', 15 ) )
 conn.commit()
 
 print "Tracks:"
-cur.execute('SELECT title, plays FROM tracks')
+cur.execute('SELECT title, plays FROM Tracks')
 for row in cur :
    print row
 
-cur.execute("DELETE FROM tracks WHERE plays < 100")
+cur.execute("DELETE FROM Tracks WHERE plays < 100")
 conn.commit()
 
 cur.close()
@@ -2745,17 +2745,18 @@ conn = sqlite3.connect('twdata.db')
 cur = conn.cursor()
 
 cur.execute('''
-CREATE TABLE IF NOT EXISTS twitter (name TEXT, retrieved INTEGER, friends INTEGER)''')
+CREATE TABLE IF NOT EXISTS 
+Twitter (name TEXT, retrieved INTEGER, friends INTEGER)''')
 
 while True:
-    acct = raw_input('Enter a twitter account, or quit: ')
+    acct = raw_input('Enter a Twitter account, or quit: ')
     if ( acct == 'quit' ) : break
     if ( len(acct) < 1 ) :
-        cur.execute('SELECT name FROM twitter WHERE retrieved = 0 LIMIT 1')
+        cur.execute('SELECT name FROM Twitter WHERE retrieved = 0 LIMIT 1')
         try:
             acct = cur.fetchone()[0]
         except:
-            print "No unretrieved twitter accounts found"
+            print "No unretrieved Twitter accounts found"
             continue
 
     url = TWITTER_URL.replace('ACCT', acct)
@@ -2763,21 +2764,21 @@ while True:
     document = urllib.urlopen (url).read()
     tree = ET.fromstring(document)
 
-    cur.execute('UPDATE twitter SET retrieved=1 WHERE name = ?', (acct, ) )
+    cur.execute('UPDATE Twitter SET retrieved=1 WHERE name = ?', (acct, ) )
 
     countnew = 0
     countold = 0
     for user in tree.findall('user'):
         friend = user.find('screen_name').text
-        cur.execute('SELECT friends FROM twitter WHERE name = ? LIMIT 1', 
+        cur.execute('SELECT friends FROM Twitter WHERE name = ? LIMIT 1', 
             (friend, ) )
         try:
             count = cur.fetchone()[0]
-            cur.execute('UPDATE twitter SET friends = ? WHERE name = ?', 
+            cur.execute('UPDATE Twitter SET friends = ? WHERE name = ?', 
                 (count+1, friend) )
             countold = countold + 1
         except:
-            cur.execute('''INSERT INTO twitter (name, retrieved, friends) 
+            cur.execute('''INSERT INTO Twitter (name, retrieved, friends) 
                 VALUES ( ?, 0, 1 )''', ( friend, ) )
             countnew = countnew + 1
     print 'New accounts=',countnew,' revisited=',countold
@@ -2788,7 +2789,7 @@ cur.close()
 \afterverb
 %
 Our database is stored in the file {\tt twdata.db} and it has one 
-table named {\tt twitter} and each row in the {\tt twitter} table
+table named {\tt Twitter} and each row in the {\tt Twitter} table
 has a column for the account name, whether we have retrieved the friends
 of this account, and how many times this account has been ``friended''.
 
@@ -2817,15 +2818,15 @@ friend count if the record exists.
     countold = 0
     for user in tree.findall('user'):
         friend = user.find('screen_name').text
-        cur.execute('SELECT friends FROM twitter WHERE name = ? LIMIT 1', 
+        cur.execute('SELECT friends FROM Twitter WHERE name = ? LIMIT 1', 
             (friend, ) )
         try:
             count = cur.fetchone()[0]
-            cur.execute('UPDATE twitter SET friends = ? WHERE name = ?', 
+            cur.execute('UPDATE Twitter SET friends = ? WHERE name = ?', 
                 (count+1, friend) )
             countold = countold + 1
         except:
-            cur.execute('''INSERT INTO twitter (name, retrieved, friends) 
+            cur.execute('''INSERT INTO Twitter (name, retrieved, friends) 
                 VALUES ( ?, 0, 1 )''', ( friend, ) )
             countnew = countnew + 1
     print 'New accounts=',countnew,' revisited=',countold
@@ -2858,16 +2859,16 @@ So the first time the program runs and we enter a Twitter account, the program
 runs as follows:
 \beforeverb
 \begin{verbatim}
-Enter a twitter account, or quit: drchuck
+Enter a Twitter account, or quit: drchuck
 Retrieving http://api.twitter.com/l/statuses/friends/drchuck.xml
 New accounts= 100  revisited= 0
-Enter a twitter account, or quit: quit
+Enter a Twitter account, or quit: quit
 \end{verbatim}
 \afterverb
 %
 Since this is the first time we have run the program, the database
 is empty and we create the database in the file {\tt twdata.db} and
-add a table named {\tt twitter} to the database.  Then we retreive
+add a table named {\tt Twitter} to the database.  Then we retreive
 some friends and add them all to the database since the database is
 empty.
 
@@ -2879,7 +2880,7 @@ import sqlite3
 
 conn = sqlite3.connect('twdata.db')
 cur = conn.cursor()
-cur.execute('SELECT * FROM twitter')
+cur.execute('SELECT * FROM Twitter')
 count = 0
 for row in cur :
    print row
@@ -2890,7 +2891,7 @@ cur.close()
 \afterverb
 %
 This program simply opens the database, and selects all of the 
-columns of all of the rows in the table {\tt twitter} and then 
+columns of all of the rows in the table {\tt Twitter} and then 
 loops through the rows and prints out each row.
 
 If we run this program after the first execution of our Twitter
@@ -2918,22 +2919,22 @@ again and tell it to retrieve the friends of the next
 a Twitter account as follows:
 \beforeverb
 \begin{verbatim}
-Enter a twitter account, or quit: 
+Enter a Twitter account, or quit: 
 Retrieving http://api.twitter.com/l/statuses/friends/opencontent.xml
 New accounts= 98  revisited= 2
-Enter a twitter account, or quit: 
+Enter a Twitter account, or quit: 
 Retrieving http://api.twitter.com/l/statuses/friends/lhawthorn.xml
 New accounts= 97  revisited= 3
-Enter a twitter account, or quit: quit
+Enter a Twitter account, or quit: quit
 \end{verbatim}
 \afterverb
 %
-Since we pressed enter (i.e. we did not specify) a Twitter account,
+Since we pressed enter (i.e. we did not specify a Twitter account),
 the following code is excuted:
 \beforeverb
 \begin{verbatim}
     if ( len(acct) < 1 ) :
-        cur.execute('SELECT name FROM twitter WHERE retrieved = 0 LIMIT 1')
+        cur.execute('SELECT name FROM Twitter WHERE retrieved = 0 LIMIT 1')
         try:
             acct = cur.fetchone()[0]
         except:
@@ -2949,7 +2950,7 @@ a try/except block to either extract a \verb"screen_name" from the retrieved
 data or put out an error message and loop back up.
 
 If we successfully retrieved an unprocessed \verb"screen_name", we retrieve
-tier data as follows:
+thier data as follows:
 
 \beforeverb
 \begin{verbatim}
@@ -2958,7 +2959,7 @@ tier data as follows:
     document = urllib.urlopen (url).read()
     tree = ET.fromstring(document)
 
-    cur.execute('UPDATE twitter SET retrieved=1 WHERE name = ?', (acct, ) )
+    cur.execute('UPDATE Twitter SET retrieved=1 WHERE name = ?', (acct, ) )
 \end{verbatim}
 \afterverb
 %
@@ -3023,7 +3024,7 @@ Postgress, and SQLite.  We focus on SQLite in this book because
 it is a very common database and is already built into Python.  
 SQLite is designed to be \emph{embedded} into other applications
 to provide database support within the application.  As an example
-the FireFox browser also uses the SQLite database internally as to 
+the FireFox browser also uses the SQLite database internally as do 
 many other products.
 
 SQLite is well suited to some of the data manipulation problems that we 
@@ -3040,7 +3041,7 @@ a table, we indicate the names and types of the columns:
 
 \beforeverb
 \begin{verbatim}
-CREATE TABLE tracks (title TEXT, plays INTEGER)
+CREATE TABLE Tracks (title TEXT, plays INTEGER)
 \end{verbatim}
 \afterverb
 %
@@ -3048,7 +3049,7 @@ To insert a row into a table, we use the SQL {\tt INSERT} command:
 
 \beforeverb
 \begin{verbatim}
-INSERT INTO tracks (title, plays) VALUES ('My Way', 15)
+INSERT INTO Tracks (title, plays) VALUES ('My Way', 15)
 \end{verbatim}
 \afterverb
 %
@@ -3063,14 +3064,19 @@ determine which rows are to be deleted:
 
 \beforeverb
 \begin{verbatim}
-DELETE FROM tracks WHERE title = 'My Way'
+DELETE FROM Tracks WHERE title = 'My Way'
 \end{verbatim}
 \afterverb
 %
-Note that unlike Python, in SQl we use a single equals sign 
+Note that unlike Python, in SQL we use a single equals sign 
 to indicate a test for equality rather than a double equals sign.
 Other locical operations allowed in a where clause include 
-<, >, <=, >=, !=, as well as {\tt AND} and {\tt OR} and parenthesis
+\verb"<",
+\verb">",
+\verb"<=",
+\verb">=",
+\verb"!=",
+as well as {\tt AND} and {\tt OR} and parenthesis
 to build your logical expressions.
 
 It is possible to {\tt UPDATE} a column or columns within one or more rows
@@ -3078,7 +3084,7 @@ in a table using the SQL {\tt UPDATE} statement as follows:
 
 \beforeverb
 \begin{verbatim}
-UPDATE tracks SET plays = 16 WHERE title = 'My Way'
+UPDATE Tracks SET plays = 16 WHERE title = 'My Way'
 \end{verbatim}
 \afterverb
 %
@@ -3090,7 +3096,214 @@ can change all of the rows that match the {\tt WHERE} clause, or if
 a {\tt WHERE} clause is not specified, it performs the {\tt UPDATE}
 on all of the rows in the table.
 
+The last of the core SQL commands is the {\tt SELECT} statement
+that allows you to retrieve fields from a table using an optional 
+{\tt WHERE} clause as well as an {\tt ORDER BY} clause to control
+the sorting of the returned rows.
+
+\beforeverb
+\begin{verbatim}
+SELECT * FROM Tracks WHERE title = 'My Way'
+\end{verbatim}
+\afterverb
+%
+
+Usinr \verb"*" indicates that you want to the database to return all of 
+the columns for each row that matches the {\tt WHERE} clause.  You can request
+that the returned rows be sorted by one of the fields as follows:
+
+\beforeverb
+\begin{verbatim}
+SELECT title,plays FROM Tracks ORDER BY title
+\end{verbatim}
+\afterverb
+%
+These four basic SQL commands (INSERT, SELECT, UPDATE, and DELETE) allow 
+the four basic operations needed to create and maintain data.
+
 \section{Basic data modelling}
+
+The real power of a relational database is when we make multiple tables
+and make links between those tables.   The act of deciding how to break
+up your application data into multiple tables and establishing the
+relationship between the two tables is called {\bf data modelling}.  The
+design document that shows the tables and their relationships 
+is called a {\bf data model}.
+
+Data modelling is a relatively sophisticated skill and we will only introduce
+the most basic concepts of relational data modeling in this section.  For more
+detail on data modelling you can start with:
+
+\url{http://en.wikipedia.org/wiki/Relational_model}
+
+Lets say for our Twitter spider application, instead of just 
+counting a person's friends, we wanted to keep a list of 
+all of the incoming relationships so we could find a list of 
+everyone who is following a particular account.
+
+We since everyone will potentially have many acounts that follow
+them, we cannot simply add a single column to our {\tt Twitter} table. 
+So we create a new table that keeps track of pairs of friends.
+The following is a simple way of making such a table:
+
+\beforeverb
+\begin{verbatim}
+CREATE TABLE Pals (from_friend TEXT, to_friend TEXT)
+\end{verbatim}
+\afterverb
+%
+Each time we encounter a person who {\tt drchuck} is following, we
+insert a row of the form:
+
+\beforeverb
+\begin{verbatim}
+INSERT INTO Pals (from_friend,to_friend) VALUES ('drchuck', 'lhawthorn')
+\end{verbatim}
+\afterverb
+%
+As we are processing the 100 friends from the {\tt drchuck}
+Twitter feed, we will insert 100 records with ``drchuck''
+as the first parameter so we will end up duplicating the 
+string many times in the database.
+
+This duplication of string data violates the best practices 
+for {\bf database normalization} which basically states that
+we should never put the same string data in the database more than once.  
+If we need the data more than once, we create a 
+numeric {\bf key} for the data and reference the actual data 
+using this key.
+
+In practical terms, a string takes up a lot more 
+space than an integer on the disk
+and in the memory of our computer and takes more processor time
+to compare and sort.  If we only have a few hundred entries 
+the storage and processor time hardly matters.  But if we have 
+10 million people in our database and a possibility of a billion
+friend links, it is important to be able to scan data as quickly
+as possible.
+
+The first thing that we do is to add an additional column to the 
+{\tt Twitter} table to store the numeric key associated with the 
+row.   SQLite has a feature which automatically adds the key value
+for any row we insert into a table using a special kind of 
+data column of type {\tt INTEGER PRIMARY KEY}.
+
+We can create the {\tt Twitter} table with this additional 
+column as follows:
+
+\beforeverb
+\begin{verbatim}
+CREATE TABLE People 
+    (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)
+\end{verbatim}
+\afterverb
+%
+Notice that we are no longer maintaining a friend count in each row
+of the {\tt Twitter} table.
+When we select {\tt INTEGER PRIMARY KEY} as the type of our {\tt id} column,
+we are indicating that we would like SQLite to manage this column and 
+assign a unique numeric key to each row we insert automatically.
+We also add the keyword {\tt UNIQUE} to indicate that we will not 
+allow SQLite to insert two rows with the same value for {\tt name}.
+
+Now instead of creating the table {\tt Pals} above, we create
+a table called {\tt Follows} with two integer columns
+\verb"from_id" and \verb"to_id" and a constraint on the table that
+the \emph{combination} of \verb"from_id" and \verb"to_id" must be unique 
+in this table (i.e. we cannot insert duplicate rows) in our database.
+
+\beforeverb
+\begin{verbatim}
+CREATE TABLE Follows 
+    (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id) )
+\end{verbatim}
+\afterverb
+%
+As we add these {\tt UNIQUE} clauses to our tables, we are communicating a set
+of rules that we are asking the database to enforce when we attempt to insert
+records.   We are creating these rules as a convienence in our programs as we
+will see in a moment.  The rules both keep us from making mistakes and make
+it simpler to write some of our code.
+
+\section{Programming with multiple tables}
+
+We will now re-do the Twitter spider program using two tables, the primary
+keys, and the key references as described above.  Here is the code for 
+the new program version of the program:
+
+\beforeverb
+\begin{verbatim}
+import sqlite3
+import urllib
+import xml.etree.ElementTree as ET
+
+TWITTER_URL = 'http://api.twitter.com/l/statuses/friends/ACCT.xml'
+
+conn = sqlite3.connect('twdata.db')
+cur = conn.cursor()
+
+cur.execute('''CREATE TABLE IF NOT EXISTS People 
+    (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)''')
+cur.execute('''CREATE TABLE IF NOT EXISTS Friends 
+    (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id))''')
+
+while True:
+    acct = raw_input('Enter a Twitter account, or quit: ')
+    if ( acct == 'quit' ) : break
+    if ( len(acct) < 1 ) :
+        cur.execute('''SELECT id,name FROM People 
+            WHERE retrieved = 0 LIMIT 1''')
+        try:
+            (id, acct) = cur.fetchone()
+        except:
+            print "No unretrieved Twitter accounts found"
+            continue
+    else:
+        cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1', 
+            (acct, ) )
+        try:
+            id = cur.fetchone()[0]
+        except:
+            cur.execute('''INSERT OR IGNORE INTO People 
+                (name, retrieved) VALUES ( ?, 0)''', ( acct, ) )
+            conn.commit()
+            if cur.rowcount != 1 : 
+                print 'Error inserting account:',acct
+                continue
+            id = cur.lastrowid
+
+    url = TWITTER_URL.replace('ACCT', acct)
+    print 'Retrieving', url
+    document = urllib.urlopen (url).read()
+    tree = ET.fromstring(document)
+
+    cur.execute('UPDATE People SET retrieved=1 WHERE name = ?', (acct, ) )
+
+    countnew = 0
+    countold = 0
+    for user in tree.findall('user'):
+        friend = user.find('screen_name').text
+        cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1', 
+            (friend, ) )
+        try:
+            friend_id = cur.fetchone()[0]
+            countold = countold + 1
+        except:
+            cur.execute('''INSERT INTO People (name, retrieved) 
+                VALUES ( ?, 0)''', ( friend, ) )
+            conn.commit()
+            friend_id = cur.lastrowid
+            countnew = countnew + 1
+        cur.execute('''INSERT OR IGNORE INTO Friends 
+            (from_id, to_id) VALUES (?, ?)''', (id, friend_id) )
+    print 'New accounts=',countnew,' revisited=',countold
+    conn.commit()
+
+cur.close()
+\end{verbatim}
+\afterverb
+%
+
 
 \section{Using JOIN to retrieve data}
 
