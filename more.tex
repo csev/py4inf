@@ -3010,9 +3010,85 @@ be very careful when running this Twitter spidering program.
 You do not want to pull too much data or run the program for 
 too long and end up having your Twitter access shut off.}
 
-\section{Using the SQLite3 database}
+\section{Structured Query Language (SQL)}
 
-\section{The basics of Structured Query Language (SQL)}
+So far, we have been using the Structured Query Langauage in our Python
+examples and have covered many of the basics of the SQL commands in those
+examples.   In this section, we look at the SQL language in particular
+and give an overview of SQL syntax.
+
+There are many different database systems which are used for a wide
+variety of purposes including: Oracle, MySql, Microsoft SQL Server, 
+Postgress, and SQLite.  We focus on SQLite in this book because
+it is a very common database and is already built into Python.  
+SQLite is designed to be \emph{embedded} into other applications
+to provide database support within the application.  As an example
+the FireFox browser also uses the SQLite database internally as to 
+many other products.
+
+SQLite is well suited to some of the data manipulation problems that we 
+see in Informatics such as the Twitter spidering application that we 
+just covered.
+
+Since there are so many different database vendors, the Structured Query
+Language (SQL) was standardized so we could communicate in a portable
+manner to database systems from multiple vendors.
+
+A Relational Database is made up of tables, rows, and columns.  The columns
+generally have a type such as text, numeric, or date data.  When we create
+a table, we indicate the names and types of the columns:
+
+\beforeverb
+\begin{verbatim}
+CREATE TABLE tracks (title TEXT, plays INTEGER)
+\end{verbatim}
+\afterverb
+%
+To insert a row into a table, we use the SQL {\tt INSERT} command:
+
+\beforeverb
+\begin{verbatim}
+INSERT INTO tracks (title, plays) VALUES ('My Way', 15)
+\end{verbatim}
+\afterverb
+%
+The {\tt INSERT} statement specifies the table name, and then a list of
+the fields/columns that you would like to set in the new row, and then 
+the keyword {\tt VALUES} and then a list of corresponding values 
+for each of the fields.
+
+To remove a row, you need a {\tt WHERE} clause on an SQL {\tt DELETE}
+statement.  The {\tt WHERE} clause consists of logical operations that
+determine which rows are to be deleted:
+
+\beforeverb
+\begin{verbatim}
+DELETE FROM tracks WHERE title = 'My Way'
+\end{verbatim}
+\afterverb
+%
+Note that unlike Python, in SQl we use a single equals sign 
+to indicate a test for equality rather than a double equals sign.
+Other locical operations allowed in a where clause include 
+<, >, <=, >=, !=, as well as {\tt AND} and {\tt OR} and parenthesis
+to build your logical expressions.
+
+It is possible to {\tt UPDATE} a column or columns within one or more rows
+in a table using the SQL {\tt UPDATE} statement as follows:
+
+\beforeverb
+\begin{verbatim}
+UPDATE tracks SET plays = 16 WHERE title = 'My Way'
+\end{verbatim}
+\afterverb
+%
+The {\tt UPDATE} statement specifies a table and 
+then a list of fields and values to change after the {\tt SET} 
+keyword and then an optional {\tt WHERE} clause to select
+the rows which are to be updated.  A single {\tt UPDATE} statement
+can change all of the rows that match the {\tt WHERE} clause, or if 
+a {\tt WHERE} clause is not specified, it performs the {\tt UPDATE}
+on all of the rows in the table.
 
 \section{Basic data modelling}
 
