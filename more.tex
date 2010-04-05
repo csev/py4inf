@@ -1988,7 +1988,8 @@ Download the Google Application Engine Python SDK from
 
 \url{http://code.google.com/appengine/downloads.html}
 
-And create the ``hello world'' application and get it up and running
+And create the ``hello world'' application in Google App Engine
+and get it up and running
 on your computer.  Then adapt the simple {\tt socket} program to 
 connect to your web server running at {\tt http://localhost:8080/}
 instead of {\tt http://www.py4inf.com/code/romeo.txt}.  Remember that
@@ -2461,7 +2462,7 @@ huge_idea
 %
 \end{ex}
 
-\chapter{Using databases}
+\chapter{Using databases and Structured Query Language (SQL)}
 
 \section{What is a database?}
 \index{database}
@@ -2470,167 +2471,544 @@ A {\bf database} is a file that is organized for storing data.
 Most databases are organized like a dictionary in the sense
 that they map from keys to values.  The biggest difference
 is that the database is on disk (or other permanent storage),
-so it persists after the program ends.
+so it persists after the program ends.  Because a database is
+stored on permanent storage, it can be store far more data tha
+a dictionary which is limited to the size of the memory 
+in the computer.
 
-\index{anydbm module}
-\index{module!anydbm}
+\index{database!indexes}
+Like a dictionary, database software is designed to keep 
+the inserting and accessing of data very fast, even for large
+amounts of data.   Databases maintain their performance by 
+building \emph{indexes} as data is added to the database
+to allow the database software to jump quickly to a particular
+entry in the database.
 
-The module {\tt anydbm} provides an interface for creating
-and updating database files.  As an example, I'll create a database
-that contains captions for image files.
+\section{Database concepts}
 
-\index{open function}
-\index{function!open}
+When you first look at a database, it looks a lot like a a lot
+of spreadsheets.   The primary data structures in a database are:
+{\bf tables}, {\bf rows}, and {\bf columns}.  
+In technical descriptions of relational databases, the concepts of 
+table, row, and column are more formally referred
+to as {\bf relation}, {\bf tuple} and {\bf attribute} respectively.
+We will use the less formal terms in this chapter.
 
-Opening a database is similar
-to opening other files:
+\section{SQLite2 Database Browser}
 
+While this chapter will focus on using Python to work with data 
+in SQLite3 database files, many operations can be done more
+convienently using a desktop program called the {\bf SQLite3
+Database Browser} which is freely available from:
+
+\url{http://sqlite.org/}
+
+Using the browser, you can easily create tables, insert data
+into the database, edit data in the database, or run simple SQL
+queries on the data in the database.
+
+In a sense, the database browser is similar to a text editor
+when working with text files.   When you want to do one or a 
+very few operations on a text file, you can just open it up 
+in a text editor and make the changes you like.   When you have 
+many changes that you need ot do to a text file, often you 
+will write a simple Python program.  You will find the same 
+pattern when working with databases.  You will do simple
+operations in the database browser and more complex operations
+will be most convienently done in Python.
+
+\section{Creating a database table}
+
+Databases require more defined structure than Python lists 
+or dictionaries\footnote{SQLite3 actualy does allow some 
+flexibility in the type of data stored in a column 
+but we will keep our data types strict in this chapter
+so the concepts apply equally to other database systems 
+such as MySql.}.  
+When we create a database {\bf table} we
+must tell the database in advance the names of each of the
+{\bf columns} in the table and the type of data which we are 
+planning to store in each {\bf column}.   When the database software
+knows the type of data in each column, it can choose the most 
+efficient way to store and lookup the data based on the type of
+the data. 
+
+you can look at the various data types supported by SQLite3
+at the following url:
+
+\url{http://www.sqlite.org/datatypes.html}
+
+Defining structure for your data up-front may seem inconvience
+at the beginning but the payoff is fast access to your data, 
+even when the size of your data is large.
+
+The code to create a database file and create a table 
+named {\tt tracks} with two columns in the 
+database is as follows:
+
+\index{sqlite3 module}
+\index{module!sqlite3}
 \beforeverb
 \begin{verbatim}
->>> import anydbm
->>> db = anydbm.open('captions.db', 'c')
+import sqlite3
+
+conn = sqlite3.connect('music.db')
+cur = conn.cursor()
+
+cur.execute('DROP TABLE IF EXISTS tracks ')
+cur.execute('CREATE TABLE tracks (title TEXT, plays INTEGER)')
+
+conn.close()
 \end{verbatim}
 \afterverb
 %
-The mode \verb"'c'" means that the database should be created if
-it doesn't already exist.  The result is a database object
-that can be used (for most operations) like a dictionary.
-If you create a new item, {\tt anydbm} updates the database file.
+\index{connect function}
+\index{function!connect}
+\index{cursor function}
+\index{function!cursor}
+The {\tt connect} operation makes a ``connection'' to the database 
+stored in the file {\tt music.db} in the current directory.   If
+the file does not exist, it will be created.  The reason this
+is called a ``connection'' is that sometimes the database is stored
+on a separate ``database server'' from the server on which we 
+are running our application.  In our simple examples 
+the database will just be a local file in the same directory
+as the Python code we are running.
 
-\index{update!database}
+A {\tt cursor} is like a file handle that we can use to perform
+operations on the data stored in the database.  Calling 
+{\tt cursor()} if very similar conceptually to calling
+{\tt open()} when dealing with text files.
 
+Once we have the {\tt cursor}, we can begin to execute database
+commands on the contents of the database using the {\tt execute()}
+method.
 
-\beforeverb
-\begin{verbatim}
->>> db['cleese.png'] = 'Photo of John Cleese.'
-\end{verbatim}
-\afterverb
-%
-When you access one of the items, {\tt anydbm} reads the file:
+Database commands are expressed in a special language that has 
+been standardized across many different database vendors 
+to allow us to learn a single database language.   The database
+language is called {\bf Structured Query Language} or {\bf SQL}
+for short.
 
-\beforeverb
-\begin{verbatim}
->>> print db['cleese.png']
-Photo of John Cleese.
-\end{verbatim}
-\afterverb
-%
-If you make another assignment to an existing key, {\tt anydbm} replaces
-the old value:
+\url{http://en.wikipedia.org/wiki/SQL}
 
-\beforeverb
-\begin{verbatim}
->>> db['cleese.png'] = 'Photo of John Cleese doing a silly walk.'
->>> print db['cleese.png']
-Photo of John Cleese doing a silly walk.
-\end{verbatim}
-\afterverb
-%
-Many dictionary methods, like {\tt keys} and {\tt items}, also
-work with database objects.  So does iteration with a {\tt for}
-statement.
+In our example, we are executing two SQL commands in our database.
+As a convention, we will show the SQL keywords in upper case 
+and the parts of the command that we are adding (such as the
+table and column names) will be shown in lower case.
 
-\index{dictionary methods!anydbm module}
-
-\beforeverb
-\begin{verbatim}
-for key in db:
-     print key
-\end{verbatim}
-\afterverb
-%
-As with other files, you should close the database when you are
-done:
+The first SQL command removes the {\tt tracks} table from the 
+database if it exists.  This pattern is simply to allow us to 
+run the same program to create the {\tt tracks} table over 
+and over again without causeing an error.  Note that the
+{\tt DROP TABLE} does drop the table and all of its contents
+from the database.
 
 \beforeverb
 \begin{verbatim}
->>> db.close()
+cur.execute('DROP TABLE IF EXISTS tracks ')
 \end{verbatim}
 \afterverb
 %
-
-\index{close method}
-\index{method!close}
-
-
-\section{Pickling}
-
-\index{pickling}
-
-A limitation of {\tt anydbm} is that the keys and values have
-to be strings.  If you try to use any other type, you get an
-error.
-
-\index{pickle module}
-\index{module!pickle}
-
-The {\tt pickle} module can help.  It translates
-almost any type of object into a string suitable for storage in a
-database, and then translates strings back into objects.
-
-{\tt pickle.dumps} takes an object as a parameter and returns
-a string representation ({\tt dumps} is short for ``dump string''):
+The second command actually creates a table named
+{\tt tracks} with a text column named {\tt title}
+and an integer column named {\tt plays}.
 
 \beforeverb
 \begin{verbatim}
->>> import pickle
->>> t = [1, 2, 3]
->>> pickle.dumps(t)
-'(lp0\nI1\naI2\naI3\na.'
+cur.execute('CREATE TABLE tracks (title TEXT, plays INTEGER)')
 \end{verbatim}
 \afterverb
 %
-The format isn't obvious to human readers; it is meant to be
-easy for {\tt pickle} to interpret.  {\tt pickle.loads}
-(``load string'') reconstitutes the object:
+Now that we have created a table named {\tt tracks}, lets put some data
+into that table using the SQL {\tt INSERT} operation.   Again, we begin
+be making a connection to the database and obtaining the {\tt cursor}.
+We can then execute SQL commands using the cursor.
+
+The SQL {\tt INSERT} command indicates which table we are using 
+and then defines a new row by listing the fields we want to 
+include {\tt (title, plays) } followed by the {\tt VALUES} we want
+placed in the new row in the table.   We specifiy the values
+as question marks {\tt (?, ?)} to indicate that the actual 
+values are passed in as a tuple {\tt ( 'My Way', 15 ) } as the
+second parameter to the {\tt execute()} call.
 
 \beforeverb
 \begin{verbatim}
->>> t1 = [1, 2, 3]
->>> s = pickle.dumps(t1)
->>> t2 = pickle.loads(s)
->>> print t2
-[1, 2, 3]
+import sqlite3
+
+conn = sqlite3.connect('music.db')
+cur = conn.cursor()
+
+cur.execute('INSERT INTO tracks (title, plays) VALUES ( ?, ? )', 
+    ( 'Thunderstruck', 20 ) )
+cur.execute('INSERT INTO tracks (title, plays) VALUES ( ?, ? )', 
+    ( 'My Way', 15 ) )
+conn.commit()
+
+print "Tracks:"
+cur.execute('SELECT title, plays FROM tracks')
+for row in cur :
+   print row
+
+cur.execute("DELETE FROM tracks WHERE plays < 100")
+conn.commit()
+
+cur.close()
 \end{verbatim}
 \afterverb
 %
-Although the new object has the same value as the old, it is
-not (in general) the same object:
+After we {\tt INSERT} two rows into our table and use {\tt commit()} 
+to force the data to be written to the database file, we use the {\tt SELECT} command
+to retrieve the rows we just inserted rows from the table.  On the 
+{\tt SELECT} command, we indicate whch columne we would like {\tt title, plays}
+and indicate which table we want to retrieve the data from.  After we 
+execute the {\tt SELECT} statement, the cursor is something we can loop through
+in a {\tt for} statement.   For efficiency,
+the database does not read all of the data from the
+database when we execute the {\tt SELECT} statement.  
+Instead, the data is read on-demand
+as we loop through the rows in the {\tt for} statement.
+
+The output of the program is as follows:
 
 \beforeverb
 \begin{verbatim}
->>> t1 == t2
-True
->>> t1 is t2
-False
+Tracks:
+(u'Thunderstruck', 20)
+(u'My Way', 15)
 \end{verbatim}
 \afterverb
 %
-In other words, pickling and then unpickling has the same effect
-as copying the object.
+\index{Unicode}
+Our {\tt for} loop finds two rows, and each row is a Python tuple with the
+first value as the {\tt title} and the second value as the {\tt plays}.
+Do not be concerned that the title strings are shown starting with 
+{\bf u'}.  This is an indication that the strings are {\bf Unicode} strings
+that are capable of handing non-Latin character sets.
 
-You can use {\tt pickle} to store non-strings in a database.
-In fact, this combination is so common that it has been
-encapsulated in a module called {\tt shelve}.  
+At the very end of the program, we execute an SQL command to {\tt DELETE} 
+the rows we have just created so we can run the program over and over.
+The {\tt DELETE} command shows the use of a {\tt WHERE} clause that
+allows us to express a selection criterion so that we can as the database
+to apply the command to the rows that match the criterion.  In this example
+the criterion happens to apply to all the rows so we empty the table
+out so we can run the program repeatedly.  After the {\tt DELETE} is performed
+we also call {\tt commit()} to force the data to be written to the database.
 
-\index{shelve module}
-\index{module!shelve}
+\section{An example program using a database}
 
+In this section, we will create a simple spidering program that will 
+go through Twitter accounts and build a list of Twitter accounts.
+\emph{Note: Be very careful when running this program.  You do not
+want to pull too much data or run the program for too long and
+end up having your Twitter access shut off.}
 
-\begin{ex}
+One of the problems of any kind of spidering program is that it 
+needs to be able to be stopped and restarted many times and 
+you do not want to lose the data that you have retrieved so far.
+You don't want to always start your data retrieval at the
+beginning so we want to store data as we retrieve it so out
+program can start back up and pick up where it left off.
 
-\index{anagram set}
-\index{set!anagram}
+We will start by retrieving one person's Twitter friends and their
+statuses and loop through the list of friends and add each 
+of the friends to a database to be retrieved in the future.  After
+we process one person's Twitter friends, we check in our database
+and retrieve one of the friends of the friend.  We do this over and
+over, picking an "unvisited" person, retrieving their friend list
+and adding friends we have not seen to our list for a future visit.
 
-If you did Exercise~\ref{anagrams}, modify your solution so that
-it creates a database that maps from each word in the list to
-a list of words that use the same set of letters.
+We also track how many times we have seen a particular friend in the
+database to get some sense of ``popularity''.
 
-Write a different program that opens the database and prints
-the contents in a human-readable format.
-\end{ex}
+By storing our list of known accounts and whether 
+we have retrieved the account or not, 
+and how popular the account is in a database on the disk
+of the computer, we can stop and
+restart our program as many times as we like.
 
+This program is a bit complex. It is based on the code that 
+exercises the Twitter API from earlier in the book.
 
+Here is the source code to our Twitter spidering application:
+
+\beforeverb
+\begin{verbatim}
+import sqlite3
+import urllib
+import xml.etree.ElementTree as ET
+
+TWITTER_URL = 'http://api.twitter.com/l/statuses/friends/ACCT.xml'
+
+conn = sqlite3.connect('twdata.db')
+cur = conn.cursor()
+
+cur.execute('''
+CREATE TABLE IF NOT EXISTS twitter (name TEXT, retrieved INTEGER, friends INTEGER)''')
+
+while True:
+    acct = raw_input('Enter a twitter account, or quit: ')
+    if ( acct == 'quit' ) : break
+    if ( len(acct) < 1 ) :
+        cur.execute('SELECT name FROM twitter WHERE retrieved = 0 LIMIT 1')
+        try:
+            acct = cur.fetchone()[0]
+        except:
+            print "No unretrieved twitter accounts found"
+            continue
+
+    url = TWITTER_URL.replace('ACCT', acct)
+    print 'Retrieving', url
+    document = urllib.urlopen (url).read()
+    tree = ET.fromstring(document)
+
+    cur.execute('UPDATE twitter SET retrieved=1 WHERE name = ?', (acct, ) )
+
+    countnew = 0
+    countold = 0
+    for user in tree.findall('user'):
+        friend = user.find('screen_name').text
+        cur.execute('SELECT friends FROM twitter WHERE name = ? LIMIT 1', 
+            (friend, ) )
+        try:
+            count = cur.fetchone()[0]
+            cur.execute('UPDATE twitter SET friends = ? WHERE name = ?', 
+                (count+1, friend) )
+            countold = countold + 1
+        except:
+            cur.execute('''INSERT INTO twitter (name, retrieved, friends) 
+                VALUES ( ?, 0, 1 )''', ( friend, ) )
+            countnew = countnew + 1
+    print 'New accounts=',countnew,' revisited=',countold
+    conn.commit()
+
+cur.close()
+\end{verbatim}
+\afterverb
+%
+Our database is stored in the file {\tt twdata.db} and it has one 
+table named {\tt twitter} and each row in the {\tt twitter} table
+has a column for the account name, whether we have retrieved the friends
+of this account, and how many times this account has been ``friended''.
+
+In the main loop of the program, we prompt the user for a Twitter
+account name, enter, or to quit the program.  If the user enters
+a Twitter account, we retrieve the list of friends and statuses
+for that user and add the friend to the database if the friend is 
+not already in our list.  If the friend is already in the list, 
+we add one the the {\tt friends} field in the row in the database.
+
+If the user presses enter, we look in the database for the next 
+Twitter account that we have not yet retrieved and retrieve the
+friends and statuses for that account and add them to the database 
+or update them and increase their {\tt friends count}.
+
+Once we retrieve the list of friends and statuses, we loop 
+through all of the {\tt user} items in the returned XML
+and retreive the \verb"screen_name" for each user.  Then we use
+the {\tt SELECT statement} to see if we already have stored this
+particular \verb"screen_name" in the database.  We retrieve the
+friend count if the record exists.
+
+\beforeverb
+\begin{verbatim}
+    countnew = 0
+    countold = 0
+    for user in tree.findall('user'):
+        friend = user.find('screen_name').text
+        cur.execute('SELECT friends FROM twitter WHERE name = ? LIMIT 1', 
+            (friend, ) )
+        try:
+            count = cur.fetchone()[0]
+            cur.execute('UPDATE twitter SET friends = ? WHERE name = ?', 
+                (count+1, friend) )
+            countold = countold + 1
+        except:
+            cur.execute('''INSERT INTO twitter (name, retrieved, friends) 
+                VALUES ( ?, 0, 1 )''', ( friend, ) )
+            countnew = countnew + 1
+    print 'New accounts=',countnew,' revisited=',countold
+    conn.commit()
+\end{verbatim}
+\afterverb
+%
+Once the cursor executes {\tt SELECT} statement, we must retrieve the rows.  We
+could do this with a {\tt for} statement but since we are only retrieving
+one row ({\tt LIMIT 1}), we can use the {\tt fetchone()} method to fetch the
+first (and only) row that is the result of the {\tt SELECT} operation.  And 
+since {\tt fetchone()} returns the row as a {\bf tuple} (even though there is only
+one field), we take the first value from the tuple using {\tt [0]} to get the 
+current friend count into the variable {\tt count}.  
+
+If this retrieval is successful, we use the SQL {\tt UPDATE} statement with a 
+{\tt WHERE} clause to add one to the {\tt friends} column for the row which 
+matches the friend's account.  Notice that there are two placeholders (i.e.
+question marks) in the SQL, and the second parameter to the {\tt execute()} is
+a two-element tuple which holds the values to be substituted into the SQL
+in place of the question marks.
+
+If the code in the {\tt try} block fails it is probably because no record
+matched the {\tt WHERE name = ?} clause on the SELECT statement.  So in the
+{\tt except} block, we use the SQL {\tt INSERT} statement to add the friend's
+\verb"screen_name" to the table with an indication that we have not yet 
+retrieved the \verb"screen_name" and setting the friend count to zero.
+
+So the first time the program runs and we enter a Twitter account, the program
+runs as follows:
+\beforeverb
+\begin{verbatim}
+Enter a twitter account, or quit: drchuck
+Retrieving http://api.twitter.com/l/statuses/friends/drchuck.xml
+New accounts= 100  revisited= 0
+Enter a twitter account, or quit: quit
+\end{verbatim}
+\afterverb
+%
+Since this is the first time we have run the program, the database
+is empty and we create the database in the file {\tt twdata.db} and
+add a table named {\tt twitter} to the database.  Then we retreive
+some friends and add them all to the database since the database is
+empty.
+
+At this point, we might want to write a simple database dumper
+to take a look at what is in our {\tt twdata.db} file:
+\beforeverb
+\begin{verbatim}
+import sqlite3
+
+conn = sqlite3.connect('twdata.db')
+cur = conn.cursor()
+cur.execute('SELECT * FROM twitter')
+count = 0
+for row in cur :
+   print row
+   count = count + 1
+print count, 'rows.'
+cur.close()
+\end{verbatim}
+\afterverb
+%
+This program simply opens the database, and selects all of the 
+columns of all of the rows in the table {\tt twitter} and then 
+loops through the rows and prints out each row.
+
+If we run this program after the first execution of our Twitter
+spider above, its output will be as follows:
+\beforeverb
+\begin{verbatim}
+(u'opencontent', 0, 1)
+(u'lhawthorn', 0, 1)
+(u'steve_coppin', 0, 1)
+(u'davidkocher', 0, 1)
+(u'hrheingold', 0, 1)
+...
+100 rows.
+\end{verbatim}
+\afterverb
+%
+We see one row for each \verb"screen_name" and we see that we 
+have not retrieved the data for that \verb"screen_name" and 
+and everyone in the database has one friend.
+
+So now our database reflects the retrieval of the friends of 
+our first Twitter account (drchuck).  We can run the program
+again and tell it to retrieve the friends of the next 
+``unprocessed'' account by simply pressing enter instead of
+a Twitter account as follows:
+\beforeverb
+\begin{verbatim}
+Enter a twitter account, or quit: 
+Retrieving http://api.twitter.com/l/statuses/friends/opencontent.xml
+New accounts= 98  revisited= 2
+Enter a twitter account, or quit: 
+Retrieving http://api.twitter.com/l/statuses/friends/lhawthorn.xml
+New accounts= 97  revisited= 3
+Enter a twitter account, or quit: quit
+\end{verbatim}
+\afterverb
+%
+Since we pressed enter (i.e. we did not specify) a Twitter account,
+the following code is excuted:
+\beforeverb
+\begin{verbatim}
+    if ( len(acct) < 1 ) :
+        cur.execute('SELECT name FROM twitter WHERE retrieved = 0 LIMIT 1')
+        try:
+            acct = cur.fetchone()[0]
+        except:
+            print "No unretrieved twitter accounts found"
+            continue
+\end{verbatim}
+\afterverb
+%
+We use the SQL {\tt SELECT} statement to retrieve the name of the first 
+({\tt LIMIT 1}) user who still has their ``have we retrieved this user''
+value set to zero.  We also use the {\tt fetchone()[0]} pattern within 
+a try/except block to either extract a \verb"screen_name" from the retrieved
+data or put out an error message and loop back up.
+
+If we successfully retrieved an unprocessed \verb"screen_name", we retrieve
+tier data as follows:
+
+\beforeverb
+\begin{verbatim}
+    url = TWITTER_URL.replace('ACCT', acct)
+    print 'Retrieving', url
+    document = urllib.urlopen (url).read()
+    tree = ET.fromstring(document)
+
+    cur.execute('UPDATE twitter SET retrieved=1 WHERE name = ?', (acct, ) )
+\end{verbatim}
+\afterverb
+%
+Once we retrieve the data successfully, we use the {\tt UPDATE} statement 
+to set the {\tt retreived} column to one to indicate that we have completed 
+the retrieval of the friends of this account.  This keeps us from re-reteieving
+the same data over and over and keeps us progressing forward through the network
+of Twitter friends.
+
+If we once again run the dumping program, it will give us the following output:
+
+\beforeverb
+\begin{verbatim}
+(u'opencontent', 1, 1)
+(u'lhawthorn', 1, 1)
+(u'steve_coppin', 0, 1)
+(u'davidkocher', 0, 1)
+(u'hrheingold', 0, 1)
+...
+(u'cnxorg', 0, 2)
+(u'knoop', 0, 1)
+(u'kthanos', 0, 2)
+(u'LectureTools', 0, 1)
+...
+295 rows.
+\end{verbatim}
+\afterverb
+%
+We can see that we have properly recorded that we have visited 
+{\tt lhawthorn} and {\tt opencontent}.  Also the accounts 
+{\tt cnxorg} and {\tt kthanos} already have two followers.
+Since we now have retreived the friends of three people
+(drchuck, opencontent and lhawthorn) our table has 295 rows 
+of friends to retrieve.
+
+Each time we run the program and press enter, it will pick the next 
+unvisited account (i.e. the next account will be \verb"steve_coppin"),
+retrieve their friends, mark them as retrieved and for each of the 
+friends of \verb"steve_coppin", either add them to the end of the 
+database, or update their friend count if they are already in the
+database.
+
+And since the program's data is all stored on disk in a database, 
+the spidering activity can be suspended and resumed as many times as you 
+like with no loss of data.
+
+\emph{Note: One more time before we leave this topic, 
+be very careful when running this Twitter spidering program.  
+You do not want to pull too much data or run the program for 
+too long and end up having your Twitter access shut off.}
 
 \section{Using the SQLite3 database}
 
