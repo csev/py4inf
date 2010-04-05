@@ -7,6 +7,7 @@ cur.execute('INSERT INTO tracks (title, plays) VALUES ( ?, ? )',
     ( 'Thunderstruck', 20 ) )
 cur.execute('INSERT INTO tracks (title, plays) VALUES ( ?, ? )', 
     ( 'My Way', 15 ) )
+conn.commit()
 
 print "Tracks:"
 cur.execute('SELECT title, plays FROM tracks')
@@ -15,5 +16,5 @@ for row in cur :
 
 cur.execute("DELETE FROM tracks WHERE plays < 100")
 
-conn.close()
+cur.close()
 
