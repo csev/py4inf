@@ -32,14 +32,16 @@ while True:
     countold = 0
     for user in tree.findall('user'):
         friend = user.find('screen_name').text
-        cur.execute('SELECT friends FROM twitter WHERE name = ? LIMIT 1', (friend, ) )
+        cur.execute('SELECT friends FROM twitter WHERE name = ? LIMIT 1', 
+            (friend, ) )
         try:
             count = cur.fetchone()[0]
-            cur.execute('UPDATE twitter SET friends = ? WHERE name = ?', (count+1, acct) )
+            cur.execute('UPDATE twitter SET friends = ? WHERE name = ?', 
+                (count+1, friend) )
             countold = countold + 1
         except:
-            cur.execute('INSERT INTO twitter (name, retrieved, friends) VALUES ( ?, 0, 0 )',
-                       ( friend, ) )
+            cur.execute('''INSERT INTO twitter (name, retrieved, friends) 
+                VALUES ( ?, 0, 1 )''', ( friend, ) )
             countnew = countnew + 1
     print 'New accounts=',countnew,' revisited=',countold
     conn.commit()
