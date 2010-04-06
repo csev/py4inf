@@ -656,7 +656,7 @@ you need to know the vocabulary and the grammar.  You need to be able
 spell the words in this new language properly and how to construct 
 well-formed ``sentences'' in this new languages.
 
-\item Second you need to to ``tell a story''.  In writing a story,
+\item Second you need to ``tell a story''.  In writing a story,
 you combine words and sentences to convey an idea to the reader. 
 There is a skill and art in constructing the story and skill in
 story writing is improved by doing some writing and getting some
@@ -710,7 +710,7 @@ disadvantage of high-level languages.
 \index{language!high-level}
 \index{language!low-level}
 
-The advantages are enormous.  First, it is much easier to program
+However, the advantages are enormous.  First, it is much easier to program
 in a high-level language.  Programs written in a high-level language
 take less time to write, they are shorter and easier to read, and they
 are more likely to be correct.  Second, high-level languages are {\bf
@@ -787,7 +787,7 @@ convention, Python scripts have names that end with {\tt .py}.
 \index{script}
 
 To execute the script, you have to tell the interpreter the name of
-the file.  In a UNIX command window, you would type {\tt python
+the file.  In a UNIX or Windows command window, you would type {\tt python
 dinsdale.py}.  In other development environments, the details of
 executing scripts are different.  You can find instructions for
 your environment at the Python Website \url{python.org}.
@@ -1396,7 +1396,7 @@ strings because they are enclosed in quotation marks.
 
 \index{quotation mark}
 
-The print statement also works for integers.
+The {\tt print} statement also works for integers.
 
 \beforeverb
 \begin{verbatim}
@@ -1603,7 +1603,7 @@ is on this list.
 
 \section{Statements}
 
-A statement is a unit of code that the Python interpreter can
+A {\bf statement} is a unit of code that the Python interpreter can
 execute.  We have seen two kinds of statements: print
 and assignment.
 
@@ -1753,7 +1753,8 @@ x + 1
 \end{verbatim}
 \afterverb
 %
-Now put the same statements into a script and run it.  What
+Now we can use a text editor to place the same statements 
+into a file (i.e. make a script) and run it.  What
 is the output?  Modify the script by transforming each
 {\em expression} into a print statement and then run it again.
 \end{ex}
@@ -2670,7 +2671,7 @@ to a Celsius temperature:
 
 \beforeverb
 \begin{verbatim}
-inp = raw_input("Enter Fahrenheit Temperature:")
+inp = raw_input('Enter Fahrenheit Temperature:')
 fahr = float(inp)
 cel = (fahr - 32.0) * 5.0 / 9.0
 print cel
@@ -2712,7 +2713,7 @@ We can rewrite our temperature converter as follows:
 
 \beforeverb
 \begin{verbatim}
-inp = raw_input("Enter Fahrenheit Temperature:")
+inp = raw_input('Enter Fahrenheit Temperature:')
 try:
     fahr = float(inp)
     cel = (fahr - 32.0) * 5.0 / 9.0
@@ -2781,7 +2782,7 @@ ZeroDivisionError: integer division or modulo by zero
 \afterverb
 %
 The third calculation failed because Python was evaluating {\tt (x/y)}
-and {\tt y} was zero which causes a run-time error.  But the second example
+and {\tt y} was zero which causes a runtime error.  But the second example
 did {\em not} fail because the first part of the expression {\tt x >= 2} 
 evaluated to {\tt False} so the {\tt (x/y)} was not ever executed 
 due to the {\bf short circuit} rule and there was no error.
@@ -3178,15 +3179,12 @@ Finally, {\tt str} converts its argument to a string:
 \index{math function}
 \index{function, math}
 
-Python has a math module that provides most of the familiar
-mathematical functions.  A {\bf module} is a file that contains a
-collection of related functions.
+Python has a math {\bf module} that provides most of the familiar
+mathematical functions.  
+Before we can use the module, we have to import it:
 
 \index{module}
 \index{module object}
-
-Before we can use the module, we have to import it:
-
 \beforeverb
 \begin{verbatim}
 >>> import math
@@ -3830,6 +3828,8 @@ Score   Grade
 > 0.6     D
 <= 0.6    F
 
+Program Execution:
+
 Enter score: 0.95
 A
 
@@ -3998,7 +3998,7 @@ remainder if a division were performed.
 \begin{verbatim}
 def sequence(n):
     while n != 1:
-        print n,
+        print n,            # Use comma to suppress newline
         if n%2 == 0:        # n is even
             n = n/2
         else:               # n is odd
@@ -4372,9 +4372,9 @@ Before the loop starts, the largest value we have seen so far
 is {\tt None} since we have not yet seen any values.  While the 
 loop is executing, if {\tt largest} is {\tt None} then we take
 the first value we see as the largest so far.   You can see in 
-the first iteration when the value of {\tt iterval} is three,
+the first iteration when the value of {\tt iterval} is 3,
 since {\tt largest} is {\tt None}, we immediately set 
-{\tt largest} to be three.
+{\tt largest} to be 3.
 
 After the first iteration, {\tt largest} is no longer {\tt None},
 so the second part of the compound logical expression that checks
@@ -4432,7 +4432,7 @@ function which is already built-in to Python.
 
 As you start writing bigger programs, you might find yourself
 spending more time debugging.  More code means more chances to
-make an error and more place for bugs to hide.
+make an error and more places for bugs to hide.
 
 \index{debugging!by bisection}
 \index{bisection, debugging by}
@@ -5205,7 +5205,7 @@ False
 \afterverb
 %
 You will note that {\tt startswith} requires case to match so sometimes
-we take a line and map it all to lower case before we do any checking
+we take a line and map it all to lowercase before we do any checking
 using the {\tt lower} method.
 
 \beforeverb
@@ -5222,7 +5222,7 @@ True
 %
 In the last example, then method {\tt lower} is called
 and then we use {\tt startswith}
-check to see if the resulting lower case string
+check to see if the resulting lowercase string
 starts with the letter ``p''.  As long as we are careful
 with the order, we can make multiple method calls in a
 single expression.
@@ -5441,7 +5441,7 @@ which returns {\tt False} if the string is empty.
 %
 \index{guardian pattern}
 \index{pattern!guardian}
-Another way to safely write the if statement using the {\bf guardian}
+Another way to safely write the {\tt if} statement using the {\bf guardian}
 pattern and make sure the second logical expression is evaluated 
 only where there is at least one character in the string.:
 
@@ -5771,7 +5771,7 @@ to shift it through the alphabet, wrapping around to the beginning if
 necessary, so 'A' shifted by 3 is 'D' and 'Z' shifted by 1 is 'A'.
 
 Write a function called \verb"rotate_word"
-that takes a string and an integer as parameters, and that returns
+that takes a string and an integer as parameters and returns
 a new string that contains the letters from the original string
 ``rotated'' by the given amount.  
 
@@ -5860,7 +5860,7 @@ will not get a handle to access the contents of the file:
 
 \beforeverb
 \begin{verbatim}
->>> fhand = open("stuff.txt")
+>>> fhand = open('stuff.txt')
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 IOError: [Errno 2] No such file or directory: 'stuff.txt'
@@ -5875,7 +5875,7 @@ not exist.
 
 A text file can be thought of as a sequence of lines, much like a Python
 string can be through of as a sequence of characters.  For example, this
-is an example of a text file which records mail activity from various
+is a sample of a text file which records mail activity from various
 individuals in an open source project development team:
 
 {\tt
@@ -5889,7 +5889,7 @@ Details: http://source.sakaiproject.org/viewsvn/?view=rev\&rev=39772\\
 ...
 }
 
-The entire file is of mail interactions is available from 
+The entire file is mail interactions is available from 
 \url{www.py4inf.com/code/mbox.txt} 
 and a shortened version of the file is available from
 \url{www.py4inf.com/code/mbox-short.txt}.
@@ -5948,7 +5948,7 @@ Details: http://source.sakaiproject.org/viewsvn/?view=rev\&rev=39772\verb"\n"\\
 }
 
 So the newline character separates the characters 
-in in the file into lines.
+in the file into lines.
 
 \section{Reading files}
 
@@ -5960,7 +5960,7 @@ and count each of the lines in a file:
 
 \beforeverb
 \begin{verbatim}
-fhand = open("mbox.txt")
+fhand = open('mbox.txt')
 count = 0
 for line in fhand:
     count = count + 1
@@ -6002,7 +6002,7 @@ using the {\tt read} method on the file handle.
 
 \beforeverb
 \begin{verbatim}
->>> fhand = open("mbox-short.txt")
+>>> fhand = open('mbox-short.txt')
 >>> inp = fhand.read()
 >>> print len(inp)
 94626
@@ -6043,7 +6043,7 @@ the desired prefix:
 
 \beforeverb
 \begin{verbatim}
-fhand = open("mbox-short.txt")
+fhand = open('mbox-short.txt')
 for line in fhand:
     if line.startswith('From:') :
         print line
@@ -6068,7 +6068,7 @@ From: rjlowe@iupui.edu
 The output looks great since the only lines we are seeing are those 
 which start with ``From:'', but why are we seeing the extra blank
 lines?  This is due to that invisible {\bf newline} character.
-Each of the lines ends with a newline and so the {\tt print} 
+Each of the lines ends with a newline, so the {\tt print} 
 statement prints the string in the variable {\bf line} which includes
 a newline and then {\tt print} adds {\em another} newline, resulting
 in the double spacing effect we see.
@@ -6079,7 +6079,7 @@ whitespace from the right side of a string as follows:
 
 \beforeverb
 \begin{verbatim}
-fhand = open("mbox-short.txt")
+fhand = open('mbox-short.txt')
 for line in fhand:
     line = line.rstrip()
     if line.startswith('From:') :
@@ -6113,7 +6113,7 @@ pattern of skipping uninteresting lines as follows:
 
 \beforeverb
 \begin{verbatim}
-fhand = open("mbox-short.txt")
+fhand = open('mbox-short.txt')
 for line in fhand:
     line = line.rstrip()
     # Skip 'uninteresting lines'
@@ -6140,7 +6140,7 @@ of Capetown in South Africa):
 
 \beforeverb
 \begin{verbatim}
-fhand = open("mbox-short.txt")
+fhand = open('mbox-short.txt')
 for line in fhand:
     line = line.rstrip()
     if line.find('@uct.ac.za') == -1 : 
@@ -6208,7 +6208,7 @@ There were 27 subject lines in mbox-short.txt
 Before peeking at the next section, take a look at the above program
 and ask yourself, ``What could go possibly wrong here?'' or ``What might our
 friendly user do that would cause our nice little program to 
-ungracefully exit with a trace back, making us look not-so-cool 
+ungracefully exit with a traceback, making us look not-so-cool 
 in the eyes of our users?''.
 
 \section{Using {\tt try, catch,} and {\tt open}}
@@ -6294,7 +6294,7 @@ File cannot be opened: na na boo boo
 %
 \index{Pythonic}
 Protecting the {\tt open} call is a good example 
-of the proper use of {\bf try}
+of the proper use of {\tt try}
 and {\tt except} in a Python program.  We use the term
 ``Pythonic'' when we are doing something the ``Python
 way''.  We might say that the above example is 
@@ -7154,7 +7154,7 @@ and then print out the third word in the line:
 
 \beforeverb
 \begin{verbatim}
-fhand = open("mbox-short.txt")
+fhand = open('mbox-short.txt')
 for line in fhand:
     line = line.rstrip()
     if not line.startswith('From ') : continue
@@ -7167,7 +7167,7 @@ We also use the contracted form of the {\tt if}
 statement where we put the {\tt continue } on the
 same line as the {\tt if}.  This contracted form
 of the {\tt if} functions the same as if the
-{\tt continue} were on the next line and intended.
+{\tt continue} were on the next line and indented.
 
 The program produces the following output:
 
@@ -7589,7 +7589,7 @@ that don't have ``From'' as the first word as follows:
 
 \beforeverb
 \begin{verbatim}
-fhand = open("mbox-short.txt")
+fhand = open('mbox-short.txt')
 for line in fhand:
     words = line.split()
     if words[0] != 'From' : continue
@@ -7612,14 +7612,14 @@ IndexError: list index out of range
 \end{verbatim}
 \afterverb
 %
-It kind of works and we see the day from the first from line
+It kind of works and we see the day from the first line
 (Sat) but then the program fails with a traceback error.
 What went wrong?  What messed-up data caused our elegant, 
 clever and very Pythonic program to fail?
 
 You could stare at it for a long time and puzzle through
 it or ask someone for help, but the quicker and smarter
-approach is to add a {\tt print statement}.  And the best place
+approach is to add a {\tt print} statement.  The best place
 to add the print statement is right before the line where
 the program failed and print out the data that seems to be causing
 the failure.
@@ -7686,7 +7686,7 @@ check the number of words we have before we look at the first word:
 
 \beforeverb
 \begin{verbatim}
-fhand = open("mbox-short.txt")
+fhand = open('mbox-short.txt')
 count = 0
 for line in fhand:
     words = line.split()
@@ -7704,7 +7704,7 @@ we use {\tt continue} to skip to the next line in the file.
 
 We can think of the two {\tt continue} statements as helping us refine
 the set of lines which are ``interesting'' to us and which we want 
-to process some more.  A line which has no words is uninteresting to 
+to process some more.  A line which has no words is ``uninteresting'' to 
 us so we skip to the next line.  A line which does not have ``From''
 as its first word is uninteresting to us so we skip it.
 
@@ -7994,7 +7994,7 @@ The {\tt in} operator uses different algorithms for lists and
 dictionaries.  For lists, it uses a search algorithm, as in
 Section~\ref{find}.  As the list gets longer, the search time gets
 longer in direct proportion.  For dictionaries, Python uses an
-algorithm called a {\bf hashtable} that has a remarkable property: the
+algorithm called a {\bf hashtable} that has a remarkable property; the
 {\tt in} operator takes about the same amount of time no matter how
 many items there are in a dictionary.  I won't explain how that's
 possible, but you can read more about it at
@@ -8165,7 +8165,7 @@ the outer loop makes a single iteration, we think of the inner
 loop as iterating ``more quickly'' and the outer loop as iterating 
 more slowly.
 
-The combination of the two nested loops insures that we will count
+The combination of the two nested loops ensures that we will count
 every word on every line of the input file.
 
 \beforeverb
@@ -8363,7 +8363,7 @@ print counts
 \afterverb
 %
 We use {\tt translate} to remove all punctuation and {\tt lower} to 
-force the line to lower case.  Otherwise the program is unchanged.
+force the line to lowercase.  Otherwise the program is unchanged.
 Note for Python 2.5 and earlier, {\tt ttranslate} does not 
 accept {\tt None} as the first parameter so use this code for the translate 
 call:
@@ -8504,10 +8504,10 @@ loop runs once.
 \begin{ex}
 Write a program that categorizes each mail message by which 
 day of the week the commit was done. To do this look for 
-lines which start with ``From '' and then look for the 
+lines which start with ``From'', then look for the 
 third word and then keep a running count of each of the 
 days of the week. At the end of the program print out the 
-contents of your dictionary. (order does not matter)
+contents of your dictionary (order does not matter).
 
 \beforeverb
 \begin{verbatim}
@@ -8525,7 +8525,7 @@ Enter a file name: mbox-short.txt
 \begin{ex}
 Write a program to read through a mail log, and figure 
 out who had the most messages in the file.  The program looks 
-for From lines and takes the second parameter on those 
+for ``From'' lines and takes the second parameter on those 
 lines as the person who sent the mail.
 
 The program creates a Python dictionary that maps 
@@ -8618,7 +8618,7 @@ comma:
 \end{verbatim}
 \afterverb
 %
-Without the comma, Python treats \verb"('a')" as a string in
+Without the comma Python treats \verb"('a')" as a string in
 parentheses:
 
 \beforeverb
@@ -8842,7 +8842,7 @@ it will not work as might expect.}
 \afterverb
 
 Stylistically when we use a tuple on the left hand side of the assignment
-statement, we omit the parentheses, but the following is equally 
+statement, we omit the parentheses, but the following is an equally 
 valid syntax:
 
 \beforeverb
@@ -9057,17 +9057,17 @@ for key, val in lst[:10] :
 \afterverb
 %
 The first part of the program which reads the file and computes 
-the dictionary which maps each word to the count of words in the 
+the dictionary that maps each word to the count of words in the 
 document is unchanged.  But instead of simply printing out 
 {\tt counts} and ending the program, we construct a list 
 of {\tt (val, key)} tuples and then sort the list in reverse order.
 
 Since the value is first, it will be used for the comparisons and 
 if there is more than one tuple with the same value, it will look
-at the second element (the key) and so tuples where the value is the
+at the second element (the key) so tuples where the value is the
 same will be further sorted by the alphabetical order of the key.
 
-And at the end we write a nice {\t for loop} which does a multiple
+At the end we write a nice {\t for loop} which does a multiple
 assignment iteration and prints out the ten most common words
 by iterating through a slice of the list ({\tt lst[:10]}).
 
@@ -9099,7 +9099,7 @@ for exploring information.
 \index{tuple!as key in dictionary}
 \index{hashable}
 
-Because tuples are {\bf hashable} and lists are not hashable, if we want to 
+Because tuples are {\bf hashable} and lists are not, if we want to 
 create a {\bf composite} key to use in a dictionary we must use a tuple as
 the key.
 
@@ -9117,7 +9117,7 @@ directory[last,first] = number
 \afterverb
 %
 The expression in brackets is a tuple.  We could use tuple
-assignment in a for loop to traverse this dictionary.
+assignment in a {\tt for} loop to traverse this dictionary.
 
 \index{tuple!in brackets}
 
@@ -9201,7 +9201,7 @@ due to aliasing.
 
 Because tuples are immutable, they don't provide methods
 like {\tt sort} and {\tt reverse}, which modify existing lists.
-But Python provides the built-in functions {\tt sorted}
+However Python provides the built-in functions {\tt sorted}
 and {\tt reversed}, which take any sequence as a parameter
 and return a new list with the same elements in a different
 order.
@@ -9252,7 +9252,7 @@ last, before the problem appeared?
 
 \item[retreating:] At some point, the best thing to do is back
 off, undoing recent changes, until you get back to a program that
-works and that you understand.  Then you can starting rebuilding.
+works and that you understand.  Then you can start rebuilding.
 
 \end{description}
 
@@ -9363,7 +9363,7 @@ size and composition of a data structure.
 
 \begin{ex}
 Revise a previous program as follows:  Read and 
-parse the ``From '' lines and pull out the 
+parse the ``From'' lines and pull out the 
 addresses from the line.   Count the number of
 messages from each person using a dictionary.
 
@@ -9389,7 +9389,7 @@ zqian@umich.edu 195
 \end{ex}
 \begin{ex}
 This program counts the distribution of the hour of the day for 
-each of the messages. You can pull the hour from the ``From '' 
+each of the messages. You can pull the hour from the ``From'' 
 line by finding the time string and then splitting that string 
 into parts using the colon character. Once you have accumulated 
 the counts for each hour, print out the counts, one per line, 
