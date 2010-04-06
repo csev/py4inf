@@ -2462,6 +2462,286 @@ huge_idea
 %
 \end{ex}
 
+\chapter{Regular expressions}
+
+\section{More accurate searching}
+
+\section{Building regular expressions}
+
+\section{Applications of regular expressions}
+
+\section{Regular expressions at the command line (Advanced)}
+
+
+\chapter{Automating common tasks}
+
+
+\section{Filenames and paths}
+\label{paths}
+
+\index{filename}
+\index{path}
+\index{directory}
+\index{folder}
+
+Files are organized into {\bf directories} (also called ``folders'').
+Every running program has a ``current directory,'' which is the
+default directory for most operations.  
+For example, when you open a file for reading, Python looks for it in the
+current directory.
+
+\index{os module}
+\index{module!os}
+
+The {\tt os} module provides functions for working with files and
+directories (``os'' stands for ``operating system'').  {\tt os.getcwd}
+returns the name of the current directory:
+
+\index{getcwd function}
+\index{function!getcwd}
+
+\beforeverb
+\begin{verbatim}
+>>> import os
+>>> cwd = os.getcwd()
+>>> print cwd
+/home/dinsdale
+\end{verbatim}
+\afterverb
+%
+{\tt cwd} stands for ``current working directory.''  The result in
+this example is {\tt /home/dinsdale}, which is the home directory of a
+user named {\tt dinsdale}.
+
+\index{working directory}
+\index{directory!working}
+
+A string like {\tt cwd} that identifies a file is called a {\bf path}.
+A {\bf relative path} starts from the current directory;
+an {\bf absolute path} starts from the topmost directory in the
+file system.
+
+\index{relative path}
+\index{path!relative}
+\index{absolute path}
+\index{path!absolute}
+
+The paths we have seen so far are simple filenames, so they are
+relative to the current directory.  To find the absolute path to
+a file, you can use {\tt os.path.abspath}:
+
+\beforeverb
+\begin{verbatim}
+>>> os.path.abspath('memo.txt')
+'/home/dinsdale/memo.txt'
+\end{verbatim}
+\afterverb
+%
+{\tt os.path.exists} checks
+whether a file or directory exists:
+
+\index{exists function}
+\index{function!exists}
+
+\beforeverb
+\begin{verbatim}
+>>> os.path.exists('memo.txt')
+True
+\end{verbatim}
+\afterverb
+%
+If it exists, {\tt os.path.isdir} checks whether it's a directory:
+
+\beforeverb
+\begin{verbatim}
+>>> os.path.isdir('memo.txt')
+False
+>>> os.path.isdir('music')
+True
+\end{verbatim}
+\afterverb
+%
+Similarly, {\tt os.path.isfile} checks whether it's a file.
+
+{\tt os.listdir} returns a list of the files (and other directories)
+in the given directory:
+
+\beforeverb
+\begin{verbatim}
+>>> os.listdir(cwd)
+['music', 'photos', 'memo.txt']
+\end{verbatim}
+\afterverb
+%
+To demonstrate these functions, the following example
+``walks'' through a directory, prints
+the names of all the files, and calls itself recursively on
+all the directories.
+
+\index{walk, directory}
+\index{directory!walk}
+
+\beforeverb
+\begin{verbatim}
+def walk(dir):
+    for name in os.listdir(dir):
+        path = os.path.join(dir, name)
+
+        if os.path.isfile(path):
+            print path
+        else:
+            walk(path)
+\end{verbatim}
+\afterverb
+%
+{\tt os.path.join} takes a directory and a file name and joins
+them into a complete path.  
+
+\begin{ex}
+Modify {\tt walk} so that instead of printing the names of
+the files, it returns a list of names.
+\end{ex}
+
+\begin{ex}
+The {\tt os} module provides a function called {\tt walk}
+that is similar to this one but more versatile.  Read
+the documentation and use it to print the names of the
+files in a given directory and its subdirectories.
+\end{ex}
+
+
+\section{Pipes}
+
+\index{shell}
+\index{pipe}
+
+Most operating systems provide a command-line interface,
+also known as a {\bf shell}.  Shells usually provide commands
+to navigate the file system and launch applications.  For
+example, in Unix, you can change directories with {\tt cd},
+display the contents of a directory with {\tt ls}, and launch
+a web browser by typing (for example) {\tt firefox}.
+
+\index{ls (Unix command)}
+\index{Unix command!ls}
+
+Any program that you can launch from the shell can also be
+launched from Python using a {\bf pipe}.  A pipe is an object
+that represents a running process.
+
+For example, the Unix command {\tt ls -l} normally displays the
+contents of the current directory (in long format).  You can
+launch {\tt ls} with {\tt os.popen}:
+
+\index{popen function}
+\index{function!popen}
+
+\beforeverb
+\begin{verbatim}
+>>> cmd = 'ls -l'
+>>> fp = os.popen(cmd)
+\end{verbatim}
+\afterverb
+%
+The argument is a string that contains a shell command.  The
+return value is a file pointer that behaves just like an open
+file.  You can read the output from the {\tt ls} process one
+line at a time with {\tt readline} or get the whole thing at
+once with {\tt read}:
+
+\index{readline method}
+\index{method!readline}
+\index{read method}
+\index{method!read}
+
+\beforeverb
+\begin{verbatim}
+>>> res = fp.read()
+\end{verbatim}
+\afterverb
+%
+When you are done, you close the pipe like a file:
+
+\index{close method}
+\index{method!close}
+
+\beforeverb
+\begin{verbatim}
+>>> stat = fp.close()
+>>> print stat
+None
+\end{verbatim}
+\afterverb
+%
+The return value is the final status of the {\tt ls} process;
+{\tt None} means that it ended normally (with no errors).
+
+\index{file!compression}
+\index{compression!file}
+\index{Unix command!gunzip}
+\index{gunzip (Unix command)}
+
+A common use of pipes is to read a compressed file incrementally;
+that is, without uncompressing the whole thing at once.  The
+following function takes the name of a compressed file as a
+parameter and returns a pipe that uses {\tt gunzip} to decompress
+the contents:
+
+\beforeverb
+\begin{verbatim}
+def open_gunzip(filename):
+    cmd = 'gunzip -c ' + filename
+    fp = os.popen(cmd)
+    return fp
+\end{verbatim}
+\afterverb
+%
+If you read lines from {\tt fp} one at a time, you never have
+to store the uncompressed file in memory or on disk.
+
+\section{Exercises}
+
+\begin{ex}
+\label{checksum}
+
+\index{MP3}
+
+In a large collection of MP3 files, there may be more than one
+copy of the same song, stored in different directories or with
+different file names.  The goal of this exercise is to search for
+these duplicates.
+
+\begin{enumerate}
+
+\item Write a program that searches a directory and all of its
+subdirectories, recursively, and returns a list of complete paths
+for all files with a given suffix (like {\tt .mp3}).
+Hint: {\tt os.path} provides several useful functions for
+manipulating file and path names.
+
+\index{duplicate}
+\index{MD5 algorithm}
+\index{algorithm!MD5}
+\index{checksum}
+
+\item To recognize duplicates, you can use a hash function that
+reads the file and generates a short summary
+of the contents.  For example,
+MD5 (Message-Digest algorithm 5) takes an arbitrarily-long
+``message'' and returns a 128-bit ``checksum.''  The probability
+is very small that two files with different contents will
+return the same checksum.
+
+You can read about MD5 at \url{wikipedia.org/wiki/Md5}.  On
+a Unix system you can use the program {\tt md5sum} and a pipe to
+compute checksums from Python.
+
+\index{pipe}
+
+\end{enumerate}
+
+\end{ex}
+
 \chapter{Using databases and Structured Query Language (SQL)}
 
 \section{What is a database?}
@@ -3292,6 +3572,9 @@ while True:
             cur.execute('''INSERT OR IGNORE INTO People (name, retrieved) 
                 VALUES ( ?, 0)''', ( friend, ) )
             conn.commit()
+            if cur.rowcount != 1 :
+                print 'Error inserting account:',friend
+                continue
             friend_id = cur.lastrowid
             countnew = countnew + 1
         cur.execute('''INSERT OR IGNORE INTO Friends 
@@ -3430,291 +3713,191 @@ If the {\tt INSERT} is successful, we can look at {\tt cur.lastrowid}
 to find out what value the database assigned to the {\tt id} column in 
 our newly created row.
 
+\subsection{Storing the friend relationship}
+
+Once we know the key value for both the Twiter user
+and the friend in the XML, it is a simple matter to insert
+the two numbers into the {\tt Friends} table
+with the following code:
+
+\beforeverb
+\begin{verbatim}
+cur.execute('INSERT OR IGNORE INTO Friends (from_id, to_id) VALUES (?, ?)',
+    (id, friend_id) )
+\end{verbatim}
+\afterverb
+%
+Notice that we let the database take care of keeping us from ``double-inserting''
+a relationship by creating the table with a uniqueness constraint and then
+adding {\tt OR IGNORE} to our {\tt INSERT} statement.
+
+Here is a sample execution of this program:
+\beforeverb
+\begin{verbatim}
+Enter a Twitter account, or quit: 
+No unretrieved Twitter accounts found
+Enter a Twitter account, or quit: drchuck
+Retrieving http://api.twitter.com/l/statuses/friends/drchuck.xml
+New accounts= 100  revisited= 0
+Enter a Twitter account, or quit: 
+Retrieving http://api.twitter.com/l/statuses/friends/opencontent.xml
+New accounts= 97  revisited= 3
+Enter a Twitter account, or quit: 
+Retrieving http://api.twitter.com/l/statuses/friends/lhawthorn.xml
+New accounts= 97  revisited= 3
+Enter a Twitter account, or quit: quit
+\end{verbatim}
+\afterverb
+%
+We started with the ``drchuck'' account and then let the program
+automatically pick the next two accounts to retrieve and add to 
+out database.
+
+The following is the frist few rows in the {\tt People} 
+and {\tt Friends} tables after this run is completed:
+\beforeverb
+\begin{verbatim}
+People:
+(1, u'drchuck', 1)
+(2, u'opencontent', 1)
+(3, u'lhawthorn', 1)
+(4, u'steve_coppin', 0)
+(5, u'davidkocher', 0)
+295 rows.
+Friends:
+(1, 2)
+(1, 3)
+(1, 4)
+(1, 5)
+(1, 6)
+300 rows.
+\end{verbatim}
+\afterverb
+%
+You can see the {\tt id}, {\tt name}, and {\tt visited} fields in the 
+{\tt People} table and you see the numbers of the from and to ends of 
+the {\tt Friends} table.   Looking at the data, you can see that 
+``drchuck'' is a friend to all of the people.  This makes sense because
+we started by reteieving all of the friends of ``drchuck'' from Twitter.
 
 \section{Using JOIN to retrieve data}
 
+Now that we have followed the rules of database normalization
+and have data separated into two tables, we need to be able to build a 
+{\tt SELECT} that re-assembles the data across the tables.
 
-\chapter{Regular expressions}
+SQL uses the the {\tt JOIN} clause to re-connect these tables.  
+In the {\tt JOIN} clause you specify the fields that are used 
+to re-connect the rows between the tables.
 
-\section{More accurate searching}
-
-\section{Building regular expressions}
-
-\section{Applications of regular expressions}
-
-\section{Regular expressions at the command line (Advanced)}
-
-
-\chapter{Automating common tasks}
-
-
-\section{Filenames and paths}
-\label{paths}
-
-\index{filename}
-\index{path}
-\index{directory}
-\index{folder}
-
-Files are organized into {\bf directories} (also called ``folders'').
-Every running program has a ``current directory,'' which is the
-default directory for most operations.  
-For example, when you open a file for reading, Python looks for it in the
-current directory.
-
-\index{os module}
-\index{module!os}
-
-The {\tt os} module provides functions for working with files and
-directories (``os'' stands for ``operating system'').  {\tt os.getcwd}
-returns the name of the current directory:
-
-\index{getcwd function}
-\index{function!getcwd}
+The following is an example of a {\tt SELECT} with a 
+{\tt JOIN} clause:
 
 \beforeverb
 \begin{verbatim}
->>> import os
->>> cwd = os.getcwd()
->>> print cwd
-/home/dinsdale
+SELECT * FROM Friends JOIN People 
+    ON Friends.to_id = People.id WHERE Friends.from_id = 2
 \end{verbatim}
 \afterverb
 %
-{\tt cwd} stands for ``current working directory.''  The result in
-this example is {\tt /home/dinsdale}, which is the home directory of a
-user named {\tt dinsdale}.
+The {\tt JOIN} clause indicates that the fields we are selecting
+cross both the {\tt Friends} and {\tt People} tables.  The {\tt ON}
+clause indicates how the two tables are to be joined.   Take the rows
+from {\tt Friends} and append the row from {\tt People} where the
+field \verb"from_id" in {\tt Friends} is the same the {\tt id} value
+in the {\tt People} table.
 
-\index{working directory}
-\index{directory!working}
+The result of the JOIN is to create an extra-long 'meta-row' which ahs both 
+the fields from {\tt Friends} and the matching fields from {\tt People}.
 
-A string like {\tt cwd} that identifies a file is called a {\bf path}.
-A {\bf relative path} starts from the current directory;
-an {\bf absolute path} starts from the topmost directory in the
-file system.
-
-\index{relative path}
-\index{path!relative}
-\index{absolute path}
-\index{path!absolute}
-
-The paths we have seen so far are simple filenames, so they are
-relative to the current directory.  To find the absolute path to
-a file, you can use {\tt os.path.abspath}:
+The following code demonstrates the data that we will have in the 
+database after the multi-table Twitter spider program (above) has
+been run several times.
 
 \beforeverb
 \begin{verbatim}
->>> os.path.abspath('memo.txt')
-'/home/dinsdale/memo.txt'
+import sqlite3
+
+conn = sqlite3.connect('twdata.db')
+cur = conn.cursor()
+
+cur.execute('SELECT * FROM People')
+count = 0
+print 'People:'
+for row in cur :
+   if count < 5: print row
+   count = count + 1
+print count, 'rows.'
+
+cur.execute('SELECT * FROM Friends')
+count = 0
+print 'Friends:'
+for row in cur :
+   if count < 5: print row
+   count = count + 1
+print count, 'rows.'
+
+cur.execute('''SELECT * FROM Friends JOIN People 
+    ON Friends.to_id = People.id WHERE Friends.from_id = 2''')
+count = 0
+print 'Connections for id=2:'
+for row in cur :
+   if count < 5: print row
+   count = count + 1
+print count, 'rows.'
+
+cur.close()
 \end{verbatim}
 \afterverb
 %
-{\tt os.path.exists} checks
-whether a file or directory exists:
+In this program, we first dump out the {\tt People}
+and {\tt Friends} and then dump out a subset of the
+data in the tables joined together.
 
-\index{exists function}
-\index{function!exists}
+Here is the output of the program:
 
 \beforeverb
 \begin{verbatim}
->>> os.path.exists('memo.txt')
-True
+python twjoin.py 
+People:
+(1, u'drchuck', 1)
+(2, u'opencontent', 1)
+(3, u'lhawthorn', 1)
+(4, u'steve_coppin', 0)
+(5, u'davidkocher', 0)
+295 rows.
+Friends:
+(1, 2)
+(1, 3)
+(1, 4)
+(1, 5)
+(1, 6)
+300 rows.
+Connections for id=2:
+(2, 1, 1, u'drchuck', 1)
+(2, 28, 28, u'cnxorg', 0)
+(2, 30, 30, u'kthanos', 0)
+(2, 102, 102, u'SomethingGirl', 0)
+(2, 103, 103, u'ja_Pac', 0)
+100 rows.
 \end{verbatim}
 \afterverb
 %
-If it exists, {\tt os.path.isdir} checks whether it's a directory:
+You see the columns from the {\tt People} and {\tt Friends} tables and the last
+set of rows is the result of the {\tt SELECT} with the {\tt JOIN} clause.
 
-\beforeverb
-\begin{verbatim}
->>> os.path.isdir('memo.txt')
-False
->>> os.path.isdir('music')
-True
-\end{verbatim}
-\afterverb
-%
-Similarly, {\tt os.path.isfile} checks whether it's a file.
+In the last select, we are looking for accounts that are friends of 
+``opencontent'' (i.e. {\tt People.id=2}).
 
-{\tt os.listdir} returns a list of the files (and other directories)
-in the given directory:
+In each of the ``meta-rows'' in the last select, the first two the columns are
+from the {\tt Friends}
+table followed by columns three through five from the {\tt People } table.  And you can also
+see that the second column (\verb"Friends.to_id") matches the third column
+({\tt People.id}) in each of the joined-up ``meta-rows''.
 
-\beforeverb
-\begin{verbatim}
->>> os.listdir(cwd)
-['music', 'photos', 'memo.txt']
-\end{verbatim}
-\afterverb
-%
-To demonstrate these functions, the following example
-``walks'' through a directory, prints
-the names of all the files, and calls itself recursively on
-all the directories.
+\section{Summary}
 
-\index{walk, directory}
-\index{directory!walk}
-
-\beforeverb
-\begin{verbatim}
-def walk(dir):
-    for name in os.listdir(dir):
-        path = os.path.join(dir, name)
-
-        if os.path.isfile(path):
-            print path
-        else:
-            walk(path)
-\end{verbatim}
-\afterverb
-%
-{\tt os.path.join} takes a directory and a file name and joins
-them into a complete path.  
-
-\begin{ex}
-Modify {\tt walk} so that instead of printing the names of
-the files, it returns a list of names.
-\end{ex}
-
-\begin{ex}
-The {\tt os} module provides a function called {\tt walk}
-that is similar to this one but more versatile.  Read
-the documentation and use it to print the names of the
-files in a given directory and its subdirectories.
-\end{ex}
-
-
-\section{Pipes}
-
-\index{shell}
-\index{pipe}
-
-Most operating systems provide a command-line interface,
-also known as a {\bf shell}.  Shells usually provide commands
-to navigate the file system and launch applications.  For
-example, in Unix, you can change directories with {\tt cd},
-display the contents of a directory with {\tt ls}, and launch
-a web browser by typing (for example) {\tt firefox}.
-
-\index{ls (Unix command)}
-\index{Unix command!ls}
-
-Any program that you can launch from the shell can also be
-launched from Python using a {\bf pipe}.  A pipe is an object
-that represents a running process.
-
-For example, the Unix command {\tt ls -l} normally displays the
-contents of the current directory (in long format).  You can
-launch {\tt ls} with {\tt os.popen}:
-
-\index{popen function}
-\index{function!popen}
-
-\beforeverb
-\begin{verbatim}
->>> cmd = 'ls -l'
->>> fp = os.popen(cmd)
-\end{verbatim}
-\afterverb
-%
-The argument is a string that contains a shell command.  The
-return value is a file pointer that behaves just like an open
-file.  You can read the output from the {\tt ls} process one
-line at a time with {\tt readline} or get the whole thing at
-once with {\tt read}:
-
-\index{readline method}
-\index{method!readline}
-\index{read method}
-\index{method!read}
-
-\beforeverb
-\begin{verbatim}
->>> res = fp.read()
-\end{verbatim}
-\afterverb
-%
-When you are done, you close the pipe like a file:
-
-\index{close method}
-\index{method!close}
-
-\beforeverb
-\begin{verbatim}
->>> stat = fp.close()
->>> print stat
-None
-\end{verbatim}
-\afterverb
-%
-The return value is the final status of the {\tt ls} process;
-{\tt None} means that it ended normally (with no errors).
-
-\index{file!compression}
-\index{compression!file}
-\index{Unix command!gunzip}
-\index{gunzip (Unix command)}
-
-A common use of pipes is to read a compressed file incrementally;
-that is, without uncompressing the whole thing at once.  The
-following function takes the name of a compressed file as a
-parameter and returns a pipe that uses {\tt gunzip} to decompress
-the contents:
-
-\beforeverb
-\begin{verbatim}
-def open_gunzip(filename):
-    cmd = 'gunzip -c ' + filename
-    fp = os.popen(cmd)
-    return fp
-\end{verbatim}
-\afterverb
-%
-If you read lines from {\tt fp} one at a time, you never have
-to store the uncompressed file in memory or on disk.
-
-\section{Exercises}
-
-\begin{ex}
-\label{checksum}
-
-\index{MP3}
-
-In a large collection of MP3 files, there may be more than one
-copy of the same song, stored in different directories or with
-different file names.  The goal of this exercise is to search for
-these duplicates.
-
-\begin{enumerate}
-
-\item Write a program that searches a directory and all of its
-subdirectories, recursively, and returns a list of complete paths
-for all files with a given suffix (like {\tt .mp3}).
-Hint: {\tt os.path} provides several useful functions for
-manipulating file and path names.
-
-\index{duplicate}
-\index{MD5 algorithm}
-\index{algorithm!MD5}
-\index{checksum}
-
-\item To recognize duplicates, you can use a hash function that
-reads the file and generates a short summary
-of the contents.  For example,
-MD5 (Message-Digest algorithm 5) takes an arbitrarily-long
-``message'' and returns a 128-bit ``checksum.''  The probability
-is very small that two files with different contents will
-return the same checksum.
-
-You can read about MD5 at \url{wikipedia.org/wiki/Md5}.  On
-a Unix system you can use the program {\tt md5sum} and a pipe to
-compute checksums from Python.
-
-\index{pipe}
-
-\end{enumerate}
-
-\end{ex}
-
-
+This chapter has covered a lot of ground.
 
 \chapter{Visualizing data}
 
