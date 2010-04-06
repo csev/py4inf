@@ -1687,18 +1687,19 @@ there is built-in support in Python called {\tt sockets} which makes it very
 easy to make network connections and retrieve data over those
 sockets in a Python program.
 
-A socket is much like a file, except that it provides a two-way connection between two 
+A {\bf socket} is much like a file, except that it 
+provides a two-way connection between two 
 programs with a single socket.  
 You can both read from and write to the same socket.  If you write somthing to 
-a socket is is sent to the application at the other end of the socket.  If you 
+a socket it is sent to the application at the other end of the socket.  If you 
 read from the socket, you are given the data which the other application has sent.
 
 But if you try to read a socket when the program on the other end of the socket
-has not sent any data - you just sit and wait.  And if the programs on both ends
+has not sent any data - you just sit and wait.  If the programs on both ends
 of the socket simply wait for some data without sending anything, they will wait for
 a very long time.
 
-So an important part of programs which communicate over the Internet is to have some
+So an important part of programs that communicate over the Internet is to have some
 sort of protocol.   A protocol is a set of precise rules that determine who
 is to go first, what they are to do, and then what are the responses to that message,
 and who sends next and so on.  In a sense the two applications at either end 
@@ -1712,7 +1713,7 @@ Protocol is described in the following document:
 This is a long and complex 176 page document with a lot of detail.  If you 
 find it interesting feel free to read it all.  But if you take a look around page 36 of
 RFC2616 you will find the syntax for the GET request.  If you read in detail, you will
-find that to reqest a document from a web server, we make a connection to 
+find that to request a document from a web server, we make a connection to 
 the {\tt www.py4inf.com} server on port 80, and then send a line of the form:
 
 {\tt GET http://www.py4inf.com/code/romeo.txt HTTP/1.0 }
@@ -1757,7 +1758,7 @@ in 512 character chunks from the socket and prints the data out
 until there is no more data to read (i.e. the recv() returns 
 an empty string).
 
-The program prodces the following output:
+The program produces the following output:
 
 \beforeverb
 \begin{verbatim}
@@ -1789,15 +1790,15 @@ data of the file {\tt romeo.txt}.
 
 This example shows how to make a low-level network connection
 with sockets.   Sockets can be use to communicate with a web
-server or with a mail server or many kineds of servers.
-All that is needed is to find the document shich describes
-the protocol and rite code to send and receive the data
+server or with a mail server or many other kinds of servers.
+All that is needed is to find the document which describes
+the protocol and write the code to send and receive the data
 according to the protocol.
 
-However since the protocol that we use most commonly is
+However, since the protocol that we use most commonly is
 the HTTP (i.e. the web) protocol, Python has a special 
 library specifically designed to support the HTTP protocol 
-for retrieval of
+for the retrieval of
 documents and data over the web.
 
 \section{Retrieving web pages with {\tt urllib}}
@@ -1805,7 +1806,7 @@ documents and data over the web.
 The {\tt urllib} library makes it very easy to retrieve
 web pages and process the data in Python.   Using {\tt urllib}
 you can treat a web page much like a file.   You simply
-indiate which web page you would like to retrieve and
+indicate which web page you would like to retrieve and
 {\tt urllib} handles all of the HTTP protocol details.
 
 The equivalent code to read the {\tt romeo.txt} file
@@ -1821,7 +1822,7 @@ for line in fhand:
 \end{verbatim}
 \afterverb
 %
-Once the web page has been openned with 
+Once the web page has been opened with 
 {\tt urllib.urlopen} we can treat it like 
 a file and read through it using a 
 {\tt for} loop.   
@@ -1867,14 +1868,14 @@ we can read it like a local file.
 \section{Parsing HTML and scraping the web}
 
 One of the common uses of the {\tt urllib} capability in Python is 
-to "scrape" the web.   Web scraping is when we write a program
+to {\bf scrape} the web.   Web scraping is when we write a program
 that pretends to be a web browser and retrieves pages and then 
 examines the data in those pages looking for patterns.
 
-As an example, a search engine such as Google will look at source 
+As an example, a search engine such as Google will look at the source 
 of one web page and extract the links to other pages and retrieve
 those pages, extracting links, and so on.   Using this technique,
-Google ``spiders'' its way through nearly all of the pages on 
+Google {\bf spiders} its way through nearly all of the pages on 
 the web.   
 Google also uses the frequency of links from pages it finds 
 to a particular page as one measure of how ``important'' 
@@ -1923,7 +1924,7 @@ for line in fhand:
 %
 The program prompts for a web address, then opens the web
 address and starts looping through the lines of the web page.
-First it loks for lines with ``href'' and skips the lines
+First it looks for lines with ``href'' and skips the lines
 that do not have the ``href'' string.  On lines with the 
 ``href'' string, the code skips past the ``href'', equals sign, 
 and double quote and takes the rest of the line.
@@ -1964,18 +1965,18 @@ traffic uses port 50.
 \index{port}
 
 \item[scrape:] When a program pretends to be a web browser and
-retrives a web page and then lokas at the web page content. 
+retrieves a web page and then looks at the web page content. 
 Often programs are following the links in one page to find the next
 page so they can traverse a network of pages or a social network.
 \index{socket}
 
 \item[socket:] A network connection between two applications
-where the appcliations can send and receive data in either direction.
+where the applications can send and receive data in either direction.
 \index{socket}
 
 \item[spider:] The act of a web search engine retrieving a page and
 then all the pages linked from a page and so on until they have 
-nealry all of the pages on the Internet which they 
+nearly all of the pages on the Internet which they 
 use to build their search index.
 \index{spider}
 
@@ -2018,7 +2019,7 @@ Hello there Chuck
 Change the program which uses {\tt urllib} and reads and prints
 the data to talk to your web server running at 
 {\tt http://localhost:8080/}.
-How is the ouput different from the previous exercise and why?
+How is the output different from the previous exercise and why?
 \end{ex}
 
 
@@ -2027,9 +2028,8 @@ How is the ouput different from the previous exercise and why?
 Once it became easy to retrieve documents and parse documents 
 over HTTP using programs, it did not take long to develop 
 an approach where we started producing documents that were specifically
-designed to be consumed by other programs instead docuents
-intended to be viewed in a browser using HyperText Markup Language
-(HTML).
+designed to be consumed by other 
+programs (i.e. not HTML to be displayed in a browser).
 
 The most common approach when two programs are exchanging data across 
 the web is to exchange the data in a format called the ``eXtensible Markup 
@@ -2079,9 +2079,9 @@ print 'Attr:',tree.find('email').get('hide')
 \end{verbatim}
 \afterverb
 %
-The call to {\tt fromstring} converts the string representation
-of the XML into a 'tree' of XML Elements.  When the
-XML is in a tree, we have a seties of methods which we can call to 
+Calling {\tt fromstring} converts the string representation
+of the XML into a 'tree' of XML nodes.  When the
+XML is in a tree, we have a series of methods which we can call to 
 extract portions of data from the XML.  
 
 The {\tt find} function searches through the 
@@ -2097,7 +2097,7 @@ Attr: yes
 \afterverb
 %
 Using an XML parser such as {\tt ElementTree} has the advantage
-in that while the XML in this example is quite simple, it turns
+that while the XML in this example is quite simple, it turns
 out that there are many rules regarding valid XML and using 
 {\tt ElementTree} allows us to extract data from XML without 
 worrying about the rules of XML syntax.
@@ -2143,7 +2143,7 @@ The {\tt findall} method retrieves a Python list of sub-trees that
 represent the {\tt user} structures in the XML tree.  Then we can 
 write a {\tt for} loop that looks at each of the user nodes, and 
 prints the {\tt name} and {\tt id} text elements as well as the 
-{\tt x} attribute from the user node.
+{\tt x} attribute from the {\tt user} node.
 
 \beforeverb
 \begin{verbatim}
@@ -2166,7 +2166,7 @@ sending back and forth between these applications using eXtensible
 Markup Language (XML).
 
 The next step is to begin to define and document ``contracts'' between 
-applications usig these techniques. The general name for these 
+applications using these techniques. The general name for these 
 application-to-application contracts is {\bf Application Program 
 Interfaces} or APIs.  When we use an API, generally one program
 makes a set of {\bf services} available for use by other applications
@@ -2176,7 +2176,7 @@ access the services provided by the program.
 When we begin to build our programs where the functionality of
 our program includes access to services provided by other programs, 
 we call the approach a {\bf Service-Oriented Architecture} or SOA.
-An SOA approach is one where our overall application makes use of 
+A SOA approach is one where our overall application makes use of 
 the services of other applications.  A non-SOA approach is where the
 application is a single stand-alone application which contains all of the
 code necessary to implement the application.
@@ -2188,10 +2188,10 @@ Instead, the airline computers contact the services on the hotel computers
 and retrieve the hotel data and present it to the user.  When the user
 agrees to make a hotel reservation using the airline site, the airline site uses
 another web service on the hotel systems to actually make the reservation.
-And when it comes to charge your credit card for the whole transaation, 
+And when it comes to charge your credit card for the whole transaction, 
 still other computers become involved in the process.
 
-A Servce-Oriented Architecture has many advantages including: (1) we 
+A Service-Oriented Architecture has many advantages including: (1) we 
 always maintain only one copy of data - this is particularly important
 for things like hotel reservations where we do not want to over-commit
 and (2) the owners of the data can set the rules about the use of their 
@@ -2203,7 +2203,7 @@ we call these {\bf web services}.
 
 \section{Twitter web services}
 
-Many of you many be familiar with the Twitter web site and many Twitter
+You are probably familiar with the Twitter web site and its
 applications \url{http://www.twitter.com}.  Twitter has a very unique
 approach to its API/web services in that all of its data is available
 to non-Twitter applications using the Twitter API.
@@ -2211,11 +2211,11 @@ to non-Twitter applications using the Twitter API.
 Because Twitter has been so liberal in allowing access to its data,
 it has enabled thousands of software developers to build their own
 customized Twitter-based software.  These additional applications greatly
-increase the value of Twitter far beyond simply a web-site.  The 
+increase the value of Twitter far beyond simply a web site.  The 
 Twitter web services allow the building of whole new applications that
 the Twitter team may never of thought of.  It is said that over 90 percent
 of the use of Twitter is through the API (i.e. not through the {\tt twitter.com}
-web user inteface).
+web user interface).
 
 You can view the Twitter API documentation at 
 \url{http://apiwiki.twitter.com/}.  The Twitter API is an example
@@ -2398,7 +2398,7 @@ Enter Twitter Account:
 \end{verbatim}
 \afterverb
 %
-While the code for parsig the XML and extracting the fields
+While the code for parsing the XML and extracting the fields
 using {\tt ElementTree} takes a few lines to express what 
 we are looking for in the XML, it is much simpler than trying 
 to use Python string parsing to pull apart the XML and find 
