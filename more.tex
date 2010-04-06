@@ -1429,7 +1429,7 @@ Write a function \verb"is_between(x, y, z)" that
 returns {\tt True} if $x \le y \le z$ or {\tt False} otherwise.
 \end{ex}
 
-% TBD - May want ot talk about "guarding" code here - lots removed
+% TBD - May want to talk about "guarding" code here - lots removed
 
 \section{Debugging}
 \label{factdebug}
@@ -2759,10 +2759,10 @@ in the computer.
 \index{database!indexes}
 Like a dictionary, database software is designed to keep 
 the inserting and accessing of data very fast, even for large
-amounts of data.   Databases maintain their performance by 
+amounts of data.   Database software maintains its performance by 
 building \emph{indexes} as data is added to the database
-to allow the database software to jump quickly to a particular
-entry in the database.
+to allow the computer to jump quickly to a particular
+entry.
 
 \section{Database concepts}
 
@@ -2771,7 +2771,7 @@ of spreadsheets.   The primary data structures in a database are:
 {\bf tables}, {\bf rows}, and {\bf columns}.  
 In technical descriptions of relational databases, the concepts of 
 table, row, and column are more formally referred
-to as {\bf relation}, {\bf tuple} and {\bf attribute} respectively.
+to as {\bf relation}, {\bf tuple} and {\bf attribute}, respectively.
 We will use the less formal terms in this chapter.
 
 \section{SQLite Database Browser}
@@ -2783,15 +2783,14 @@ Database Browser} which is freely available from:
 
 \url{http://sqlite.org/}
 
-Using the browser, you can easily create tables, insert data
-into the database, edit data in the database, or run simple SQL
-queries on the data in the database.
+Using the browser, you can easily create tables, insert data, edit data, 
+or run simple SQL queries on the data in the database.
 
 In a sense, the database browser is similar to a text editor
 when working with text files.   When you want to do one or a 
 very few operations on a text file, you can just open it up 
 in a text editor and make the changes you like.   When you have 
-many changes that you need ot do to a text file, often you 
+many changes that you need to do to a text file, often you 
 will write a simple Python program.  You will find the same 
 pattern when working with databases.  You will do simple
 operations in the database browser and more complex operations
@@ -2800,11 +2799,11 @@ will be most convienently done in Python.
 \section{Creating a database table}
 
 Databases require more defined structure than Python lists 
-or dictionaries\footnote{SQLite actualy does allow some 
+or dictionaries\footnote{SQLite actually does allow some 
 flexibility in the type of data stored in a column 
 but we will keep our data types strict in this chapter
 so the concepts apply equally to other database systems 
-such as MySql.}.  
+such as MySQL.}.  
 When we create a database {\bf table} we
 must tell the database in advance the names of each of the
 {\bf columns} in the table and the type of data which we are 
@@ -2813,12 +2812,12 @@ knows the type of data in each column, it can choose the most
 efficient way to store and lookup the data based on the type of
 the data. 
 
-you can look at the various data types supported by SQLite
+You can look at the various data types supported by SQLite
 at the following url:
 
 \url{http://www.sqlite.org/datatypes.html}
 
-Defining structure for your data up-front may seem inconvience
+Defining structure for your data up front may seem inconvient
 at the beginning but the payoff is fast access to your data, 
 even when the size of your data is large.
 
@@ -2860,7 +2859,7 @@ operations on the data stored in the database.  Calling
 {\tt cursor()} if very similar conceptually to calling
 {\tt open()} when dealing with text files.
 
-Once we have the {\tt cursor}, we can begin to execute database
+Once we have the cursor, we can begin to execute 
 commands on the contents of the database using the {\tt execute()}
 method.
 
@@ -2880,9 +2879,9 @@ table and column names) will be shown in lower case.
 The first SQL command removes the {\tt Tracks} table from the 
 database if it exists.  This pattern is simply to allow us to 
 run the same program to create the {\tt Tracks} table over 
-and over again without causeing an error.  Note that the
-{\tt DROP TABLE} does drop the table and all of its contents
-from the database.
+and over again without causing an error.  Note that the
+{\tt DROP TABLE} command deletes the table and all of its contents
+from the database (i.e. there is no ``undo'').
 
 \beforeverb
 \begin{verbatim}
@@ -2890,7 +2889,7 @@ cur.execute('DROP TABLE IF EXISTS Tracks ')
 \end{verbatim}
 \afterverb
 %
-The second command actually creates a table named
+The second command creates a table named
 {\tt Tracks} with a text column named {\tt title}
 and an integer column named {\tt plays}.
 
@@ -2941,11 +2940,11 @@ cur.close()
 After we {\tt INSERT} two rows into our table and use {\tt commit()} 
 to force the data to be written to the database file, we use the {\tt SELECT} command
 to retrieve the rows we just inserted rows from the table.  On the 
-{\tt SELECT} command, we indicate whch columne we would like {\tt title, plays}
+{\tt SELECT} command, we indicate which columns we would like {\tt (title, plays)}
 and indicate which table we want to retrieve the data from.  After we 
 execute the {\tt SELECT} statement, the cursor is something we can loop through
 in a {\tt for} statement.   For efficiency,
-the database does not read all of the data from the
+the cursor does not read all of the data from the
 database when we execute the {\tt SELECT} statement.  
 Instead, the data is read on-demand
 as we loop through the rows in the {\tt for} statement.
@@ -2962,7 +2961,7 @@ Tracks:
 %
 \index{Unicode}
 Our {\tt for} loop finds two rows, and each row is a Python tuple with the
-first value as the {\tt title} and the second value as the {\tt plays}.
+first value as the {\tt title} and the second value as the number of {\tt plays}.
 Do not be concerned that the title strings are shown starting with 
 {\bf u'}.  This is an indication that the strings are {\bf Unicode} strings
 that are capable of handing non-Latin character sets.
@@ -2970,16 +2969,16 @@ that are capable of handing non-Latin character sets.
 At the very end of the program, we execute an SQL command to {\tt DELETE} 
 the rows we have just created so we can run the program over and over.
 The {\tt DELETE} command shows the use of a {\tt WHERE} clause that
-allows us to express a selection criterion so that we can as the database
-to apply the command to the rows that match the criterion.  In this example
+allows us to express a selection criterion so that we can ask the database
+to apply the command to only the rows that match the criterion.  In this example
 the criterion happens to apply to all the rows so we empty the table
 out so we can run the program repeatedly.  After the {\tt DELETE} is performed
-we also call {\tt commit()} to force the data to be written to the database.
+we also call {\tt commit()} to force the data to be removed from the database.
 
 \section{An example program using a database}
 
 In this section, we will create a simple spidering program that will 
-go through Twitter accounts and build a list of Twitter accounts.
+go through Twitter accounts and build a database of them.
 \emph{Note: Be very careful when running this program.  You do not
 want to pull too much data or run the program for too long and
 end up having your Twitter access shut off.}
@@ -2992,7 +2991,7 @@ beginning so we want to store data as we retrieve it so out
 program can start back up and pick up where it left off.
 
 We will start by retrieving one person's Twitter friends and their
-statuses and loop through the list of friends and add each 
+statuses, looping through the list of friends, and adding each 
 of the friends to a database to be retrieved in the future.  After
 we process one person's Twitter friends, we check in our database
 and retrieve one of the friends of the friend.  We do this over and
@@ -3011,7 +3010,7 @@ restart our program as many times as we like.
 This program is a bit complex. It is based on the code that 
 exercises the Twitter API from earlier in the book.
 
-Here is the source code to our Twitter spidering application:
+Here is the source code for our Twitter spidering application:
 
 \beforeverb
 \begin{verbatim}
@@ -3074,11 +3073,12 @@ has a column for the account name, whether we have retrieved the friends
 of this account, and how many times this account has been ``friended''.
 
 In the main loop of the program, we prompt the user for a Twitter
-account name, enter, or to quit the program.  If the user enters
-a Twitter account, we retrieve the list of friends and statuses
-for that user and add the friend to the database if the friend is 
-not already in our list.  If the friend is already in the list, 
-we add one the the {\tt friends} field in the row in the database.
+account name or press enter or enter to ``quit'' to exit the program.  
+If the user enters a Twitter account, we retrieve the 
+list of friends and statuses
+for that user and add each friend to the database if 
+not already in the database.  If the friend is already in the list, 
+we add one to the {\tt friends} field in the row in the database.
 
 If the user presses enter, we look in the database for the next 
 Twitter account that we have not yet retrieved and retrieve the
@@ -3087,10 +3087,10 @@ or update them and increase their {\tt friends count}.
 
 Once we retrieve the list of friends and statuses, we loop 
 through all of the {\tt user} items in the returned XML
-and retreive the \verb"screen_name" for each user.  Then we use
+and retrieve the \verb"screen_name" for each user.  Then we use
 the {\tt SELECT statement} to see if we already have stored this
-particular \verb"screen_name" in the database.  We retrieve the
-friend count if the record exists.
+particular \verb"screen_name" in the database and retrieve the
+friend count ({\tt friends}) if the record exists.
 
 \beforeverb
 \begin{verbatim}
@@ -3114,8 +3114,9 @@ friend count if the record exists.
 \end{verbatim}
 \afterverb
 %
-Once the cursor executes {\tt SELECT} statement, we must retrieve the rows.  We
-could do this with a {\tt for} statement but since we are only retrieving
+Once the cursor executes the {\tt SELECT} statement, 
+we must retrieve the rows.  We could do this with a {\tt for} 
+statement but since we are only retrieving
 one row ({\tt LIMIT 1}), we can use the {\tt fetchone()} method to fetch the
 first (and only) row that is the result of the {\tt SELECT} operation.  And 
 since {\tt fetchone()} returns the row as a {\bf tuple} (even though there is only
@@ -3123,7 +3124,7 @@ one field), we take the first value from the tuple using {\tt [0]} to get the
 current friend count into the variable {\tt count}.  
 
 If this retrieval is successful, we use the SQL {\tt UPDATE} statement with a 
-{\tt WHERE} clause to add one to the {\tt friends} column for the row which 
+{\tt WHERE} clause to add one to the {\tt friends} column for the row that 
 matches the friend's account.  Notice that there are two placeholders (i.e.
 question marks) in the SQL, and the second parameter to the {\tt execute()} is
 a two-element tuple which holds the values to be substituted into the SQL
@@ -3148,7 +3149,7 @@ Enter a Twitter account, or quit: quit
 %
 Since this is the first time we have run the program, the database
 is empty and we create the database in the file {\tt twdata.db} and
-add a table named {\tt Twitter} to the database.  Then we retreive
+add a table named {\tt Twitter} to the database.  Then we retrieve
 some friends and add them all to the database since the database is
 empty.
 
@@ -3170,7 +3171,7 @@ cur.close()
 \end{verbatim}
 \afterverb
 %
-This program simply opens the database, and selects all of the 
+This program simply opens the database and selects all of the 
 columns of all of the rows in the table {\tt Twitter} and then 
 loops through the rows and prints out each row.
 
@@ -3210,7 +3211,7 @@ Enter a Twitter account, or quit: quit
 \afterverb
 %
 Since we pressed enter (i.e. we did not specify a Twitter account),
-the following code is excuted:
+the following code is executed:
 \beforeverb
 \begin{verbatim}
     if ( len(acct) < 1 ) :
@@ -3244,7 +3245,7 @@ thier data as follows:
 \afterverb
 %
 Once we retrieve the data successfully, we use the {\tt UPDATE} statement 
-to set the {\tt retreived} column to one to indicate that we have completed 
+to set the {\tt retrieved} column to one to indicate that we have completed 
 the retrieval of the friends of this account.  This keeps us from re-reteieving
 the same data over and over and keeps us progressing forward through the network
 of Twitter friends.
@@ -3271,12 +3272,12 @@ If we once again run the dumping program, it will give us the following output:
 We can see that we have properly recorded that we have visited 
 {\tt lhawthorn} and {\tt opencontent}.  Also the accounts 
 {\tt cnxorg} and {\tt kthanos} already have two followers.
-Since we now have retreived the friends of three people
+Since we now have retrieved the friends of three people
 (drchuck, opencontent and lhawthorn) our table has 295 rows 
 of friends to retrieve.
 
 Each time we run the program and press enter, it will pick the next 
-unvisited account (i.e. the next account will be \verb"steve_coppin"),
+unvisited account (e.g. the next account will be \verb"steve_coppin"),
 retrieve their friends, mark them as retrieved and for each of the 
 friends of \verb"steve_coppin", either add them to the end of the 
 database, or update their friend count if they are already in the
@@ -3299,12 +3300,12 @@ examples.   In this section, we look at the SQL language in particular
 and give an overview of SQL syntax.
 
 There are many different database systems which are used for a wide
-variety of purposes including: Oracle, MySql, Microsoft SQL Server, 
-Postgress, and SQLite.  We focus on SQLite in this book because
+variety of purposes including: Oracle, MySQL, Microsoft SQL Server, 
+PostgreSQL, and SQLite.  We focus on SQLite in this book because
 it is a very common database and is already built into Python.  
 SQLite is designed to be \emph{embedded} into other applications
-to provide database support within the application.  As an example
-the FireFox browser also uses the SQLite database internally as do 
+to provide database support within the application.  As an example,
+the Firefox browser also uses the SQLite database internally as do 
 many other products.
 
 SQLite is well suited to some of the data manipulation problems that we 
@@ -3350,13 +3351,13 @@ DELETE FROM Tracks WHERE title = 'My Way'
 %
 Note that unlike Python, in SQL we use a single equals sign 
 to indicate a test for equality rather than a double equals sign.
-Other locical operations allowed in a where clause include 
+Other locical operations allowed in a {\tt WHERE} clause include 
 \verb"<",
 \verb">",
 \verb"<=",
 \verb">=",
 \verb"!=",
-as well as {\tt AND} and {\tt OR} and parenthesis
+as well as {\tt AND} and {\tt OR} and parentheses
 to build your logical expressions.
 
 It is possible to {\tt UPDATE} a column or columns within one or more rows
@@ -3371,8 +3372,8 @@ UPDATE Tracks SET plays = 16 WHERE title = 'My Way'
 The {\tt UPDATE} statement specifies a table and 
 then a list of fields and values to change after the {\tt SET} 
 keyword and then an optional {\tt WHERE} clause to select
-the rows which are to be updated.  A single {\tt UPDATE} statement
-can change all of the rows that match the {\tt WHERE} clause, or if 
+the rows that are to be updated.  A single {\tt UPDATE} statement
+will change all of the rows that match the {\tt WHERE} clause, or if 
 a {\tt WHERE} clause is not specified, it performs the {\tt UPDATE}
 on all of the rows in the table.
 
@@ -3388,7 +3389,7 @@ SELECT * FROM Tracks WHERE title = 'My Way'
 \afterverb
 %
 
-Usinr \verb"*" indicates that you want to the database to return all of 
+Using \verb"*" indicates that you want to the database to return all of 
 the columns for each row that matches the {\tt WHERE} clause.  You can request
 that the returned rows be sorted by one of the fields as follows:
 
@@ -3401,27 +3402,27 @@ SELECT title,plays FROM Tracks ORDER BY title
 These four basic SQL commands (INSERT, SELECT, UPDATE, and DELETE) allow 
 the four basic operations needed to create and maintain data.
 
-\section{Basic data modelling}
+\section{Basic data modeling}
 
 The real power of a relational database is when we make multiple tables
 and make links between those tables.   The act of deciding how to break
 up your application data into multiple tables and establishing the
-relationship between the two tables is called {\bf data modelling}.  The
+relationship between the two tables is called {\bf data modeling}.  The
 design document that shows the tables and their relationships 
 is called a {\bf data model}.
 
-Data modelling is a relatively sophisticated skill and we will only introduce
+Data modeling is a relatively sophisticated skill and we will only introduce
 the most basic concepts of relational data modeling in this section.  For more
-detail on data modelling you can start with:
+detail on data modeling you can start with:
 
 \url{http://en.wikipedia.org/wiki/Relational_model}
 
-Lets say for our Twitter spider application, instead of just 
+Let's say for our Twitter spider application, instead of just 
 counting a person's friends, we wanted to keep a list of 
 all of the incoming relationships so we could find a list of 
 everyone who is following a particular account.
 
-We since everyone will potentially have many acounts that follow
+Since everyone will potentially have many acounts that follow
 them, we cannot simply add a single column to our {\tt Twitter} table. 
 So we create a new table that keeps track of pairs of friends.
 The following is a simple way of making such a table:
@@ -3464,7 +3465,7 @@ as possible.
 
 The first thing that we do is to add an additional column to the 
 {\tt Twitter} table to store the numeric key associated with the 
-row.   SQLite has a feature which automatically adds the key value
+row.   SQLite has a feature that automatically adds the key value
 for any row we insert into a table using a special kind of 
 data column of type {\tt INTEGER PRIMARY KEY}.
 
@@ -3509,7 +3510,7 @@ it simpler to write some of our code.
 
 We will now re-do the Twitter spider program using two tables, the primary
 keys, and the key references as described above.  Here is the code for 
-the new program version of the program:
+the new version of the program:
 
 \beforeverb
 \begin{verbatim}
@@ -3587,7 +3588,7 @@ cur.close()
 \afterverb
 %
 This program is starting to get a bit complicated but it illustrates
-the primary needed patterns which we need to make use of when we are
+the primary needed patterns that we need to make use of when we are
 using integer keys to link tables. The basic patterns are:
 
 \begin{enumerate}
@@ -3638,9 +3639,9 @@ We add the {\tt OR IGNORE} clause to our {\tt INSERT} statement to indicate
 that if this particular {\tt INSERT} would cause a violation of the
 ``{\tt name} must be unique'' rule, the database system can just ignore the 
 {\tt INSERT}.  We are using the database constraint as a safety net
-to make sure we don't inadvertently do something dumb.
+to make sure we don't do something incorrect inadvertently.
 
-Similarly, the following code insures that we don't add the 
+Similarly, the following code ensures that we don't add the 
 exact same {\tt Follows} relationship twice.
 
 \beforeverb
@@ -3657,29 +3658,29 @@ that we specifies for the {\tt Friends} rows.
 \subsection{Retrieve and/or insert a record}
 
 When we prompt the user for a Twitter account, if the account 
-exists, we must look up it's {\tt id} value and if the account
+exists, we must look up its {\tt id} value and if the account
 does not yet exist in the {\tt People} table, we must insert 
 the record and get the {\tt id} value from the inserted
 row.
 
 This is a very common pattern and is done twice in the above 
 program.  This code shows how we look up the {\tt id} for a 
-friend's account when we have extract a \verb"screen_name"
+friend's account when we have extracted a \verb"screen_name"
 from a {\tt user} node in the retrieved Twitter XML.
 
 Since over time it will be increasingly likely that the account
 will already be in the database, we first check to see if the
 {\tt People} record exists using a {\tt SELECT} statement.
 
-If all goes well\footnote{In general, when a sentance starts 
+If all goes well\footnote{In general, when a sentence starts 
 with ``if all goes well'' you will find that the code needs
 to use try/except.} inside the {\tt try} section, we retrieve the
 record using {\tt fetchone()} and then retrieve the
-first(and only) element of the returned tuple and store it in 
+first (and only) element of the returned tuple and store it in 
 {\tt id}.
 
 If the {\tt SELECT} fails, the {\tt fetchone()[0]} code will fail
-and contraol will transfer into the {\tt except} section.
+and control will transfer into the {\tt except} section.
 
 \beforeverb
 \begin{verbatim}
@@ -3775,15 +3776,61 @@ Friends:
 \afterverb
 %
 You can see the {\tt id}, {\tt name}, and {\tt visited} fields in the 
-{\tt People} table and you see the numbers of the from and to ends of 
-the {\tt Friends} table.   Looking at the data, you can see that 
-``drchuck'' is a friend to all of the people.  This makes sense because
-we started by reteieving all of the friends of ``drchuck'' from Twitter.
+{\tt People} table and you see the numbers of both ends of 
+the relationship {\tt Friends} table.   
+In the {\tt People} table, we can see that the first three people
+have been visited and their data has been retrieved.
+The data in the {\tt Friends} table indicates that
+``drchuck'' (user 1) is a friend to all of the people shown in the first
+five rows which are shown.  This makes sense because
+the first data we retrieved and stored was the Twitter friends of
+``drchuck''.
+
+\section{Three kinds of keys}
+
+Now that we have started building a data model and putting our
+data into multiple linked tables and linking the rows in those
+tables, using {\bf keys}, we need to look at some terminology 
+around keys.  There are generally three kinds of keys used 
+in a database model.
+
+\begin{itemize}
+
+\item A {\bf logical key} is a key that the ``real world'' might use
+to look up a row.   In our example data model, the {\tt name}
+field is a logical key.  It is the screen name for the user 
+and we indeed look up a user's row several times in the program
+using the {\tt name} field.  You will often find that it makes
+sense to add a {\tt UNIQUE} constraint to a logical key.  Since the 
+logical key is how we look up a row from the otside world, it makes
+little sense to allow multiple rows with the same value in the table.
+
+\item A {\bf primary key} is usually a number and is often assigned
+automatically by the database.  It generally has no meaning outside
+the program and is only used to link rows from different tables
+together.  When we want to look up a row in a table, usually 
+searchnig for the row using the primary key is the fastest 
+way to find a row.  Since primary keys are integer numbers, they 
+take up very little storage and can be compared or sorted very quickly.
+In our data model, the {\tt id} field is an example of a primary key.
+
+\item A {\bf foreign key} usually a number and points to the primary key
+of an asscoiated row in a different table.  An example of a foreign
+key in our data model is the \verb"from_id".  
+
+\end{itemize}
+
+In this chapter, we use an optional
+naming convention of always calling the primary key field name
+{\tt id} and appending the suffix \verb"_id" to any field name
+that is a foreign key.
+
 
 \section{Using JOIN to retrieve data}
 
 Now that we have followed the rules of database normalization
-and have data separated into two tables, we need to be able to build a 
+and have data separated into two tables and linked together using
+primary and foreign keys, we need to be able to build a 
 {\tt SELECT} that re-assembles the data across the tables.
 
 SQL uses the the {\tt JOIN} clause to re-connect these tables.  
@@ -3897,7 +3944,48 @@ see that the second column (\verb"Friends.to_id") matches the third column
 
 \section{Summary}
 
-This chapter has covered a lot of ground.
+This chapter has covered a lot of ground to give you an overview of the basics
+of using a database in Python.   It is more complicated write the code to use 
+a database to store data than Python dictionaries or flat files so there is 
+little reason to use a database unless your application truly needs the capabilities
+of a database.  The situations where a database can be quite useful are: 
+(1) when your application needs to make small many random updates within a large data set,
+(2) when your data is so large it cannot fit in a dictionary and you need to 
+look up information repeatedly, or
+(3) you have a long-running process that you want to be able to stop 
+and restart and retain the data from one run to the next.
+
+You can build a simple database with a single table to suit many application 
+needs, but most problems will require several tables and links/relationships
+between rows in different tables.   When you start making links between 
+tables, it is important to do some thoughful design and follow the 
+rules of database normalization to make best use of the database's
+capapbilities.  And since the primary motivation for using a database
+is that you have a large amount of data to deal with, it is important
+to model your data effficiently so your programs run as fast as possible.
+
+\section{Debugging}
+
+Locking.
+
+\section{Glossary}
+
+\begin{description}
+
+\item[database normalization:] Def
+\index{database normalization}
+
+\item[primary key:] Def
+\index{primary key}
+
+\end{description}
+
+\section{Exercises}
+
+\begin{ex}
+Blah
+\end{ex}
+
 
 \chapter{Visualizing data}
 
