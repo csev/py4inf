@@ -11,16 +11,16 @@ for row in cur :
    count = count + 1
 print count, 'rows.'
 
-cur.execute('SELECT * FROM Friends')
+cur.execute('SELECT * FROM Follows')
 count = 0
-print 'Friends:'
+print 'Follows:'
 for row in cur :
    if count < 5: print row
    count = count + 1
 print count, 'rows.'
 
-cur.execute('''SELECT * FROM Friends JOIN People 
-    ON Friends.to_id = People.id WHERE Friends.from_id = 2''')
+cur.execute('''SELECT * FROM Follows JOIN People 
+    ON Follows.to_id = People.id WHERE Follows.from_id = 2''')
 count = 0
 print 'Connections for id=2:'
 for row in cur :

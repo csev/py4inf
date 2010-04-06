@@ -9,7 +9,7 @@ cur = conn.cursor()
 
 cur.execute('''CREATE TABLE IF NOT EXISTS People 
     (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)''')
-cur.execute('''CREATE TABLE IF NOT EXISTS Friends 
+cur.execute('''CREATE TABLE IF NOT EXISTS Follows 
     (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id))''')
 
 while True:
@@ -61,7 +61,7 @@ while True:
                 continue
             friend_id = cur.lastrowid
             countnew = countnew + 1
-        cur.execute('INSERT OR IGNORE INTO Friends (from_id, to_id) VALUES (?, ?)',
+        cur.execute('INSERT OR IGNORE INTO Follows (from_id, to_id) VALUES (?, ?)',
             (id, friend_id) )
     print 'New accounts=',countnew,' revisited=',countold
     conn.commit()
