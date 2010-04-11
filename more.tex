@@ -2477,9 +2477,116 @@ huge_idea
 
 One of the great advantages of the Python language is the ability
 to write programs that scan through your computer and 
-perform some operation on each file.  These scripts
-can make short work of simple tasks that must be done to files
+perform some operation on each file.  
+Files are organized into {\bf directories} (also called ``folders'').
+Simple Python scripts
+can make short work of simple tasks that must be done to 
+hundreds or thousands of files
 spread across a directory tree.
+
+To walk through all the directories and files in a tree we use 
+{\tt os.walk} and a {\tt for} loop.  This is similar to how 
+{\tt open} allows us to write a loop to read the contents of a file,
+{\tt socket} allows us to write a loop to read the contents of a network connection, and
+{\tt urllib} allows us to open a web document and loop through its contents.
+
+\section{Filenames and paths}
+\label{paths}
+
+\index{filename}
+\index{path}
+\index{directory}
+\index{folder}
+
+Every running program has a ``current directory,'' which is the
+default directory for most operations.  
+For example, when you open a file for reading, Python looks for it in the
+current directory.
+
+\index{os module}
+\index{module!os}
+
+The {\tt os} module provides functions for working with files and
+directories (``os'' stands for ``operating system'').  {\tt os.getcwd}
+returns the name of the current directory:
+
+\index{getcwd function}
+\index{function!getcwd}
+
+\beforeverb
+\begin{verbatim}
+>>> import os
+>>> cwd = os.getcwd()
+>>> print cwd
+/home/dinsdale
+\end{verbatim}
+\afterverb
+%
+{\tt cwd} stands for ``current working directory.''  The result in
+this example is {\tt /home/dinsdale}, which is the home directory of a
+user named {\tt dinsdale}.
+
+\index{working directory}
+\index{directory!working}
+
+A string like {\tt cwd} that identifies a file is called a {\bf path}.
+A {\bf relative path} starts from the current directory;
+an {\bf absolute path} starts from the topmost directory in the
+file system.
+
+\index{relative path}
+\index{path!relative}
+\index{absolute path}
+\index{path!absolute}
+
+The paths we have seen so far are simple filenames, so they are
+relative to the current directory.  To find the absolute path to
+a file, you can use {\tt os.path.abspath}:
+
+\beforeverb
+\begin{verbatim}
+>>> os.path.abspath('memo.txt')
+'/home/dinsdale/memo.txt'
+\end{verbatim}
+\afterverb
+%
+{\tt os.path.exists} checks
+whether a file or directory exists:
+
+\index{exists function}
+\index{function!exists}
+
+\beforeverb
+\begin{verbatim}
+>>> os.path.exists('memo.txt')
+True
+\end{verbatim}
+\afterverb
+%
+If it exists, {\tt os.path.isdir} checks whether it's a directory:
+
+\beforeverb
+\begin{verbatim}
+>>> os.path.isdir('memo.txt')
+False
+>>> os.path.isdir('music')
+True
+\end{verbatim}
+\afterverb
+%
+Similarly, {\tt os.path.isfile} checks whether it's a file.
+
+{\tt os.listdir} returns a list of the files (and other directories)
+in the given directory:
+
+\beforeverb
+\begin{verbatim}
+>>> os.listdir(cwd)
+['music', 'photos', 'memo.txt']
+\end{verbatim}
+\afterverb
+%
+
 
 \section{Example: Cleaning up a photo directory}
 
@@ -2522,7 +2629,6 @@ for (dirname, dirs, files) in os.walk('.'):
    for filename in files:
        if filename.endswith('.txt') :
            count = count + 1
-
 print 'Files:', count
 
 python txtcount.py
@@ -2533,27 +2639,27 @@ Files: 1917
 The key bit of code that makes this possible is the {\tt os.walk}
 library in Python.  When we call {\tt os.walk} and give it a starting
 directory, it will ``walk'' through all of the directories 
-and subdirectories recursively.   The string ``.'' indiates
-to start in the current directory and walk downard.
+and subdirectories recursively.   The string ``.'' indicates
+to start in the current directory and walk downward.
 As it encounters each directory,
 we get three values in a tuple.  The first value is the curent
 directory name, the second value is the list of sub-directories 
 in the current directory, and the third value is a list of files
 in the current directory.
 
-We do not have to explicitly look into each of the sub-folders
+We do not have to explicitly look into each of the sub-directories
 because we can count on {\tt os.walk} to visit every 
 folder eventually.  But we do want to look at each file so 
-we write a simple {\tt for} loop to loop throu the files 
-int he current directory.   We check each file to see if 
+we write a simple {\tt for} loop to loop through the files 
+in the current directory.   We check each file to see if 
 it ends with ``.txt'' and then count the number of 
 files through the whole directory tree that end with the
 suffix ``.txt''.
 
 Once we have a sense of how many of these files, the next
-thing to do is try to figure out a way to automatically
-figure out in Python which files are bad and which files
-are good.   So we write a simpe program to print out the
+thing to do is try to automatically
+determine in Python which files are bad and which files
+are good.   So we write a simple program to print out the
 files and the size of each file:
 
 \beforeverb
@@ -2572,7 +2678,8 @@ Now instead of just counting the files, we create
 a file name by concatening the directory name with
 the name of the file within the directory using
 {\tt os.path.join}.   It is important to use 
-{\tt os.path.join} because on Windows we use a backslash
+{\tt os.path.join} instead of string concatenation 
+because on Windows we use a backslash
 (\verb"\") to construct file paths and on Linux
 or Apple we use a forward slash (\verb"/") 
 to construct file paths.  The {\tt os.path.join}
@@ -2608,8 +2715,8 @@ Scanning the output, we notice that some files are pretty short and
 a lot of the files are pretty large and the same size (2578 and 2565). 
 When we take a look at a few of these larger files by hand, 
 it looks like the large 
-files are a generic bit of HTML that was came in from mail 
-sent to my system from my T-Mobile phone:
+files are nothing but a generic bit of identical HTML that came 
+in from mail sent to my system from my T-Mobile phone:
 
 \beforeverb
 \begin{verbatim}
@@ -2621,9 +2728,7 @@ sent to my system from my T-Mobile phone:
 \afterverb
 %
 Skimming through the file, it looks like there is no good information
-in these files so we can probably delete them and perhaps we should
-just delete all of the files that have any HTML in them since 
-these files are supposed to be captions and not contain HTML.
+in these files so we can probably delete them.
 
 But before we delete the files, lets write a program to look for files
 that are more than one line long and show the contents of the file.
@@ -2653,7 +2758,7 @@ for (dirname, dirs, files) in os.walk('.'):
 \end{verbatim}
 \afterverb
 %
-We use a {\tt contiue} to skip files with the two 
+We use a {\tt continue} to skip files with the two 
 ``bad sizes'' and then open the rest of the files
 and read the lines of the file into a Python list
 and if the file has more than one line we print
@@ -2680,7 +2785,7 @@ python txtcheck.py
 \afterverb
 %
 But there is one more annoying pattern of files, 
-there are some three line files that consist of
+there are some three-line files that consist of
 two blank lines followed by a line that says
 ``Sent from my iPhone'' that have slipped 
 into my data.   So we make the following change
@@ -2789,8 +2894,6 @@ we make the following change to the program:
 In this version of the program, we will both print the file out 
 and remove the bad files
 using {\tt os.remove}.
-Just for fun, run the program a second time and it will produce no output
-since the bad files are already gone.
 
 \beforeverb
 \begin{verbatim}
@@ -2801,8 +2904,11 @@ T-Mobile: ./2005/01/02-01-05_1858001.txt
 \end{verbatim}
 \afterverb
 %
+Just for fun, run the program a second time and it will produce no output
+since the bad files are already gone.
+
 If we rerun {\tt txtcount.py} we can see that we have removed
-around 900 bad files:
+899 bad files:
 \beforeverb
 \begin{verbatim}
 python txtcount.py 
@@ -2826,104 +2932,6 @@ you will need to read all the files and make a change
 to some or of the files.  All of these are pretty 
 straighforward once you understand how {\tt os.walk}
 and the other {\tt os} utilities can be used.
-
-\section{Filenames and paths}
-\label{paths}
-
-\index{filename}
-\index{path}
-\index{directory}
-\index{folder}
-
-Files are organized into {\bf directories} (also called ``folders'').
-Every running program has a ``current directory,'' which is the
-default directory for most operations.  
-For example, when you open a file for reading, Python looks for it in the
-current directory.
-
-\index{os module}
-\index{module!os}
-
-The {\tt os} module provides functions for working with files and
-directories (``os'' stands for ``operating system'').  {\tt os.getcwd}
-returns the name of the current directory:
-
-\index{getcwd function}
-\index{function!getcwd}
-
-\beforeverb
-\begin{verbatim}
->>> import os
->>> cwd = os.getcwd()
->>> print cwd
-/home/dinsdale
-\end{verbatim}
-\afterverb
-%
-{\tt cwd} stands for ``current working directory.''  The result in
-this example is {\tt /home/dinsdale}, which is the home directory of a
-user named {\tt dinsdale}.
-
-\index{working directory}
-\index{directory!working}
-
-A string like {\tt cwd} that identifies a file is called a {\bf path}.
-A {\bf relative path} starts from the current directory;
-an {\bf absolute path} starts from the topmost directory in the
-file system.
-
-\index{relative path}
-\index{path!relative}
-\index{absolute path}
-\index{path!absolute}
-
-The paths we have seen so far are simple filenames, so they are
-relative to the current directory.  To find the absolute path to
-a file, you can use {\tt os.path.abspath}:
-
-\beforeverb
-\begin{verbatim}
->>> os.path.abspath('memo.txt')
-'/home/dinsdale/memo.txt'
-\end{verbatim}
-\afterverb
-%
-{\tt os.path.exists} checks
-whether a file or directory exists:
-
-\index{exists function}
-\index{function!exists}
-
-\beforeverb
-\begin{verbatim}
->>> os.path.exists('memo.txt')
-True
-\end{verbatim}
-\afterverb
-%
-If it exists, {\tt os.path.isdir} checks whether it's a directory:
-
-\beforeverb
-\begin{verbatim}
->>> os.path.isdir('memo.txt')
-False
->>> os.path.isdir('music')
-True
-\end{verbatim}
-\afterverb
-%
-Similarly, {\tt os.path.isfile} checks whether it's a file.
-
-{\tt os.listdir} returns a list of the files (and other directories)
-in the given directory:
-
-\beforeverb
-\begin{verbatim}
->>> os.listdir(cwd)
-['music', 'photos', 'memo.txt']
-\end{verbatim}
-\afterverb
-%
 
 \section{Pipes}
 
