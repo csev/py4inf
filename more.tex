@@ -2522,7 +2522,7 @@ returns the name of the current directory:
 \end{verbatim}
 \afterverb
 %
-{\tt cwd} stands for ``current working directory.''  The result in
+{\tt cwd} stands for {\bf current working directory}.  The result in
 this example is {\tt /home/dinsdale}, which is the home directory of a
 user named {\tt dinsdale}.
 
@@ -2642,7 +2642,8 @@ directory, it will ``walk'' through all of the directories
 and subdirectories recursively.   The string ``.'' indicates
 to start in the current directory and walk downward.
 As it encounters each directory,
-we get three values in a tuple.  The first value is the curent
+we get three values in a tuple in the body of the {\tt for} loop.  
+The first value is the curent
 directory name, the second value is the list of sub-directories 
 in the current directory, and the third value is a list of files
 in the current directory.
@@ -2650,13 +2651,13 @@ in the current directory.
 We do not have to explicitly look into each of the sub-directories
 because we can count on {\tt os.walk} to visit every 
 folder eventually.  But we do want to look at each file so 
-we write a simple {\tt for} loop to loop through the files 
+we write a simple {\tt for} loop to examine each of the files 
 in the current directory.   We check each file to see if 
 it ends with ``.txt'' and then count the number of 
 files through the whole directory tree that end with the
 suffix ``.txt''.
 
-Once we have a sense of how many of these files, the next
+Once we have a sense of how many files that end with ``.txt'', the next
 thing to do is try to automatically
 determine in Python which files are bad and which files
 are good.   So we write a simple program to print out the
@@ -2752,6 +2753,7 @@ for (dirname, dirs, files) in os.walk('.'):
            lines = list()
            for line in fhand:
                lines.append(line)
+           fhand.close()
            if len(lines) > 1:
                 print len(lines), thefile
                 print lines[:4]
@@ -2781,6 +2783,7 @@ python txtcheck.py
 3 ./2007/09/19-09-07_124857_01.txt
 ['\r\n', '\r\n', 'Sent from my iPhone\r\n']
 3 ./2007/09/20-09-07_115617_01.txt
+...
 \end{verbatim}
 \afterverb
 %
@@ -2849,6 +2852,7 @@ for (dirname, dirs, files) in os.walk('.'):
            lines = list()
            for line in fhand:
                lines.append(line)
+           fhand.close()
            if len(lines) == 3 and lines[2].startswith('Sent from my iPhone') :
                print 'iPhone:', thefile
                continue
@@ -2952,7 +2956,11 @@ Any program that you can launch from the shell can also be
 launched from Python using a {\bf pipe}.  A pipe is an object
 that represents a running process.
 
-For example, the Unix command {\tt ls -l} normally displays the
+For example, the Unix command\footnote{When using pipes to talk 
+to operating system commands like {\tt ls}, it is important 
+for you to know which operating system you are using and only
+open pipes to commands that are supported on your operating system.}
+{\tt ls -l} normally displays the
 contents of the current directory (in long format).  You can
 launch {\tt ls} with {\tt os.popen}:
 
@@ -2999,6 +3007,72 @@ None
 The return value is the final status of the {\tt ls} process;
 {\tt None} means that it ended normally (with no errors).
 
+\section{Glossary}
+
+\begin{description}
+
+\item[absolute path:] A string that describes where a file or
+directory is stored that starts at the ``top of the tree of directories''
+so that it can be used to access the file or directory regardless
+of the current working directory.
+\index{path!absolute}
+
+\item[checksum:] See also {\bf hashing}.  The term ``checksum'' 
+comes from the need to verify if data was garbled as it was 
+sent across a network or written to a backup medium and then
+read back in.  When the data is written or sent, the sending system
+computes a checksum and also sends the checksum.  When the 
+data is read or received, the receiving system recomputes
+the checksum from the received data and compares it to the 
+received checksum.  If the checksums do not match, we must
+assume that the data was garbled as it was transferred.
+\index{checksum}
+
+\item[current working directory:] The current directory that you 
+are ``in''.  You can change your working directory using the 
+{\tt cd} command on most systems in their command-line interfaces.
+When you open a file in Python using just the file name with no path 
+information the file must be in the current working directory
+where you are runnig the program.
+\index{directory!current}
+\index{directory!working}
+\index{directory!cwd}
+
+\item[hashing:] Reading through a potentially large amount of data
+and producing a unique checksum for the data.  The best hash functions
+produce very few ``collisions'' where you can give two different
+streams of data to the hash function and get back the same hash. 
+MD5, SHA1, and SHA256 are examples of commonly used hash functions.
+\index{hashing}
+
+\item[pipe:] A pipe is a connection to a running program.  Using
+a pipe, you can write a program to send data to another program
+or receive data from that program.  A pipe is similar to a 
+{\bf socket} except that a pipe only can be used to 
+connect programs running on the same computer (i.e. not
+across a network).
+\index{pipe}
+
+\item[relative path:] A string that describes where a file or
+directory is stored {\emph relative} to the current working 
+directory.
+\index{path!relative}
+
+\item[shell:] A command-line interface to an operating system.
+Also called a ``terminal program'' in some systems. In this interface
+you type a command and parameters on a line and pres ``enter''
+to execute the command.
+\index{shell}
+
+\item[walk:] A term we use to describe the notion of visiting
+and entire tree of directories, subdirectories, sub-sub-directories, 
+until we have visited the all of the directories.  We call this
+``walking the directory tree''.
+\index{walk}
+
+\end{description}
+
+
 \section{Exercises}
 
 \begin{ex}
@@ -3013,30 +3087,64 @@ these duplicates.
 
 \begin{enumerate}
 
-\item Write a program that searches a directory and all of its
-subdirectories, recursively, and returns a list of complete paths
-for all files with a given suffix (like {\tt .mp3}).
-Hint: {\tt os.path} provides several useful functions for
-manipulating file and path names.
+\item Write a program that walks a directory and all of its
+subdirectories for all files with a given suffix (like {\tt .mp3})
+and lists pairs of files with that are the same size.
+Hint: Use a dictionary where the key of the dictionary is the size
+of the file from {\tt  os.path.getsize} and the value in the 
+dictionary is the path name concatenated with the file name.  
+As you encounter each file check to see if you already have a
+file in the has with the same size.  If so, you have a duplicate
+size file and print out the file size and the two files names 
+(one from the hash and the other file you are looking at).
 
 \index{duplicate}
 \index{MD5 algorithm}
 \index{algorithm!MD5}
 \index{checksum}
 
-\item To recognize duplicates, you can use a hash function that
-reads the file and generates a short summary
-of the contents.  For example,
+\item Adapt the previous program to look for files that 
+have duplicate {\emph content} using a {\bf hashing} or {\bf checksum}
+algorithm.  For example,
 MD5 (Message-Digest algorithm 5) takes an arbitrarily-long
 ``message'' and returns a 128-bit ``checksum.''  The probability
 is very small that two files with different contents will
 return the same checksum.
 
-You can read about MD5 at \url{wikipedia.org/wiki/Md5}.  On
-a Unix system you can use the program {\tt md5sum} and a pipe to
-compute checksums from Python.
+You can read about MD5 at \url{wikipedia.org/wiki/Md5}.  The 
+following code snippet opens a file, reads it and computes
+its checksum.
 
-\index{pipe}
+\beforeverb
+\begin{verbatim}
+import hashlib 
+...
+           fhand = open(thefile,"r")
+           data = fhand.read()
+           fhand.close()
+           checksum = hashlib.md5(data).hexdigest()
+\end{verbatim}
+\afterverb
+%
+You should create a dictionary where the checksum is the key 
+and the file name is the value.   When you compute a checksum
+and it is already in the dictionary as a key, you have two files with 
+duplicate content so print out the file in the dictionary
+and the file you just read.  Here is some sample output
+from a run in a folder of image files:
+\beforeverb
+\begin{verbatim}
+./2004/11/15-11-04_0923001.jpg ./2004/11/15-11-04_1016001.jpg
+./2005/06/28-06-05_1500001.jpg ./2005/06/28-06-05_1502001.jpg
+./2006/08/11-08-06_205948_01.jpg ./2006/08/12-08-06_155318_02.jpg
+./2006/09/28-09-06_225657_01.jpg ./2006/09-50-years/28-09-06_225657_01.jpg
+./2006/09/29-09-06_002312_01.jpg ./2006/09-50-years/29-09-06_002312_01.jpg
+\end{verbatim}
+\afterverb
+%
+Apparently I sometimes sent the same photo more than once 
+or made a copy of a photo from time to time without deleting
+the original.
 
 \end{enumerate}
 

@@ -13,6 +13,7 @@ for (dirname, dirs, files) in os.walk('.'):
            lines = list()
            for line in fhand:
                lines.append(line)
+           fhand.close()
            if len(lines) == 3 and lines[2].startswith('Sent from my iPhone') :
                print 'iPhone:', thefile
                os.remove(thefile)

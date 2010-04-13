@@ -11,6 +11,7 @@ for (dirname, dirs, files) in os.walk('.'):
            lines = list()
            for line in fhand:
                lines.append(line)
+           fhand.close()
            if len(lines) > 1:
                 print len(lines), thefile
                 print lines[:4]
