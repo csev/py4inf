@@ -20,7 +20,7 @@ while True:
         try:
             (id, acct) = cur.fetchone()
         except:
-            print "No unretrieved Twitter accounts found"
+            print 'No unretrieved Twitter accounts found'
             continue
     else:
         cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1', 

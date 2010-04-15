@@ -18,7 +18,7 @@ while True:
         try:
             acct = cur.fetchone()[0]
         except:
-            print "No unretrieved Twitter accounts found"
+            print 'No unretrieved Twitter accounts found'
             continue
 
     url = TWITTER_URL.replace('ACCT', acct)
