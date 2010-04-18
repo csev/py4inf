@@ -32,19 +32,26 @@ def tinyTable(url):
 cururl = 'https://ctools.umich.edu/access/wiki/site/f57681b8-6db9-46cf-aad1-3a0bdd621138/home.html'
 urls = list()
 urls.append(cururl)
+visited = list()
 
 while len(urls) > 0 : 
+    print '========= ',len(urls),' =========='
     cururl = urls.pop()
+    print 'RETRIEVING',cururl
     d1 = tinyTable(cururl)
+    if cururl in visited : visited.append(cururl)
     soup = BeautifulSoup(d1)
 
     tags = soup('a')
     print 'Tags'
     for tag in tags:
-        url = tag['href']
+        print tag
+        url = tag.get('href',None)
+        if url == None : continue
         if url.startswith('http') : continue
         newurl = urllib.basejoin(cururl,url)
-        print newurl
+        if newurl in visited : continue
+        print 'APPENDING',newurl
         urls.append(newurl)
 
     tags = soup('link')
