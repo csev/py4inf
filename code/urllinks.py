@@ -1,12 +1,11 @@
 import urllib
+from BeautifulSoup import *
 
 url = raw_input('Enter - ')
-fhand = urllib.urlopen(url)
-for line in fhand:
-   pos = line.find('href="')
-   if pos < 1 : continue
-   rest = line[pos+6:]
-   end = rest.find('"')
-   if end < 1 : continue
-   link = rest[:end]
-   print link
+html = urllib.urlopen(url).read
+soup = BeautifulSoup(html)
+
+# Retrieve all of the anchor tags
+tags = soup('a')
+for tag in tags:
+   print tag.get('href', None)
