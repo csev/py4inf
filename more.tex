@@ -899,8 +899,23 @@ has its strengths and weaknesses and you can pick one based on
 your needs.
 
 As an example, we will simply parse some HTML input 
-and extract links using Python string functions.   Here is a 
-simple web page:
+and extract links using the {\bf BeautifulSoup} library.   
+You can download and install the BearutifulSoup code
+from:
+
+\url{www.crummy.com}
+
+You can download and ``install'' BeautifulSoup or you 
+can simply place the {\tt BeautifulSoup.py} file in the
+same folder as your application.
+
+Even though HTML looks like XML and some pages are carefully 
+constructed to be XML, most HTML is geerally broken in ways
+that cause an XML parser to reject the entire page of HTML as
+improperly formed.  BeautifulSoup tolerates highly flawed 
+HTML and still lets you easily extract the data you need.
+
+Here is a simple web page:
 
 \beforeverb
 \begin{verbatim}
@@ -913,37 +928,33 @@ Second Page</a>.
 \end{verbatim}
 \afterverb
 %
-We will read through the page and key off the ``href'' string
-in the line.   We will then use simple string manipulation
-to  extract the information between the double quotes as follows:
+We will use {\tt urllib} to read the bage and then use
+{\tt BeautifulSoup} to extract the {\tt href} attributes from the
+anchor ({\tt a}) tags.
+\index{BeautifulSoup}
+\index{HTML}
+\index{parsing!HTML}
 
 \beforeverb
 \begin{verbatim}
 import urllib
+from BeautifulSoup import *
 
 url = raw_input('Enter - ')
-fhand = urllib.urlopen(url)
-for line in fhand:
-   pos = line.find('href="')
-   if pos < 1 : continue
-   rest = line[pos+6:]
-   end = rest.find('"')
-   if end < 1 : continue
-   link = rest[:end]
-   print link
+html = urllib.urlopen(url).read
+soup = BeautifulSoup(html)
+
+# Retrieve all of the anchor tags
+tags = soup('a')
+for tag in tags:
+   print tag.get('href', None)
 \end{verbatim}
 \afterverb
 %
 The program prompts for a web address, then opens the web
-address and starts looping through the lines of the web page.
-First it looks for lines with ``href'' and skips the lines
-that do not have the ``href'' string.  On lines with the 
-``href'' string, the code skips past the ``href'', equals sign, 
-and double quote and takes the rest of the line.
-
-It then searches for the next double quote in the rest of the 
-line and treats the link as the text up to but not 
-including the second double quote.
+page, reads the data and passes the data to the BeautifulSoup
+parser, and then retrieves all of the anchor tags and prints
+out the {\tt href} attribute for each tag.
 
 When the program is run it looks as follows:
 
@@ -955,8 +966,6 @@ http://www.dr-chuck.com/page2.htm
 
 python urllinks.py 
 Enter - http://www.py4inf.com/
-/glike.css
-py4inf_cover.jpg
 http://www.greenteapress.com/thinkpython/thinkpython.html
 http://allendowney.com/
 http://www.si502.com/
@@ -966,9 +975,56 @@ http://www.pythonlearn.com/
 \end{verbatim}
 \afterverb
 %
+You can use BeautifulSoup to pull out various parts of each 
+tag as follows:
+\beforeverb
+\begin{verbatim}
+import urllib
+from BeautifulSoup import *
+
+url = raw_input('Enter - ')
+html = urllib.urlopen(url).read
+soup = BeautifulSoup(html)
+
+# Retrieve all of the anchor tags
+tags = soup('a')
+for tag in tags:
+   # Look at the parts of a tag
+   print 'TAG:',tag
+   print 'URL:',tag.get('href', None)
+   print 'Content:',tag.contents[0]
+   print 'Attrs:',tag.attrs
+\end{verbatim}
+\afterverb
+%
+This produces the following output:
+\beforeverb
+\begin{verbatim}
+python urllink2.py 
+Enter - http://www.dr-chuck.com/page1.htm
+TAG: <a href="http://www.dr-chuck.com/page2.htm">
+Second Page</a>
+URL: http://www.dr-chuck.com/page2.htm
+Content: [u'\nSecond Page']
+Attrs: [(u'href', u'http://www.dr-chuck.com/page2.htm')]
+\end{verbatim}
+\afterverb
+%
+These examples only begin to show the power of BeautifulSoup
+when it comes to parsing HTML.  See the documentation 
+and samples at
+{\url www.crummy.com}
+for more detail.
+
 \section{Glossary}
 
 \begin{description}
+
+\item[BeautifulSoup:] A Python library for parsing HTML documents
+and extracting data from HTML documents
+that compensates for most of the imperfections in the HTML that browsers
+generally ignore.
+\index{BeautifulSoup}
 
 \item[port:] A number that generally indicates which application 
 you are contacting when you make a socket connection to a server.
@@ -997,41 +1053,7 @@ use to build their search index.
 \section{Exercises}
 
 \begin{ex}
-Download the Google Application Engine Python SDK from 
-
-\url{http://code.google.com/appengine/downloads.html}
-
-And create the ``hello world'' application in Google App Engine
-and get it up and running
-on your computer.  Then adapt the simple {\tt socket} program to 
-connect to your web server running at {\tt http://localhost:8080/}
-instead of {\tt http://www.py4inf.com/code/romeo.txt}.  Remember that
-the ``8080'' is the non-default HTTP port number while 80 is the 
-default http port number.
-
-The output should look as follows:
-\beforeverb
-\begin{verbatim}
-HTTP/1.0 200 Good to go
-
-Server: Development/1.0
-Date: Wed, 17 Mar 2010 20:30:59 GMT
-Content-Type: text/plain
-Cache-Control: no-cache
-Expires: Fri, 01 Jan 1990 00:00:00 GMT
-Content-Length: 17
-
-Hello there Chuck
-\end{verbatim}
-\afterverb
-%
-\end{ex}
-
-\begin{ex}
-Change the program which uses {\tt urllib} and reads and prints
-the data to talk to your web server running at 
-{\tt http://localhost:8080/}.
-How is the output different from the previous exercise and why?
+% TODO: Add Exercises
 \end{ex}
 
 
