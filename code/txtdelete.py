@@ -9,7 +9,7 @@ for (dirname, dirs, files) in os.walk('.'):
                print 'T-Mobile:',thefile
                os.remove(thefile)
                continue
-           fhand = open(thefile,"r")
+           fhand = open(thefile,'r')
            lines = list()
            for line in fhand:
                lines.append(line)

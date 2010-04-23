@@ -7,10 +7,10 @@ while ( True ) :
     try:
         value = float(inp)
     except:
-        print "Invalid input"
+        print 'Invalid input'
         continue
     total = total + value     
     count = count + 1
 
 average = total / count
-print "Average:", average
+print 'Average:', average

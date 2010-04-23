@@ -8,7 +8,7 @@ for (dirname, dirs, files) in os.walk('.'):
            if size == 2578 or size == 2565:
                print 'T-Mobile:',thefile
                continue
-           fhand = open(thefile,"r")
+           fhand = open(thefile,'r')
            lines = list()
            for line in fhand:
                lines.append(line)

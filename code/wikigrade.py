@@ -85,7 +85,7 @@ while len(urls) > 0 :
     # print data[:500]
 
     stuff = ET.fromstring(data)
-    lst = stuff.findall("channel/item/description")
+    lst = stuff.findall('channel/item/description')
     print 'Item count:', len(lst)
 
     for item in lst:

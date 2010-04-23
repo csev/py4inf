@@ -9,7 +9,7 @@ folders on your computer.
 In this chapter, we will write programs that scan 
 scan through your computer and 
 perform some operation on each file.  
-Files are organized into {\bf directories} (also called ``folders'').
+Files are organized into directories (also called ``folders'').
 Simple Python scripts
 can make short work of simple tasks that must be done to 
 hundreds or thousands of files
@@ -21,10 +21,10 @@ To walk through all the directories and files in a tree we use
 {\tt socket} allows us to write a loop to read the contents of a network connection, and
 {\tt urllib} allows us to open a web document and loop through its contents.
 
-\section{Filenames and paths}
+\section{File names and paths}
 \label{paths}
 
-\index{filename}
+\index{file name}
 \index{path}
 \index{directory}
 \index{folder}
@@ -38,7 +38,7 @@ current directory.
 \index{module!os}
 
 The {\tt os} module provides functions for working with files and
-directories (``os'' stands for ``operating system'').  {\tt os.getcwd}
+directories ({\tt os} stands for ``operating system'').  {\tt os.getcwd}
 returns the name of the current directory:
 
 \index{getcwd function}
@@ -60,7 +60,7 @@ user named {\tt dinsdale}.
 \index{working directory}
 \index{directory!working}
 
-A string like {\tt cwd} that identifies a file is called a {\bf path}.
+A string like {\tt cwd} that identifies a file is called a path.
 A {\bf relative path} starts from the current directory;
 an {\bf absolute path} starts from the topmost directory in the
 file system.
@@ -70,7 +70,7 @@ file system.
 \index{absolute path}
 \index{path!absolute}
 
-The paths we have seen so far are simple filenames, so they are
+The paths we have seen so far are simple file names, so they are
 relative to the current directory.  To find the absolute path to
 a file, you can use {\tt os.path.abspath}:
 
@@ -121,16 +121,15 @@ in the given directory:
 
 \section{Example: Cleaning up a photo directory}
 
-I will start with a simple real example problem and then walk through 
-the solution in a series of simple Python scripts.  I had built a 
-bit of Flickr-like software that stored my cell-phone photos on a server
-when I would send the photos to the server using E-Mail or MMS.  I wrote
-this before Flickr existed and kept using it after Flickr existed because
+Some time ago, I built a bit of Flickr-like software that 
+received photos from my cellphone and stored those photos
+on my server.  I wrote this before Flickr existed and kept 
+using it after Flickr existed because
 I wanted to keep original copies of my images forever.
 
 I would also send a simple one-line text description in the MMS message
 or the subject line of the E-Mail message.  I stored these messages
-in a text file in the same directory as the image file.   I had come up 
+in a text file in the same directory as the image file.   I came up 
 with a directory structure based on the month, year, day and time the 
 photo was taken.   The following would be an example of the naming for 
 one photo and its existing description:
@@ -142,14 +141,14 @@ one photo and its existing description:
 \end{verbatim}
 \afterverb
 %
-After seven years, I had a lot of photos and captions.  But over the years
-as I switched cell phones, sometimes my code to pull out the caption would
-break and add a bunch of useless data from the message instead of a caption.  
+After seven years, I had a lot of photos and captions.  Over the years
+as I switched cell phones, sometimes my code to extract the caption from the message 
+would break and add a bunch of useless data on my server instead of a caption.  
 
-So I wanted to go through these files and figure out which of the 
+I wanted to go through these files and figure out which of the 
 text files were really captions and which were junk and then delete the bad
 files.  The first thing to do was to get a simple inventory of 
-how many text files I had all in all of the sub-folders
+how many text files I had in of the sub-folders
 using the following program:
 
 \beforeverb
@@ -170,25 +169,25 @@ Files: 1917
 The key bit of code that makes this possible is the {\tt os.walk}
 library in Python.  When we call {\tt os.walk} and give it a starting
 directory, it will ``walk'' through all of the directories 
-and subdirectories recursively.   The string ``.'' indicates
+and sub-directories recursively.   The string ``.'' indicates
 to start in the current directory and walk downward.
 As it encounters each directory,
 we get three values in a tuple in the body of the {\tt for} loop.  
-The first value is the curent
+The first value is the current
 directory name, the second value is the list of sub-directories 
 in the current directory, and the third value is a list of files
 in the current directory.
 
 We do not have to explicitly look into each of the sub-directories
 because we can count on {\tt os.walk} to visit every 
-folder eventually.  But we do want to look at each file so 
+folder eventually.  But we do want to look at each file, so 
 we write a simple {\tt for} loop to examine each of the files 
 in the current directory.   We check each file to see if 
 it ends with ``.txt'' and then count the number of 
 files through the whole directory tree that end with the
 suffix ``.txt''.
 
-Once we have a sense of how many files that end with ``.txt'', the next
+Once we have a sense of how many files end with ``.txt'', the next
 thing to do is try to automatically
 determine in Python which files are bad and which files
 are good.   So we write a simple program to print out the
@@ -207,7 +206,7 @@ for (dirname, dirs, files) in os.walk('.'):
 \afterverb
 %
 Now instead of just counting the files, we create 
-a file name by concatening the directory name with
+a file name by concatenating the directory name with
 the name of the file within the directory using
 {\tt os.path.join}.   It is important to use 
 {\tt os.path.join} instead of string concatenation 
@@ -262,9 +261,9 @@ in from mail sent to my system from my T-Mobile phone:
 Skimming through the file, it looks like there is no good information
 in these files so we can probably delete them.
 
-But before we delete the files, lets write a program to look for files
+But before we delete the files, we will write a program to look for files
 that are more than one line long and show the contents of the file.
-But lets not bother showing ourselves those files that are exactly
+But let's not bother showing ourselves those files that are exactly
 2578 or 2565 characters long since we know that these files have no useful
 information.
 
@@ -280,7 +279,7 @@ for (dirname, dirs, files) in os.walk('.'):
            size = os.path.getsize(thefile)
            if size == 2578 or size == 2565:
                continue
-           fhand = open(thefile,"r")
+           fhand = open(thefile,'r')
            lines = list()
            for line in fhand:
                lines.append(line)
@@ -292,14 +291,14 @@ for (dirname, dirs, files) in os.walk('.'):
 \afterverb
 %
 We use a {\tt continue} to skip files with the two 
-``bad sizes'' and then open the rest of the files
+``bad sizes'', then open the rest of the files
 and read the lines of the file into a Python list
 and if the file has more than one line we print
 out how many lines are in the file and print out
 the first three lines.
 
 It looks like filtering out those two bad file sizes, and assuming
-that all one line files are OK, we are down to some pretty clean
+that all one-line files are correct, we are down to some pretty clean
 data:
 
 \beforeverb
@@ -318,7 +317,7 @@ python txtcheck.py
 \end{verbatim}
 \afterverb
 %
-But there is one more annoying pattern of files, 
+But there is one more annoying pattern of files: 
 there are some three-line files that consist of
 two blank lines followed by a line that says
 ``Sent from my iPhone'' that have slipped 
@@ -338,7 +337,7 @@ to the program to deal with these files as well.
 \end{verbatim}
 \afterverb
 %
-We simply check if we have a three line file and if the third 
+We simply check if we have a three-line file, and if the third 
 line starts with the specified text, we skip it.
 
 Now when we run the program, we only see four remaining 
@@ -359,13 +358,13 @@ python txtcheck2.py
 %
 If you look at the overall pattern of this program,
 we have successively refined how we accept or reject
-files and once we found a pattern that was 'bad' we used
+files and once we found a pattern that was ``bad'' we used
 {\tt continue} to skip the bad files so we could refine
 our code to find more file patterns that were bad.
 
-Now we are getting ready to delete the files and so 
+Now we are getting ready to delete the files, so 
 we are going to flip the logic and instead of printing out 
-the ``remaining good files'', we will print out the ``bad''
+the remaining good files, we will print out the ``bad''
 files that we are about to delete.
 \beforeverb
 \begin{verbatim}
@@ -379,7 +378,7 @@ for (dirname, dirs, files) in os.walk('.'):
            if size == 2578 or size == 2565:
                print 'T-Mobile:',thefile
                continue
-           fhand = open(thefile,"r")
+           fhand = open(thefile,'r')
            lines = list()
            for line in fhand:
                lines.append(line)
@@ -390,7 +389,7 @@ for (dirname, dirs, files) in os.walk('.'):
 \end{verbatim}
 \afterverb
 %
-So we can now see a list of candidate files that we are about
+We can now see a list of candidate files that we are about
 to delete and why these files are up for deleting.
 The program produces the following output:
 \beforeverb
@@ -452,7 +451,7 @@ Files: 1018
 \afterverb
 %
 In this section, we have followed a sequence where we use Python 
-to first look through directories and files looking for 
+to first look through directories and files seeking
 patterns.  We slowly use Python to help determine what we 
 want to do to clean up our directories.  Once we
 figure out which files are good and which files are 
@@ -464,8 +463,8 @@ and might only depend on looking at the names of files,
 or perhaps you need to read every single file and
 look for patterns within the files.  Sometimes 
 you will need to read all the files and make a change 
-to some or of the files.  All of these are pretty 
-straighforward once you understand how {\tt os.walk}
+to some of the files.  All of these are pretty 
+straightforward once you understand how {\tt os.walk}
 and the other {\tt os} utilities can be used.
 
 \section{Command line arguments}
@@ -478,15 +477,15 @@ from the file and processed the data as follows:
 
 \beforeverb
 \begin{verbatim}
-name = raw_input("Enter file:")
-handle = open(name, "r")
+name = raw_input('Enter file:')
+handle = open(name, 'r')
 text = handle.read()
 ...
 \end{verbatim}
 \afterverb
 %
 We can simplify this program a bit by taking the file name
-from the command line where we start Python.  Up to now,
+from the command line when we start Python.  Up to now,
 we simply run our Python programs and respond to the 
 prmompts as as follows:
 
@@ -498,9 +497,9 @@ Enter file: mbox-short.txt
 \end{verbatim}
 \afterverb
 %
-We can place additional parameters after the Python file and access
-those parameters in our Python program.  Here is a simple program 
-that demonstrates reading parameters from the command line:
+We can place additional strings after the Python file and access
+those {\bf command line arguments} in our Python program.  Here is a simple program 
+that demonstrates reading arguments from the command line:
 
 \beforeverb
 \begin{verbatim}
@@ -513,10 +512,10 @@ for arg in sys.argv:
 \afterverb
 %
 The contents of {\tt sys.argv} are a list of strings where the first string
-is the name of the Python program and the remaining strings are the parameters
+is the name of the Python program and the remaining strings are the arguments
 on the command line after the Python file.
 
-The following shows our program reading several parameters from the command
+The following shows our program reading several command line arguments from the command
 line:
 
 \beforeverb
@@ -532,22 +531,22 @@ Argument: there
 %
 There are three arguments are passed into our program as a three-element list.  
 The first element of the list is the file name (argtest.py) and the others are 
-the two parameters after the file name.
+the two command line arguments after the file name.
 
-We can rewrite our program to read the file, taking the file name from the parameter
-as follows:
+We can rewrite our program to read the file, taking the file name 
+from the command line argument as follows:
 \beforeverb
 \begin{verbatim}
 import sys
 
 name = sys.argv[1]
-handle = open(name, "r")
+handle = open(name, 'r')
 text = handle.read()
 print name, 'is', len(text), 'bytes'
 \end{verbatim}
 \afterverb
 %
-We take the second parameter as the name of the file (skipping past
+We take the second command line argument as the name of the file (skipping past
 the program name in the {\tt [0]} entry).  We open the file and read 
 the contents as follows:
 
@@ -558,7 +557,7 @@ mbox-short.txt is 94626 bytes
 \end{verbatim}
 \afterverb
 %
-Using parameters as input can make it easier to reuse your Python programs 
+Using command line arguments as input can make it easier to reuse your Python programs 
 especially when you only need to input one or two strings.
 
 \section{Pipes}
@@ -637,29 +636,30 @@ The return value is the final status of the {\tt ls} process;
 
 \item[absolute path:] A string that describes where a file or
 directory is stored that starts at the ``top of the tree of directories''
-so that it can be used to access the file or directory regardless
+so that it can be used to access the file or directory, regardless
 of the current working directory.
 \index{path!absolute}
-
-\item[argument:] Parameters on the command line after the Python file name.
 
 \item[checksum:] See also {\bf hashing}.  The term ``checksum'' 
 comes from the need to verify if data was garbled as it was 
 sent across a network or written to a backup medium and then
 read back in.  When the data is written or sent, the sending system
 computes a checksum and also sends the checksum.  When the 
-data is read or received, the receiving system recomputes
+data is read or received, the receiving system re-computes
 the checksum from the received data and compares it to the 
 received checksum.  If the checksums do not match, we must
 assume that the data was garbled as it was transferred.
 \index{checksum}
+
+\item[command line argument:] Parameters on the command line after the Python file name.
+
 
 \item[current working directory:] The current directory that you 
 are ``in''.  You can change your working directory using the 
 {\tt cd} command on most systems in their command-line interfaces.
 When you open a file in Python using just the file name with no path 
 information the file must be in the current working directory
-where you are runnig the program.
+where you are running the program.
 \index{directory!current}
 \index{directory!working}
 \index{directory!cwd}
@@ -674,24 +674,24 @@ MD5, SHA1, and SHA256 are examples of commonly used hash functions.
 \item[pipe:] A pipe is a connection to a running program.  Using
 a pipe, you can write a program to send data to another program
 or receive data from that program.  A pipe is similar to a 
-{\bf socket} except that a pipe only can be used to 
+{\bf socket} except that a pipe can only be used to 
 connect programs running on the same computer (i.e. not
 across a network).
 \index{pipe}
 
 \item[relative path:] A string that describes where a file or
-directory is stored {\emph relative} to the current working 
+directory is stored relative to the current working 
 directory.
 \index{path!relative}
 
 \item[shell:] A command-line interface to an operating system.
 Also called a ``terminal program'' in some systems. In this interface
-you type a command and parameters on a line and pres ``enter''
+you type a command and parameters on a line and press ``enter''
 to execute the command.
 \index{shell}
 
 \item[walk:] A term we use to describe the notion of visiting
-and entire tree of directories, subdirectories, sub-sub-directories, 
+the entire tree of directories, sub-directories, sub-sub-directories, 
 until we have visited the all of the directories.  We call this
 ``walking the directory tree''.
 \index{walk}
@@ -706,7 +706,7 @@ until we have visited the all of the directories.  We call this
 
 \index{MP3}
 
-In a large collection of MP3 files, there may be more than one
+In a large collection of MP3 files there may be more than one
 copy of the same song, stored in different directories or with
 different file names.  The goal of this exercise is to search for
 these duplicates.
@@ -714,13 +714,14 @@ these duplicates.
 \begin{enumerate}
 
 \item Write a program that walks a directory and all of its
-subdirectories for all files with a given suffix (like {\tt .mp3})
+sub-directories for all files with a given suffix (like {\tt .mp3})
 and lists pairs of files with that are the same size.
 Hint: Use a dictionary where the key of the dictionary is the size
 of the file from {\tt  os.path.getsize} and the value in the 
 dictionary is the path name concatenated with the file name.  
 As you encounter each file check to see if you already have a
-file in the has with the same size.  If so, you have a duplicate
+file that has the same size as the current file.  
+If so, you have a duplicate
 size file and print out the file size and the two files names 
 (one from the hash and the other file you are looking at).
 
@@ -730,7 +731,7 @@ size file and print out the file size and the two files names
 \index{checksum}
 
 \item Adapt the previous program to look for files that 
-have duplicate {\emph content} using a {\bf hashing} or {\bf checksum}
+have duplicate content using a hashing or {\bf checksum}
 algorithm.  For example,
 MD5 (Message-Digest algorithm 5) takes an arbitrarily-long
 ``message'' and returns a 128-bit ``checksum.''  The probability
@@ -745,7 +746,7 @@ its checksum.
 \begin{verbatim}
 import hashlib 
 ...
-           fhand = open(thefile,"r")
+           fhand = open(thefile,'r')
            data = fhand.read()
            fhand.close()
            checksum = hashlib.md5(data).hexdigest()
@@ -842,8 +843,8 @@ and displays what the server sends back.
 import socket
 
 mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-mysock.connect(("www.py4inf.com", 80))
-mysock.send("GET http://www.py4inf.com/code/romeo.txt HTTP/1.0\n\n")
+mysock.connect(('www.py4inf.com', 80))
+mysock.send('GET http://www.py4inf.com/code/romeo.txt HTTP/1.0\n\n')
 
 while True:
     data = mysock.recv(512)
@@ -857,7 +858,7 @@ mysock.close()
 %
 First the program makes a connection to port 80 on 
 the server www.py4inf.com.
-Since our program is playing the role of the "web browser" the HTTP
+Since our program is playing the role of the ``web browser'' the HTTP
 protocol says we must send the GET command followed by a blank line.
 
 Once we send that blank line, we write a loop that receives data 
@@ -1258,13 +1259,13 @@ input = '''
 </stuff>'''
 
 stuff = ET.fromstring(input)
-lst = stuff.findall("users/user")
+lst = stuff.findall('users/user')
 print 'User count:', len(lst)
 
 for item in lst:
     print 'Name', item.find('name').text
     print 'Id', item.find('id').text
-    print 'Attribute', item.get("x")
+    print 'Attribute', item.get('x')
 \end{verbatim}
 \afterverb
 %
@@ -4019,6 +4020,7 @@ def middle(word):
 \end{verbatim}
 \afterverb
 %
+% TODO: Remove this
 We'll see how they work in Chapter~\ref{strings}.
 
 \begin{enumerate}

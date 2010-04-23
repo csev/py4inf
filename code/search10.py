@@ -1,4 +1,4 @@
-fhand = open("mbox-short.txt")
+fhand = open('mbox-short.txt')
 for line in fhand:
     words = line.split()
     # print 'Debug:', words

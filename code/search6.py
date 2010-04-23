@@ -1,4 +1,4 @@
-fname = raw_input("Enter the file name: ")
+fname = raw_input('Enter the file name: ')
 fhand = open(fname)
 count = 0
 for line in fhand:

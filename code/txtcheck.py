@@ -7,7 +7,7 @@ for (dirname, dirs, files) in os.walk('.'):
            size = os.path.getsize(thefile)
            if size == 2578 or size == 2565:
                continue
-           fhand = open(thefile,"r")
+           fhand = open(thefile,'r')
            lines = list()
            for line in fhand:
                lines.append(line)

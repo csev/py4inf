@@ -15,7 +15,7 @@ input = '''
 </stuff>'''
 
 stuff = ET.fromstring(input)
-lst = stuff.findall("users/user")
+lst = stuff.findall('users/user')
 print 'User count:', len(lst)
 
 for item in lst:

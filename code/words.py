@@ -1,5 +1,5 @@
-name = raw_input("Enter file:")
-handle = open(name, "r")
+name = raw_input('Enter file:')
+handle = open(name, 'r')
 text = handle.read()
 words = text.split()
 counts = dict()

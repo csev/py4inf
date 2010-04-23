@@ -7,7 +7,7 @@ for (dirname, dirs, files) in os.walk('.'):
    for filename in files:
        if filename.endswith('.txt') :
            thefile = os.path.join(dirname,filename)
-           fhand = open(thefile,"r")
+           fhand = open(thefile,'r')
            data = fhand.read()
            fhand.close()
            hash = hashlib.md5(data).hexdigest()

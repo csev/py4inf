@@ -1,6 +1,6 @@
-fname = raw_input("Enter the file name: ")
+fname = raw_input('Enter the file name: ')
 if fname == 'na na boo boo' :
-    print "NA NA BOO BOO TO YOU - You have been punkd!"
+    print 'NA NA BOO BOO TO YOU - You have been punkd!'
     exit()
 
 try:

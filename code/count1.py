@@ -1,4 +1,4 @@
-fname = raw_input("Enter the file name: ")
+fname = raw_input('Enter the file name: ')
 try:
     fhand = open(fname)
 except:
