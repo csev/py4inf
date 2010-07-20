@@ -35,7 +35,9 @@ def tinyTable(url):
     conn.commit()
     return data
 
-cururl = 'https://ctools.umich.edu/access/wiki/site/f57681b8-6db9-46cf-aad1-3a0bdd621138/home.html'
+cururl = 'https://ctools.umich.edu/portal/tool/27500dea-c105-4f7b-a195-3c89536a64b7?pageName=%2Fsite%2Ff57681b8-6db9-46cf-aad1-3a0bdd621138%2Fhome&action=view&panel=Main&realm=%2Fsite%2Ff57681b8-6db9-46cf-aad1-3a0bdd621138'
+prefix = 'https://ctools.umich.edu/portal/tool/27500dea-c105-4f7b-a195-3c89536a64b7'
+
 urls = list()
 urls.append(cururl)
 visited = list()
@@ -50,53 +52,19 @@ while len(urls) > 0 :
     data = tinyTable(cururl)
     visited.append(cururl)
     soup = BeautifulSoup(data)
-    # print data[:3000]
-    p = re.compile('\(.*?\)')
-    paragraphs = soup('p')
-    for para in paragraphs:
-        try:
-            posters = p.findall(para.contents[0])
-        except:
-            posters = list()
-
-        for poster in posters:
-            poster = poster.lower()
-            postcounts[poster] = postcounts.get(poster,0) + 1
-
     tags = soup('a')
     # print 'Tags'
     for tag in tags:
-        # print tag
+        print tag
         url = tag.get('href',None)
         if url == None : continue
         # Don't follow absolute urls
-        if url.startswith('http') : continue
+        if not url.startswith(prefix) : continue
         newurl = urllib.basejoin(cururl,url)
         if newurl in visited : continue
         # print 'APPENDING',newurl
-        urls.append(newurl)
-
-    if not cururl.endswith('.html') : continue
-    newurl = cururl.replace('.html','.20.rss')
-    if newurl in visited: continue
-    print 'RSS:', newurl
-    data = tinyTable(newurl)
-    visited.append(newurl)
-    # print data[:500]
-
-    stuff = ET.fromstring(data)
-    lst = stuff.findall('channel/item/description')
-    print 'Item count:', len(lst)
-
-    for item in lst:
-        dir(item)
-        # print 'Text', item.text
-        words = item.text.split()
-        # print words[:10]
-        name = words[3] + ' ' + words[4]
-        if words[5] != 'at' : name = name + ' ' + words[5]
-        # print name
-        editcounts[name] = editcounts.get(name, 0 ) + 1
+        if newurl.find('action=view') > 0 or newurl.find('action=history') > 0 :
+            urls.append(newurl)
 
 print 'EDITS:'
 for (key,val) in editcounts.sortvalues():
