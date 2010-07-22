@@ -1396,10 +1396,12 @@ strings because they are enclosed in quotation marks.
 
 \index{quotation mark}
 
-The {\tt print} statement also works for integers.
+The {\tt print} statement also works for integers.  We use the 
+{\tt python} command to start the interpreter.
 
 \beforeverb
 \begin{verbatim}
+python
 >>> print 4
 4
 \end{verbatim}
@@ -1500,7 +1502,7 @@ them values:
 %
 This example makes three assignments.  The first assigns a string
 to a new variable named {\tt message};
-the second gives the integer {\tt 17} to {\tt n}; the third
+the second assigns the integer {\tt 17} to {\tt n}; the third
 assigns the (approximate) value of $\pi$ to {\tt pi}.
 
 \index{state diagram}
@@ -1582,8 +1584,8 @@ and they cannot be used as variable names.
 
 \index{keyword}
 
-Python has 31 keywords\footnote{In Python 3.0, {\tt exec} is no
-longer a keyword, but {\tt nonlocal} is.}:
+Python reserves 31 keywords\footnote{In Python 3.0, {\tt exec} is no
+longer a keyword, but {\tt nonlocal} is.} for its use:
 
 \beforeverb
 \begin{verbatim}
@@ -1837,17 +1839,8 @@ yields the last two digits.
 \index{string!operation}
 \index{operator!string}
 
-In general, you cannot perform mathematical operations on strings, even
-if the strings look like numbers, so the following are illegal:
-
-\beforeverb
-\begin{verbatim}
-'2'-'1'    'eggs'/'easy'    'third'*'a charm'
-\end{verbatim}
-\afterverb
-%
 The {\tt +} operator works with strings, but it
-might not do what you expect: it performs
+is not addition in the mathematical sense. Instead it performs
 {\bf concatenation}, which means joining the strings by
 linking them end-to-end.  For example:
 
@@ -1878,7 +1871,7 @@ that string concatenation does not?
 
 \index{commutativity}
 
-\section{Keyboard input}
+\section{Asking the user for input}
 \index{keyboard input}
 
 Sometimes we would like to take the value for a variable from the user
@@ -1897,9 +1890,9 @@ returns what the user typed as a string.
 \beforeverb
 \begin{verbatim}
 >>> input = raw_input()
-What are you waiting for?
+Some silly stuff
 >>> print input
-What are you waiting for?
+Some silly stuff
 \end{verbatim}
 \afterverb
 %
@@ -1936,6 +1929,8 @@ What...is the airspeed velocity of an unladen swallow?
 17
 >>> int(speed)
 17
+>>> int(speed) + 5
+22
 \end{verbatim}
 \afterverb
 %
@@ -2271,8 +2266,8 @@ execution of the program.
 \section{Exercises}
 
 \begin{ex}
-Write a program that prompts a user for their name and then 
-welcomes them.
+Write a program that uses  \verb"raw_input" to prompt a user for their name 
+and then welcomes them.
 
 \begin{verbatim}
 Enter your name: Chuck
@@ -2302,7 +2297,6 @@ Assume that we execute the following assignment statements:
 \begin{verbatim}
 width = 17
 height = 12.0
-delimiter = '.'
 \end{verbatim}
 
 For each of the following expressions, write the value of the
@@ -2318,31 +2312,9 @@ expression and the type (of the value of the expression).
 
 \item {\tt 1 + 2 * 5}
 
-\item {\tt delimiter * 5}
-
 \end{enumerate}
 
 Use the Python interpreter to check your answers.
-\end{ex}
-
-\begin{ex}
-Practice using the Python interpreter as a calculator: 
-\index{calculator}
-
-\begin{enumerate}
-
-\item Suppose the cover price of a book is \$24.95, but bookstores get a
-  40\% discount.  Shipping costs \$3 for the first copy and 75 cents
-  for each additional copy.  What is the total wholesale cost for
-  60 copies?
-
-\item If I leave my house at 6:52 am and run 1 mile at an easy pace
-  (8:15 per mile), then 3 miles at tempo (7:12 per mile) and 1 mile at
-  easy pace again, what time do I get home for breakfast?
-
-\index{running pace}
-
-\end{enumerate}
 \end{ex}
 
 \begin{ex}
@@ -2472,22 +2444,29 @@ simplest form is the {\tt if} statement:
 
 \beforeverb
 \begin{verbatim}
-if x > 0:
+if x > 0 :
     print 'x is positive'
 \end{verbatim}
 \afterverb
 %
 The boolean expression after the {\tt if} statement is
-called the {\bf condition}.  If it is true, then the indented
-statement gets executed.  If not, nothing happens.
+called the {\bf condition}.  We end the {\tt if} 
+statement with a colon character (:) and the line(s) 
+after the if statement are indented.  
+If the logical condition is true, then the indented
+statement gets executed.  If the logical consition is 
+false, the indented statement is skipped.
 
 \index{condition}
 \index{compound statement}
 \index{statement!compound}
 
-{\tt if} statements have the same structure as function definitions:
-a header followed by an indented block.  Statements like this are
-called {\bf compound statements}.
+{\tt if} statements have the same structure as function definitions
+or {\tt for} loops.  The statement consists of a header line
+that ends with the colon character (:) 
+followed by an indented block.  Statements like this are
+called {\bf compound statements} because they stretch 
+across more than one line.
 
 There is no limit on the number of statements that can appear in
 the body, but there has to be at least one.
@@ -2500,7 +2479,7 @@ case, you can use the {\tt pass} statement, which does nothing.
 
 \beforeverb
 \begin{verbatim}
-if x < 0:
+if x < 0 :
     pass          # need to handle negative values!
 \end{verbatim}
 \afterverb
@@ -2519,9 +2498,9 @@ which one gets executed.  The syntax looks like this:
 
 \beforeverb
 \begin{verbatim}
-if x%2 == 0:
+if x%2 == 0 :
     print 'x is even'
-else:
+else :
     print 'x is odd'
 \end{verbatim}
 \afterverb
@@ -2635,7 +2614,7 @@ if 0 < x and x < 10:
 \afterverb
 
 
-\section{Catching exceptions}
+\section{Catching exceptions using try and except}
 \label{catch1}
 
 Earlier we saw a code segment where we used the \verb"raw_input" and
@@ -2989,7 +2968,9 @@ Pay: 475.0
 
 \begin{ex}
 Rewrite your pay program using {\tt try} and {\tt except} 
-so that your program handles non-numeric input gracefully.
+so that your program handles non-numeric input gracefully
+by printing a message and exiting the program.
+The following shows two executions of the program:
 
 \begin{verbatim}
 Enter Hours: 20
@@ -3006,6 +2987,7 @@ Write a program to prompt for a score between 0.0 and 1.0.
 If the score is out of range print an error.  If the score
 is between 0.0 and 1.0, print a grade using the following 
 table:
+
 \begin{verbatim}
 Score   Grade
 > 0.9     A
@@ -3030,8 +3012,8 @@ Enter score: 0.5
 F
 \end{verbatim}
 
-Run the program repeatedly to test the various different values
-for input.
+Run the program repeatedly as shown above to test the 
+various different values for input.
 \end{ex}
 
 \chapter{Functions}
@@ -3055,8 +3037,10 @@ We have already seen one example of a {\bf function call}:
 \afterverb
 %
 The name of the function is {\tt type}.  The expression in parentheses
-is called the {\bf argument} of the function.  The result, for this
-function, is the type of the argument.
+is called the {\bf argument} of the function.  The argument is 
+a value or variable that we are passing into the function as input 
+ot the function.  
+The result, for the {\tt type} function, is the type of the argument.
 
 \index{parentheses!argument in}
 
@@ -3092,7 +3076,9 @@ function shows us the smallest character which turns out to be a
 space.
 
 Another very common built-in function is the {\tt len} function
-which tells us how many items are in its argument:
+which tells us how many items are in its argument. If the argument
+to {\tt len} is a string, it returns the number of characters 
+int he string.
 
 \beforeverb
 \begin{verbatim}
@@ -3450,7 +3436,8 @@ name.
 \index{argument}
 
 The empty parentheses after the name indicate that this function
-doesn't take any arguments.
+doesn't take any arguments.   Later will build functions that 
+take arguments as their inputs.
 
 \index{parentheses!empty}
 \index{header}
@@ -3742,8 +3729,9 @@ the result:
 \end{verbatim}
 \afterverb
 %
-But in a script, if you call a fruitful function all by itself,
-the return value is lost forever!
+But in a script, if you call a fruitful function and do 
+not store the result of the function in a variable,
+the return value vanishes into the mist!
 
 \beforeverb
 \begin{verbatim}
@@ -3752,7 +3740,7 @@ math.sqrt(5)
 \afterverb
 %
 This script computes the square root of 5, but since it doesn't store
-or display the result, it is not very useful.
+the result in a variable or display the result, it is not very useful.
 
 \index{interactive mode}
 \index{script mode}
@@ -4155,7 +4143,9 @@ def sequence(n):
 \end{verbatim}
 \afterverb
 %
-The condition for this loop is {\tt n != 1}, so the loop will continue
+XXX
+The condition for this loop is {\tt n != 1}\footnote{Remember that {\tt != } is the operator for 'not equal'.}, 
+so the loop will continue
 until {\tt n} is {\tt 1}, which makes the condition false.
 
 Each time through the loop, the program outputs the value of {\tt n}
@@ -4398,7 +4388,7 @@ These loops are generally constructed by:
 
 \begin{itemize}
 
-\item Initialize one or more variables them before the loop starts.
+\item Initialize one or more variables before the loop starts.
 
 \item Perform some computation on each item in the loop body, 
 possibly changing the variables in the body of the loop
@@ -4651,7 +4641,7 @@ accumulate a result.
 \index{accumulator}
 
 \item[infinite loop:] A loop in which the terminating condition is
-never satisfied.
+never satisfied or for which there is no termination condition.
 \index{infinite loop}
 
 \end{description}
@@ -4663,6 +4653,7 @@ never satisfied.
 Write a program which reads list of numbers until ``done'' is entered.
 Once ``done'' is entered, print out the total, count, and average
 of the numbers.  If the user enters anything other than a number, 
+detect their mistake using {\tt try} and {\tt catch} and 
 print an error message and skip to the next number.
 
 \begin{verbatim}
@@ -4703,8 +4694,8 @@ bracket operator:
 \end{verbatim}
 \afterverb
 %
-The second statement selects character number 1 from {\tt
-fruit} and assigns it to {\tt letter}.  
+The second statement extracts the character at index position 1 from the 
+{\tt fruit} variable and assigns it to {\tt letter} variable.  
 
 \index{index}
 
@@ -4756,7 +4747,7 @@ TypeError: string indices must be integers
 \afterverb
 %
 
-\section{{\tt len}}
+\section{Getting the length of a string using {\tt len}}
 
 \index{len function}
 \index{function!len}
@@ -4807,7 +4798,7 @@ letter, {\tt fruit[-2]} yields the second to last, and so on.
 \index{negative index}
 
 
-\section{Traversal with a {\tt for} loop}
+\section{Traversal through a string with a {\tt for} loop}
 \label{for}
 
 \index{traversal}
@@ -4841,8 +4832,9 @@ last character accessed is the one with the index {\tt len(fruit)-1},
 which is the last character in the string.
 
 \begin{ex}
-Write a function that takes a string as an argument
-and displays the letters backward, one per line.
+Write a {\tt while} loop that starts at the last character in the string
+and works its way backwards to the first character in the string, 
+printing each letter on a separate line, except backwards.
 \end{ex}
 
 Another way to write a traversal is with a {\tt for} loop:
@@ -4896,11 +4888,6 @@ Qack
 %
 Of course, that's not quite right because ``Ouack'' and
 ``Quack'' are misspelled.
-
-\begin{ex}
-Modify the program to fix this error.
-\end{ex}
-
 
 
 \section{String slices}
@@ -5136,34 +5123,6 @@ returns {\tt True} if the first appears as a substring in the second:
 True
 >>> 'seed' in 'banana'
 False
-\end{verbatim}
-\afterverb
-%
-For example, the following function prints all the
-letters from {\tt word1} that also appear in {\tt word2}:
-
-\beforeverb
-\begin{verbatim}
-def in_both(word1, word2):
-    for letter in word1:
-        if letter in word2:
-            print letter
-\end{verbatim}
-\afterverb
-%
-With well-chosen variable names,
-Python sometimes reads like English.  You could read
-this loop, ``for (each) letter in (the first) word, if (the) letter 
-(appears) in (the second) word, print (the) letter.''
-
-Here's what you get if you compare apples and oranges:
-
-\beforeverb
-\begin{verbatim}
->>> in_both('apples', 'oranges')
-a
-e
-s
 \end{verbatim}
 \afterverb
 %
@@ -5969,7 +5928,7 @@ programs have just been transient fun exercises to learn Python.
 In this chapter, we start to work with {\bf Secondary Memory} 
 (or files).
 Secondary memory not erased even when the power is turned off.  
-Or in the case of a USB memory drive, the
+Or in the case of a USB flash drive, the
 data can we write from our programs can be removed from the 
 system and transported to another system.
 
@@ -5987,7 +5946,11 @@ When we want to read or write a file (say on your hard drive), we first
 must {\bf open} the file.  Opening the file communicates with your operating
 system which knows where the data for each file is stored.  When you open
 a file, you are asking the operating system to find the file by name
-and make sure the file exists.
+and make sure the file exists.  In this example, we open the file 
+{\tt mbox.txt} which should be stored in the same folder that you in when you 
+start Python.
+You can download this file from 
+\url{www.py4inf.com/code/mbox.txt}
 
 \beforeverb
 \begin{verbatim}
@@ -6178,8 +6141,9 @@ loop.
 
 \section{Searching through a file}
 
-It is a very common pattern to read through a file, ignoring most
-of the lines and processing lines which meet a particular criteria.
+When you are searching through data in a file, it
+is a very common pattern to read through a file, ignoring most
+of the lines and only processing lines which meet a particular criteria.
 We can combine the pattern for reading a file with string {\bf methods}
 to build simple search mechanisms.
 
@@ -6428,7 +6392,7 @@ print 'There were', count, 'subject lines in', fname
 The {\tt exit} function terminates the program.  It is a function
 that we call that never returns.  Now when our user (or 
 QA team) types in silliness or bad file names, 
-we ``catch'' then and recover gracefully:
+we ``catch'' them and recover gracefully:
 \beforeverb
 \begin{verbatim}
 python search7.py
@@ -6628,6 +6592,9 @@ RECEIVED: FROM MURDER (MAIL.UMICH.EDU [141.211.14.90])
 	 SAT, 05 JAN 2008 09:14:16 -0500
 \end{verbatim}
 \afterverb
+%
+You can download the file from
+\url{www.py4inf.com/code/mbox-short.txt}
 \end{ex}
 
 \begin{ex}
@@ -7927,7 +7894,10 @@ string should be split.
 \section{Exercises}
 
 \begin{ex}
-Write a program to open the file {\tt romeo.txt} and read the file
+Download a copy of the file from 
+\url{www.py4inf.com/code/romeo.txt}
+
+Write a program to open the file {\tt romeo.txt} and read it
 line by line.  For each line, split the line into  a list of 
 words using the {\tt split} function.
 
@@ -7936,9 +7906,6 @@ If the word is not in the list, add it to the list.
 
 When the program completes, sort and print the resulting words
 in alphabetical order.
-
-You can get a copy of the file from 
-\url{www.py4inf.com/code/romeo.txt}
 
 \begin{verbatim}
 Enter file: romeo.txt
@@ -7995,8 +7962,8 @@ There were 27 lines in the file with From as the first word
 \index{index}
 
 A {\bf dictionary} is like a list, but more general.  In a list,
-the indices have to be integers; in a dictionary they can
-be (almost) any type.
+the positions (a.k.a. indices) have to be integers; in a dictionary 
+the indices can be (almost) any type.
 
 You can think of a dictionary as a mapping between a set of indices
 (which are called {\bf keys}) and a set of values.  Each key maps to a
@@ -8220,7 +8187,9 @@ def histogram(s):
 \afterverb
 %
 The name of the function is {\bf histogram}, which is a statistical
-term for a set of counters (or frequencies).
+term for a set of counters (or frequencies).  The {\tt +=} operator
+is an {\tt increment} operator and in the above example, we 
+add one to the value stored in {\tt d[c]}.
 
 \index{histogram}
 \index{frequency}
@@ -8721,9 +8690,10 @@ Enter a file name: mbox-short.txt
 \index{type!tuple}
 \index{sequence}
 
-A tuple is a sequence of values.  The values can be any type, and
-they are indexed by integers, so in that respect tuples are a lot
-like lists.  The important difference is that tuples are {\bf immutable}.
+A tuple is a sequence of values much like a list.  
+The values stored in a tuple can be any type, and
+they are indexed by integers.
+The important difference is that tuples are {\bf immutable}.
 Tuples are also {\bf comparable} and {\bf hashable} so we can 
 sort lists of them and use tuples as key values in Python
 dictionaries.
@@ -8895,7 +8865,7 @@ This feature lends itself to a pattern called {\bf DSU} for
 \item[Decorate] a sequence by building a list of tuples
 with one or more sort keys preceding the elements from the sequence,
 
-\item[Sort] the list of tuples, and
+\item[Sort] the list of tuples uring the Python built-in {\tt sort}, and
 
 \item[Undecorate] by extracting the sorted elements of the sequence.
 
@@ -9104,7 +9074,7 @@ dictionary sorted by key:
 \end{verbatim}
 \afterverb
 %
-The new list is sorted in ascending order by the key value.
+The new list is sorted in ascending alphabetical order by the key value.
 
 \section{Multiple assignment with dictionaries}
 
@@ -9112,7 +9082,7 @@ The new list is sorted in ascending order by the key value.
 \index{dictionary!traversal}
 
 Combining {\tt items}, tuple assignment and {\tt for}, you
-get the idiom for traversing the keys and values of a dictionary
+can see a nice code pattern for traversing the keys and values of a dictionary
 in a single loop:
 
 \beforeverb
@@ -10239,6 +10209,7 @@ Katie Kujala,
 Noah Botimer,
 Emily Alinder,
 Mark Thompson-Kular,
+James Perry,
 
 % CONTRIB
 
