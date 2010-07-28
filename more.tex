@@ -861,6 +861,10 @@ the server www.py4inf.com.
 Since our program is playing the role of the ``web browser'' the HTTP
 protocol says we must send the GET command followed by a blank line.
 
+\beforefig
+\centerline{\includegraphics[height=1.00in]{figs2/socket.eps}}
+\afterfig
+
 Once we send that blank line, we write a loop that receives data 
 in 512 character chunks from the socket and prints the data out 
 until there is no more data to read (i.e. the recv() returns 
@@ -996,7 +1000,7 @@ your needs.
 
 As an example, we will simply parse some HTML input 
 and extract links using the {\bf BeautifulSoup} library.   
-You can download and install the BearutifulSoup code
+You can download and install the BeautifulSoup code
 from:
 
 \url{www.crummy.com}
@@ -1109,7 +1113,7 @@ Attrs: [(u'href', u'http://www.dr-chuck.com/page2.htm')]
 These examples only begin to show the power of BeautifulSoup
 when it comes to parsing HTML.  See the documentation 
 and samples at
-{\url www.crummy.com}
+\url{www.crummy.com}
 for more detail.
 
 \section{Glossary}
@@ -1120,6 +1124,9 @@ for more detail.
 and extracting data from HTML documents
 that compensates for most of the imperfections in the HTML that browsers
 generally ignore.
+You can download the BeautifulSoup code
+from 
+\url{www.crummy.com}.
 \index{BeautifulSoup}
 
 \item[port:] A number that generally indicates which application 
