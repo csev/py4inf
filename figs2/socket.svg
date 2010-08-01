@@ -7,7 +7,6 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="1279.5154"
@@ -88,7 +87,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.39"
-     inkscape:cx="723.69614"
+     inkscape:cx="249.33717"
      inkscape:cy="164.93641"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -106,7 +105,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -115,13 +114,6 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-40.289872,-338.23373)">
-    <image
-       y="338.23373"
-       x="846.32349"
-       id="image4994"
-       height="582.00073"
-       width="473.48175"
-       xlink:href="file:///Users/csev/Desktop/inkscape_pasted_image_20100728_093612.png" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:1.99890745;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect2816"
@@ -158,24 +150,6 @@
          x="1079.9163"
          y="444.22137"
          id="tspan2911">www.py4inf.com</tspan></text>
-    <rect
-       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.68797827;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect2909"
-       width="402.28888"
-       height="100.16525"
-       x="479.43738"
-       y="561.04907" />
-    <text
-       xml:space="preserve"
-       style="font-size:39.97816467px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       x="619.14215"
-       y="619.76654"
-       id="text2913"
-       transform="scale(0.99945266,1.0005476)"><tspan
-         sodipodi:role="line"
-         id="tspan2915"
-         x="619.14215"
-         y="619.76654">Socket</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:39.97816467px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
@@ -242,5 +216,40 @@
          x="1087.604"
          y="865.78601"
          id="tspan4965" /></text>
+    <rect
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect2844"
+       width="479.48718"
+       height="589.74359"
+       x="805.12823"
+       y="0.6055783"
+       transform="translate(40.289872,338.23373)" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.68797827;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect2909"
+       width="402.28888"
+       height="100.16525"
+       x="479.43741"
+       y="555.92084" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="612.08472"
+       y="618.32648"
+       id="text3630"><tspan
+         sodipodi:role="line"
+         id="tspan3632"
+         x="612.08472"
+         y="618.32648">Socket</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="796.70013"
+       y="618.32648"
+       id="text3634"><tspan
+         sodipodi:role="line"
+         id="tspan3636"
+         x="796.70013"
+         y="618.32648">80</tspan></text>
   </g>
 </svg>

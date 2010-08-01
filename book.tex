@@ -10388,7 +10388,7 @@ mysock.close()
 \afterverb
 %
 First the program makes a connection to port 80 on 
-the server www.py4inf.com.
+the server \url{www.py4inf.com}.
 Since our program is playing the role of the ``web browser'' the HTTP
 protocol says we must send the GET command followed by a blank line.
 
@@ -10687,7 +10687,11 @@ use to build their search index.
 \section{Exercises}
 
 \begin{ex}
-% TODO: Add Exercises
+Change the {\tt urllinks.py} program to extract paragraph (<p>) tags
+from the retrieved HTML document and simply count how many paragraphs
+are in the document and display the count of the paragraphs as the 
+output of your program.  Test your program on several small web pages
+as well as some larger web pages.
 \end{ex}
 
 
@@ -10866,6 +10870,10 @@ agrees to make a hotel reservation using the airline site, the airline site uses
 another web service on the hotel systems to actually make the reservation.
 And when it comes to charge your credit card for the whole transaction, 
 still other computers become involved in the process.
+
+\beforefig
+\centerline{\includegraphics[height=2.50in]{figs2/soa.eps}}
+\afterfig
 
 A Service-Oriented Architecture has many advantages including: (1) we 
 always maintain only one copy of data - this is particularly important
@@ -11181,6 +11189,11 @@ When you first look at a database it looks like a
 spreadsheet with multiple sheets.   The primary data structures 
 in a database are:
 {\bf tables}, {\bf rows}, and {\bf columns}.  
+
+\beforefig
+\centerline{\includegraphics[height=1.50in]{figs2/relational.eps}}
+\afterfig
+
 In technical descriptions of relational databases the concepts of 
 table, row, and column are more formally referred
 to as {\bf relation}, {\bf tuple}, and {\bf attribute}, respectively.
@@ -11197,6 +11210,10 @@ Database Browser} which is freely available from:
 
 Using the browser you can easily create tables, insert data, edit data, 
 or run simple SQL queries on the data in the database.
+
+\beforefig
+\centerline{\includegraphics[height=3.00in]{figs2/sqlite.eps}}
+\afterfig
 
 In a sense, the database browser is similar to a text editor
 when working with text files.   When you want to do one or
@@ -11271,6 +11288,10 @@ A {\bf cursor} is like a file handle that we can use to perform
 operations on the data stored in the database.  Calling 
 {\tt cursor()} is very similar conceptually to calling
 {\tt open()} when dealing with text files.
+
+\beforefig
+\centerline{\includegraphics[height=1.50in]{figs2/cursor.eps}}
+\afterfig
 
 Once we have the cursor, we can begin to execute 
 commands on the contents of the database using the {\tt execute()}
@@ -11350,9 +11371,16 @@ cur.close()
 \end{verbatim}
 \afterverb
 %
-After we {\tt INSERT} two rows into our table and use {\tt commit()} 
-to force the data to be written to the database file, we use the {\tt SELECT} command
-to retrieve the rows we just inserted from the table.  On the 
+First we {\tt INSERT} two rows into our table and use {\tt commit()} 
+to force the data to be written to the database file.
+
+\beforefig
+\centerline{\includegraphics[height=1.00in]{figs2/tracks.eps}}
+\afterfig
+
+Then we use the {\tt SELECT} command
+to retrieve the rows we just inserted from the table.  
+On the 
 {\tt SELECT} command, we indicate which columns we would like {\tt (title, plays)}
 and indicate which table we want to retrieve the data from.  After we 
 execute the {\tt SELECT} statement, the cursor is something we can loop through
@@ -11617,7 +11645,7 @@ friend count ({\tt friends}) if the record exists.
             (friend, ) )
         try:
             count = cur.fetchone()[0]
-            cur.execute('UPDATE Twitter SET friends = ? WHERE name = ?', 
+            cur.execute('UPDATE Twitter SET .riends = ? WHERE name = ?', 
                 (count+1, friend) )
             countold = countold + 1
         except:
@@ -11910,11 +11938,21 @@ CREATE TABLE Follows
 \end{verbatim}
 \afterverb
 %
-As we add these {\tt UNIQUE} clauses to our tables, we are communicating a set
+When we add {\tt UNIQUE} clauses to our tables, we are communicating a set
 of rules that we are asking the database to enforce when we attempt to insert
 records.   We are creating these rules as a convenience in our programs as we
 will see in a moment.  The rules both keep us from making mistakes and make
 it simpler to write some of our code.
+
+In essense, in creating this {\tt Follows} table, we are modelling a 
+"relationship" where one person "follows" someone else
+and representing it with a pair of numbers indicating that (a) the people are
+connected and (b) the direction of the relationship.
+
+\beforefig
+\centerline{\includegraphics[height=2.50in]{figs2/twitter.eps}}
+\afterfig
+
 
 \section{Programming with multiple tables}
 
@@ -12460,6 +12498,18 @@ of attributes.  More typically called ``row''.
 \index{tuple}
 
 \end{description}
+
+\section{Exercises}
+
+\begin{ex}
+Retrieve the following file \url{http://www.py4inf.com/code/wikidata.db} 
+and use the SQLite browser to figure out how many tables
+are in the datbase and list the fields for each of the tables including the
+type of the field.  One of the fields is a type that is not described in 
+this chapter.  Use the SQLite online documentation to describe the
+purpose of that type of data?
+\end{ex}
+
 
 \chapter{Advanced functions}
 \label{fruitchap}
