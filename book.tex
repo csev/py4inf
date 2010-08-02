@@ -2572,6 +2572,10 @@ contains another {\tt if} statement, which has two branches of its
 own.  Those two branches are both simple statements,
 although they could have been conditional statements as well.
 
+\beforefig
+\centerline{\includegraphics[height=2.50in]{figs2/nested.eps}}
+\afterfig
+
 Although the indentation of the statements makes the structure
 apparent, {\bf nested conditionals} become difficult to read very
 quickly. In general, it is a good idea to avoid them when you can.
@@ -4679,10 +4683,9 @@ bracket operator:
 \end{verbatim}
 \afterverb
 %
+\index{index}
 The second statement extracts the character at index position 1 from the 
 {\tt fruit} variable and assigns it to {\tt letter} variable.  
-
-\index{index}
 
 The expression in brackets is called an {\bf index}.  
 The index indicates which character in the sequence you
@@ -4712,6 +4715,10 @@ b
 So {\tt b} is the 0th letter (``zero-eth'') of \verb"'banana'", {\tt a}
 is the 1th letter (``one-eth''), and {\tt n} is the 2th (``two-eth'')
 letter.
+
+\beforefig
+\centerline{\includegraphics[height=0.50in]{figs2/string.eps}}
+\afterfig
 
 \index{index!starting at zero}
 \index{zero, index starting at}
@@ -14272,126 +14279,6 @@ attributes, and the values of the attributes.
 \end{description}
 
 
-\section{Exercises}
-
-\begin{ex}
-\label{canvas}
-
-\index{Swampy}
-\index{World module}
-\index{module!World}
-
-{\tt World.py}, which is part of Swampy (see Chapter~\ref{turtlechap}),
-contains a class definition for a user-defined type called 
-{\tt World}.  You can import it like this:
-
-\beforeverb
-\begin{verbatim}
-from World import World
-\end{verbatim}
-\afterverb
-
-This version of the {\tt import} statement imports the {\tt World}
-class from the {\tt World} module.
-The following code creates a World object and calls
-the {\tt mainloop} method, which
-waits for
-the user.
-
-\beforeverb
-\begin{verbatim}
-world = World()
-world.mainloop()
-\end{verbatim}
-\afterverb
-
-A window should appear with a title bar and an empty square.
-We will use this window to draw Points,
-Rectangles and other shapes.  
-Add the following lines before calling
-\verb"mainloop" and run the program again.
-
-\index{Canvas object}
-\index{object!Canvas}
-
-\beforeverb
-\begin{verbatim}
-canvas = world.ca(width=500, height=500, background='white')
-bbox = [[-150,-100], [150, 100]]
-canvas.rectangle(bbox, outline='black', width=2, fill='green4')
-\end{verbatim}
-\afterverb
-
-You should see a green rectangle with a black outline.
-The first line creates a Canvas, which appears in the window
-as a white square.  The Canvas object provides methods like
-{\tt rectangle} for drawing various shapes.
-
-\index{bounding box}
-
-{\tt bbox} is a list of lists that represents the ``bounding box''
-of the rectangle.  The first pair of coordinates is the lower-left
-corner of the rectangle; the second pair is the upper-right corner.
-
-You can draw a circle like this:
-
-\beforeverb
-\begin{verbatim}
-canvas.circle([-25,0], 70, outline=None, fill='red')
-\end{verbatim}
-\afterverb
-
-\index{Bangladesh, national flag}
-
-The first parameter is the coordinate pair for the center of the
-circle; the second parameter is the radius.
-
-If you add this line to the program, 
-the result should resemble the national flag of Bangladesh
-(see \url{wikipedia.org/wiki/Gallery_of_sovereign-state_flags}).
-
-\begin{enumerate}
-
-\item Write a function called \verb"draw_rectangle" that takes a
-  Canvas and a Rectangle as arguments and draws a
-  representation of the Rectangle on the Canvas.
-
-\item Add an attribute named {\tt color} to your Rectangle objects and
-  modify \verb"draw_rectangle" so that it uses the color attribute as
-  the fill color.
-
-\item Write a function called \verb"draw_point" that takes a
-  Canvas and a Point as arguments and draws a
-  representation of the Point on the Canvas.
-
-\item Define a new class called Circle with appropriate attributes and
-  instantiate a few Circle objects.  Write a function called
-  \verb"draw_circle" that draws circles on the canvas.
-
-\index{Czech Republic, national flag}
-
-\item Write a program that draws the national flag of of the Czech Republic.
-Hint: you can draw a polygon like this:
-
-\beforeverb
-\begin{verbatim}
-points = [[-150,-100], [150, 100], [150, -100]]
-canvas.polygon(points, fill='blue')
-\end{verbatim}
-\afterverb
-
-\end{enumerate}
-
-\index{color list}
-\index{available colors}
-
-I have written a small program that lists the available colors;
-you can download it from \url{thinkpython.com/code/color_list.py}.
-
-\end{ex}
-
-
-
 \chapter{Classes and functions}
 \label{time}
 
@@ -16476,12 +16363,6 @@ A more detailed diagram might show that a Deck actually
 contains a {\em list} of Cards, but built-in types
 like list and dict are usually not included in class diagrams.
 
-\begin{ex}
-Read {\tt TurtleWorld.py}, {\tt World.py} and {\tt Gui.py}
-and draw a class diagram that shows the relationships among
-the classes defined there.
-\end{ex}
-
 
 \section{Debugging}
 \index{debugging}
@@ -16699,73 +16580,6 @@ your results to the values at \url{wikipedia.org/wiki/Hand_rankings}.
 
 \end{enumerate}
 \end{ex}
-
-
-\begin{ex}
-
-\index{Swampy}
-\index{TurtleWorld}
-
-This exercise uses TurtleWorld from Chapter~\ref{turtlechap}.
-You will write code that makes Turtles play tag.  If you
-are not familiar with the rules of tag, see
-\url{wikipedia.org/wiki/Tag_(game)}.
-
-\begin{enumerate}
-
-\item Download \url{thinkpython.com/code/Wobbler.py} and run it.  You
-should see a TurtleWorld with three Turtles.  If you press the
-{\sf Run} button, the Turtles wander at random.
-
-\item Read the code and make sure you understand how it works.
-The {\tt Wobbler} class inherits from {\tt Turtle}, which means
-that the {\tt Turtle} methods {\tt lt}, {\tt rt}, {\tt fd}
-and {\tt bk} work on Wobblers.
-
-The {\tt step} method gets invoked by TurtleWorld.  It invokes 
-{\tt steer}, which turns the Turtle in the desired direction,
-{\tt wobble}, which makes a random turn in proportion to the Turtle's
-clumsiness, and {\tt move}, which moves forward a few pixels,
-depending on the Turtle's speed.
-
-\index{Tagger}
-
-\item Create a file named {\tt Tagger.py}.  Import everything from
-  {\tt Wobbler}, then define a class named {\tt Tagger} that inherits
-  from {\tt Wobbler}.  Call \verb"make_world" passing the {\tt
-    Tagger} class object as an argument.
-
-\item Add a {\tt steer} method to {\tt Tagger} to override the one in
-  {\tt Wobbler}.  As a starting place, write a version that always
-  points the Turtle toward the origin.  Hint: use the math function
-  {\tt atan2} and the Turtle attributes {\tt x}, {\tt y} and
-  {\tt heading}.
-
-\item Modify {\tt steer} so that the Turtles stay in bounds.
-  For debugging, you might want to use the {\sf Step} button,
-  which invokes {\tt step} once on each Turtle.
-
-\item Modify {\tt steer} so that each Turtle points toward its nearest
-  neighbor.  Hint: Turtles have an attribute, {\tt world}, that is a
-  reference to the TurtleWorld they live in, and the TurtleWorld has
-  an attribute, {\tt animals}, that is a list of all Turtles in the
-  world.
-
-\item Modify {\tt steer} so the Turtles play tag.  You can add methods
-  to {\tt Tagger} and you can override {\tt steer} and
-  \verb"__init__", but you may not modify or override {\tt step}, {\tt
-    wobble} or {\tt move}.  Also, {\tt steer} is allowed to change the
-  heading of the Turtle but not the position.
-
-Adjust the rules and your {\tt steer} method for good quality play;
-for example, it should be possible for the slow Turtle to tag the
-faster Turtles eventually.
-
-\end{enumerate}
-
-You can get my solution from \url{thinkpython.com/code/Tagger.py}.
-\end{ex}
-
 
 \appendix
 
