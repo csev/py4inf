@@ -1839,21 +1839,6 @@ print first + second
 %
 The output of this program is {\tt throatwarbler}.
 
-The {\tt *} operator also works on strings; it performs repetition.
-For example, \verb"'Spam'*3" is \verb"'SpamSpamSpam'".  If one of the operands
-is a string, the other has to be an integer.
-
-This use of {\tt +} and {\tt *} makes sense by
-analogy with addition and multiplication.  Just as {\tt 4*3} is
-equivalent to {\tt 4+4+4}, we expect \verb"'Spam'*3" to be the same as
-\verb"'Spam'+'Spam'+'Spam'", and it is.  On the other hand, there is a
-significant way in which string concatenation and repetition are
-different from integer addition and multiplication.
-Can you think of a property that addition has
-that string concatenation does not?
-
-\index{commutativity}
-
 \section{Asking the user for input}
 \index{keyboard input}
 
@@ -2436,6 +2421,11 @@ The boolean expression after the {\tt if} statement is
 called the {\bf condition}.  We end the {\tt if} 
 statement with a colon character (:) and the line(s) 
 after the if statement are indented.  
+
+\beforefig
+\centerline{\includegraphics[height=1.75in]{figs2/if.eps}}
+\afterfig
+
 If the logical condition is true, then the indented
 statement gets executed.  If the logical consition is 
 false, the indented statement is skipped.
@@ -2491,7 +2481,13 @@ else :
 If the remainder when {\tt x} is divided by 2 is 0, then we
 know that {\tt x} is even, and the program displays a message to that
 effect.  If the condition is false, the second set of statements is
-executed.  Since the condition must be true or false, exactly one of
+executed.  
+
+\beforefig
+\centerline{\includegraphics[height=1.75in]{figs2/if-else.eps}}
+\afterfig
+
+Since the condition must be true or false, exactly one of
 the alternatives will be executed.  The alternatives are called
 {\bf branches}, because they are branches in the flow of execution.
 
@@ -2519,7 +2515,13 @@ else:
 \afterverb
 %
 {\tt elif} is an abbreviation of ``else if.''  Again, exactly one
-branch will be executed.  There is no limit on the number of {\tt
+branch will be executed.  
+
+\beforefig
+\centerline{\includegraphics[height=3.00in]{figs2/elif.eps}}
+\afterfig
+
+There is no limit on the number of {\tt
 elif} statements.  If there is an {\tt else} clause, it has to be
 at the end, but there doesn't have to be one.
 
@@ -5950,6 +5952,10 @@ in the file, but instead it is a ``handle'' that we can use to
 read the data.   You are given a handle if the requested file
 exists and you have the proper permissions to read the file.
 
+\beforefig
+\centerline{\includegraphics[height=1.75in]{figs2/handle.eps}}
+\afterfig
+
 If the file does not exist, {\tt open} will fail with a traceback and you 
 will not get a handle to access the contents of the file:
 
@@ -5969,7 +5975,7 @@ not exist.
 \section{Text files and lines}
 
 A text file can be thought of as a sequence of lines, much like a Python
-string can be through of as a sequence of characters.  For example, this
+string can be thought of as a sequence of characters.  For example, this
 is a sample of a text file which records mail activity from various
 individuals in an open source project development team:
 
@@ -12309,8 +12315,15 @@ from {\tt Follows} and append the row from {\tt People} where the
 field \verb"from_id" in {\tt Follows} is the same the {\tt id} value
 in the {\tt People} table.
 
-The result of the JOIN is to create an extra-long ``meta-row'' which has both 
-the fields from {\tt Follows} and the matching fields from {\tt People}.
+\beforefig
+\centerline{\includegraphics[height=2.50in]{figs2/join.eps}}
+\afterfig
+
+The result of the JOIN is to create extra-long ``meta-rows'' which have both 
+the fields from {\tt People} and the matching fields from {\tt Follows}.
+Where there is more than one match between the {\tt id} field from {\tt People}
+and the \verb"from_id" from {\tt People}, then JOIN creates a meta-row 
+for {\em each} of the matching pairs of rows, duplicating data as needed.
 
 The following code demonstrates the data that we will have in the 
 database after the multi-table Twitter spider program (above) has
