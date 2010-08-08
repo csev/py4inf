@@ -6030,7 +6030,7 @@ iteration of the {\tt for} loop.
 Because the for loop reads the data one line at a time, it can efficiently
 read and count the lines in very large files without running 
 out of main memory to store the data.  The above program can 
-count the lines in any sized file using very little memory since 
+count the lines in any size file using very little memory since 
 each line is read, counted, and then discarded.
 
 If you know the file is relatively small compared to the size of 
@@ -6345,7 +6345,8 @@ which of two equivalent solutions to a problem is
 captures the notion that programming is part engineering
 and part art.  We are not always interested
 in just making something work, we also want
-our solution to be elegant.
+our solution to be elegant and to be appreciated as 
+elegant by our peers.
 
 
 \section{Writing files}
@@ -8037,8 +8038,9 @@ Section~\ref{find}.  As the list gets longer, the search time gets
 longer in direct proportion.  For dictionaries, Python uses an
 algorithm called a {\bf hashtable} that has a remarkable property; the
 {\tt in} operator takes about the same amount of time no matter how
-many items there are in a dictionary.  I won't explain how that's
-possible, but you can read more about it at
+many items there are in a dictionary.  I won't explain 
+why hash functions are so magical,
+but you can read more about it at
 \url{wikipedia.org/wiki/Hash_table}.
 
 \index{hashtable}
@@ -8106,15 +8108,13 @@ def histogram(s):
         if c not in d:
             d[c] = 1
         else:
-            d[c] += 1
+            d[c] = d[c] + 1
     return d
 \end{verbatim}
 \afterverb
 %
 The name of the function is {\bf histogram}, which is a statistical
-term for a set of counters (or frequencies).  The {\tt +=} operator
-is an {\tt increment} operator and in the above example, we 
-add one to the value stored in {\tt d[c]}.
+term for a set of counters (or frequencies).  
 
 \index{histogram}
 \index{frequency}
@@ -8358,7 +8358,7 @@ Here is the documentation for {\tt translate}:
 
 \verb"string.translate(s, table[, deletechars])"
 
-{\em Delete all characters from s that are in deletechars (if present), 
+\emph{Delete all characters from s that are in deletechars (if present), 
 and then translate the characters using table, which must 
 be a 256-character string giving the translation for each 
 character value, indexed by its ordinal. If table is None, 
