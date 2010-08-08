@@ -168,7 +168,7 @@ version of this book is available from
 The \LaTeX\ source for the 
 \emph{Python for Informatics: Exploring Information}
 version of the book is available (for the moment) from 
-\url{http://source.sakaiproject.org/contrib//csev/trunk/pyinf/}.
+\url{http://source.sakaiproject.org/contrib/csev/trunk/pyinf/}.
 
 The cover images were provided by Dr. Lada Adamic and are used
 with permission.
@@ -271,17 +271,6 @@ including automating tasks on your computer, retrieving data across
 the network, scraping web pages for data, 
 using web services, parsing XML data, and creating 
 and using databases using Structured Query Language.
-
-Chapters 15-19 are included with very little change from 
-\emph{Think Python}.   I do not cover these chapters in my 
-one-semester technology literacy course.  I include them 
-primarily because students may use them as reference to 
-get a deeper understanding of functions, methods, and objects.
-They also give students a nice view into the kinds of 
-computational thinking that is needed to develop more
-sophosticated programs and reuable bits of code.  My hope
-is that these chapters become more valuable as students
-use Python beyond the course.
 
 The ultimate goal of all of these changes is a shift from a 
 Computer Science to an Informatics
@@ -4425,6 +4414,7 @@ respectively.
 
 \index{loop!maximum}
 \index{loop!minimum}
+\label{maximumloop}
 To find the largest value in a list or sequence, we construct the
 following loop:
 
@@ -8407,7 +8397,7 @@ print counts
 %
 We use {\tt translate} to remove all punctuation and {\tt lower} to 
 force the line to lowercase.  Otherwise the program is unchanged.
-Note for Python 2.5 and earlier, {\tt ttranslate} does not 
+Note for Python 2.5 and earlier, {\tt translate} does not 
 accept {\tt None} as the first parameter so use this code for the translate 
 call:
 
@@ -8576,6 +8566,7 @@ the sender's address to the total number of messages for that person.
 
 After all the data has been read the program looks 
 through the dictionary using a maximum loop
+ (see Section~\ref{maximumloop})
 to find who has the most 
 messages and how many messages the person has.
 
@@ -8662,8 +8653,8 @@ comma:
 \end{verbatim}
 \afterverb
 %
-Without the comma Python treats \verb"('a')" as a string in
-parentheses:
+Without the comma Python treats \verb"('a')" as an expression 
+with a string in parentheses that evaluates to a string:
 
 \beforeverb
 \begin{verbatim}
@@ -10483,7 +10474,7 @@ can simply place the {\tt BeautifulSoup.py} file in the
 same folder as your application.
 
 Even though HTML looks like XML and some pages are carefully 
-constructed to be XML, most HTML is geerally broken in ways
+constructed to be XML, most HTML is generally broken in ways
 that cause an XML parser to reject the entire page of HTML as
 improperly formed.  BeautifulSoup tolerates highly flawed 
 HTML and still lets you easily extract the data you need.
@@ -10605,7 +10596,7 @@ from
 \item[port:] A number that generally indicates which application 
 you are contacting when you make a socket connection to a server.
 As an example, web traffic usually uses port 80 while e-mail 
-traffic uses port 50.
+traffic uses port 25.
 \index{port}
 
 \item[scrape:] When a program pretends to be a web browser and
@@ -10629,7 +10620,7 @@ use to build their search index.
 \section{Exercises}
 
 \begin{ex}
-Change the {\tt urllinks.py} program to extract paragraph (<p>) tags
+Change the {\tt urllinks.py} program to extract paragraph (p) tags
 from the retrieved HTML document and simply count how many paragraphs
 are in the document and display the count of the paragraphs as the 
 output of your program.  Test your program on several small web pages
@@ -10746,8 +10737,8 @@ input = '''
         <user x="7">
             <id>009</id>
             <name>Brent</name>
-            </user>
-        </users>
+        </user>
+    </users>
 </stuff>'''
 
 stuff = ET.fromstring(input)
@@ -12073,7 +12064,7 @@ with ``if all goes well'' you will find that the code needs
 to use try/except.} inside the {\tt try} section, we retrieve the
 record using {\tt fetchone()} and then retrieve the
 first (and only) element of the returned tuple and store it in 
-{\tt id}.
+\verb"friend_id".
 
 If the {\tt SELECT} fails, the {\tt fetchone()[0]} code will fail
 and control will transfer into the {\tt except} section.
