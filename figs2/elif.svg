@@ -65,7 +65,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -133,7 +133,7 @@
            height="91.666664"
            x="276.66666"
            y="98.333336" /></flowRegion><flowPara
-         id="flowPara6710"></flowPara></flowRoot>    <path
+         id="flowPara6710" /></flowRoot>    <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
        d="m 345,155 c 106.66667,0 106.66667,0 106.66667,0"
        id="path6712"
@@ -159,15 +159,7 @@
        y="0"
        xlink:href="#rect5572"
        id="use7420"
-       transform="translate(0.3333333,215.66667)"
-       width="1000"
-       height="1000" />
-    <use
-       x="0"
-       y="0"
-       xlink:href="#text5574"
-       id="use7422"
-       transform="translate(0.3333333,215.66667)"
+       transform="matrix(1.21682,0,0,1,-103.5957,215.66667)"
        width="1000"
        height="1000" />
     <use
@@ -227,13 +219,22 @@
        d="m 734.3637,-434.0495 90.64046,0 0,470.785821 -580.099,0"
        id="path7442" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 705,373.33333 93.33333,0"
-       id="path7628"
-       transform="translate(26.621325,-592.33332)" />
+       style="fill:none;stroke:#000000;stroke-width:1.32429254;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 784.49423,-218.99999 40.92086,0"
+       id="path7628" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
        d="m 243.95465,-8.99999 0,116.66667"
        id="path7630" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="504.62131"
+       y="-210.66664"
+       id="text2932"><tspan
+         sodipodi:role="line"
+         id="tspan2934"
+         x="504.62131"
+         y="-210.66664">print 'greater'</tspan></text>
   </g>
 </svg>

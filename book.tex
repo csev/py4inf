@@ -471,7 +471,7 @@ is essentially built to continuously ask us the question,
 \centerline{\includegraphics[height=1.00in]{figs2/pda.eps}}
 \afterfig
 
-Programmers add and operating system and a set of applications
+Programmers add an operating system and a set of applications
 to the hardware and we end up with a Personal Digital
 Assistant that is quite helpful and calable of helping
 many different things.
@@ -675,11 +675,8 @@ time.
 \index{language!programming}
 
 The programming language you will learn is Python. Python is
-an example of a {\bf high-level language}; other high-level languages
+an example of a {\bf high-level language}; some other high-level languages
 you might have heard of are C, C++, Perl, Java, Ruby, and JavaScript. 
-At times, we will include a few examples of the JavaScript language
-to help cement the basic grammar ideas using 
-two different ``vocabularies''.
 
 There are
 also {\bf low-level languages}, sometimes referred to as ``machine
@@ -737,8 +734,14 @@ repeatedly without further translation.
 
 Python is considered an interpreted language because Python programs
 are executed by an interpreter.  There are two ways to use the
-interpreter: {\bf interactive mode} and {\bf script mode}. In
-interactive mode, you type Python programs and the interpreter prints
+interpreter: {\bf interactive mode} and {\bf script mode}. 
+
+To start interactive mode, you have to run the Python interpreter
+program.
+In a UNIX or Windows command window, you would type {\tt python}
+to run the Python interpreter.
+
+In interactive mode, you type Python programs and the interpreter prints
 the result:
 
 \index{interactive mode}
@@ -828,11 +831,6 @@ instructions that look pretty much like these.  So you can think of
 programming as the process of breaking a large, complex task
 into smaller and smaller subtasks until the subtasks are
 simple enough to be performed with one of these basic instructions.
-
-\index{algorithm}
-
-That may be a little vague, but we will come back to this topic
-when we talk about {\bf algorithms}.
 
 \section{What is debugging?}
 \index{debugging}
@@ -1260,10 +1258,6 @@ and execute statements in a script.
 \item[program:] A set of instructions that specifies a computation.
 \index{program}
 
-\item[algorithm:]  A general process for solving a category of
-problems.
-\index{algorithm}
-
 \item[bug:]  An error in a program.
 \index{bug}
 
@@ -1647,18 +1641,6 @@ exponentiation, as in the following examples:
 \end{verbatim}
 \afterverb
 %
-In some other languages, \verb"^" is used for exponentiation, but
-in Python it is a bitwise operator called XOR.  I won't cover
-bitwise operators in this book, but you can read about
-them at \url{wiki.python.org/moin/BitwiseOperators}.
-
-\index{bitwise operator}
-\index{operator!bitwise}
-
-%When a variable name appears in the place of an operand, it
-%is replaced with its value before the operation is
-%performed.
-
 The division operator might not do what you expect:
 
 \beforeverb
@@ -1672,7 +1654,8 @@ The division operator might not do what you expect:
 The value of {\tt minute} is 59, and in conventional arithmetic 59
 divided by 60 is 0.98333, not 0.  The reason for the discrepancy is
 that Python is performing {\bf floor division}\footnote{In Python 3.0,
-the result of this division is a {\tt float}.  The new operator
+the result of this division is a {\tt float}.  
+In Python 3.0, the new operator
 {\tt //} performs integer division.}.
 
 \index{Python 3.0}
@@ -1740,10 +1723,6 @@ x + 1
 \end{verbatim}
 \afterverb
 %
-Now we can use a text editor to place the same statements 
-into a file (i.e. make a script) and run it.  What
-is the output?  Modify the script by transforming each
-{\em expression} into a print statement and then run it again.
 \end{ex}
 
 
@@ -1973,7 +1952,7 @@ v = 5     # velocity in meters/second.
 \end{verbatim}
 \afterverb
 %
-Good mnemonic variable names can reduce the need for comments, but
+Good variable names can reduce the need for comments, but
 long names can make complex expressions hard to read, so there is
 a tradeoff.
 
@@ -2366,7 +2345,10 @@ is to use a single equal sign ({\tt =}) instead of a double equal sign
 There are three {\bf logical operators}: {\tt and}, {\tt
 or}, and {\tt not}.  The semantics (meaning) of these operators is
 similar to their meaning in English.  For example,
-{\tt x > 0 and x < 10} is true only if {\tt x} is greater than 0
+
+{\tt x > 0 and x < 10} 
+
+is true only if {\tt x} is greater than 0
 {\em and} less than 10.
 
 \index{and operator}
@@ -2429,7 +2411,7 @@ after the if statement are indented.
 \afterfig
 
 If the logical condition is true, then the indented
-statement gets executed.  If the logical consition is 
+statement gets executed.  If the logical condition is 
 false, the indented statement is skipped.
 
 \index{condition}
@@ -2701,6 +2683,19 @@ well, it skips the {\tt except} block and proceeds.  If an
 exception occurs in the {\tt try} block, 
 Python jumps out of the {\tt try} block and
 executes the sequence of statements in the {\tt except} block.
+
+\beforeverb
+\begin{verbatim}
+python fahren2.py 
+Enter Fahrenheit Temperature:72
+22.2222222222
+
+python fahren2.py 
+Enter Fahrenheit Temperature:fred
+Please enter a number
+\end{verbatim}
+\afterverb
+%
 
 Handling an exception with a {\tt try} statement is called {\bf
 catching} an exception.  In this example, the {\tt except} clause
@@ -3168,7 +3163,7 @@ example, but there are more.
 
 Making a program truly nondeterministic turns out to be not so easy,
 but there are ways to make it at least seem nondeterministic.  One of
-them is to use algorithms that generate {\bf pseudorandom} numbers.
+them is to use {\bf algorithms} that generate {\bf pseudorandom} numbers.
 Pseudorandom numbers are not truly random because they are generated
 by a deterministic computation, but just by looking at the numbers it
 is all but impossible to distinguish them from random.
@@ -3198,6 +3193,30 @@ for i in range(10):
 \end{verbatim}
 \afterverb
 %
+This program produces the following list of 10 random numbers
+between 0.0 and up to but not including 1.0.
+\beforeverb
+\begin{verbatim}
+0.301927091705
+0.513787075867
+0.319470430881
+0.285145917252
+0.839069045123
+0.322027080731
+0.550722110248
+0.366591677812
+0.396981483964
+0.838116437404
+\end{verbatim}
+\afterverb
+%
+\begin{ex}
+Run the program on your system and see what numbers you get.
+Run the program more than once and see what numbers you get.
+\end{ex}
+
+The {\tt random} function is only one of many 
+functions which handle random numbers.
 The function {\tt randint} takes parameters {\tt low} and
 {\tt high} and returns an integer between {\tt low} and
 {\tt high} (including both).
@@ -3233,72 +3252,6 @@ To choose an element from a sequence at random, you can use
 The {\tt random} module also provides functions to generate
 random values from continuous distributions including
 Gaussian, exponential, gamma, and a few more.
-
-\section{Optional parameters}
-
-\index{optional parameter}
-\index{parameter!optional}
-
-We have seen built-in functions and methods that take a variable
-number of arguments.  It is possible to write user-defined functions
-with optional arguments, too.  For example, here is a function that
-prints the most common words in a histogram
-
-\beforeverb
-\begin{verbatim}
-def print_most_common(hist, num=10)
-    t = most_common(hist)
-    print 'The most common words are:'
-    for freq, word in t[0:num]:
-        print word, '\t', freq
-\end{verbatim}
-\afterverb
-
-The first parameter is required; the second is optional.
-The {\bf default value} of {\tt num} is 10.
-
-\index{default value}
-\index{value!default}
-
-If you only provide one argument:
-
-\beforeverb
-\begin{verbatim}
-print_most_common(hist)
-\end{verbatim}
-\afterverb
-
-{\tt num} gets the default value.  If you provide two arguments:
-
-\beforeverb
-\begin{verbatim}
-print_most_common(hist, 20)
-\end{verbatim}
-\afterverb
-
-{\tt num} gets the value of the argument instead.  In other
-words, the optional argument {\bf overrides} the default value.
-
-\index{override}
-
-If a function has both required and optional parameters, all
-the required parameters have to come first, followed by the
-optional ones.
-
-\section{Glossary}
-
-\begin{description}
-
-\item[deterministic:] Pertaining to a program that does the same
-thing each time it runs, given the same inputs.
-\index{deterministic}
-
-\item[pseudorandom:] Pertaining to a sequence of numbers that appear
-to be random, but are generated by a deterministic program.
-\index{pseudorandom}
-
-\end{description}
-
 
 \section{Math functions}
 \index{math function}
@@ -3903,6 +3856,19 @@ the expression.
 \item[void function:] A function that doesn't return a value.
 \index{void function}
 
+\item[algorithm:]  A general process for solving a category of
+problems.
+\index{algorithm}
+
+\item[deterministic:] Pertaining to a program that does the same
+thing each time it runs, given the same inputs.
+\index{deterministic}
+
+\item[pseudorandom:] Pertaining to a sequence of numbers that appear
+to be random, but are generated by a deterministic program.
+\index{pseudorandom}
+
+
 \item[import statement:] A statement that reads a module file and creates
 a module object.
 \index{import statement}
@@ -3991,7 +3957,8 @@ for input.
 \index{update}
 \index{variable!updating}
 
-One of the most common forms of multiple assignment is an {\bf update},
+A common pattern in assignment statements is an assignment statement
+that updates a variable - 
 where the new value of the variable depends on the old.
 
 \beforeverb
@@ -4096,7 +4063,7 @@ terminates.
 We call the variable that changes each time the loop
 executes and controls when the loop finishes the 
 {\bf iteration variable}.
-Id there is no iteration variable, the loop will repeat forever, 
+If there is no iteration variable, the loop will repeat forever, 
 resulting in an {\bf infinite loop}.  
 
 \section{Infinite loops}
@@ -4134,7 +4101,6 @@ def sequence(n):
 \end{verbatim}
 \afterverb
 %
-XXX
 The condition for this loop is {\tt n != 1}\footnote{Remember that {\tt != } is the operator for 'not equal'.}, 
 so the loop will continue
 until {\tt n} is {\tt 1}, which makes the condition false.
@@ -4597,15 +4563,6 @@ or after the check.
 \section{Glossary}
 
 \begin{description}
-
-\item[multiple assignment:] Making more than one assignment to the same
-variable during the execution of a program.
-\index{multiple assignment}
-\index{assignment!multiple}
-
-\item[update:] An assignment where the new value of the variable
-depends on the old.
-\index{update}
 
 \item[initialize:] An assignment that gives an initial value to
 a variable that will be updated.
@@ -5092,12 +5049,6 @@ contains the result---the total number of {\tt a}'s.
 Encapsulate this code in a function named {\tt
 count}, and generalize it so that it accepts the string and the
 letter as arguments.
-\end{ex}
-
-\begin{ex}
-Rewrite this function so that instead of
-traversing the string, it uses the three-parameter version of {\tt
-find} from the previous section.
 \end{ex}
 
 \section{The {\tt in} operator}
@@ -5772,30 +5723,6 @@ Use {\tt find} and string slicing to extract the portion
 of the string after the colon character and then use the 
 {\tt float} function to convert the extracted string 
 into a floating point number.
-
-\end{ex}
-
-\begin{ex}
-
-\index{step size}
-\index{slice operator}
-\index{operator!slice}
-
-A string slice can take a third index that specifies the ``step
-size;'' that is, the number of spaces between successive characters.
-A step size of 2 means every other character; 3 means every third,
-etc.
-
-\beforeverb
-\begin{verbatim}
->>> fruit = 'banana'
->>> fruit[0:5:2]
-'bnn'
-\end{verbatim}
-\afterverb
-
-A step size of -1 goes through the word backwards, so
-the slice \verb"[::-1]" generates a reversed string.
 
 \end{ex}
 
