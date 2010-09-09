@@ -466,7 +466,7 @@ is essentially built to continuously ask us the question,
 
 Programmers add an operating system and a set of applications
 to the hardware and we end up with a Personal Digital
-Assistant that is quite helpful and calable of helping
+Assistant that is quite helpful and capable of helping
 many different things.
 
 Our computers are fast and have vast amounts of memory and 
@@ -482,7 +482,7 @@ For example, look at the first three paragraphs of this
 chapter and tell me the most commonly used word and how
 many times the word is used.  While you were able to read
 and understand the words in a few seconds, counting them
-is almost painful because is is not the kind of problem 
+is almost painful because it is not the kind of problem 
 that human minds are designed to solve.  For a computer
 the opposite is true, reading and understanding text 
 from a piece of paper is hard for a computer to do 
@@ -814,7 +814,7 @@ repeatedly, usually with
 some variation.
 
 \item[reuse:] Write a set of instructions once and give them a name
-and then reuse those instructions as needed throughout your program.,
+and then reuse those instructions as needed throughout your program.
 
 \end{description}
 
@@ -971,13 +971,13 @@ designed to express computations.}
 
 Formal languages tend to have strict rules about syntax.  For example,
 $3 + 3 = 6$ is a syntactically correct mathematical statement, but 
-$3 + = 3 \mbox{\$} 6$ is not.  $H_2O$ is a syntactically correct
+$3 + + 3 @ 6$ is not.  $H_2O$ is a syntactically correct
 chemical formula, but $_2Zz$ is not.
 
 Syntax rules come in two flavors, pertaining to {\bf tokens} and
 structure.  Tokens are the basic elements of the language, such as
 words, numbers, and chemical elements.  One of the problems with $3 +
-= 3 \mbox{\$} 6$ is that $\$$ is not a legal token in mathematics
++ 3 @ 6$ is that @ is not a legal token in mathematics
 (at least as far as I know).  Similarly, $_2Zz$ is not legal because
 there is no element with the abbreviation $Zz$.
 
@@ -986,8 +986,10 @@ there is no element with the abbreviation $Zz$.
 
 The second type of syntax error pertains to the structure of a
 statement; that is, the way the tokens are arranged.  The statement $3
-+ = 3 \mbox{\$} 6$ is illegal because even though $+$ and $=$ are
-legal tokens, you can't have one right after the other.  Similarly,
++ + 3 @ 6$ is illegal because even though $+$ is a legal token and 
+you can have more than one plus in an exression, you cannot have one
+right after another. 
+Similarly,
 in a chemical formula the subscript comes after the element name, not
 before.
 
@@ -1750,11 +1752,13 @@ have the same precedence.  So {\tt 2*3-1} is 5, not 4, and
 {\tt 6+4/2} is 8, not 5.
 
 \item Operators with the same precedence are evaluated from left to 
-right.  So in the expression {\tt degrees / 2 * pi}, the division
-happens first and the result is multiplied by {\tt pi}.  
-To divide by $2 \pi$, you can reorder the operands or use parentheses.
+right.  So in the expression {\tt 5-3-1} is 1, not 3 because the
+{\tt 5-3} happens first and then {\tt 1} is subtracted from {\tt 2}.
 
 \end{itemize}
+
+When in doubt always put parenthesis in your expressions to make sure
+the computations are performed in the order you intend.
 
 \section{Modulus operator}
 
@@ -3057,7 +3061,7 @@ space.
 Another very common built-in function is the {\tt len} function
 which tells us how many items are in its argument. If the argument
 to {\tt len} is a string, it returns the number of characters 
-int he string.
+in the string.
 
 \beforeverb
 \begin{verbatim}
@@ -3761,7 +3765,7 @@ Once you write and debug one, you can reuse it.
 
 \end{itemize}
 
-Throughout the rest of the book, we often will use a function definition to 
+Throughout the rest of the book, often we will use a function definition to 
 explain a concept.  Part of the skill of creating and using functions is
 to have a function properly capture an idea such as ``find the smallest
 value in a list of values''.  Later we will show you code that finds
@@ -4294,11 +4298,6 @@ print 'Done!'
 \end{verbatim}
 \afterverb
 %
-Translating this {\tt for} loop to English is not as direct as the 
-{\tt while}, but if you think of friends as a {\bf set},
-it goes like this: ``Run the statements in the body of the 
-for loop once for each friend \emph{in} the set named friends.''.
-
 In Python terms, 
 the variable {\tt friends} is a list\footnote{We will 
 examine lists in more detail in a later chapter} 
@@ -4315,6 +4314,12 @@ Done!
 \end{verbatim}
 \afterverb
 %
+
+Translating this {\tt for} loop to English is not as direct as the 
+{\tt while}, but if you think of friends as a {\bf set},
+it goes like this: ``Run the statements in the body of the 
+for loop once for each friend \emph{in} the set named friends.''.
+
 Looking at the {\tt for} loop, {\bf for} and {\bf in} are reserved
 Python keywords, and {\tt friend} and {\tt friends} are variables.
 
@@ -4984,7 +4989,7 @@ def find(word, letter):
 %
 In a sense, {\tt find} is the opposite of the {\tt []} operator.
 Instead of taking an index and extracting the corresponding character,
-it takes a character and finds the index where that character
+it takes a character and finds the index where that character first
 appears.  If the character is not found, the function returns {\tt
 -1}.
 
@@ -5267,9 +5272,9 @@ True
 \end{verbatim}
 \afterverb
 %
-In the last example, then method {\tt lower} is called
+In the last example, the method {\tt lower} is called
 and then we use {\tt startswith}
-check to see if the resulting lowercase string
+to check to see if the resulting lowercase string
 starts with the letter ``p''.  As long as we are careful
 with the order, we can make multiple method calls in a
 single expression.
@@ -5920,7 +5925,7 @@ Details: http://source.sakaiproject.org/viewsvn/?view=rev\&rev=39772\\
 ...
 }
 
-The entire file is mail interactions is available from 
+The entire file of mail interactions is available from 
 \url{www.py4inf.com/code/mbox.txt} 
 and a shortened version of the file is available from
 \url{www.py4inf.com/code/mbox-short.txt}.
@@ -13112,6 +13117,8 @@ Mark Thompson-Kular,
 James Perry,
 Eric Hofer,
 Eytan Adar,
+Peter Robinson,
+Deborah J. Nelson,
 
 % CONTRIB
 
