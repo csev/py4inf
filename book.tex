@@ -2038,7 +2038,7 @@ understanding of pizza and slices and the fact that a pizza consists of a set
 of one or more slices.
 
 But if our program is truly about reading data and looking for words in the data,
-{\tt pizza} and {\tt slice} are very un-mnemonic variable names choosing them 
+{\tt pizza} and {\tt slice} are very un-mnemonic variable names.  Choosing them 
 as variable names distracts from the meaning of the program.
 
 After a pretty short period of time, you will know the most common reserved words
@@ -2651,7 +2651,7 @@ errors called ``try / except''.  The idea of {\tt try}
 and {\tt except} is that you know that some sequence
 of instruction(s) may have a problem and you want to 
 add some statements to be executed if an error occurs.
-These extra statements (the except block) is ignored
+These extra statements (the except block) are ignored
 if there is no error.
 
 You can think of the {\tt try} and {\tt except} feature
@@ -2973,11 +2973,11 @@ table:
 
 \begin{verbatim}
 Score   Grade
-> 0.9     A
-> 0.8     B
-> 0.7     C
-> 0.6     D
-<= 0.6    F
+>= 0.9     A
+>= 0.8     B
+>= 0.7     C
+>= 0.6     D
+< 0.6    F
 
 Enter score: 0.95
 A
@@ -4372,8 +4372,8 @@ print 'Count: ', count
 %
 We set the variable {\tt count} to zero before the loop starts,
 then we write a {\tt for} loop to run through the list of numbers.
-Our {\bf iteration} variable is named {\tt itervar} and while we do
-not use {\tt itervar} in the loop, it does control the loop and cause
+Our {\bf iteration} variable is named {\tt iterval} and while we do
+not use {\tt iterval} in the loop, it does control the loop and cause
 the loop body to be executed once for each of the values in the list.
 
 In the body of the loop, we add one to the current value of {\tt count}
@@ -4600,7 +4600,7 @@ never satisfied or for which there is no termination condition.
 Write a program which reads list of numbers until ``done'' is entered.
 Once ``done'' is entered, print out the total, count, and average
 of the numbers.  If the user enters anything other than a number, 
-detect their mistake using {\tt try} and {\tt catch} and 
+detect their mistake using {\tt try} and {\tt except} and 
 print an error message and skip to the next number.
 
 \begin{verbatim}
@@ -4610,7 +4610,7 @@ Enter a number: bad data
 Invalid input
 Enter a number: 7
 Enter a number: done
-Average: 5.33333333333
+16 3 5.33333333333
 \end{verbatim}
 \end{ex}
 
@@ -5867,7 +5867,8 @@ must {\bf open} the file.  Opening the file communicates with your operating
 system which knows where the data for each file is stored.  When you open
 a file, you are asking the operating system to find the file by name
 and make sure the file exists.  In this example, we open the file 
-{\tt mbox.txt} which should be stored in the same folder that you in when you 
+{\tt mbox.txt} which should be stored in the same folder that you
+are in when you 
 start Python.
 You can download this file from 
 \url{www.py4inf.com/code/mbox.txt}
@@ -6248,7 +6249,7 @@ friendly user do that would cause our nice little program to
 ungracefully exit with a traceback, making us look not-so-cool 
 in the eyes of our users?''.
 
-\section{Using {\tt try, catch,} and {\tt open}}
+\section{Using {\tt try, except,} and {\tt open}}
 
 I told you not to peek.  This is your last chance.
 
@@ -13121,6 +13122,11 @@ Peter Robinson,
 Deborah J. Nelson,
 Jonathan C. Anthony,
 Eden Rassette,
+Jeannette Schroeder,
+Justin Feezell,
+Chuanqi Li,
+Gerald Gordinier,
+Gavin Thomas Strassel,
 
 % CONTRIB
 
