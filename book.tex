@@ -6471,18 +6471,19 @@ could write one yourself.
 
 \begin{description}
 
-\item[text file:] A sequence of characters stored in permanent
-storage like a hard drive.
-\index{text file}
+\item[catch:] To prevent an exception from terminating
+a program using the {\tt try}
+and {\tt except} statements.
+\index{catch}
 
 \item[newline:] A special character used in files and strings to indicate
 the end of a line.
 \index{newline}
 
-\item[catch:] To prevent an exception from terminating
-a program using the {\tt try}
-and {\tt except} statements.
-\index{catch}
+\item[Pythonic:] A technique that works elegantly in Python.
+``Using try and except is the \emph{Pythonic} way to recover from 
+missing files.''.
+\index{Pythonic}
 
 \item[Quality Assurance:] A person or team focused on insuring the 
 overall quality of a software product.  QA is often involved 
@@ -6491,10 +6492,9 @@ is released.
 \index{Quality Assurance}
 \index{QA}
 
-\item[Pythonic:] A technique that works elegantly in Python.
-``Using try and except is the \emph{Pythonic} way to recover from 
-missing files.''.
-\index{Pythonic}
+\item[text file:] A sequence of characters stored in permanent
+storage like a hard drive.
+\index{text file}
 
 \end{description}
 
@@ -7776,35 +7776,6 @@ Rewrite the guardian code in the above example without two
 
 \begin{description}
 
-\item[list:] A sequence of values.
-\index{list}
-
-\item[element:] One of the values in a list (or other sequence),
-also called items.
-\index{element}
-
-\item[index:] An integer value that indicates an element in a list.
-\index{index}
-
-\item[nested list:] A list that is an element of another list.
-\index{nested list}
-
-\item[list traversal:] The sequential accessing of each element in a list.
-\index{list!traversal}
-
-\item[object:] Something a variable can refer to.  An object
-has a type and a value.
-\index{object}
-
-\item[equivalent:] Having the same value.
-\index{equivalent}
-
-\item[identical:] Being the same object (which implies equivalence).
-\index{identical}
-
-\item[reference:] The association between a variable and its value.
-\index{reference}
-
 \item[aliasing:] A circumstance where two or more variables refer to the same
 object.
 \index{aliasing}
@@ -7812,6 +7783,35 @@ object.
 \item[delimiter:] A character or string used to indicate where a
 string should be split.
 \index{delimiter}
+
+\item[element:] One of the values in a list (or other sequence),
+also called items.
+\index{element}
+
+\item[equivalent:] Having the same value.
+\index{equivalent}
+
+\item[index:] An integer value that indicates an element in a list.
+\index{index}
+
+\item[identical:] Being the same object (which implies equivalence).
+\index{identical}
+
+\item[list:] A sequence of values.
+\index{list}
+
+\item[list traversal:] The sequential accessing of each element in a list.
+\index{list!traversal}
+
+\item[nested list:] A list that is an element of another list.
+\index{nested list}
+
+\item[object:] Something a variable can refer to.  An object
+has a type and a value.
+\index{object}
+
+\item[reference:] The association between a variable and its value.
+\index{reference}
 
 \end{description}
 
@@ -8499,25 +8499,6 @@ the time you spend debugging.
 corresponding values.
 \index{dictionary}
 
-\item[key:] An object that appears in a dictionary as the
-first part of a key-value pair.
-\index{key}
-
-\item[value:] An object that appears in a dictionary as the
-second part of a key-value pair.  This is more specific than
-our previous use of the word ``value.''
-\index{value}
-
-\item[key-value pair:] The representation of the mapping from
-a key to a value.
-\index{key-value pair}
-
-\item[item:] Another name for a key-value pair.
-\index{item!dictionary}
-
-\item[implementation:] A way of performing a computation.
-\index{implementation}
-
 \item[hashtable:] The algorithm used to implement Python
 dictionaries.
 \index{hashtable}
@@ -8526,18 +8507,37 @@ dictionaries.
 location for a key.
 \index{hash function}
 
+\item[histogram:] A set of counters.
+\index{histogram}
+
+\item[implementation:] A way of performing a computation.
+\index{implementation}
+
+\item[item:] Another name for a key-value pair.
+\index{item!dictionary}
+
+\item[key:] An object that appears in a dictionary as the
+first part of a key-value pair.
+\index{key}
+
+\item[key-value pair:] The representation of the mapping from
+a key to a value.
+\index{key-value pair}
+
 \item[lookup:] A dictionary operation that takes a key and finds
 the corresponding value.
 \index{lookup}
-
-\item[histogram:] A set of counters.
-\index{histogram}
 
 \item[nested loops:] When there is one or more loops ``inside'' of 
 another loop.  The inner loop runs to completion each time the outer
 loop runs once.
 \index{nested loops}
 \index{loop!nested}
+
+\item[value:] An object that appears in a dictionary as the
+second part of a key-value pair.  This is more specific than
+our previous use of the word ``value.''
+\index{value}
 
 \end{description}
 
@@ -9354,8 +9354,23 @@ try the others.
 
 \begin{description}
 
-\item[tuple:] An immutable sequence of elements.
-\index{tuple}
+\item[comparable:] A type where one value can be checked to see if it is
+greater than, less than or equal to another value of the same type.
+Types which are comparable can be put in a list and sorted.
+\index{comparable}
+
+\item[data structure:] A collection of related values, often
+organized in lists, dictionaries, tuples, etc.
+\index{data structure}
+
+\item[DSU:] Abbreviation of ``decorate-sort-undecorate,'' a
+pattern that involves building a list of tuples, sorting, and
+extracting part of the result.
+\index{DSU pattern}
+
+\item[gather:] The operation of assembling a variable-length
+argument tuple.
+\index{gather}
 
 \item[hashable:] A type that has a hash function.  Immutable
 types like integers,
@@ -9363,10 +9378,19 @@ floats and strings are hashable; mutable types like lists and
 dictionaries are not.
 \index{hashable}
 
-\item[comparable:] A type where one value can be checked to see if it is
-greater than, less than or equal to another value of the same type.
-Types which are comparable can be put in a list and sorted.
-\index{comparable}
+\item[scatter:] The operation of treating a sequence as a list of
+arguments.
+\index{scatter}
+
+\item[shape (of a data structure):] A summary of the type,
+size and composition of a data structure.
+\index{shape}
+
+\item[singleton:] A list (or other sequence) with a single element.
+\index{singleton}
+
+\item[tuple:] An immutable sequence of elements.
+\index{tuple}
 
 \item[tuple assignment:] An assignment with a sequence on the
 right side and a tuple of variables on the left.  The right
@@ -9374,31 +9398,6 @@ side is evaluated and then its elements are assigned to the
 variables on the left.
 \index{tuple assignment}
 \index{assignment!tuple}
-
-\item[singleton:] A list (or other sequence) with a single element.
-\index{singleton}
-
-\item[gather:] The operation of assembling a variable-length
-argument tuple.
-\index{gather}
-
-\item[scatter:] The operation of treating a sequence as a list of
-arguments.
-\index{scatter}
-
-
-\item[DSU:] Abbreviation of ``decorate-sort-undecorate,'' a
-pattern that involves building a list of tuples, sorting, and
-extracting part of the result.
-\index{DSU pattern}
-
-\item[data structure:] A collection of related values, often
-organized in lists, dictionaries, tuples, etc.
-\index{data structure}
-
-\item[shape (of a data structure):] A summary of the type,
-size and composition of a data structure.
-\index{shape}
 
 \end{description}
 
@@ -11042,6 +11041,11 @@ two application components.
 \item[ElementTree:] A built-in Python library used to parse XML data.
 \index{ElementTree}
 
+\item[XML:] eXtensible Markup Language - A format that allows for 
+the markup of structured data.
+\index{XML}
+\index{eXtensible Markup Language}
+
 \item[REST:] REpresentational State Transfer - A style of Web Services 
 that provide access to resources within an application using the HTTP
 protocol.
@@ -11051,11 +11055,6 @@ protocol.
 made of components connected across a network.
 \index{SOA}
 \index{Service Oriented Architecture}
-
-\item[XML:] eXtensible Markup Language - A format that allows for 
-the markup of structured data.
-\index{XML}
-\index{eXtensible Markup Language}
 
 \end{description}
 
