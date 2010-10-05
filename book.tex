@@ -1176,28 +1176,46 @@ with my thoughts about debugging.  I hope they help!
 
 \begin{description}
 
+\item[bug:]  An error in a program.
+\index{bug}
+
 \item[central processing unit:] The heart of any computer.  It is what
 runs the software that we write; also called ``CPU'' or ``the processor''.
 \index{central processing unit}
 \index{CPU}
 
-\item[main memory:] Stores programs and data.  Main memory loses 
-its information when the power is turned off.
-\index{main memory}
+\item[compile:]  To translate a program written in a high-level language
+into a low-level language all at once, in preparation for later
+execution.
+\index{compile}
 
-\item[secondary memory:] Stores programs and data and retains its 
-information even when the power is turned off.  Generally slower 
-than main memory.  Examples of secondary memory include disk 
-drives and flash member in USB sticks.
-\index{secondary memory}
+\item[debugging:]  The process of finding and removing any of the
+three kinds of programming errors.
+\index{debugging}
 
-\item[problem solving:]  The process of formulating a problem, finding
-a solution, and expressing the solution.
-\index{problem solving}
+\item[exception:]  An error that is detected while the program is running.
+\index{exception}
+
+\item[executable:]  Another name for object code that is ready
+to be executed.
+\index{executable}
+
+\item[formal language:]  Any one of the languages that people have designed
+for specific purposes, such as representing mathematical ideas or
+computer programs; all programming languages are formal languages.
+\index{formal language}
 
 \item[high-level language:]  A programming language like Python that
 is designed to be easy for humans to read and write.
 \index{high-level language}
+
+\item[interactive mode:] A way of using the Python interpreter by
+typing commands and expressions at the prompt.
+\index{interactive mode}
+
+\item[interpret:]  To execute a program in a high-level language
+by translating it one line at a time.
+\index{interpret}
 
 \item[low-level language:]  A programming language that is designed
 to be easy for a computer to execute; also called ``machine code'' or
@@ -1209,66 +1227,54 @@ is the language that is directly executed by the central processing unit
 (CPU).
 \index{machine code}
 
-\item[portability:]  A property of a program that can run on more
-than one kind of computer.
-\index{portability}
+\item[main memory:] Stores programs and data.  Main memory loses 
+its information when the power is turned off.
+\index{main memory}
 
-\item[interpret:]  To execute a program in a high-level language
-by translating it one line at a time.
-\index{interpret}
-
-\item[compile:]  To translate a program written in a high-level language
-into a low-level language all at once, in preparation for later
-execution.
-\index{compile}
-
-\item[source code:]  A program in a high-level language before
-being compiled.
-\index{source code}
+\item[natural language:]  Any one of the languages that people speak that
+evolved naturally.
+\index{natural language}
 
 \item[object code:]  The output of the compiler after it translates
 the program.
 \index{object code}
 
-\item[executable:]  Another name for object code that is ready
-to be executed.
-\index{executable}
+\item[parse:]  To examine a program and analyze the syntactic structure.
+\index{parse}
+
+\item[portability:]  A property of a program that can run on more
+than one kind of computer.
+\index{portability}
+
+\item[print statement:]  An instruction that causes the Python
+interpreter to display a value on the screen.
+\index{print statement}
+\index{statement!print}
+
+\item[problem solving:]  The process of formulating a problem, finding
+a solution, and expressing the solution.
+\index{problem solving}
+
+\item[program:] A set of instructions that specifies a computation.
+\index{program}
 
 \item[prompt:] Characters displayed by the interpreter to indicate
 that it is ready to take input from the user.
 \index{prompt}
 
+\item[secondary memory:] Stores programs and data and retains its 
+information even when the power is turned off.  Generally slower 
+than main memory.  Examples of secondary memory include disk 
+drives and flash member in USB sticks.
+\index{secondary memory}
+
 \item[script:] A program stored in a file (usually one that will be
 interpreted).
 \index{script}
 
-\item[interactive mode:] A way of using the Python interpreter by
-typing commands and expressions at the prompt.
-\index{interactive mode}
-
 \item[script mode:] A way of using the Python interpreter to read
 and execute statements in a script.
 \index{script mode}
-
-\item[program:] A set of instructions that specifies a computation.
-\index{program}
-
-\item[bug:]  An error in a program.
-\index{bug}
-
-\item[debugging:]  The process of finding and removing any of the
-three kinds of programming errors.
-\index{debugging}
-
-\item[syntax:]  The structure of a program.
-\index{syntax}
-
-\item[syntax error:]  An error in a program that makes it impossible
-to parse (and therefore impossible to interpret).
-\index{syntax error}
-
-\item[exception:]  An error that is detected while the program is running.
-\index{exception}
 
 \item[semantics:]  The meaning of a program.
 \index{semantics}
@@ -1277,26 +1283,21 @@ to parse (and therefore impossible to interpret).
 other than what the programmer intended.
 \index{semantic error}
 
-\item[natural language:]  Any one of the languages that people speak that
-evolved naturally.
-\index{natural language}
+\item[source code:]  A program in a high-level language before
+being compiled.
+\index{source code}
 
-\item[formal language:]  Any one of the languages that people have designed
-for specific purposes, such as representing mathematical ideas or
-computer programs; all programming languages are formal languages.
-\index{formal language}
+\item[syntax:]  The structure of a program.
+\index{syntax}
+
+\item[syntax error:]  An error in a program that makes it impossible
+to parse (and therefore impossible to interpret).
+\index{syntax error}
 
 \item[token:]  One of the basic elements of the syntactic structure of
 a program, analogous to a word in a natural language.
 \index{token}
 
-\item[parse:]  To examine a program and analyze the syntactic structure.
-\index{parse}
-
-\item[print statement:]  An instruction that causes the Python
-interpreter to display a value on the screen.
-\index{print statement}
-\index{statement!print}
 
 
 \end{description}
@@ -2128,76 +2129,8 @@ get an error message; you just get the wrong answer.
 
 \begin{description}
 
-\item[value:]  One of the basic units of data, like a number or string, 
-that a program manipulates.
-\index{value}
-
-\item[type:] A category of values.  The types we have seen so far
-are integers (type {\tt int}), floating-point numbers (type {\tt
-float}), and strings (type {\tt str}).
-\index{type}
-
-\item[integer:] A type that represents whole numbers.
-\index{integer}
-
-\item[floating-point:] A type that represents numbers with fractional
-parts.
-\index{floating-point}
-
-\item[string:] A type that represents sequences of characters.
-\index{string}
-
-\item[variable:]  A name that refers to a value.
-\index{variable}
-
-\item[mnemonic:] A memory aid. We often give variables mnemonic names
-to help us remember what is stored in the variable.
-\index{mnemonic}
-
-\item[statement:]  A section of code that represents a command or action.  So
-far, the statements we have seen are assignments and print statements.
-\index{statement}
-
 \item[assignment:]  A statement that assigns a value to a variable.
 \index{assignment}
-
-\item[state diagram:]  A graphical representation of a set of variables and the
-values they refer to.
-\index{state diagram}
-
-\item[keyword:]  A reserved word that is used by the compiler to parse a
-program; you cannot use keywords like {\tt if}, {\tt  def}, and {\tt while} as
-variable names.
-\index{keyword}
-
-\item[operator:]  A special symbol that represents a simple computation like
-addition, multiplication, or string concatenation.
-\index{operator}
-
-\item[operand:]  One of the values on which an operator operates.
-\index{operand}
-
-\item[floor division:] The operation that divides two numbers and chops off
-the fraction part.
-\index{floor division}
-
-\item[modulus operator:]  An operator, denoted with a percent sign
-({\tt \%}), that works on integers and yields the remainder when one
-number is divided by another.
-\index{modulus operator}
-\index{operator!modulus}
-
-\item[expression:]  A combination of variables, operators, and values that
-represents a single result value.
-\index{expression}
-
-\item[evaluate:]  To simplify an expression by performing the operations
-in order to yield a single value.
-
-\item[rules of precedence:]  The set of rules governing the order in which
-expressions involving multiple operators and operands are evaluated.
-\index{rules of precedence}
-\index{precedence}
 
 \item[concatenate:]  To join two operands end-to-end.
 \index{concatenation}
@@ -2206,6 +2139,74 @@ expressions involving multiple operators and operands are evaluated.
 programmers (or anyone reading the source code) and has no effect on the
 execution of the program.
 \index{comment}
+
+\item[evaluate:]  To simplify an expression by performing the operations
+in order to yield a single value.
+
+\item[expression:]  A combination of variables, operators, and values that
+represents a single result value.
+\index{expression}
+
+\item[floating-point:] A type that represents numbers with fractional
+parts.
+\index{floating-point}
+
+\item[floor division:] The operation that divides two numbers and chops off
+the fraction part.
+\index{floor division}
+
+\item[integer:] A type that represents whole numbers.
+\index{integer}
+
+\item[keyword:]  A reserved word that is used by the compiler to parse a
+program; you cannot use keywords like {\tt if}, {\tt  def}, and {\tt while} as
+variable names.
+\index{keyword}
+
+\item[mnemonic:] A memory aid. We often give variables mnemonic names
+to help us remember what is stored in the variable.
+\index{mnemonic}
+
+\item[modulus operator:]  An operator, denoted with a percent sign
+({\tt \%}), that works on integers and yields the remainder when one
+number is divided by another.
+\index{modulus operator}
+\index{operator!modulus}
+
+\item[operand:]  One of the values on which an operator operates.
+\index{operand}
+
+\item[operator:]  A special symbol that represents a simple computation like
+addition, multiplication, or string concatenation.
+\index{operator}
+
+\item[rules of precedence:]  The set of rules governing the order in which
+expressions involving multiple operators and operands are evaluated.
+\index{rules of precedence}
+\index{precedence}
+
+\item[state diagram:]  A graphical representation of a set of variables and the
+values they refer to.
+\index{state diagram}
+
+\item[statement:]  A section of code that represents a command or action.  So
+far, the statements we have seen are assignments and print statements.
+\index{statement}
+
+\item[string:] A type that represents sequences of characters.
+\index{string}
+
+\item[type:] A category of values.  The types we have seen so far
+are integers (type {\tt int}), floating-point numbers (type {\tt
+float}), and strings (type {\tt str}).
+\index{type}
+
+\item[value:]  One of the basic units of data, like a number or string, 
+that a program manipulates.
+\index{value}
+
+\item[variable:]  A name that refers to a value.
+\index{variable}
 
 \end{description}
 
@@ -2875,16 +2876,25 @@ but that is often not where it was caused.
 
 \begin{description}
 
+\item[body:] The sequence of statements within a compound statement.
+\index{body}
+
 \item[boolean expression:]  An expression whose value is either 
 {\tt True} or {\tt False}.
 \index{boolean expression}
 \index{expression!boolean}
 
+\item[branch:] One of the alternative sequences of statements in
+a conditional statement.
+\index{branch}
+
+\item[chained conditional:]  A conditional statement with a series
+of alternative branches.
+\index{chained conditional}
+\index{conditional!chained}
+
 \item[comparison operator:] One of the operators that compares
 its operands: {\tt ==}, {\tt !=}, {\tt >}, {\tt <}, {\tt >=}, and {\tt <=}.
-
-\item[logical operator:] One of the operators that combines boolean
-expressions: {\tt and}, {\tt or}, and {\tt not}.
 
 \item[conditional statement:]  A statement that controls the flow of
 execution depending on some condition.
@@ -2900,17 +2910,14 @@ and a body.  The header ends with a colon (:).  The body is indented
 relative to the header.
 \index{compound statement}
 
-\item[body:] The sequence of statements within a compound statement.
-\index{body}
+\item[guardian pattern:] Where we construct a logical expression 
+with additional
+comparisons to take advantage of the short circuit behavior.
+\index{guardian pattern}
+\index{pattern!guardian}
 
-\item[branch:] One of the alternative sequences of statements in
-a conditional statement.
-\index{branch}
-
-\item[chained conditional:]  A conditional statement with a series
-of alternative branches.
-\index{chained conditional}
-\index{conditional!chained}
+\item[logical operator:] One of the operators that combines boolean
+expressions: {\tt and}, {\tt or}, and {\tt not}.
 
 \item[nested conditional:]  A conditional statement that appears
 in one of the branches of another conditional statement.
@@ -2926,12 +2933,6 @@ logical expression and stops the evaluation because Python
 knows the final value for the expression 
 without needing to evaluate the rest of the expression.
 \index{short circuit}
-
-\item[guardian pattern:] Where we construct a logical expression 
-with additional
-comparisons to take advantage of the short circuit behavior.
-\index{guardian pattern}
-\index{pattern!guardian}
 
 \end{description}
 
@@ -3810,10 +3811,45 @@ beginning of the program and run it again.  If you don't see
 
 \begin{description}
 
+\item[algorithm:]  A general process for solving a category of
+problems.
+\index{algorithm}
+
+\item[argument:]  A value provided to a function when the function is called.
+This value is assigned to the corresponding parameter in the function.
+\index{argument}
+
+\item[body:] The sequence of statements inside a function definition.
+\index{body}
+
+\item[composition:] Using an expression as part of a larger expression,
+or a statement as part of a larger statement.
+\index{composition}
+
+\item[deterministic:] Pertaining to a program that does the same
+thing each time it runs, given the same inputs.
+\index{deterministic}
+
+\item[dot notation:]  The syntax for calling a function in another
+module by specifying the module name followed by a dot (period) and
+the function name.
+\index{dot notation}
+
+\item[flow of execution:]  The order in which statements are executed during
+a program run.
+\index{flow of execution}
+
+\item[fruitful function:] A function that returns a value.
+\index{fruitful function}
+
 \item[function:] A named sequence of statements that performs some
 useful operation.  Functions may or may not take arguments and may or
 may not produce a result.
 \index{function}
+
+\item[function call:] A statement that executes a function. It
+consists of the function name followed by an argument list.
+\index{function call}
 
 \item[function definition:]  A statement that creates a new function,
 specifying its name, parameters, and the statements it executes.
@@ -3827,45 +3863,6 @@ object.
 \item[header:] The first line of a function definition.
 \index{header}
 
-\item[body:] The sequence of statements inside a function definition.
-\index{body}
-
-\item[parameter:] A name used inside a function to refer to the value
-passed as an argument.
-\index{parameter}
-
-\item[function call:] A statement that executes a function. It
-consists of the function name followed by an argument list.
-\index{function call}
-
-\item[argument:]  A value provided to a function when the function is called.
-This value is assigned to the corresponding parameter in the function.
-\index{argument}
-
-\item[return value:]  The result of a function.  If a function call
-is used as an expression, the return value is the value of
-the expression.
-\index{return value}
-
-\item[fruitful function:] A function that returns a value.
-\index{fruitful function}
-
-\item[void function:] A function that doesn't return a value.
-\index{void function}
-
-\item[algorithm:]  A general process for solving a category of
-problems.
-\index{algorithm}
-
-\item[deterministic:] Pertaining to a program that does the same
-thing each time it runs, given the same inputs.
-\index{deterministic}
-
-\item[pseudorandom:] Pertaining to a sequence of numbers that appear
-to be random, but are generated by a deterministic program.
-\index{pseudorandom}
-
-
 \item[import statement:] A statement that reads a module file and creates
 a module object.
 \index{import statement}
@@ -3875,18 +3872,21 @@ a module object.
 that provides access to the data and code defined in a module.
 \index{module}
 
-\item[dot notation:]  The syntax for calling a function in another
-module by specifying the module name followed by a dot (period) and
-the function name.
-\index{dot notation}
+\item[parameter:] A name used inside a function to refer to the value
+passed as an argument.
+\index{parameter}
 
-\item[composition:] Using an expression as part of a larger expression,
-or a statement as part of a larger statement.
-\index{composition}
+\item[pseudorandom:] Pertaining to a sequence of numbers that appear
+to be random, but are generated by a deterministic program.
+\index{pseudorandom}
 
-\item[flow of execution:]  The order in which statements are executed during
-a program run.
-\index{flow of execution}
+\item[return value:]  The result of a function.  If a function call
+is used as an expression, the return value is the value of
+the expression.
+\index{return value}
+
+\item[void function:] A function that doesn't return a value.
+\index{void function}
 
 
 \end{description}
@@ -4563,19 +4563,9 @@ or after the check.
 
 \begin{description}
 
-\item[initialize:] An assignment that gives an initial value to
-a variable that will be updated.
-
-\item[increment:] An update that increases the value of a variable
-(often by one).
-\index{increment}
-
-\item[decrement:] An update that decreases the value of a variable.
-\index{decrement}
-
-\item[iteration:] Repeated execution of a set of statements using
-either a recursive function call or a loop.
-\index{iteration}
+\item[accumulator:] A variable used in a loop to add up or
+accumulate a result.
+\index{accumulator}
 
 \item[counter:] A variable used in a loop to count the number
 of times something happened.  We initialize a counter to 
@@ -4583,13 +4573,23 @@ zero and then increment the counter each time we want to
 ``count'' something.
 \index{counter}
 
-\item[accumulator:] A variable used in a loop to add up or
-accumulate a result.
-\index{accumulator}
+\item[decrement:] An update that decreases the value of a variable.
+\index{decrement}
+
+\item[initialize:] An assignment that gives an initial value to
+a variable that will be updated.
+
+\item[increment:] An update that increases the value of a variable
+(often by one).
+\index{increment}
 
 \item[infinite loop:] A loop in which the terminating condition is
 never satisfied or for which there is no termination condition.
 \index{infinite loop}
+
+\item[iteration:] Repeated execution of a set of statements using
+either a recursive function call or a loop.
+\index{iteration}
 
 \end{description}
 
@@ -5641,51 +5641,13 @@ second error in this function.
 
 \begin{description}
 
-\item[object:] Something a variable can refer to.  For now,
-you can use ``object'' and ``value'' interchangeably.
-\index{object}
-
-\item[sequence:] An ordered set; that is, a set of
-values where each value is identified by an integer index.
-\index{sequence}
-
-\item[item:] One of the values in a sequence.
-\index{item}
-
-\item[index:] An integer value used to select an item in
-a sequence, such as a character in a string.
-\index{index}
-
-\item[slice:] A part of a string specified by a range of indices.
-\index{slice}
-
-\item[empty string:] A string with no characters and length 0, represented
-by two quotation marks.
-\index{empty string}
-
-\item[immutable:] The property of a sequence whose items cannot
-be assigned.
-\index{immutability}
-
-\item[traverse:] To iterate through the items in a sequence,
-performing a similar operation on each.
-\index{traversal}
-
-\item[search:] A pattern of traversal that stops
-when it finds what it is looking for.
-\index{search pattern}
-\index{pattern!search}
-
 \item[counter:] A variable used to count something, usually initialized
 to zero and then incremented.
 \index{counter}
 
-\item[method:] A function that is associated with an object and called
-using dot notation.
-\index{method}
-
-\item[invocation:] A statement that calls a method.
-\index{invocation}
+\item[empty string:] A string with no characters and length 0, represented
+by two quotation marks.
+\index{empty string}
 
 \item[format operator:] An operator, {\tt \%}, that takes a format
 string and a tuple and generates a string that includes
@@ -5693,18 +5655,55 @@ the elements of the tuple formatted as specified by the format string.
 \index{format operator}
 \index{operator!format}
 
+\item[format sequence:] A sequence of characters in a format string,
+like {\tt \%d}, that specifies how a value should be formatted.
+\index{format sequence}
+
 \item[format string:] A string, used with the format operator, that
 contains format sequences.
 \index{format string}
-
-\item[format sequence:] A sequence of characters in a format string,
-like {\tt \%d}, that specifies how a value should be formatted.
 
 \item[flag:] A boolean variable used to indicate whether a condition
 is true.
 \index{flag}
 
-\index{format sequence}
+\item[invocation:] A statement that calls a method.
+\index{invocation}
+
+\item[immutable:] The property of a sequence whose items cannot
+be assigned.
+\index{immutability}
+
+\item[index:] An integer value used to select an item in
+a sequence, such as a character in a string.
+\index{index}
+
+\item[item:] One of the values in a sequence.
+\index{item}
+
+\item[method:] A function that is associated with an object and called
+using dot notation.
+\index{method}
+
+\item[object:] Something a variable can refer to.  For now,
+you can use ``object'' and ``value'' interchangeably.
+\index{object}
+
+\item[search:] A pattern of traversal that stops
+when it finds what it is looking for.
+\index{search pattern}
+\index{pattern!search}
+
+\item[sequence:] An ordered set; that is, a set of
+values where each value is identified by an integer index.
+\index{sequence}
+
+\item[slice:] A part of a string specified by a range of indices.
+\index{slice}
+
+\item[traverse:] To iterate through the items in a sequence,
+performing a similar operation on each.
+\index{traversal}
 
 \end{description}
 
