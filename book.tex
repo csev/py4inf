@@ -2322,6 +2322,8 @@ others are:
       x < y                # x is less than y
       x >= y               # x is greater than or equal to y
       x <= y               # x is less than or equal to y
+      x is y               # x is the same as y
+      x is not y           # x is not the same as y
 \end{verbatim}
 \afterverb
 %
@@ -4106,7 +4108,7 @@ Each time through the loop, the program outputs the value of {\tt n}
 and then checks whether it is even or odd.  If it is even, {\tt n} is 
 divided by 2.  If it is odd, the value of {\tt n} is replaced with
 {\tt n*3+1}. For example, if the argument passed
-to {\tt sequence} is 3, the resulting sequence is 3, 10, 5, 16, 8, 4, 2, 1.
+to {\tt sequence} is 3, the resulting sequence is 3, 10, 5, 16, 8, 4, 2.
 
 Since {\tt n} sometimes increases and sometimes decreases, there is no
 obvious proof that {\tt n} will ever reach 1, or that the program
@@ -4434,7 +4436,7 @@ following loop:
 largest = None
 print 'Before:', largest
 for iterval in [3, 41, 12, 9, 74, 15]:
-    if largest == None or largest < iterval:
+    if largest is None or largest < iterval:
         largest = iterval
     print 'Loop:', iterval, largest
 print 'Largest:', largest
@@ -4490,7 +4492,7 @@ small change:
 smallest = None
 print 'Before:', smallest
 for iterval in [3, 41, 12, 9, 74, 15]:
-    if smallest == None or iterval < smallest:
+    if smallest is None or iterval < smallest:
         smallest = iterval
     print 'Loop:', iterval, smallest
 print 'Smallest:', smallest
@@ -4513,7 +4515,7 @@ The following is a simple version of the Python built-in
 def min(values):
     smallest = None
     for value in values:
-        if smallest == None or value < smallest:
+        if smallest is None or value < smallest:
             smallest = iterval
     return smallest
 \end{verbatim}
@@ -12458,6 +12460,7 @@ this chapter.  Use the SQLite online documentation to describe the
 purpose of that type of data?
 \end{ex}
 
+\input{RE.tex}
 
 % For now, we will produce without the additional chapters
 % \input{objectchaps.tex}
@@ -13127,6 +13130,7 @@ Gerald Gordinier,
 Gavin Thomas Strassel,
 Ryan Clement,
 Alissa Talley,
+Caitlin Holman,
 
 % CONTRIB
 
