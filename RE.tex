@@ -27,12 +27,12 @@ for line in hand:
 \end{verbatim}
 \afterverb
 %
-We open the file, loop through each line and use the regular expression {\tt search()} to only print out lines that contain the string ``From:''.   This program really does not use the real power of regular expressions since we could have just as easily used {\tt line.find()} to accomplish the same result.
+We open the file, loop through each line and use the regular expression {\tt search()} to only print out lines that contain the string ``From:''.   This program does not use the real power of regular expressions since we could have just as easily used {\tt line.find()} to accomplish the same result.
 \index{string!find}
 
-The power of the regular expressions comes when there are special characters that we can add to the search string that allow us to more precisely control which lines match the string.  Adding these special characters to our regular expression allow us to do sophisticated matching and extraction while writing very little code.
+The power of the regular expressions comes we add to special characters to the search string that allow us to more precisely control which lines match the string.  Adding these special characters to our regular expression allow us to do sophisticated matching and extraction while writing very little code.
 
-For example, if we wanted to only match lines where ``From:'' was at the beginning of the line, we could add the caret character which a special charater in regular expressions that matches the beginning of a line and change our application as follows:
+For example, if we wanted to only match lines where ``From:'' was at the beginning of the line, we could add the caret character which a special character in regular expressions that matches the beginning of a line and change our application as follows:
 
 \beforeverb
 \begin{verbatim}
@@ -77,7 +77,7 @@ import re
 hand = open('mbox-short.txt')
 for line in hand:
     line = line.rstrip()
-    if re.search('^From.+@', line) :
+    if re.search('^From:.+@', line) :
         print line
 \end{verbatim}
 \afterverb
@@ -104,7 +104,7 @@ It is good to think of the plus and asterisk characters as ``pushy''.  For examp
 
 It is possible to tell an asterisk or plus-sign not to be so ``greedy'' by adding 
 another character.   See the detailed dcumentation for information on turning off the 
-greed behavior.
+greedy behavior.
 \index{greedy}
 
 \section{Extracting Data Using Regular Expressions}
@@ -144,7 +144,7 @@ The output of the program would be:
 \end{verbatim}
 \afterverb
 %
-Translating the regular expression, we are looking for substrings that have at least one non-whitespace character, followed by an at-sign, followed by at least one more non-white space characters.  Also, the ``{\textbackslash}S+'' matches as many non-whitespace characters as possibke (this is called {\bf ``greedy''} matching in regular expressions).  
+Translating the regular expression, we are looking for substrings that have at least one non-whitespace character, followed by an at-sign, followed by at least one more non-white space characters.  Also, the ``{\textbackslash}S+'' matches as many non-whitespace characters as possible (this is called {\bf ``greedy''} matching in regular expressions).  
 
 The regular expression would match twice (csev@umich.edu and cwen@iupui.edu) but it would not match the string ``@2PM'' because there are no non-blank characters before the at-sign.  
 We can use this regular expression in a program to read all the lines in a file and print out anything that looks like an E-Mail address as follows:
@@ -219,11 +219,12 @@ for line in hand:
 ['source@collab.sakaiproject.org']
 ['source@collab.sakaiproject.org']
 ['apache@localhost']
-…
 \end{verbatim}
 \afterverb
 %
 Notice that on the ``source@collab.sakaiproject.org'' lines, our regular expression eliminated two letters at the end of the string (``\verb">";'').  This is because when we append ``[a-zA-Z]'' to the end of our regular expression, we are demanding that whatever string the regular expression parser finds, it must end with a letter.   So when it sees the ``\verb">"'' after ``sakaiproject.org\verb">";'' it simply stops at the last ``matching'' letter it found (i.e. the ``g'' was the last good match).
+
+Also note that the output of the program is a Python list that has a string as the single element in the list.
 
 \section{Combining Searching and Extracting}
 
@@ -236,7 +237,7 @@ X-DSPAM-Probability: 0.0000
 \end{verbatim}
 \afterverb
 %
-We don't just want any floating point point numbers from any lines - we only want them from lines that have the above syntax.
+We don't just want any floating point point numbers from any lines.  We only to extract numbers from lines that have the above syntax.
 
 We can construct the following regular expression to select the lines:
 
@@ -261,7 +262,8 @@ for line in hand:
 \end{verbatim}
 \afterverb
 %
-When we run the program, we see the fill be nicely filtered to show only the lines we are looking for.
+When we run the program, we see the data nicely filtered to show 
+only the lines we are looking for.
 
 \beforeverb
 \begin{verbatim}
@@ -275,7 +277,7 @@ X-DSPAM-Probability: 0.0000
 But now we have to solve the problem of extracting the numbers using {\tt split}.  While it would be simple enough to use {\tt split}, we can use another feature of regular expressions to both search and parse the line at the same time.
 \index{string!split}
 
-Parentheses are another special character in regular expressions.  When you add parentheses to a regular expression they are kind of "invisible" when matching the string, but when you are using {\tt findall()}, parentheses indicates that you while you want the whole expression to match, you only are interesed in extracting a portion of the substring that matches the regular expression.  
+Parentheses are another special character in regular expressions.  When you add parentheses to a regular expression they are ignored when matching the string, but when you are using {\tt findall()}, parentheses indicates that you while you want the whole expression to match, you only are interesed in extracting a portion of the substring that matches the regular expression.  
 \index{regex!parentheses}
 \index{parentheses!regular expression}
 
@@ -347,7 +349,7 @@ When we run the program, we get the following output:
 \end{verbatim}
 \afterverb
 %
-Remember that the ``[0-9]+'' is ``greedy'' and it tries to make as large a string of digits as possible before extracting those digits.  This ``greedy'' behavior is why we get all five digits for each number.  The regular expression library expands until it counters a non-digit, the beginning, or the end of a line.
+Remember that the ``[0-9]+'' is ``greedy'' and it tries to make as large a string of digits as possible before extracting those digits.  This ``greedy'' behavior is why we get all five digits for each number.  The regular expression library expands in both directions until it counters a non-digit, the beginning, or the end of a line.
 
 Now lets use regular expressions to re-do an exercise from earlier in the book where we were interested in the time of day of each mail message.   We looked for lines of the form:
 
@@ -436,7 +438,7 @@ Matches a single character as long as that character is in the specified set.  I
 You can specify ranges of characters using the minus sign.  This example is a single character that must be a lower case letter or a digit.
 
 [\verb"^"A-Za-z] \newline
-When the first character in the set notation is a caret, it inverts the logic.  This example matches a single character that is anything other than an upper or lower case character.
+When the first character in the set notation is a caret, it inverts the logic.  This example matches a single character that is anything {\em other than} an upper or lower case character.
 
 ( ) \newline
 When parentheses are added to a regular expression, they are ignored for the purpose of matching, but allow you to extract a particular subset of the matched string rather than the whole string when using {\tt findall()}.
@@ -455,9 +457,9 @@ Matches any non-digit character; equivalent to the set [\verb"^"0-9].
 
 \section{Bonus Section for UNIX Users}
 
-It turns out that the notion of regular expressions is far more pervasive than simply in Python.   Support for searching files using regular expressions was built into the UNIX operating since the 1960's and it is avaiable in nearly all programming languages in one form or another.
+Support for searching files using regular expressions was built into the UNIX operating since the 1960's and it is avaiable in nearly all programming languages in one form or another.
 
-As a matter of fact, there is a pargam built into UNIX called {\bf grep} (Generalized Regular Expression Parser) that does pretty much the same as the {\tt search()} examples in this chapter.  So if you have a Macintosh or Linux system, you can try the following commands in your command line window.
+As a matter of fact, there is a command-line program built into UNIX called {\bf grep} (Generalized Regular Expression Parser) that does pretty much the same as the {\tt search()} examples in this chapter.  So if you have a Macintosh or Linux system, you can try the following commands in your command line window.
 
 \beforeverb
 \begin{verbatim}
@@ -466,7 +468,6 @@ From: stephen.marquard@uct.ac.za
 From: louis@media.berkeley.edu
 From: zqian@umich.edu
 From: rjlowe@iupui.edu
-…
 \end{verbatim}
 \afterverb
 %
@@ -506,14 +507,13 @@ If you know what module you want to use, you can sue the dir() command to find t
 \begin{verbatim}
 >>> import re
 >>> dir(re)
-[.. internal methods removed… 'compile', 'copy_reg', 'error', 
-'escape', 'findall', 'finditer', 'match', 'purge', 'search', 
-'split', 'sre_compile', 'sre_parse', 'sub', 'subn', 'sys', 
-'template']
+[.. 'compile', 'copy_reg', 'error', 'escape', 'findall', 
+'finditer', 'match', 'purge', 'search', 'split', 'sre_compile', 
+'sre_parse', 'sub', 'subn', 'sys', 'template']
 \end{verbatim}
 \afterverb
 %
-You can also get a small amount of documentation on a particular method, you can also use the dir command.
+You can also get a small amount of documentation on a particular method using the dir command.
 
 \beforeverb
 \begin{verbatim}
@@ -544,7 +544,7 @@ A command available in most UNIX systems that searches through text files lookin
 \index{grep}
 
 \item{regular expression:}
-A language for expressing more complex search strings.  A regular exprtession may contain special characters that indicate that a search only matches at the beginning or end of a line or many other similar capabilities.
+A language for expressing more complex search strings.  A regular expression may contain special characters that indicate that a search only matches at the beginning or end of a line or many other similar capabilities.
 
 \item{wild card:}
 A special character that matches any character.   In regular expressions the wild card character is the period character.
@@ -583,5 +583,6 @@ Write a program to look for lines of the form
 \verb"New Revision: 39772"
 
 And extract the number from each of the lines using a regular expression
-and the {\tt findall()} method.
+and the {\tt findall()} method.  Compute the average of the numbers and 
+print out the average.
 \end{ex}
