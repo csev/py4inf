@@ -10274,7 +10274,7 @@ sockets in a Python program.
 A {\bf socket} is much like a file, except that it 
 provides a two-way connection between two 
 programs with a single socket.  
-You can both read from and write to the same socket.  If you write somthing to 
+You can both read from and write to the same socket.  If you write something to 
 a socket it is sent to the application at the other end of the socket.  If you 
 read from the socket, you are given the data which the other application has sent.
 
@@ -10377,7 +10377,7 @@ to indicate the end of the headers and then sends the actual
 data of the file {\tt romeo.txt}.
 
 This example shows how to make a low-level network connection
-with sockets.   Sockets can be use to communicate with a web
+with sockets.   Sockets can be used to communicate with a web
 server or with a mail server or many other kinds of servers.
 All that is needed is to find the document which describes
 the protocol and write the code to send and receive the data
@@ -10443,9 +10443,9 @@ import urllib
 counts = dict()
 fhand = urllib.urlopen('http://www.py4inf.com/code/romeo.txt')
 for line in fhand:
-   words = line.split()
-   for word in words:
-      counts[word] = counts.get(word,0) + 1   
+    words = line.split()
+    for word in words:
+        counts[word] = counts.get(word,0) + 1   
 print counts
 \end{verbatim}
 \afterverb
@@ -10504,7 +10504,7 @@ Second Page</a>.
 \end{verbatim}
 \afterverb
 %
-We will use {\tt urllib} to read the bage and then use
+We will use {\tt urllib} to read the page and then use
 {\tt BeautifulSoup} to extract the {\tt href} attributes from the
 anchor ({\tt a}) tags.
 \index{BeautifulSoup}
@@ -10517,7 +10517,7 @@ import urllib
 from BeautifulSoup import *
 
 url = raw_input('Enter - ')
-html = urllib.urlopen(url).read
+html = urllib.urlopen(url).read()
 soup = BeautifulSoup(html)
 
 # Retrieve all of the anchor tags
@@ -10541,7 +10541,7 @@ Enter - http://www.dr-chuck.com/page1.htm
 http://www.dr-chuck.com/page2.htm
 
 python urllinks.py 
-Enter - http://www.py4inf.com/
+Enter - http://www.py4inf.com/book.htm
 http://www.greenteapress.com/thinkpython/thinkpython.html
 http://allendowney.com/
 http://www.si502.com/
@@ -10559,7 +10559,7 @@ import urllib
 from BeautifulSoup import *
 
 url = raw_input('Enter - ')
-html = urllib.urlopen(url).read
+html = urllib.urlopen(url).read()
 soup = BeautifulSoup(html)
 
 # Retrieve all of the anchor tags
@@ -10632,11 +10632,37 @@ use to build their search index.
 \section{Exercises}
 
 \begin{ex}
+Change the socket program to prompt the user for the URL so it can read any web page.  
+Add error checking using {\tt try} and {\tt except} to handle the condition where the 
+user enters an improperly formatted or non-existant URL.  
+\end{ex}
+
+\begin{ex}
+Change your socket program so that it counts the number of characters it has received 
+and stops displaying any text after it has shown 3000 characters.  The program 
+should retrieve the entire document and count the total number of characters 
+and display the count of the number of characters at the end of the document.
+\end{ex}
+
+\begin{ex}
+Use {\tt urllib} to replicate the previous exercise of (1) retrieving the document
+from a URL, (2) displaying up to 3000 characters, and (3) counting the overall number
+of characters in the document.  Don't worry about the headers for this exercise, simply
+show the first 3000 characters of the document contents.
+\end{ex}
+
+\begin{ex}
 Change the {\tt urllinks.py} program to extract paragraph (p) tags
 from the retrieved HTML document and simply count how many paragraphs
 are in the document and display the count of the paragraphs as the 
 output of your program.  Test your program on several small web pages
 as well as some larger web pages.
+\end{ex}
+
+\begin{ex}
+(Advanced) Change the socket program so that it only shows data after the 
+headers and a blank line have been received.  Remember that {\tt recv} is
+receiving characters (newlines and all) - not lines.
 \end{ex}
 
 
@@ -12533,7 +12559,7 @@ for line in hand:
 %
 This is particularly powerful when combined with the ability to indicate that a character can be repeated any number of times using the ``*'' or ``+'' characters in your regular expression.   These special characters mean that instead of matching a single character in the search string they match zero-or-more in the case of the asterisk or one-or-more of the characters in the case of the plus sign.
 
-We can further narrow down the lines that we match using the {\bf wild card} character repeated one or more times in the following example:
+We can further narrow down the lines that we match using a repeated {\bf wild card} character in the following example:
 
 \beforeverb
 \begin{verbatim}
@@ -12585,7 +12611,7 @@ Author: stephen.marquard@uct.ac.za
 \end{verbatim}
 \afterverb
 %
-We don't want to write code for each of the types of lines, splitting and slicing differently for each line.  This following program uses {\tt findall()} to find the lines with E-Mail addresses in them and extracts one or more addresses from each of those lines.
+We don't want to write code for each of the types of lines, splitting and slicing differently for each line.  This following program uses {\tt findall()} to find the lines with E-Mail addresses in them and extract one or more addresses from each of those lines.
 \index{findall}
 \index{regex!findall}
 
@@ -12610,7 +12636,7 @@ The output of the program would be:
 %
 Translating the regular expression, we are looking for substrings that have at least one non-whitespace character, followed by an at-sign, followed by at least one more non-white space characters.  Also, the ``{\textbackslash}S+'' matches as many non-whitespace characters as possible (this is called {\bf ``greedy''} matching in regular expressions).  
 
-The regular expression would match twice (csev@umich.edu and cwen@iupui.edu) but it would not match the string ``@2PM'' because there are no non-blank characters before the at-sign.  
+The regular expression would match twice (csev@umich.edu and cwen@iupui.edu) but it would not match the string ``@2PM'' because there are no non-blank characters {\em before} the at-sign.  
 We can use this regular expression in a program to read all the lines in a file and print out anything that looks like an E-Mail address as follows:
 
 \beforeverb
@@ -12627,7 +12653,7 @@ for line in hand:
 %
 We read each line and then extract all the substrings that match our regular expression.  Since {\tt findall()} returns a list, we simple check if the number of elements in our returned list is more than zero to print only lines where we found at least one substring that looks like an E-Mail address.
 
-If we run the program on mbox.txt we get the following output:
+If we run the program on {\tt mbox.txt} we get the following output:
 
 \beforeverb
 \begin{verbatim}
@@ -12645,7 +12671,7 @@ If we run the program on mbox.txt we get the following output:
 %
 Some of our E-mail addresses have incorrect characters like ``\verb"<"'' or ``;'' at the beginning or end.   Lets declare that we are only interested in the portion of the string that starts and ends with a letter or a number.
 
-To do this, we use another feature of regular expressions.  Square brackets are used to indicate a set of acceptable characters we are willing to consider matching.  In a sense, the ``{\textbackslash}S'' is asking to match the set of ``non-whitespace characters''.  Now we will be a little more explicit in terms of the characters we will match.
+To do this, we use another feature of regular expressions.  Square brackets are used to indicate a set of multiple acceptable characters we are willing to consider matching.  In a sense, the ``{\textbackslash}S'' is asking to match the set of ``non-whitespace characters''.  Now we will be a little more explicit in terms of the characters we will match.
 
 Here is our new regular expression:
 
@@ -12655,7 +12681,7 @@ Here is our new regular expression:
 \end{verbatim}
 \afterverb
 %
-This is getting a little complicated and you can begin to see why regular expressions are their own little language unto themselves.  Translating this regular expression, we are looking for substrings that start with a {\em single} lowercase letter, upper case letter, or number ``[a-zA-Z0-9]'' followed by zero or more non blank characters ``{\textbackslash}S*'', followed by an at-sign, followed by zero or more non-blank characters ``{\textbackslash}S*'' followed by an upper or lower case letter.  Note that we switched from ``+'' to ``*'' to indicate zero-or-more non-blank characters.   Remember that the ``*'' or ``+'' applies to the single character immediately to the left of the plus or asterisk.
+This is getting a little complicated and you can begin to see why regular expressions are their own little language unto themselves.  Translating this regular expression, we are looking for substrings that start with a {\em single} lowercase letter, upper case letter, or number ``[a-zA-Z0-9]'' followed by zero or more non blank characters ``{\textbackslash}S*'', followed by an at-sign, followed by zero or more non-blank characters ``{\textbackslash}S*'' followed by an upper or lower case letter.  Note that we switched from ``+'' to ``*'' to indicate zero-or-more non-blank characters since ``[a-zA-Z0-9]'' is already one non-blank character.   Remember that the ``*'' or ``+'' applies to the single character immediately to the left of the plus or asterisk.
 \index{regex!character sets(brackets)}
 
 If we use this expression in our program, our data is much cleaner:
@@ -12759,7 +12785,7 @@ for line in hand:
 \end{verbatim}
 \afterverb
 %
-Instead of calling {\tt search()}, we add a parentheses around the part of the regular expression that represents the floating point number to indicate we only want {\tt findall()} to give us back the floating point number from the matching substring.
+Instead of calling {\tt search()}, we add a parentheses around the part of the regular expression that represents the floating point number to indicate we only want {\tt findall()} to give us back the floating point number portion of the matching string.
 
 The output from this program is as follows:
 
@@ -12777,7 +12803,8 @@ The output from this program is as follows:
 %
 The numbers are still in a list and need to be converted from strings to floating point but we have used the power of regular expressions to both search and extract the information we found interesting.
 
-If you look at the file there are a number of lines of the form:
+As another example of this technique, if 
+you look at the file there are a number of lines of the form:
 
 \beforeverb
 \begin{verbatim}
@@ -12825,6 +12852,7 @@ From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
 %
 And wanted to extract the hour of the day for each line.  Previously we did this with two calls to {\tt split}.  First the line was split into words and then we pulled out the fifth word and split it again on the colon character to pull out the two characters we were interested in.
 
+% Add a section on the notion of brittle code
 While this worked, it actually results in pretty brittle code that is assuming the lines are nicely formatted.  If you were to add enough error checking (or a big try/except block) to insure that your program never failed when presented with incorrectly formatted lines, the code would balloon to 10-15 lines of code that was pretty hard to read.
 
 We can do this far simpler with the following regular expression:
@@ -12872,22 +12900,22 @@ When the program runs, it produces the following output:
 %
 \section{Summary}
 
-While this only scratched the surface of regular expressions, we have learned a bit about the language of regular expressions.  They are search strings that have special characters in them that communicate your wishes to the regular expression system.  Here are some of those specal characters and character sequences:
+While this only scratched the surface of regular expressions, we have learned a bit about the language of regular expressions.  They are search strings that have special characters in them that communicate your wishes to the regular expression system as to what defines ``matching'' and what is extracted from the matched strings.  Here are some of those specal characters and character sequences:
 
 \verb"^" \newline
-Matches the beginning of the line
+Matches the beginning of the line.
 
 \$ \newline
-Matches the end of the line
+Matches the end of the line.
 
 . \newline
-Matches any character (a wildcard)
+Matches any character (a wildcard).
 
 {\textbackslash}s \newline
-Matches a whitespace character
+Matches a whitespace character.
 
 {\textbackslash}S \newline
-Matches a non-whitespace character (opposite of {\textbackslash}s)
+Matches a non-whitespace character (opposite of {\textbackslash}s).
 
 * \newline
 Applies to the immediately preceding character and indicates to match zero or more of the preceding character.
@@ -12935,13 +12963,13 @@ From: rjlowe@iupui.edu
 \end{verbatim}
 \afterverb
 %
-This tells {\tt grep} to show you lines that start with the string ``From:'' in the file mbox-short.txt.   If you experiment with the rep command a bit and read the documentation for {\tt grep}, you will find some subtle difference between the regular expression support in Python and the regular expression support in {\tt grep}.  As an example, {\tt grep} does not support the non-blank character ``{\textbackslash}S'' so you will need to use the slightly more complex set notation ``[\verb"^" ]''- which simply means - match a character that is anything other than a space.
+This tells {\tt grep} to show you lines that start with the string ``From:'' in the file {\tt mbox-short.txt}.   If you experiment with the {\tt grep} command a bit and read the documentation for {\tt grep}, you will find some subtle difference between the regular expression support in Python and the regular expression support in {\tt grep}.  As an example, {\tt grep} does not support the non-blank character ``{\textbackslash}S'' so you will need to use the slightly more complex set notation ``[\verb"^" ]''- which simply means - match a character that is anything other than a space.
 
 \section{Debugging}
 
 Python has some simple and rudimentary built-in documentation that can be quite helpful if you need a quick refresher to trigger your memory about the exact name of a particular method.   This documentation can be viewed in the Python interpreter in interactive mode.
 
-You can bring up an interactive help system using help()
+You can bring up an interactive help system using {\tt help()}.
 
 \beforeverb
 \begin{verbatim}
@@ -12965,7 +12993,7 @@ help> modules
 \end{verbatim}
 \afterverb
 %
-If you know what module you want to use, you can sue the dir() command to find the methods in the module as follows:
+If you know what module you want to use, you can sue the {\tt dir()} command to find the methods in the module as follows:
 
 \beforeverb
 \begin{verbatim}
@@ -12997,6 +13025,11 @@ or don't have access to a web browser or search engine.
 \section{Glossary}
 
 \begin{description}
+
+\item{brittle code:}
+Code that works when the input data is in a particular format but prone to breakage
+if there is some deviation from the correct format.  We call this ``brittle code'' 
+because it is easily broken.
 
 \item{greedy matching:}
 The notion that the ``+'' and ``*'' characters in a regular expression expand outward to match the largest possible string.
