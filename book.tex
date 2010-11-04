@@ -10429,7 +10429,7 @@ page, reads the data and passes the data to the BeautifulSoup
 parser, and then retrieves all of the anchor tags and prints
 out the {\tt href} attribute for each tag.
 
-When the program is run it looks as follows:
+When the program runs it looks as follows:
 
 \beforeverb
 \begin{verbatim}
@@ -10490,7 +10490,7 @@ and samples at
 \url{www.crummy.com}
 for more detail.
 
-\section{Reading non-text files}
+\section{Reading binary files using urllib}
 
 Sometimes you want to retrieve a non-text (or binary) file such as
 an image or video file. The data in these files is generally not 
@@ -10547,6 +10547,16 @@ write those characters to the {\tt cover.jpg} file
 before retrieving the next 100,000 characters of data from the
 web.
 
+This program runs as follows:
+
+\beforeverb
+\begin{verbatim}
+python curl2.py 
+568248 characters copied.
+\end{verbatim}
+\afterverb
+%
+
 If you have a Unix or Macintosh computer, you probably have a command
 bult into your operating system that performs this operation
 as follows:
@@ -10563,8 +10573,7 @@ examples are cleverly named {\tt curl1.py} and {\tt curl2.py} on
 \url{www.py4inf.com/code} as they implement similar functionality
 to the {\tt curl} command.  There is also a {\tt curl3.py} sample 
 program that does this task a little more effectively in case you
-actually want to use this to retrieve binary files directly to your
-hard drive across the web.
+actually want to use this pattern in a program you are writing.
 
 \section{Glossary}
 
