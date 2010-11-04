@@ -10317,12 +10317,12 @@ href="http://.+?"
 \afterverb
 %
 Our regular expression looks for strings that start with
-``href="http:/'' followed by one or more characters
+``href="http://'' followed by one or more characters
 ``.+?'' followed by another double quote.  The question mark 
-added to the ``.+'' indicates that the match is to be done
+added to the ``.+?'' indicates that the match is to be done
 in a ``non-greedy'' fashion instead of a ``greedy'' fashion.  
-A non-greedy match tried to find the smallest possible matching
-string and a greedy match tries to find the largest possible
+A non-greedy match tries to find the {\em smallest} possible matching
+string and a greedy match tries to find the {\em largest} possible
 matching string.
 \index{greedy}
 \index{non-greedy}
