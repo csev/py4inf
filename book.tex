@@ -1759,7 +1759,7 @@ right.  So in the expression {\tt 5-3-1} is 1, not 3 because the
 
 \end{itemize}
 
-When in doubt always put parenthesis in your expressions to make sure
+When in doubt always put parentheses in your expressions to make sure
 the computations are performed in the order you intend.
 
 \section{Modulus operator}
@@ -10271,6 +10271,8 @@ Again, once we have opened the web page,
 we can read it like a local file.
 
 \section{Parsing HTML and scraping the web}
+\index{web!scraping}
+\index{parsing HTML}
 
 One of the common uses of the {\tt urllib} capability in Python is 
 to {\bf scrape} the web.   Web scraping is when we write a program
@@ -10282,9 +10284,100 @@ of one web page and extract the links to other pages and retrieve
 those pages, extracting links, and so on.   Using this technique,
 Google {\bf spiders} its way through nearly all of the pages on 
 the web.   
+
 Google also uses the frequency of links from pages it finds 
 to a particular page as one measure of how ``important'' 
 a page is and how highly the page should appear in its search results.
+
+\section{Parsing HTML using Regular Expressions}
+
+One simple way to parse HTML is to use regular expressions to repeatedly
+search and extract for substrings that match a particular pattern.
+
+Here is a simple web page:
+
+\beforeverb
+\begin{verbatim}
+<h1>The First Page</h1>
+<p>
+If you like, you can switch to the
+<a href="http://www.dr-chuck.com/page2.htm">
+Second Page</a>.
+</p>
+\end{verbatim}
+\afterverb
+%
+We can construct a well-formed regular expression to match
+and extract the link values from the above text as follows:
+
+\beforeverb
+\begin{verbatim}
+href="http://.+?"
+\end{verbatim}
+\afterverb
+%
+Our regular expression looks for strings that start with
+``href="http:/'' followed by one or more characters
+``.+?'' followed by another double quote.  The question mark 
+added to the ``.+'' indicates that the match is to be done
+in a ``non-greedy'' fashion instead of a ``greedy'' fashion.  
+A non-greedy match tried to find the smallest possible matching
+string and a greedy match tries to find the largest possible
+matching string.
+\index{greedy}
+\index{non-greedy}
+
+We need to add parentheses to our regular expression to indicate
+which part of our matched string we would like to extract and
+produce the following program:
+\index{regex!parentheses}
+\index{parentheses!regular expression}
+
+\beforeverb
+\begin{verbatim}
+import urllib
+import re
+
+url = raw_input('Enter - ')
+html = urllib.urlopen(url).read()
+links = re.findall('href="(http://.*?)"', html)
+for link in links:
+    print link
+\end{verbatim}
+\afterverb
+%
+The {\tt findall} regular expression method will give us a list of all
+of the strings that match our regular expression, returning only
+the link text between the double quotes.
+
+When we run the program, we get the following output:
+
+\beforeverb
+\begin{verbatim}
+python urlregex.py 
+Enter - http://www.dr-chuck.com/page1.htm
+http://www.dr-chuck.com/page2.htm
+
+python urlregex.py 
+Enter - http://www.py4inf.com/book.htm
+http://www.greenteapress.com/thinkpython/thinkpython.html
+http://allendowney.com/
+http://www.py4inf.com/code
+http://www.lib.umich.edu/espresso-book-machine
+http://www.py4inf.com/py4inf-slides.zip
+\end{verbatim}
+\afterverb
+%
+Regular expressions work very nice when your HTML is well-formatted
+and predictable.  But since there is a lot of ``broken'' HTML pages
+out there, you might find that a solution only using 
+regular expressions might either miss some valid links or end up 
+with bad data.
+
+This can be solved by using a robust HTML parsing library.
+
+\section{Parsing HTML using BeautifulSoup}
+\index{BeautifulSoup}
 
 There are a number of Python libraries which can help you parse
 HTML and extract data from the pages.  Each of the libraries
@@ -10308,19 +10401,6 @@ that cause an XML parser to reject the entire page of HTML as
 improperly formed.  BeautifulSoup tolerates highly flawed 
 HTML and still lets you easily extract the data you need.
 
-Here is a simple web page:
-
-\beforeverb
-\begin{verbatim}
-<h1>The First Page</h1>
-<p>
-If you like, you can switch to the
-<a href="http://www.dr-chuck.com/page2.htm">
-Second Page</a>.
-</p>
-\end{verbatim}
-\afterverb
-%
 We will use {\tt urllib} to read the page and then use
 {\tt BeautifulSoup} to extract the {\tt href} attributes from the
 anchor ({\tt a}) tags.
@@ -10391,6 +10471,7 @@ for tag in tags:
 \afterverb
 %
 This produces the following output:
+
 \beforeverb
 \begin{verbatim}
 python urllink2.py 
@@ -10408,6 +10489,82 @@ when it comes to parsing HTML.  See the documentation
 and samples at
 \url{www.crummy.com}
 for more detail.
+
+\section{Reading non-text files}
+
+Sometimes you want to retrieve a non-text (or binary) file such as
+an image or video file. The data in these files is generally not 
+useful to print out but you can easily make a copy of a URL to a local
+file on your hard disk using {\tt urllib}.
+\index{binary file}
+
+The pattern is to open the URL and use {\tt read} to download the entire
+contents of the document into a string variable ({\tt img}) and then write that
+information to a local file as follows:
+
+\beforeverb
+\begin{verbatim}
+img = urllib.urlopen('http://www.py4inf.com/cover.jpg').read()
+fhand = open('cover.jpg', 'w')
+fhand.write(img)
+fhand.close()
+\end{verbatim}
+\afterverb
+%
+This program reads all of the data in at once across the network and 
+stores it in the variable {\tt img} in the main memory of your computer
+and then opens the file {\tt cover.jpg} and writes the data out to your 
+disk.  This will work if the size of the file is less than the size
+of the memory of your computer.
+
+However if this is a large audio or video file, this program may crash
+or ar least run extremly slowly when your computer runs out of memory.
+In order to avoid running out of memory, we retrieve the data in blocks
+(or buffers) and then write each block to your disk before retrieving
+the next block.  This way the program can read any sized file without
+using up all of the memory you have in your computer.
+
+\beforeverb
+\begin{verbatim}
+import urllib
+
+img = urllib.urlopen('http://www.py4inf.com/cover.jpg')
+fhand = open('cover.jpg', 'w')
+size = 0
+while True:
+    info = img.read(100000)
+    if len(info) < 1 : break
+    size = size + len(info)
+    fhand.write(info)
+
+print size,'characters copied.'
+fhand.close()
+\end{verbatim}
+\afterverb
+%
+In this example, we read only 100,000 characters at a time and then 
+write those characters to the {\tt cover.jpg} file
+before retrieving the next 100,000 characters of data from the
+web.
+
+If you have a Unix or Macintosh computer, you probably have a command
+bult into your operating system that performs this operation
+as follows:
+\index{curl}
+
+\beforeverb
+\begin{verbatim}
+curl -O http://www.py4inf.com/cover.jpg
+\end{verbatim}
+\afterverb
+%
+The command {\tt curl} is short for ``copy URL'' and so these two 
+examples are cleverly named {\tt curl1.py} and {\tt curl2.py} on 
+\url{www.py4inf.com/code} as they implement similar functionality
+to the {\tt curl} command.  There is also a {\tt curl3.py} sample 
+program that does this task a little more effectively in case you
+actually want to use this to retrieve binary files directly to your
+hard drive across the web.
 
 \section{Glossary}
 
