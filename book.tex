@@ -10617,6 +10617,8 @@ use to build their search index.
 \begin{ex}
 Change the socket program {\tt socket1.py} to prompt the user for 
 the URL so it can read any web page.  
+You can use {\tt split('/')} to break the URL into its component parts
+so you can extract the host name for the socket {\tt connect} call.
 Add error checking using {\tt try} and {\tt except} to handle the condition where the 
 user enters an improperly formatted or non-existant URL.  
 \end{ex}
@@ -10639,7 +10641,9 @@ show the first 3000 characters of the document contents.
 Change the {\tt urllinks.py} program to extract and count 
 paragraph (p) tags from the retrieved HTML document and 
 display the count of the paragraphs as the 
-output of your program.  Test your program on several small web pages
+output of your program.  
+Do not display the paragraph text - only count them.
+Test your program on several small web pages
 as well as some larger web pages.
 \end{ex}
 
