@@ -1,7 +1,7 @@
 import urllib
 import xml.etree.ElementTree as ET
 
-TWITTER_URL = 'http://api.twitter.com/l/statuses/friends/ACCT.xml'
+TWITTER_URL = 'http://api.twitter.com/1/statuses/friends/ACCT.xml'
 
 while True:
     print ''

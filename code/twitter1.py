@@ -1,6 +1,6 @@
 import urllib
 
-TWITTER_URL = 'http://api.twitter.com/l/statuses/friends/ACCT.xml'
+TWITTER_URL = 'http://api.twitter.com/1/statuses/friends/ACCT.xml'
 
 while True:
     print ''
