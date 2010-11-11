@@ -18,6 +18,6 @@ while True:
         if count > 4 : break
         print user.find('screen_name').text
         status =  user.find('status')
-        if status : 
+        if status is not None : 
             txt = status.find('text').text
             print '  ',txt[:50]

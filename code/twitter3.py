@@ -19,6 +19,6 @@ while True:
         print user.find('screen_name').text
         print '  ',user.find('location').text
         status =  user.find('status')
-        if status : 
+        if status is not None : 
             txt = status.find('text').text
             print '  ',txt[:50]
