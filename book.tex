@@ -7619,8 +7619,8 @@ idea to revisit the {\bf guardian} pattern when it comes
 writing programs that read through a file 
 and look for a ``needle in the haystack''.
 
-Lets revisit our program that is looking for the day of the
-week on the from lines of our file.:
+Let's revisit our program that is looking for the day of the
+week on the from lines of our file:
 
 {\tt
 From stephen.marquard@uct.ac.za {\bf Sat} Jan  5 09:14:16 2008
@@ -8175,7 +8175,7 @@ should be able to eliminate the {\tt if} statement.
 
 One of the common uses of a dictionary is to count the occurrence
 of words in a file with some written text.  
-Lets start with a very simple file of
+Let's start with a very simple file of
 words taken from the text of \emph{Romeo and Juliet}
 thanks to 
 \url{http://shakespeare.mit.edu/Tragedy/romeoandjuliet/romeo_juliet.2.2.html}.
@@ -9475,14 +9475,14 @@ varies between languages.  Compare your results with the tables at
 
 \end{ex}
 
-\chapter{Regular Expressions}
+\chapter{Regular expressions}
 
 So far we have been reading through files, looking for patterns and extracting various bits of lines that we find interesting.  We have been using string methods like {\tt split} and {\tt find} and using lists and string slicing to extract portions of the lines.
 \index{regular expressons}
 \index{regex}
 \index{re module}
 
-This task of searching and extracting is so common that Python has a very powerful library called {\bf regular expressions} that handles many of these tasks quite elegantly.  The reason we have not introduced regular expressions earlier in the book because while they are very powerful, they are a little complicated and their syntax takes a little getting used to. 
+This task of searching and extracting is so common that Python has a very powerful library called {\bf regular expressions} that handles many of these tasks quite elegantly.  The reason we have not introduced regular expressions earlier in the book is because while they are very powerful, they are a little complicated and their syntax takes some getting used to. 
 
 Regular expressions are almost their own little programming language for searching and parsing strings.  As a matter of fact, entire books have been written on the topic of regular expressions.  In this chapter, we will only cover the basics of regular expressions.  For more detail on regular expressions, see:
 
@@ -9507,9 +9507,12 @@ for line in hand:
 We open the file, loop through each line and use the regular expression {\tt search()} to only print out lines that contain the string ``From:''.   This program does not use the real power of regular expressions since we could have just as easily used {\tt line.find()} to accomplish the same result.
 \index{string!find}
 
-The power of the regular expressions comes we add to special characters to the search string that allow us to more precisely control which lines match the string.  Adding these special characters to our regular expression allow us to do sophisticated matching and extraction while writing very little code.
+The power of the regular expressions comes when we add to special characters to the search string that allow us to more precisely control which lines match the string.  Adding these special characters to our regular expression allow us to do sophisticated matching and extraction while writing very little code.
 
-For example, if we wanted to only match lines where ``From:'' was at the beginning of the line, we could add the caret character which a special character in regular expressions that matches the beginning of a line and change our application as follows:
+For example, the caret character is uses in regular 
+expressions to match ``the beginning'' of a line.
+We could change our application to only match 
+lines where ``From:'' was at the beginning of the line as follows:
 
 \beforeverb
 \begin{verbatim}
@@ -9525,7 +9528,7 @@ for line in hand:
 Now we will only match lines that {\em start with} the string ``From:''.  This is still a very simple example that we could have done equivalently with the {\tt startswith()} method from the string library.  But it serves to introduce the notion that regular expressions contain special action characters that give us more control as to what will match the regular expression.
 \index{string!startswith}
 
-\section{Character Matching in Regular Expressions}
+\section{Character matching in regular expressions}
 
 There are a number of other special characters that let us build even more powerful regular expressions.  The most commonly used special character is the period character which matches any character.
 \index{wild card}
@@ -9584,9 +9587,9 @@ another character.   See the detailed dcumentation for information on turning of
 greedy behavior.
 \index{greedy}
 
-\section{Extracting Data Using Regular Expressions}
+\section{Extracting data using regular expressions}
 
-If we want to extract data from a string in Python we can use the {\tt findall()} method to extract all of the substrings which match a regular expression.  Lets use the example of wanting to extract anything that looks like an E-Mail address from any line regardless of format.  For example, we want to pull the e-mail addresses from each of the following lines:
+If we want to extract data from a string in Python we can use the {\tt findall()} method to extract all of the substrings which match a regular expression.  Let's use the example of wanting to extract anything that looks like an e-mail address from any line regardless of format.  For example, we want to pull the e-mail addresses from each of the following lines:
 
 \beforeverb
 \begin{verbatim}
@@ -9598,7 +9601,7 @@ Author: stephen.marquard@uct.ac.za
 \end{verbatim}
 \afterverb
 %
-We don't want to write code for each of the types of lines, splitting and slicing differently for each line.  This following program uses {\tt findall()} to find the lines with E-Mail addresses in them and extract one or more addresses from each of those lines.
+We don't want to write code for each of the types of lines, splitting and slicing differently for each line.  This following program uses {\tt findall()} to find the lines with e-mail addresses in them and extract one or more addresses from each of those lines.
 \index{findall}
 \index{regex!findall}
 
@@ -9611,7 +9614,7 @@ print lst
 \end{verbatim}
 \afterverb
 %
-The {\tt findall()} method searches the string in the second argument and returns a list of all of the strings that look like E-Mail addresses.   We are using a special character that indicates a non-whitespace character ({\textbackslash}S). 
+The {\tt findall()} method searches the string in the second argument and returns a list of all of the strings that look like e-mail addresses.   We are using a special character that indicates a non-whitespace character ({\textbackslash}S). 
 
 The output of the program would be:
 
@@ -9624,7 +9627,7 @@ The output of the program would be:
 Translating the regular expression, we are looking for substrings that have at least one non-whitespace character, followed by an at-sign, followed by at least one more non-white space characters.  Also, the ``{\textbackslash}S+'' matches as many non-whitespace characters as possible (this is called {\bf ``greedy''} matching in regular expressions).  
 
 The regular expression would match twice (csev@umich.edu and cwen@iupui.edu) but it would not match the string ``@2PM'' because there are no non-blank characters {\em before} the at-sign.  
-We can use this regular expression in a program to read all the lines in a file and print out anything that looks like an E-Mail address as follows:
+We can use this regular expression in a program to read all the lines in a file and print out anything that looks like an e-mail address as follows:
 
 \beforeverb
 \begin{verbatim}
@@ -9638,7 +9641,7 @@ for line in hand:
 \end{verbatim}
 \afterverb
 %
-We read each line and then extract all the substrings that match our regular expression.  Since {\tt findall()} returns a list, we simple check if the number of elements in our returned list is more than zero to print only lines where we found at least one substring that looks like an E-Mail address.
+We read each line and then extract all the substrings that match our regular expression.  Since {\tt findall()} returns a list, we simple check if the number of elements in our returned list is more than zero to print only lines where we found at least one substring that looks like an e-mail address.
 
 If we run the program on {\tt mbox.txt} we get the following output:
 
@@ -9656,7 +9659,7 @@ If we run the program on {\tt mbox.txt} we get the following output:
 \end{verbatim}
 \afterverb
 %
-Some of our E-mail addresses have incorrect characters like ``\verb"<"'' or ``;'' at the beginning or end.   Lets declare that we are only interested in the portion of the string that starts and ends with a letter or a number.
+Some of our E-mail addresses have incorrect characters like ``\verb"<"'' or ``;'' at the beginning or end.   Let's declare that we are only interested in the portion of the string that starts and ends with a letter or a number.
 
 To do this, we use another feature of regular expressions.  Square brackets are used to indicate a set of multiple acceptable characters we are willing to consider matching.  In a sense, the ``{\textbackslash}S'' is asking to match the set of ``non-whitespace characters''.  Now we will be a little more explicit in terms of the characters we will match.
 
@@ -9703,9 +9706,9 @@ Notice that on the ``source@collab.sakaiproject.org'' lines, our regular express
 
 Also note that the output of the program is a Python list that has a string as the single element in the list.
 
-\section{Combining Searching and Extracting}
+\section{Combining searching and extracting}
 
-Lets say we want to find numbers on lines that start with the string ``X-'' like the following.:
+If we want to find numbers on lines that start with the string ``X-'' such as:
 
 \beforeverb
 \begin{verbatim}
@@ -9714,7 +9717,7 @@ X-DSPAM-Probability: 0.0000
 \end{verbatim}
 \afterverb
 %
-We don't just want any floating point point numbers from any lines.  We only to extract numbers from lines that have the above syntax.
+We don't just want any floating point numbers from any lines.  We only to extract numbers from lines that have the above syntax.
 
 We can construct the following regular expression to select the lines:
 
@@ -9754,7 +9757,7 @@ X-DSPAM-Probability: 0.0000
 But now we have to solve the problem of extracting the numbers using {\tt split}.  While it would be simple enough to use {\tt split}, we can use another feature of regular expressions to both search and parse the line at the same time.
 \index{string!split}
 
-Parentheses are another special character in regular expressions.  When you add parentheses to a regular expression they are ignored when matching the string, but when you are using {\tt findall()}, parentheses indicates that you while you want the whole expression to match, you only are interesed in extracting a portion of the substring that matches the regular expression.  
+Parentheses are another special character in regular expressions.  When you add parentheses to a regular expression they are ignored when matching the string, but when you are using {\tt findall()}, parentheses indicate that while you want the whole expression to match, you only are interested in extracting a portion of the substring that matches the regular expression.  
 \index{regex!parentheses}
 \index{parentheses!regular expression}
 
@@ -9772,7 +9775,7 @@ for line in hand:
 \end{verbatim}
 \afterverb
 %
-Instead of calling {\tt search()}, we add a parentheses around the part of the regular expression that represents the floating point number to indicate we only want {\tt findall()} to give us back the floating point number portion of the matching string.
+Instead of calling {\tt search()}, we add parentheses around the part of the regular expression that represents the floating point number to indicate we only want {\tt findall()} to give us back the floating point number portion of the matching string.
 
 The output from this program is as follows:
 
@@ -9799,7 +9802,7 @@ Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772
 \end{verbatim}
 \afterverb
 %
-Lets say, we wanted to extract all of the revision numbers (the integer number at the end of these lines) using the same technique as above.   We could write the following program:
+If we wanted to extract all of the revision numbers (the integer number at the end of these lines) using the same technique as above,  we could write the following program:
 
 \beforeverb
 \begin{verbatim}
@@ -9829,7 +9832,7 @@ When we run the program, we get the following output:
 %
 Remember that the ``[0-9]+'' is ``greedy'' and it tries to make as large a string of digits as possible before extracting those digits.  This ``greedy'' behavior is why we get all five digits for each number.  The regular expression library expands in both directions until it counters a non-digit, the beginning, or the end of a line.
 
-Now lets use regular expressions to re-do an exercise from earlier in the book where we were interested in the time of day of each mail message.   We looked for lines of the form:
+Now we can use regular expressions to re-do an exercise from earlier in the book where we were interested in the time of day of each mail message.   We looked for lines of the form:
 
 \beforeverb
 \begin{verbatim}
@@ -9887,7 +9890,7 @@ When the program runs, it produces the following output:
 %
 \section{Summary}
 
-While this only scratched the surface of regular expressions, we have learned a bit about the language of regular expressions.  They are search strings that have special characters in them that communicate your wishes to the regular expression system as to what defines ``matching'' and what is extracted from the matched strings.  Here are some of those specal characters and character sequences:
+While this only scratched the surface of regular expressions, we have learned a bit about the language of regular expressions.  They are search strings that have special characters in them that communicate your wishes to the regular expression system as to what defines ``matching'' and what is extracted from the matched strings.  Here are some of those special characters and character sequences:
 
 \verb"^" \newline
 Matches the beginning of the line.
@@ -9934,9 +9937,9 @@ Matches any decimal digit; equivalent to the set [0-9].
 {\textbackslash}D \newline
 Matches any non-digit character; equivalent to the set [\verb"^"0-9].
 
-\section{Bonus Section for UNIX Users}
+\section{Bonus section for UNIX users}
 
-Support for searching files using regular expressions was built into the UNIX operating since the 1960's and it is avaiable in nearly all programming languages in one form or another.
+Support for searching files using regular expressions was built into the UNIX operating systemm since the 1960's and it is available in nearly all programming languages in one form or another.
 
 As a matter of fact, there is a command-line program built into UNIX called {\bf grep} (Generalized Regular Expression Parser) that does pretty much the same as the {\tt search()} examples in this chapter.  So if you have a Macintosh or Linux system, you can try the following commands in your command line window.
 
@@ -9950,7 +9953,7 @@ From: rjlowe@iupui.edu
 \end{verbatim}
 \afterverb
 %
-This tells {\tt grep} to show you lines that start with the string ``From:'' in the file {\tt mbox-short.txt}.   If you experiment with the {\tt grep} command a bit and read the documentation for {\tt grep}, you will find some subtle difference between the regular expression support in Python and the regular expression support in {\tt grep}.  As an example, {\tt grep} does not support the non-blank character ``{\textbackslash}S'' so you will need to use the slightly more complex set notation ``[\verb"^" ]''- which simply means - match a character that is anything other than a space.
+This tells {\tt grep} to show you lines that start with the string ``From:'' in the file {\tt mbox-short.txt}.   If you experiment with the {\tt grep} command a bit and read the documentation for {\tt grep}, you will find some subtle differences between the regular expression support in Python and the regular expression support in {\tt grep}.  As an example, {\tt grep} does not support the non-blank character ``{\textbackslash}S'' so you will need to use the slightly more complex set notation ``[\verb"^" ]''- which simply means - match a character that is anything other than a space.
 
 \section{Debugging}
 
@@ -9980,7 +9983,7 @@ help> modules
 \end{verbatim}
 \afterverb
 %
-If you know what module you want to use, you can sue the {\tt dir()} command to find the methods in the module as follows:
+If you know what module you want to use, you can use the {\tt dir()} command to find the methods in the module as follows:
 
 \beforeverb
 \begin{verbatim}
@@ -12441,7 +12444,7 @@ are inserted into a table designed to make lookups very fast.
 \index{index}
 
 \item[logical key:] A key that the ``outside world'' uses to look up a particular
-row.  For example in a table of user accounts, a person's E-Mail address
+row.  For example in a table of user accounts, a person's e-mail address
 might be a good candidate as the logical key for the user's data. 
 \index{logical key}
 
@@ -12606,7 +12609,7 @@ using it after Flickr existed because
 I wanted to keep original copies of my images forever.
 
 I would also send a simple one-line text description in the MMS message
-or the subject line of the E-Mail message.  I stored these messages
+or the subject line of the e-mail message.  I stored these messages
 in a text file in the same directory as the image file.   I came up 
 with a directory structure based on the month, year, day and time the 
 photo was taken.   The following would be an example of the naming for 
@@ -12741,7 +12744,7 @@ in these files so we can probably delete them.
 
 But before we delete the files, we will write a program to look for files
 that are more than one line long and show the contents of the file.
-But let's not bother showing ourselves those files that are exactly
+We will not bother showing ourselves those files that are exactly
 2578 or 2565 characters long since we know that these files have no useful
 information.
 
