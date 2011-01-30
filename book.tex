@@ -4493,7 +4493,7 @@ in a list, we would write the following {\tt for} loop:
 \beforeverb
 \begin{verbatim}
 count = 0
-for iterval in [3, 41, 12, 9, 74, 15]:
+for itervar in [3, 41, 12, 9, 74, 15]:
     count = count + 1
 print 'Count: ', count
 \end{verbatim}
@@ -4501,8 +4501,8 @@ print 'Count: ', count
 %
 We set the variable {\tt count} to zero before the loop starts,
 then we write a {\tt for} loop to run through the list of numbers.
-Our {\bf iteration} variable is named {\tt iterval} and while we do
-not use {\tt iterval} in the loop, it does control the loop and cause
+Our {\bf iteration} variable is named {\tt itervar} and while we do
+not use {\tt itervar} in the loop, it does control the loop and cause
 the loop body to be executed once for each of the values in the list.
 
 In the body of the loop, we add one to the current value of {\tt count}
@@ -4520,8 +4520,8 @@ is as follows:
 \beforeverb
 \begin{verbatim}
 total = 0
-for iterval in [3, 41, 12, 9, 74, 15]:
-    total = total + iterval
+for itervar in [3, 41, 12, 9, 74, 15]:
+    total = total + itervar
 print 'Total: ', total
 \end{verbatim}
 \afterverb
@@ -4562,10 +4562,10 @@ following loop:
 \begin{verbatim}
 largest = None
 print 'Before:', largest
-for iterval in [3, 41, 12, 9, 74, 15]:
-    if largest is None or largest < iterval:
-        largest = iterval
-    print 'Loop:', iterval, largest
+for itervar in [3, 41, 12, 9, 74, 15]:
+    if largest is None or largest < itervar:
+        largest = itervar
+    print 'Loop:', itervar, largest
 print 'Largest:', largest
 \end{verbatim}
 \afterverb
@@ -4596,13 +4596,13 @@ Before the loop starts, the largest value we have seen so far
 is {\tt None} since we have not yet seen any values.  While the 
 loop is executing, if {\tt largest} is {\tt None} then we take
 the first value we see as the largest so far.   You can see in 
-the first iteration when the value of {\tt iterval} is 3,
+the first iteration when the value of {\tt itervar} is 3,
 since {\tt largest} is {\tt None}, we immediately set 
 {\tt largest} to be 3.
 
 After the first iteration, {\tt largest} is no longer {\tt None},
 so the second part of the compound logical expression that checks
-{\tt largest < iterval} triggers only when we see a value that is
+{\tt largest < itervar} triggers only when we see a value that is
 larger than the ``largest so far''.  When we see a new ``even larger''
 value we take that new value for {\tt largest}.  You can see in the 
 program output that {\tt largest} progresses from 3 to 41 to 74.
@@ -4618,10 +4618,10 @@ small change:
 \begin{verbatim}
 smallest = None
 print 'Before:', smallest
-for iterval in [3, 41, 12, 9, 74, 15]:
-    if smallest is None or iterval < smallest:
-        smallest = iterval
-    print 'Loop:', iterval, smallest
+for itervar in [3, 41, 12, 9, 74, 15]:
+    if smallest is None or itervar < smallest:
+        smallest = itervar
+    print 'Loop:', itervar, smallest
 print 'Smallest:', smallest
 \end{verbatim}
 \afterverb
@@ -4643,7 +4643,7 @@ def min(values):
     smallest = None
     for value in values:
         if smallest is None or value < smallest:
-            smallest = iterval
+            smallest = itervar
     return smallest
 \end{verbatim}
 \afterverb
@@ -4746,7 +4746,7 @@ Enter a number: done
 
 \begin{ex}
 Write another program that prompts for a list of numbers as above
-and at the end prints out both the maximum and minimum of the numbers.
+and at the end prints out both the maximum and minimum of the numbers instead of the average.
 \end{ex}
 
 
@@ -5092,57 +5092,6 @@ a slice of {\tt greeting}.  It has no effect on
 the original string.
 
 \index{concatenation}
-
-
-\section{Searching}
-\label{find}
-
-What does the following function do?
-
-\index{find function}
-\index{function!find}
-
-% TBD - De-function
-
-\beforeverb
-\beforeverb
-\begin{verbatim}
-def find(word, letter):
-    index = 0
-    while index < len(word):
-        if word[index] == letter:
-            return index
-        index = index + 1
-    return -1
-\end{verbatim}
-\afterverb
-%
-In a sense, {\tt find} is the opposite of the {\tt []} operator.
-Instead of taking an index and extracting the corresponding character,
-it takes a character and finds the index where that character first
-appears.  If the character is not found, the function returns {\tt
--1}.
-
-This is the first example we have seen of a {\tt return} statement
-inside a loop.  If {\tt word[index] == letter}, the function breaks
-out of the loop and returns immediately.
-
-If the character doesn't appear in the string, the loop
-exits normally at the bottom and returns {\tt -1}.
-
-This pattern of computation---traversing a sequence and returning
-when we find what we are looking for---is a called a {\bf search}.
-
-\index{traversal}
-\index{search pattern}
-\index{pattern!search}
-
-\begin{ex}
-Modify {\tt find} so that it has a
-third parameter, the index in {\tt word} where it should start
-looking.
-\end{ex}
-
 
 \section{Looping and counting}
 \label{counter}
@@ -5634,139 +5583,6 @@ only where there is at least one character in the string.:
 \afterverb
 %
 
-\index{traversal}
-
-Another common source of problems is when you hand-construct 
-index values to move through a sequence.
-It can be quite tricky to get the beginning and 
-end of the traversal right. 
-
-Here is a function that is supposed to compare two
-words and return {\tt True} if one of the words is the reverse
-of the other, but it contains two errors:
-
-\beforeverb
-\begin{verbatim}
-def is_reverse(word1, word2):
-    if len(word1) != len(word2):
-        return False
-    
-    i = 0
-    j = len(word2)
-
-    while j > 0:
-        if word1[i] != word2[j]:
-            return False
-        i = i+1
-        j = j-1
-
-    return True
-\end{verbatim}
-\afterverb
-%
-The first {\tt if} statement checks whether the words are the
-same length.  If not, we can return {\tt False} immediately
-and then, for the rest of the function, we can assume that the words
-are the same length.  This is another example of the guardian pattern.
-
-\index{guardian pattern}
-\index{pattern!guardian}
-\index{index}
-
-{\tt i} and {\tt j} are indices: {\tt i} traverses {\tt word1}
-forward while {\tt j} traverses {\tt word2} backward.  If we find
-two letters that don't match, we can return {\tt False} immediately.
-If we get through the whole loop and all the letters match, we
-return {\tt True}.
-
-If we test this function with the words ``pots'' and ``stop'', we
-expect the return value {\tt True}, but we get an IndexError:
-
-\index{IndexError}
-\index{exception!IndexError}
-
-\beforeverb
-\begin{verbatim}
->>> is_reverse('pots', 'stop')
-...
-  File "reverse.py", line 15, in is_reverse
-    if word1[i] != word2[j]:
-IndexError: string index out of range
-\end{verbatim}
-\afterverb
-%
-For debugging this kind of error, my first move is to
-print the values of the indices immediately before the line
-where the error appears.
-
-\beforeverb
-\begin{verbatim}
-    while j > 0:
-        print i, j        # print here
-        
-        if word1[i] != word2[j]:
-            return False
-        i = i+1
-        j = j-1
-\end{verbatim}
-\afterverb
-%
-Now when I run the program again, I get more information:
-
-\beforeverb
-\begin{verbatim}
->>> is_reverse('pots', 'stop')
-0 4
-...
-IndexError: string index out of range
-\end{verbatim}
-\afterverb
-%
-The first time through the loop, the value of {\tt j} is 4,
-which is out of range for the string \verb"'pots'".
-The index of the last character is 3, so the
-initial value for {\tt j} should be {\tt len(word2)-1}.
-
-\index{semantic error}
-\index{error!semantic}
-
-If I fix that error and run the program again, I get:
-
-\beforeverb
-\begin{verbatim}
->>> is_reverse('pots', 'stop')
-0 3
-1 2
-2 1
-True
-\end{verbatim}
-\afterverb
-%
-This time we get the right answer, but it looks like the loop only ran
-three times, which is suspicious.  To get a better idea of what is
-happening, it is useful to draw a state diagram.  During the first
-iteration, the frame for \verb"is_reverse" looks like this:
-
-\index{state diagram}
-\index{diagram!state}
-
-\beforefig
-\centerline{\includegraphics{figs/state4.eps}}
-\afterfig
-
-I took a little license by arranging the variables in the frame
-and adding dotted lines to show that the values of {\tt i} and
-{\tt j} indicate characters in {\tt word1} and {\tt word2}.
-
-\begin{ex}
-\label{is_reverse}
-Starting with this diagram, execute the program on paper, changing the
-values of {\tt i} and {\tt j} during each iteration.  Find and fix the
-second error in this function.
-\end{ex}
-
-
-
 \section{Glossary}
 
 \begin{description}
@@ -5841,10 +5657,10 @@ performing a similar operation on each.
 \section{Exercises}
 
 \begin{ex}
-Write some code to parse lines of the form:
+Take the following Python code that stores a string:`
 
 {\tt
-X-DSPAM-Confidence: {\bf 0.8475}
+str = 'X-DSPAM-Confidence: {\bf 0.8475}'
 }
 
 Use {\tt find} and string slicing to extract the portion
@@ -5870,81 +5686,6 @@ For example, in \verb"find(sub[, start[, end]])", the brackets
 indicate optional arguments.  So {\tt sub} is required, but
 {\tt start} is optional, and if you include {\tt start},
 then {\tt end} is optional.
-\end{ex}
-
-\begin{ex}
-The following functions are all \emph{intended} to check whether a
-string contains any lowercase letters, but at least some of them are
-wrong.  For each function, describe what the function actually does
-(assuming that the parameter is a string).
-
-\beforeverb
-\begin{verbatim}
-def any_lowercase1(s):
-    for c in s:
-        if c.islower():
-            return True
-        else:
-            return False
-
-def any_lowercase2(s):
-    for c in s:
-        if 'c'.islower():
-            return 'True'
-        else:
-            return 'False'
-
-def any_lowercase3(s):
-    for c in s:
-        flag = c.islower()
-    return flag
-
-def any_lowercase4(s):
-    flag = False
-    for c in s:
-        flag = flag or c.islower()
-    return flag
-
-def any_lowercase5(s):
-    for c in s:
-        if not c.islower():
-            return False
-    return True
-\end{verbatim}
-\afterverb
-
-\end{ex}
-
-
-\begin{ex}
-\index{letter rotation}
-\index{rotation, letter}
-
-\label{exrotate}
-ROT13 is a weak form of encryption that involves ``rotating'' each
-letter in a word by 13 places\footnote{See
-  \url{wikipedia.org/wiki/ROT13}}.  To rotate a letter means
-to shift it through the alphabet, wrapping around to the beginning if
-necessary, so 'A' shifted by 3 is 'D' and 'Z' shifted by 1 is 'A'.
-
-Write a function called \verb"rotate_word"
-that takes a string and an integer as parameters and returns
-a new string that contains the letters from the original string
-``rotated'' by the given amount.  
-
-For example, ``cheer'' rotated by 7 is ``jolly'' and ``melon'' rotated
-by -10 is ``cubed''.  
-
-%For example ``sleep''
-%rotated by 9 is ``bunny'' and ``latex'' rotated by 7 is ``shale''.
-
-You might want to use the built-in functions {\tt ord}, which converts
-a character to a numeric code, and {\tt chr}, which converts numeric
-codes to characters.
-
-Potentially offensive jokes on the Internet are sometimes encoded
-in ROT13.  If you are not easily offended, find and decode some
-of them.
 \end{ex}
 
 \chapter{Files}
@@ -6653,7 +6394,8 @@ You can download the file from
 \end{ex}
 
 \begin{ex}
-Write a program to loop through a mailbox-format file 
+Write a program 
+to prompt for a file name an then read through the file 
 and look for lines of the form:
 
 {\tt
@@ -6677,7 +6419,10 @@ Enter the file name: mbox-short.txt
 Average spam confidence: 0.750718518519
 \end{verbatim}
 \afterverb
+%
+Test your file on the {\tt mbox.txt} and {\tt mbox-short.txt} files.
 \end{ex}
+
 
 \begin{ex}
 Sometimes when programmers get bored or want to have a bit of fun,
@@ -8162,9 +7907,10 @@ True
 \afterverb
 %
 The {\tt in} operator uses different algorithms for lists and
-dictionaries.  For lists, it uses a search algorithm, as in
-Section~\ref{find}.  As the list gets longer, the search time gets
-longer in direct proportion.  For dictionaries, Python uses an
+dictionaries.  For lists, it uses a linear search algorithm.
+As the list gets longer, the search time gets
+longer in direct proportion to the length of the list.  
+For dictionaries, Python uses an
 algorithm called a {\bf hash table} that has a remarkable property; the
 {\tt in} operator takes about the same amount of time no matter how
 many items there are in a dictionary.  I won't explain 
@@ -10014,6 +9760,31 @@ When the program runs, it produces the following output:
 \end{verbatim}
 \afterverb
 %
+\section{Escape character}
+
+Since we use special characters in regular expressions to match the beginning or end of 
+a line or specify wild cards, we need a way to indicate that these characters are ``normal'' 
+and we want to match the actual character such as a dollar-sign or caret.
+
+We can indicate that we want to simply match a character by prefixing that character 
+with a backslash.  For example, we can find money amounts with the following regular
+expression.
+
+\beforeverb
+\begin{verbatim}
+import re
+x = 'We just received $10.00 for cookies.'
+y = re.findall('\$[0-9.]+',x)
+\end{verbatim}
+\afterverb
+%
+Since we prefix the dollar-sign with a backslash, it actually matches the dollar-sign
+in the input string instead of matching the ``end of line'' and the rest of the regular
+expression matches one or more digits or the period character.  {\em Note:} In between 
+square brackets, characters are not ``special''.   So when we say ``[0-9.]'', it really 
+means digits or a period.    Outside of square brackets, a period is the ``wild-card'' 
+character and matches any character.  In between square brackets, the period is a period.
+
 \section{Summary}
 
 While this only scratched the surface of regular expressions, we have learned a bit about the language of regular expressions.  They are search strings that have special characters in them that communicate your wishes to the regular expression system as to what defines ``matching'' and what is extracted from the matched strings.  Here are some of those special characters and character sequences:
@@ -10036,11 +9807,17 @@ Matches a non-whitespace character (opposite of {\textbackslash}s).
 * \newline
 Applies to the immediately preceding character and indicates to match zero or more of the preceding character.
 
+*? \newline
+Applies to the immediately preceding character and indicates to match zero or more of the preceding character in ``non-greedy mode''.
+
 + \newline
 Applies to the immediately preceding character and indicates to match zero or more of the preceding character.
 
-[abc] \newline
-Matches a single character as long as that character is in the specified set.  In this example, it would match ``a'', ``b'', or ``c'' but no other characters.
++? \newline
+Applies to the immediately preceding character and indicates to match zero or more of the preceding character in ``non-greedy mode''.
+
+[aeiou] \newline
+Matches a single character as long as that character is in the specified set.  In this example, it would match ``a'', ``e'', ``i'', ``o'' or ``u'' but no other characters.
 
 [a-z0-9] \newline
 You can specify ranges of characters using the minus sign.  This example is a single character that must be a lower case letter or a digit.
@@ -10065,9 +9842,13 @@ Matches any non-digit character; equivalent to the set [\verb"^"0-9].
 
 \section{Bonus section for UNIX users}
 
-Support for searching files using regular expressions was built into the UNIX operating systemm since the 1960's and it is available in nearly all programming languages in one form or another.
+Support for searching files using regular expressions was built into the UNIX operating system 
+since the 1960's and it is available in nearly all programming languages in one form or another.
 
-As a matter of fact, there is a command-line program built into UNIX called {\bf grep} (Generalized Regular Expression Parser) that does pretty much the same as the {\tt search()} examples in this chapter.  So if you have a Macintosh or Linux system, you can try the following commands in your command line window.
+As a matter of fact, there is a command-line program built into UNIX 
+called {\bf grep} (Generalized Regular Expression Parser) that does pretty much 
+the same as the {\tt search()} examples in this chapter.  So if you have a 
+Macintosh or Linux system, you can try the following commands in your command line window.
 
 \beforeverb
 \begin{verbatim}
