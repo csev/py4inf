@@ -4217,13 +4217,14 @@ remainder if a division were performed.
 
 \beforeverb
 \begin{verbatim}
-def sequence(n):
-    while n != 1:
-        print n,            # Use comma to suppress newline
-        if n%2 == 0:        # n is even
-            n = n/2
-        else:               # n is odd
-            n = n*3+1
+inp = raw_input('Enter a Number:')
+n = int(inp)
+while n != 1:
+    print n,            # Use comma to suppress newline
+    if n%2 == 0:        # n is even
+        n = n/2
+    else:               # n is odd
+        n = n*3+1
 \end{verbatim}
 \afterverb
 %
@@ -4247,25 +4248,25 @@ starting with 16.
 
 \beforeverb
 \begin{verbatim}
->>> def sequence(n):
-...     while n != 1:
-...         print n,
-...         if n%2 == 0:        # n is even
-...             n = n/2
-...         else:               # n is odd
-...             n = n*3+1
-... 
->>> sequence(3)
+python sequence.py 
+Enter a Number:3
 3 10 5 16 8 4 2
->>> sequence(16)
+
+python sequence.py 
+Enter a Number:16
 16 8 4 2
->>> sequence(50)
+
+python sequence.py 
+Enter a Number:50
 50 25 76 38 19 58 29 88 44 22 11 34 17 52 26 13 40 20 10 5 16 8 4 2
 \end{verbatim}
 \afterverb
 %
 You can try this sequence with a variety of integer or floating 
-point numbers as the argument.  
+point numbers as as input.  To play with floating point
+numbers change the {\tt int()} call to {\tt float()} in the 
+{\tt sequence.py} code.
+
 Since the main loop repeatedly divides a number
 by two, an argument in the billions converges to one in 
 relatively few steps.  
@@ -4643,7 +4644,7 @@ def min(values):
     smallest = None
     for value in values:
         if smallest is None or value < smallest:
-            smallest = itervar
+            smallest = value
     return smallest
 \end{verbatim}
 \afterverb
@@ -9923,24 +9924,24 @@ or don't have access to a web browser or search engine.
 
 \begin{description}
 
-\item{brittle code:}
+\item[brittle code:]
 Code that works when the input data is in a particular format but prone to breakage
 if there is some deviation from the correct format.  We call this ``brittle code'' 
 because it is easily broken.
 
-\item{greedy matching:}
+\item[greedy matching:]
 The notion that the ``+'' and ``*'' characters in a regular expression expand outward to match the largest possible string.
 \index{greedy}
 \index{greedy matching}
 
-\item{grep:}
+\item[grep:]
 A command available in most UNIX systems that searches through text files looking for lines that match regular expressions.  The command name stands for "Generalized Regular Expression Parser".
 \index{grep}
 
-\item{regular expression:}
+\item[regular expression:]
 A language for expressing more complex search strings.  A regular expression may contain special characters that indicate that a search only matches at the beginning or end of a line or many other similar capabilities.
 
-\item{wild card:}
+\item[wild card:]
 A special character that matches any character.   In regular expressions the wild card character is the period character.
 \index{wild card}
 
