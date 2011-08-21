@@ -2,7 +2,7 @@
 
 rm -rf html
 mkdir html
-hevea -O -e latexonly /opt/local/lib/hevea/html/png.hva htmlonly book
+hevea -O -e latexonly png.hva htmlonly book
 # the following line is a kludge to prevent imagen from seeing
 # the definitions in latexonly
 grep -v latexonly book.image.tex > a; mv a book.image.tex
