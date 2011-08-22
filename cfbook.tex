@@ -1,0 +1,1819 @@
+% The contents of this file is 
+% Copyright (c) 2010,2011  Charles R. Severance, All Righs Reserved
+
+%\documentclass[10pt,b5paper]{book}
+\documentclass[10pt]{book}
+\usepackage[width=5.0in,height=7.50in,hmarginratio=3:2,vmarginratio=1:1]{geometry}
+
+\usepackage{pslatex}
+\usepackage{url}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{exercise}
+\usepackage{makeidx}
+\usepackage{setspace}
+\usepackage{hevea}
+\usepackage{upquote}
+
+\newcommand{\thetitle}{Python for Informatics: Exploring Information}
+\newcommand{\theversion}{0.0.5}
+
+\makeindex
+
+\begin{document}
+
+\frontmatter
+
+% LATEXONLY
+
+\input{latexonly}
+
+\newtheorem{ex}{Exercise}[chapter]
+
+\begin{latexonly}
+
+\renewcommand{\blankpage}{\thispagestyle{empty} \quad \newpage}
+
+%\blankpage
+%\blankpage
+
+% TITLE PAGES FOR LATEX VERSION
+
+%-half title--------------------------------------------------
+\thispagestyle{empty}
+
+\centerline{\includegraphics[height=4.00in]{cover/network-um-nsf-9-99-10-09.eps}}
+
+%  cover/network-um-nsf-9-99-10-09.eps cover/network-um-nsf-9-99-10-09-nodes.eps
+
+% \begin{flushright}
+% \vspace*{2.0in}
+% \begin{spacing}{3}
+% {\huge Python for Informatics}\\
+% {\Large Exploring Information}\\
+% \end{spacing}
+
+% \vspace{0.25in}
+
+% Version \theversion
+
+% \vfill
+
+% \end{flushright}
+
+%--verso------------------------------------------------------
+
+\blankpage
+\blankpage
+%\clearemptydoublepage
+%\pagebreak
+%\thispagestyle{empty}
+%\vspace*{6in}
+
+%--title page--------------------------------------------------
+\pagebreak
+\thispagestyle{empty}
+
+\begin{flushright}
+\vspace*{2.0in}
+
+\begin{spacing}{3}
+{\huge Python for Informatics}\\
+{\Large Exploring Information}
+\end{spacing}
+
+\vspace{0.25in}
+
+Version \theversion
+
+\vspace{0.5in}
+
+
+{\Large
+Charles Severance\\
+}
+
+
+\vspace{2.25in}
+
+\centerline{\includegraphics[width=1in]{figs2/by-sa.eps}}
+\vfill
+
+\end{flushright}
+
+
+%--copyright--------------------------------------------------
+\pagebreak
+\thispagestyle{empty}
+
+{\small
+Copyright \copyright ~2009, 2010 Charles Severance.
+
+
+Printing history:
+
+\begin{description}
+
+\item[December 2009:] Begin to 
+produce 
+\emph{Python for Informatics: Exploring Information}
+by re-mixing
+\emph{Think Python: How to Think Like
+a Computer Scientist}
+
+\item[June 2008:] Major revision, changed title to
+\emph{Think Python: How to Think Like
+a Computer Scientist}.
+
+\item[August 2007:] Major revision, changed title to
+\emph{How to Think Like a (Python) Programmer}.
+
+\item[April 2002:] First edition of \emph{How to Think Like
+a Computer Scientist}.
+
+\end{description}
+
+\vspace{0.2in}
+
+% \begin{flushleft}
+% Green Tea Press       \\
+% 9 Washburn Ave \\
+% Needham MA 02492
+% \end{flushleft}
+
+This work is licensed under a 
+Creative Commons Attribution-Share Alike 3.0 Unported License.  This license is 
+available at
+\url{creativecommons.org/licenses/by-sa/3.0/}.
+
+The original form of this book is \LaTeX\ source code.  Compiling this
+\LaTeX\ source has the effect of generating a device-independent
+representation of a textbook, which can be converted to other formats
+and printed.
+
+The \LaTeX\ source for the 
+\emph{Think Python: How to Think Like
+a Computer Scientist}
+version of this book is available from
+\url{http://www.thinkpython.com}.
+
+The \LaTeX\ source for the 
+\emph{Python for Informatics: Exploring Information}
+version of the book is available from 
+\url{http://source.sakaiproject.org/contrib/csev/trunk/pyinf/}.
+
+The cover image shows social connectivity of NSF grant investigators 
+at the University of Michigan
+from September 1999 through October 2010 and was provided
+by Eric Hofer and visualized using 
+the GUESS software developed by Eytan Adar,
+both of the University of Michigan.  The cover design is
+by Terri Geitgey of the University of Michigan Library.
+\vspace{0.2in}
+
+} % end small
+
+\end{latexonly}
+
+
+% HTMLONLY
+
+\begin{htmlonly}
+
+% TITLE PAGE FOR HTML VERSION
+
+{\Large \thetitle}
+
+{\large 
+Charles Severance}
+
+Version \theversion
+
+\setcounter{chapter}{-1}
+
+\end{htmlonly}
+
+\chapter{Preface}
+
+\section*{Python for Informatics: Remixing an Open Book}
+
+It is quite natural for academics who are continuously told to 
+``publish or perish'' to want to always create something from scratch
+that is their own fresh creation.   This book is an 
+experiment in not starting from scratch, but instead ``re-mixing''
+the book titled
+\emph{Think Python: How to Think Like
+a Computer Scientist}
+written by Allen B. Downey, Jeff Elkner and others.
+
+In December of 2009, I was preparing to teach
+{\bf SI502 - Networked Programming} at the University of Michigan
+for the fifth semester in a row and decided it was time
+to write a Python textbook that focused on exploring data
+instead of understanding algorithms and abstractions.
+My goal in SI502 is to teach people life-long data handling 
+skills using Python.  Few of my
+students were planning to be be professional 
+computer programmers.  Instead, they
+planned be librarians, managers, lawyers, biologists, economists, etc. 
+who happened to want to skillfully use technology in their chosen field.
+
+I never seemed to find the perfect data-oriented Python
+book for my course so I set out 
+to write just such a book.  Luckily at a faculty meeting three weeks
+before I was about to start my new book from scratch over 
+the holiday break, 
+Dr. Atul Prakash showed me the \emph{Think Python} book which he had
+used to teach his Python course that semester.  
+It is a well-written Computer Science text with a focus on 
+short, direct explanations and ease of learning.  
+
+The overall book structure
+has been changed to get to doing data analysis problems as quickly as
+possible and have a series of running examples and exercises 
+about data analysis from the very beginning.  
+
+The first 10 chapters are similar to the \emph{Think Python} book
+but there have been some changes.  Nearly all number-oriented
+exercises have been replaced with data-oriented exercises.
+Topics are presented in the order to needed to build increasingly
+sophisticated data analysis solutions.  Some topics like {\tt try} and
+{\tt except} are pulled forward and presented as part of the chapter
+on conditionals while other concepts like functions are left until 
+they are needed to handle program complexity rather introduced 
+as an early lesson in abstraction.  The word ``recursion'' does not 
+appear in the book at all.
+
+In chapters 11-15, nearly all of the material is brand new, focusing
+on real-world uses and simple examples of Python for data analysis 
+including regular expressions for searching and parsing, 
+automating tasks on your computer, retrieving data across 
+the network, scraping web pages for data, 
+using web services, parsing XML data, and creating 
+and using databases using Structured Query Language.
+
+The ultimate goal of all of these changes is a shift from a 
+Computer Science to an Informatics
+focus is to only include topics into a first technology 
+class that can be applied even if one chooses not to 
+become a professional programmer.
+
+Students who find this book interesting and want to further explore
+should look at Allen B. Downey's \emph{Think Python} book.  Because there
+is a lot of overlap between the two books,
+students will quickly pick up skills in the additional
+areas of computing in general and computational thinking 
+that are covered in \emph{Think Python}.
+And given that the books have a similar writing style and at times
+have identical text and examples, you should be 
+able to move quickly through \emph{Think Python} with a minimum of effort.
+
+\index{Creative Commons License}
+\index{CC-BY-SA}
+\index{BY-SA}
+As the copyright holder of \emph{Think Python},
+Allen has given me permission to change the book's license 
+from the
+GNU Free Documentation License 
+to the more recent
+Creative Commons Attribution --- Share Alike
+license.
+This follows a general shift in open documentation licenses moving 
+from the GFDL to the CC-BY-SA (i.e. Wikipedia).
+Using the CC-BY-SA license maintains the book's 
+strong copyleft tradition while making it even more straightforward 
+for new authors to reuse this material as they see fit.
+
+I feel that this book serves an example of why open 
+materials are so important to the future of education,
+and want to thank Allen B. Downey and Cambridge University
+Press for their forward looking decision to make the book available
+under an open Copyright.   I hope they are pleased with the 
+results of my efforts and I hope that you the reader are pleased with
+\emph{our} collective efforts.
+
+Charles Severance\\
+www.dr-chuck.com\\
+Ann Arbor, MI, USA\\
+July 25, 2010
+
+Charles Severance is a 
+Clinical Associate Professor 
+at the University of Michigan School of Information.
+
+\section*{Preface for ``Think Python''}
+
+\subsection*{The strange history of ``Think Python''}
+
+(Allen B. Downey)
+
+In January 1999 I was preparing to teach an introductory programming
+class in Java.  I had taught it three times and I was getting
+frustrated.  The failure rate in the class was too high and, even for
+students who succeeded, the overall level of achievement was too low.
+
+One of the problems I saw was the books.  
+They were too big, with too much unnecessary detail about Java, and
+not enough high-level guidance about how to program.  And they all
+suffered from the trap door effect: they would start out easy,
+proceed gradually, and then somewhere around Chapter 5 the bottom would
+fall out.  The students would get too much new material, too fast,
+and I would spend the rest of the semester picking up the pieces.
+
+Two weeks before the first day of classes, I decided to write my
+own book.  
+My goals were:
+
+\begin{itemize}
+
+\item Keep it short.  It is better for students to read 10 pages
+than not read 50 pages.
+
+\item Be careful with vocabulary.  I tried to minimize the jargon
+and define each term at first use.
+
+\item Build gradually. To avoid trap doors, I took the most difficult
+topics and split them into a series of small steps. 
+
+\item Focus on programming, not the programming language.  I included
+the minimum useful subset of Java and left out the rest.
+
+\end{itemize}
+
+I needed a title, so on a whim I chose \emph{How to Think Like
+a Computer Scientist}.
+
+My first version was rough, but it worked.  Students did the reading,
+and they understood enough that I could spend class time on the hard
+topics, the interesting topics and (most important) letting the
+students practice.
+
+I released the book under the GNU Free Documentation License,
+which allows users to copy, modify, and distribute the book.
+
+\index{GNU Free Documentation License}
+\index{Free Documentation License, GNU}
+
+What happened next is the cool part.  Jeff Elkner, a high school
+teacher in Virginia, adopted my book and translated it into
+Python.  He sent me a copy of his translation, and I had the
+unusual experience of learning Python by reading my own book.
+
+Jeff and I revised the book, incorporated a case study by
+Chris Meyers, and in 2001 we released \emph{How to Think Like
+a Computer Scientist: Learning with Python}, also under
+the GNU Free Documentation License.
+As Green Tea Press, I published the book and started selling
+hard copies through Amazon.com and college book stores.
+Other books from Green Tea Press are available at
+\url{greenteapress.com}.
+
+In 2003 I started teaching at Olin College and I got to teach
+Python for the first time.  The contrast with Java was striking.
+Students struggled less, learned more, worked on more interesting
+projects, and generally had a lot more fun.
+
+Over the last five years I have continued to develop the book,
+correcting errors, improving some of the examples and
+adding material, especially exercises.  In 2008 I started work
+on a major revision---at the same time, I was
+contacted by an editor at Cambridge University Press who
+was interested in publishing the next edition.  Good timing!
+
+I hope you enjoy working with this book, and that it helps
+you learn to program and think, at least a little bit, like
+a computer scientist.
+
+\subsection*{Acknowledgements for ``Think Python''}
+
+(Allen B. Downey)
+
+First and most importantly, I thank Jeff Elkner, who
+translated my Java book into Python, which got this project
+started and introduced me to what has turned out to be my
+favorite language.
+
+I also thank Chris Meyers, who contributed several sections
+to \emph{How to Think Like a Computer Scientist}.
+
+And I thank the Free Software Foundation for developing
+the GNU Free Documentation License, which helped make
+my collaboration with Jeff and Chris possible.
+
+\index{GNU Free Documentation License}
+\index{Free Documentation License, GNU}
+
+I also thank the editors at Lulu who worked on
+\emph{How to Think Like a Computer Scientist}.
+
+I thank all the students who worked with earlier
+versions of this book and all the contributors (listed
+in an Appendix) who sent in corrections and suggestions.
+
+And I thank my wife, Lisa, for her work on this book, and Green
+Tea Press, and everything else, too.
+
+Allen B. Downey \\
+Needham MA\\
+
+Allen Downey is an Associate Professor of Computer Science at 
+the Franklin W. Olin College of Engineering.
+
+
+\clearemptydoublepage
+
+% TABLE OF CONTENTS
+\begin{latexonly}
+
+\tableofcontents
+
+\clearemptydoublepage
+
+\end{latexonly}
+
+% START THE BOOK
+\mainmatter
+
+\chapter{Why should you learn to write programs?}
+
+Writing programs (or programming) is a very creative 
+and rewarding activity.  You can write programs for 
+many reasons ranging from making your living to solving
+a difficult data analysis problem to having fun to helping
+someone else solve a problem.  This book assumes that 
+\emph{everyone} needs to know how to program and that once 
+you know how to program, you will figure out what you want 
+to do with your newfound skills.  
+
+We are surrounded in our daily lives with computers ranging 
+from laptops to cell phones.  We can think of these computers
+as our ``personal assistants'' who can take care of many things
+on our behalf.  The hardware in our current-day computers 
+is essentially built to continuously ask us the question, 
+``What would you like me to do next?''.
+
+\beforefig
+\centerline{\includegraphics[height=1.00in]{figs2/pda.eps}}
+\afterfig
+
+Programmers add an operating system and a set of applications
+to the hardware and we end up with a Personal Digital
+Assistant that is quite helpful and capable of helping
+many different things.
+
+Our computers are fast and have vast amounts of memory and 
+could be very helpful to us if we only knew the language to
+speak to explain to the computer what we would like it to 
+``do next''.  If we knew this language we could tell the 
+computer to do tasks on our behalf that were repetitive.  
+Interestingly, the kinds of things computers can do best
+are often the kinds of things that we humans find boring
+and mind-numbing.
+
+For example, look at the first three paragraphs of this
+chapter and tell me the most commonly used word and how
+many times the word is used.  While you were able to read
+and understand the words in a few seconds, counting them
+is almost painful because it is not the kind of problem 
+that human minds are designed to solve.  For a computer
+the opposite is true, reading and understanding text 
+from a piece of paper is hard for a computer to do 
+but counting the words and telling you how many times
+the most used word was used is very easy for the
+computer:
+
+\beforeverb
+\begin{verbatim}
+python words.py
+Enter file:words.txt
+to 16
+\end{verbatim}
+\afterverb
+%
+Our ``personal information analysis assistant'' quickly 
+told us that the word ``to'' was used sixteen times in the
+first three paragraphs of this chapter.
+
+This very fact that computers are good at things 
+that humans are not is why you need to become
+skilled at talking ``computer language''.  Once you learn
+this new language, you can delegate mundane tasks
+to your partner (the computer), leaving more time 
+for you to do the 
+things that you are uniquely suited for.  You bring 
+creativity, intuition, and inventiveness to this
+partnership.  
+
+\section{Creativity and motivation}
+
+While this book is not intended for professional programmers, professional
+programming can be a very rewarding job both financially and personally.
+Building useful, elegant, and clever programs for others to use is a very
+creative activity.  Your computer or Personal Digital Assistant (PDA) 
+usually contains many different programs from many different groups of 
+programmers, each competing for your attention and interest.  They try 
+their best to meet your needs and give you a great user experience in the
+process.   In some situations, when you choose a piece of software, the 
+programmers are directly compensated because of your choice.
+
+If we think of programs as the creative output of groups of programmers,
+perhaps the following figure is a more sensible version of our PDA:
+
+\beforefig
+\centerline{\includegraphics[height=1.00in]{figs2/pda2.eps}}
+\afterfig
+
+For now, our primary motivation is not to make money or please end-users, but
+instead for us to be more productive in handling the data and 
+information that we will encounter in our lives.
+When you first start, you will be both the programmer and end-user of
+your programs.  As you gain skill as a programmer and
+programming feels more creative to you, your thoughts may turn
+toward developing programs for others.
+
+\section{Computer hardware architecture}
+\index{hardware}
+\index{hardware!architecture}
+
+Before we start learning the language we 
+speak to give instructions to computers to 
+develop software, we need to learn a small amount about 
+how computers are built.  If you were to take
+apart your computer or cell phone and look deep
+inside, you would find the following parts:
+
+\beforefig
+\centerline{\includegraphics[height=2.50in]{figs2/arch.eps}}
+\afterfig
+
+The high-level definitions of these parts are as follows:
+
+\begin{itemize}
+
+\item The {\bf Central Processing Unit} (or CPU) is 
+that part of the computer that is built to be obsessed 
+with ``what is next?''.  If your computer is rated
+at 3.0 Gigahertz, it means that the CPU will ask ``What next?''
+three billion times per second.  You are going to have to 
+learn how to talk fast to keep up with the CPU.
+
+\item The {\bf Main Memory} is used to store information
+that the CPU needs in a hurry.  The main memory is nearly as 
+fast as the CPU.  But the information stored in the main
+memory vanishes when the computer is turned off.
+
+\item The {\bf Secondary Memory} is also used to store
+information, but it is much slower than the main memory.
+The advantage of the secondary memory is that it can
+store information even when there is no power to the
+computer.  Examples of secondary memory are disk drives
+or flash memory (typically found in USB sticks and portable
+music players).
+
+\item The {\bf Input and Output Devices} are simply our
+screen, keyboard, mouse, microphone, speaker, touchpad, etc.  
+They are all of the ways we interact with the computer.
+
+\item These days, most computers also have a
+{\bf Network Connection} to retrieve information over a network.
+We can think of the network as a very slow place to store and
+retrieve data that might not always be ``up''.  So in a sense,
+the network is a slower and at times unreliable form of
+{\bf Secondary Memory}
+
+\end{itemize}
+
+While most of the detail of how these components work is best left 
+to computer builders, it helps to have some terminology
+so we can talk about these different parts as we write our programs.
+
+As a programmer, your job is to use and orchestrate 
+each of these resources to solve the problem that you need solving
+and analyze the data you need.  As a programmer you will 
+mostly be ``talking'' to the CPU and telling it what to 
+do next.  Sometimes you will tell the CPU to use the main memory,
+secondary memory, network, or the input/output devices.
+
+\beforefig
+\centerline{\includegraphics[height=2.50in]{figs2/arch2.eps}}
+\afterfig
+
+You need to be the person who answers the CPU's ``What next?'' 
+question.  But it would be very uncomfortable to shrink you 
+down to 5mm tall and insert you into the computer just so you 
+could issue a command three billion times per second.  So instead,
+you must write down your instructions in advance.
+We call these stored instructions a {\bf program} and the act 
+of writing these instructions down and getting the instructions to 
+be correct {\bf programming}.
+
+\section{Understanding programming}
+
+In the rest of this book, we will try to turn you into a person
+who is skilled in the art of programming.  In the end you will be a 
+{\bf programmer} --- perhaps not a professional programmer but 
+at least you will have the skills to look at a data/information
+analysis problem and develop a program to solve the problem.
+
+\index{problem solving}
+
+In a sense, you need two skills to be a programmer:
+
+\begin{itemize}
+
+\item First you need to know the programming language (Python) -
+you need to know the vocabulary and the grammar.  You need to be able 
+spell the words in this new language properly and how to construct 
+well-formed ``sentences'' in this new languages.
+
+\item Second you need to ``tell a story''.  In writing a story,
+you combine words and sentences to convey an idea to the reader. 
+There is a skill and art in constructing the story and skill in
+story writing is improved by doing some writing and getting some
+feedback.  In programming, our program is the ``story'' and the 
+problem you are trying to solve is the ``idea''.
+
+\end{itemize}
+
+Once you learn one programming language such as Python, you will 
+find it much easier to learn a second programming language such
+as JavaScript or C++.  The new programming language has very different 
+vocabulary and grammar but once you learn problem solving skills, 
+they will be the same across all programming languages.
+
+You will learn the ``vocabulary'' and ``sentences'' of Python pretty quickly.
+It will take longer for you to be able to write a coherent program
+to solve a brand new problem.  We teach programming much like we teach
+writing.  We start reading and explaining programs and then we write 
+simple programs and then write increasingly complex programs over time.
+At some point you ``get your muse'' and see the patterns on your own
+and can see more naturally how to take a problem and 
+write a program that solves that problem.  And once you get 
+to that point, programming becomes a very pleasant and creative process.  
+
+We start with the vocabulary and structure of Python programs.  Be patient
+as the simple examples remind you of when you started reading for the first
+time. 
+
+\section{Words and sentances}
+\index{programming language}
+\index{language!programming}
+
+Unlike human languages, the Python vocabulary is actually pretty small.
+We call this ``vocabulary'' the ``reserved words''.  These are words that
+have very special meaning to Python.  When Python sees these words in 
+a Python program, they have one and only one meaning to Python.  Later
+as you write programs you will make your own words that have meaning to 
+you called {\bf variables}.   You will have great latitude in choosing
+your names for your variables, but you cannot use any of Python's 
+reserved words as a name for a variable.
+
+In a sense, when we train a dog, we would use special words like,
+``sit'', ``stay'', and ``fetch''.  Also when you talk to a dog and
+don't use any of the reserved words, they just look at you with a 
+quzzical look on their faces until you say a reserved word.  
+For example, if you say, 
+``I wish more people would walk to improve their overall health.'', 
+what most dogs likely hear is,
+``blah blah blah {\bf walk} blah blah blah blah.''
+That is because ``walk'' is a reserved word in dog language.  Many
+might suggest that the langage between humans and cats has no
+reserved words\footnote{\url{http://xkcd.com/231/}}.
+
+The reserved words in the language where humans talk to 
+Python incudes the following:
+
+\beforeverb
+\begin{verbatim}
+and   del   for   is   raise 
+assert   elif   from   lambda   return 
+break   else   global   not   try 
+class   except   if   or   while 
+continue   exec   import   pass   yield 
+def   ﬁnally   in   print 
+\end{verbatim}
+\afterverb
+%
+That is it, and unlike a dog, Python is already completely trained.
+When you say ``break'', Python will beak every time you say it without
+fail.
+
+We will learn these reserved words and how they are used in good time,
+but for now we will focus on the Python equivalent of ``speak'' (in 
+human to dog language).  The nice thing about telling Python to speak
+is that we can even tell it what to say by giving it a message in quotes:
+
+\beforeverb
+\begin{verbatim}
+print 'Hello world!'
+\end{verbatim}
+\afterverb
+
+And we have even written our first syntatically correct Python sentance.
+Our sentance starts with the reserved word {\bf print} followed
+by a string of text of our choosing enclosed in single quotes.
+
+\section{Conversing with Python}
+
+Now that we have a word and a simple sentance that we know in Python,
+we need to know how to start a conversation with Python to test 
+our new language skills.
+
+Before you can converse with Python, you must first install the Python
+software on your computer and learn how to start Python on your 
+computer.  That is too much detail for this chapter so I suggest
+that you consult \url{www.pythonlearn.com} where I have detailed
+instructions and screencasts of setting up and starting Python 
+on Macintosh and Windows systems.  At some point, you will be in 
+a terminal or command window and you will type {\bf python} and 
+the Python interpreter will start executing in interactive mode:
+and appear somewhat as follows:
+\index{interactive mode}
+
+\beforeverb
+\begin{verbatim}
+Python 2.6.1 (r261:67515, Jun 24 2010, 21:47:49) 
+[GCC 4.2.1 (Apple Inc. build 5646)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+\end{verbatim}
+\afterverb
+%
+The {\tt >>>} prompt is the Python interpreter's way of asking you, ``What
+do you want me to do next?''.  Python is ready to have a conversation with
+you.  All you have to know is how to speak the Python language and you 
+can have a concersation.
+
+Lets say for example that you did not know even the simplest Python language
+words or sentances. You might want to use the standard line that astronauts 
+use when they land on a far away planet and try to speak with the inhabitants
+of the planet:
+
+\beforeverb
+\begin{verbatim}
+>>> I come in peace, please take me to your leader
+  File "<stdin>", line 1
+    I come in peace, please take me to your leader
+         ^
+SyntaxError: invalid syntax
+>>> 
+\end{verbatim}
+\afterverb
+%
+This is not going so well.  Unless you think of something quickly,
+the inhabitants of the planet are likely to stab you with their spears, 
+put you on a spit, roast you over a fire, and eat you for dinner.
+
+Luckily you brought a copy of this book on your travels and you thumb to
+this very page and try again:
+
+\beforeverb
+\begin{verbatim}
+>>> print 'Hello world!'
+Hello world!
+\end{verbatim}
+\afterverb
+%
+This is looking much better so you try to communicate some
+more:
+
+\beforeverb
+\begin{verbatim}
+>>> print 'You must be the legendary god that comes from the sky'
+You must be the legendary god that comes from the sky
+>>> print 'We have been waiting for you for a long time'
+We have been waiting for you for a long time
+>>> print 'Our legend says you will be very tasty with mustard'
+Our legend says you will be very tasty with mustard
+>>> print 'We will have a feast tonight unless you say
+  File "<stdin>", line 1
+    print 'We will have a feast tonight unless you say
+                                                     ^
+SyntaxError: EOL while scanning string literal
+>>> 
+\end{verbatim}
+\afterverb
+%
+The conversation was going so well for a while and then you
+made the tiniest mistake using the Python language and Python 
+brought the spears back out.
+
+At this point, you should also realize that while Python 
+is amazingly complex and powerful and very picky about 
+the syntax about how you communicate with it, Python is {\em 
+not} intelligent.  You are having a conversation with 
+yourself but using proper syntax.
+
+In a sense when you use a program written by someone else
+the conversation is between you and those other
+programmers with Python acting as an intermediary.  Python
+is a way for the creators of programs to express how the 
+conversation is supposed to proceed.  And
+in just a few more chapters, you will be one of those
+programmers using Python to talk to the users of your program.
+
+Before we leave our first conversation with the Python 
+interpreter, you should probably know the proper way
+to say ``good-bye'' when interating with the inhabitants
+of Planet Python:
+
+\beforeverb
+\begin{verbatim}
+>>> good-bye
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'good' is not defined
+
+>>> if you don't mind, I need to leave
+  File "<stdin>", line 1
+    if you don't mind, I need to leave
+             ^
+SyntaxError: invalid syntax
+
+>>> quit()
+\end{verbatim}
+\afterverb
+%
+You will notice that the error is different for the first two
+incorrect attempts.   The second error is different because 
+{\bf if} is a reserved word and Python saw the reserved word
+and through we were trying to say something but got the syntax
+of the sentance wrong.
+
+The proper way to say ``good-bye'' to Python is to enter 
+{\bf quit()} at the interactive chevron {\tt >>>} prompt.
+It would have probably taken you quite a while to guess that 
+one so having a book handy probably will turn out 
+to be helpful.
+
+\section{Terminology: interpreter and compiler}
+
+Python is a {\bf high-level} language intended to be relatively
+straightforward for humans to read and write and for computers
+to read and process.  Other high-level languages include: Java, C++,
+PHP, Ruby, Basic, Perl, JavaScript, and many more.  The actual hardware
+inside the Central Processing Unit (CPU) does not understand any
+of these high level leanguages.
+
+The CPU understands a language we call {\bf machine-language}.  Machine
+language is very simple and frankly very tiresome to write because it 
+is represented all in zeros and ones:
+
+\beforeverb
+\begin{verbatim}
+01010001110100100101010000001111
+11100110000011101010010101101101
+...
+\end{verbatim}
+\afterverb
+%
+Machine language seems quite simple on the surface given that there 
+are only zeros and ones, but its syntax is even more complex
+and far more intricate than Python.  So very few programmers ever write
+machine language.  Instead we build various translators to allow
+programmers to write in high level languages like Python or JavaScript
+and these translators convert the programs to machine language for actual
+execution by the CPU.
+
+Since machine language is tied to the comuter hardware, machine language
+is not {\bf portable} across different types of hardware.  Programs written in 
+high-level languages can be moved between different computers by using a 
+different interpreter on the new machins or re-compiling the code to create
+a machine language version of the program for the new machine.
+
+These programming language translators fall into two general categories:
+(1) interpreters and (2) compilers.
+
+An {\bf interpreter} reads the source code of the program as written by the
+programmer, parses the source code, and interprets the instructions on-the-fly.
+Python is an interpreter and when we are running Python interactively, 
+we can type a line of Python (a sentance) and Python processes it immediately
+and is ready for us to type another line of Python.   
+
+Some of the lines of Python tell Python that you want it to remember some 
+value for later.   We need to pick a name for that value to be rembered and
+we can use that symbolic name to retrieve the value later.  We use the 
+term {\bf variable} to refer to the labels we use to refer to this stored data.
+
+\beforeverb
+\begin{verbatim}
+>>> x = 6
+>>> print x
+6
+>>> y = x * 7
+>>> print y
+42
+>>> 
+\end{verbatim}
+\afterverb
+%
+In this example, we ask Python to remember the value six and use the label {\bf x}
+so we can retrieve the value later.   We verify that Python has actually remembered
+the value using {\bf print}. Then we ask Python to retrieve {\bf x} and add one to 
+it and put the newly-computed value in {\bf y}.  Then we ask Python to print out
+the value currently in {\bf y}.
+
+Even through we are typing these commands into Python one line at a time, Python
+is treating them as an ordered sequence of statements with later statements able
+to rretrieve data created in earlier statements.   We are writing our first 
+simple paragraph with four sentances in a logical and meaningful order.
+
+It is the nature of an {\bf interpreter} to be able to have an interactive conversation
+as shown above.  A compiler needs to be handed the entire program in a file, and then 
+it runs a process to translate the high level source code into machine language
+and then the compiler puts the resulting machine language into a file for later
+execution.
+
+If you have a Windows system, often these executable machine language programs have a
+suffix of ``.exe'' or ``.dll'' which stand for ``executable'' and ``dynamically loadable
+library'' respectively.  In Linux and Maxintosh there is no suffix that uniquely marks
+a file as executable.
+
+If you were to open an executable file in a text editor, it would look 
+completely crazy and be unreadable:
+
+\beforeverb
+\begin{verbatim}
+^?ELF^A^A^A^@^@^@^@^@^@^@^@^@^B^@^C^@^A^@^@^@\xa0\x82
+^D^H4^@^@^@\x90^]^@^@^@^@^@^@4^@ ^@^G^@(^@$^@!^@^F^@
+^@^@4^@^@^@4\x80^D^H4\x80^D^H\xe0^@^@^@\xe0^@^@^@^E
+^@^@^@^D^@^@^@^C^@^@^@^T^A^@^@^T\x81^D^H^T\x81^D^H^S
+^@^@^@^S^@^@^@^D^@^@^@^A^@^@^@^A\^D^HQVhT\x83^D^H\xe8
+....
+\end{verbatim}
+\afterverb
+%
+It is not easy to read or write machine language so it is nice that we have
+{\bf interpreters} and {\bf compilers} that allow us to write in a high-level
+language like Python or C.
+
+Now at this point in our discussion of compilers and interpreters, you should 
+be wondering a bit about the Python interpreter itself.  What language is 
+it written in?  Is it written in a compiled language?  When we type
+``python'', what exactly is happening?
+
+The Python interpreter is written in a high level language called ``C''.  
+You can look at the actual source code for the Python interpreter by
+going to \url{www.python.org} and working your way to their source code.
+So Python is a program itself and it is compiled into machine code and
+when you installed Python on your computer (or the vendor installed it),
+you copied a machine-code copy of the translated Python program onto your
+system.   In Windows the executable machine code for Python itself is likely
+in a file with a name like:
+
+\beforeverb
+\begin{verbatim}
+C:\Python26\python.exe
+\end{verbatim}
+\afterverb
+%
+That is more than you really need to know to be a Python programmer, but
+sometimes it pays to answer those little nagging questions right at 
+the beginning.
+
+\section{Writing a program}
+
+Typing commands into the Python interpreter is a great way to experiment
+with Python's features, but it is a bad way to type in many lines
+of Python to solve a more complex problem.  
+
+When we want to write a program, 
+we use a text editor to write the Python instructions into a file,
+which is called a {\bf script}.  By
+convention, Python scripts have names that end with {\tt .py}.
+
+\index{script}
+
+To execute the script, you have to tell the Python interpreter 
+the name of the file.  In a UNIX or Windows command window, 
+you would type {\tt python hello.py} as follows:
+
+\beforeverb
+\begin{verbatim}
+csev$ cat hello.py
+print 'Hello world!'
+csev$ python hello.py
+Hello world!
+csev$
+\end{verbatim}
+\afterverb
+%
+The ``csev\$'' is the operating system prompt, and the ``cat hello.py'' is 
+showing us that the file ``hello.py'' has a one line Python program to print
+a string.
+
+We call the Python interpreter and tell it to read its source code from
+the file ``hello.py'' instead of prompting us for lines of Python code
+interactively.
+
+You will notice that there was no need to have {\bf quit()} at the end of
+the Python program in the file.   When Python is reading your source code
+form a file, it knows to stop when it reaches the end of the file.
+
+\section{What is a program?}
+
+The definition of a {\bf program} at its most basic is a sequence
+of Python statements that have been crafted to do something useful.
+Even our simple {\bf hello.py} script is a program.  It is a one-line
+program and is not partcularly useful, but in the strictest definition,
+it is a Python program.
+
+It might be easiest to thing about a program by thinking about a problem 
+that a program might be built to solve and the looking at a program
+that would solve that problem.
+
+Lets say you are doing Social Computing research on Facebook posts and 
+you are interested in the most frequently used word in a series of posts.
+You could print out the stream of facebook posts and pore over the text
+looking for the most common word, but that would take a long time and be very 
+mistake prone.  You would be smart to write a Python program to handle the
+task quickly and accurately so you can spend the weekend doing something 
+fun.
+
+For example look at the following text about a clown and a car.  Look at the 
+text and figure out the most common word and how many times it occurs.
+
+\beforeverb
+\begin{verbatim}
+the clown ran after the car and the car ran into the tent 
+and the tent fell down on the clown and the car 
+\end{verbatim}
+\afterverb
+%
+Then imagine that you are doing this task looking at millions of lines of 
+text.  Frankly it would be quickler for you to learn Python and write a 
+Python program to count the words than it would be to actually 
+count the words.
+
+The even better news is that I already came up with a simple program to 
+find the most common word in a body of text of any size.  I wrote it,
+tested it, and now I am giving it to you to use so you can save some time.
+
+\beforeverb
+\begin{verbatim}
+name = raw_input('Enter file:')
+handle = open(name, 'r')
+text = handle.read()
+words = text.split()
+counts = dict()
+
+for word in words:
+   counts[word] = counts.get(word,0) + 1
+
+bigcount = None
+bigword = None
+for word,count in counts.items():
+    if bigcount is None or count > bigcount:
+        bigword = word
+        bigcount = count
+
+print bigword, bigcount
+\end{verbatim}
+\afterverb
+%
+You don't even need to know Python to use this program.  You will need to get through 
+Chapter 10 of this book to fully understand the awesome Python techniques that were
+used to make the program.  You are the end user, you simply use the program and marvel
+at its cleverness and how it saved you so much manual effort.
+You simply type the code 
+into a file called {\bf words.py} and run it or you download the source 
+code from \url{http://www.pythonlearn.com/code/} and run it.
+
+\index{program}
+This is a good example of how Python and the Python language are acting as an intermediary
+between you (the end-user) and me (the programmer).  Python is a way for us to exchange useful
+instruction sequences (i.e. programs) in a common language that can be used by anyone who 
+installs Python on their computer.  So neither of us are talking {\em to Python},
+instead we are communicating with each other {\em through Python}.
+
+\section{The building blocks of programs}
+
+In the next few chapters, we will learn more about the vocabulary, sentance structure,
+paragraph structure, and story structure of Python.  We will learn about the powerful
+capabilities of Python and how to compose those capabilities together to create useful
+programs.
+
+There are some low-level conceptual patterns that we use to construct programs.  These
+constructs are not just for Python programs, they are part of every programming language
+from machine language up to the high-level languages.
+
+\begin{description}
+
+\item[input:] Get data from the the ``outside world''.  This might be 
+reading data from a file, or even some kind of sensor like 
+a microphone or GPS.  In our initial programs, our {\bf input} will come from the user
+typing data on the keyboard.
+
+\item[output:] Display the results of the program on a screen
+or store them in a file or perhaps write them to a device like a
+speaker to play music or speak text.
+
+\item[sequential execution:] Perform statements one after
+another in the order they are encountered in the script.
+
+\item[conditional execution:] Check for certain conditions and
+execute or skip a sequence of statements.
+
+\item[repeated execution:] Perform some set of statements 
+repeatedly, usually with
+some variation.
+
+\item[reuse:] Write a set of instructions once and give them a name
+and then reuse those instructions as needed throughout your program.
+
+\end{description}
+
+It sounds almost too simple to be true and of course it is never
+so simple.  It is like saying that walking is simply
+``putting one foot in front of the other''.  The ``art'' 
+of writing a program is composing and weaving these
+basic elements together many times over to produce something
+that is useful to its users.
+
+The word counting program above directly uses all of 
+these patterns except for one.
+
+\section{What could possibly go wrong?}
+
+As we saw in our earliest conversations with Python, we must
+communicate very precisely when we write Python code.  The smallest
+deviation or mistake will cause Python to give up looking at your
+program.
+
+Beginning programmers often take the fact that Python leaves no
+room for errors as evidence that Python is mean, hateful and cruel.
+While Python seems to like everyone else, Python knows them 
+personally and holds grudge against them.  Because of this grudge,
+Python takes our perfectly written programs and rejects them as 
+``unfit'' just to torment us.
+
+\beforeverb
+\begin{verbatim}
+>>> primt 'Hello world!'
+  File "<stdin>", line 1
+    primt 'Hello world!'
+                       ^
+SyntaxError: invalid syntax
+>>> primt 'Hello world'
+  File "<stdin>", line 1
+    primt 'Hello world'
+                      ^
+SyntaxError: invalid syntax
+>>> I hate you Python!
+  File "<stdin>", line 1
+    I hate you Python!
+         ^
+SyntaxError: invalid syntax
+>>> if you come out of there, I would teach you a lesson
+  File "<stdin>", line 1
+    if you come out of there, I would teach you a lesson
+              ^
+SyntaxError: invalid syntax
+>>> 
+\end{verbatim}
+\afterverb
+%
+There is little to be gained by arguing with Python.  It is a tool,
+it has no emotion and it is happy and ready to serve you whenever you
+need it.  Its error messages sound harsh, but they are just Python's
+call for help.  It has looked at what you typed, and it simply cannot
+understand what you have entered.
+
+Python is much more like a dog, loving you unconditionally, having a few
+key words that it understands, looking you with a sweet look on its
+face ({\tt >>>}) and waiting for you to say something it understands.
+When Python says ``SyntaxError: invalid syntax'', it is simply wagging
+its tail and saying, ``You seemed to say something but I just don't
+understand what you meant, but please keep talking to me ({\tt >>>}).''
+
+As your programs become increasingly sophisticated, you will encounter three 
+general types of errors:
+
+\begin{description}
+
+\item[Syntax errors:] These are the first errors you will make and the easiest
+to fix.  A syntax error means that you have violated the ``grammar'' rules of Python.
+Python does its best to point right at the line and character where 
+it noticed it was confused.  The only tricky bit of syntax errors is that sometimes
+the mistake that needs fixing is actually earlier in the program than where Python
+{\em noticed} it was confused.  So the line and character that Python indicates in 
+a syntax error may just be a starting point for your investigation.
+
+\item[Logic errors:] A logic error is when your program has good syntax but there is a mistake 
+in the order of the statements or perhaps a mistake in how the statements relate to one another.
+A good example of a logic error might be, ``take a drink from your water bottle, put it 
+in your backback, walk to the library, and then put the top back on the bottle.''
+
+\item[Semantic errors:] A semantic error is when your description of the steps to take 
+is syntactically perfect and in the right order, but there is simply a mistake in 
+the program.  The program is perfectly correct but it does not do what
+you {\em intended} for it to do. A simple example would
+be if you were giving a person directions to a restaunt an said, ``... when you reach
+the intersection with the gas station, turn left and go one mile and the restaraunt
+is a red building on your left.''.  Your friend is very late and calls you to tell you that
+they are on a farm and walkig around behind a barn, with no sign of a restaraunt.  
+The you say ``did you turn left or right gas station?'' and 
+they say, ``I followed your directions perfectly, I have 
+them written down, it says turn left and go one mile at the gas station.''.  Then you say,
+``I am very sorry, because while my instuctions were syntactically correct, they 
+sadly contained a small but undetected semantic error.''. 
+
+\end{description}
+
+Again in both cases, Python is trying its hardest to do exactly what 
+you have asked.
+
+\section{The learning journey}
+
+As you progress through the rest of the book, don't be afraid if the concepts 
+don't seem to fit together well the first time.  When you were learning to speak, 
+it was not a problem  for your first few years you just made cute gurgling noises.
+And it was OK if it took six months for you to move from simple vocabulary to 
+simple sentances and took 5-6 more years to move from sentances to paragraphs, and a
+few more years to be able to write an interesting complete short story on your own.
+
+We want you to learn Python much more rapidly, so we teach it all at the same time
+over the next few chapters.  
+But it is like learning a new language that takes time to absorb and understand
+before it feels natural.
+That leads to some confusion as we visit and revisit
+topics to try to get you to see the big picture while we are defining the tiny
+fragments that make up the big picture.  While the book is written linearly and
+if you are taking a course, it will progress in a linear fashion, don't hesitate
+to be very non-linear in how you approach the material.  Look forwards and backwards
+and read with a light touch.  By skimming more advanced material without 
+fully understanding the details, you can get a beter understanding of they ``why?'' 
+of programming.  by reviewing previous materials and even re-doing earlier 
+exercises, you will realize that you actually learned a lot of material even 
+if the material you are currently staring at seems a bit impenetrable.
+
+Usually when you are learning your first programming language, there are a few
+wonderful ``Ah-Hah!'' moments where you can look up from pounding away at some rock
+with a hammer and chisel and step away and see that you are indeed building 
+a beautiful sculpture.
+
+If something seems particularly hard, there is usually no value in staying up all 
+night and staring at it.   Take a break, take a nap, have a snack, explain what you 
+are having a problem with someone (or perhaps your dog), and then come back it with
+fresh eyes.  I assure you that once you learn the programming concepts in the book
+you will look back and see that it was all really easy and elegant and it simply 
+took you a bit of time to absorb it.
+
+\section{Glossary}
+
+\begin{description}
+
+\item[bug:]  An error in a program.
+\index{bug}
+
+\item[central processing unit:] The heart of any computer.  It is what
+runs the software that we write; also called ``CPU'' or ``the processor''.
+\index{central processing unit}
+\index{CPU}
+
+\item[compile:]  To translate a program written in a high-level language
+into a low-level language all at once, in preparation for later
+execution.
+\index{compile}
+
+\item[high-level language:]  A programming language like Python that
+is designed to be easy for humans to read and write.
+\index{high-level language}
+
+\item[interactive mode:] A way of using the Python interpreter by
+typing commands and expressions at the prompt.
+\index{interactive mode}
+
+\item[interpret:]  To execute a program in a high-level language
+by translating it one line at a time.
+\index{interpret}
+
+\item[low-level language:]  A programming language that is designed
+to be easy for a computer to execute; also called ``machine code'' or
+``assembly language.''
+\index{low-level language}
+
+\item[machine code:]  The lowest level language for software which 
+is the language that is directly executed by the central processing unit 
+(CPU).
+\index{machine code}
+
+\item[main memory:] Stores programs and data.  Main memory loses 
+its information when the power is turned off.
+\index{main memory}
+
+\item[parse:]  To examine a program and analyze the syntactic structure.
+\index{parse}
+
+\item[portability:]  A property of a program that can run on more
+than one kind of computer.
+\index{portability}
+
+\item[print statement:]  An instruction that causes the Python
+interpreter to display a value on the screen.
+\index{print statement}
+\index{statement!print}
+
+\item[problem solving:]  The process of formulating a problem, finding
+a solution, and expressing the solution.
+\index{problem solving}
+
+\item[program:] A set of instructions that specifies a computation.
+\index{program}
+
+\item[prompt:] When a program displays a message and pauses for the 
+user to type some input to the program.
+\index{prompt}
+
+\item[secondary memory:] Stores programs and data and retains its 
+information even when the power is turned off.  Generally slower 
+than main memory.  Examples of secondary memory include disk 
+drives and flash member in USB sticks.
+\index{secondary memory}
+
+\item[semantics:]  The meaning of a program.
+\index{semantics}
+
+\item[semantic error:]   An error in a program that makes it do something
+other than what the programmer intended.
+\index{semantic error}
+
+\item[source code:]  A program in a high-level language.
+\index{source code}
+
+\end{description}
+
+\section{Exercises}
+
+
+\begin{ex}
+What is the function of the secondary memory in a computer?
+
+a) Execute all of the computation and logic of the program\\
+b) Retrieve web pages over the Internet\\
+c) Store information for the long term - even beyond a power cycle\\
+d) Take input from the user 
+\end{ex}
+
+\begin{ex}
+What is a program?
+\end{ex}
+
+\begin{ex}
+What is is the difference between a compiler and an interpreter?
+\end{ex}
+
+\begin{ex}
+Which of the following contains "machine code"?
+
+a) The Python interpreter\\
+b) The keyboard\\
+c) Python source file\\
+d) A word processing document
+\end{ex}
+
+\begin{ex}
+What is wrong with the following code:
+
+\beforeverb
+\begin{verbatim}
+>>> primt 'Hello world!'
+  File "<stdin>", line 1
+    primt 'Hello world!'
+                       ^
+SyntaxError: invalid syntax
+>>> 
+\end{verbatim}
+\afterverb
+
+\end{ex}
+
+\begin{ex}
+Where in the computer is a variable such as "X" stored 
+after the following Python line finishes?
+
+\beforeverb
+\begin{verbatim}
+x = 123
+\end{verbatim}
+\afterverb
+%
+a) Central processing unit\\
+b) Main Memory\\
+c) Secondary Memory\\
+d) Input Devices\\
+e) Output Devices
+\end{ex}
+
+\begin{ex}
+What will the following program print out:
+
+\beforeverb
+\begin{verbatim}
+x = 43
+x = x + 1
+print x
+\end{verbatim}
+\afterverb
+%
+a) 43\\
+b) 44\\
+c) x + 1\\
+d) Error because x = x + 1 is not possible mathematically
+\end{ex}
+
+\begin{ex}
+Explain each of the following using an example of a human capability: 
+(1) Central processing unit, (2) Main Memory, (3) Secondary Memory, 
+(4) Input Device, and
+(5) Output Device.
+For example, "What is the human equivalent to a Central Processing Unit"? 
+\end{ex}
+
+\begin{ex}
+How do you fix a "Syntax Error"?
+\end{ex}
+
+\input{book.tex}
+
+\appendix
+
+\chapter{Python Programming on Windows}
+
+In this appendix, we walk through a series of steps
+so you can run Python on Windows.  There are many different 
+approaches you can take, and this is just one
+approach to keep things simple.
+
+First, you need to install a programmer editor.  You
+do not want to use Notepad or Microsoft Word to edit
+Python programs.  Programs must be in "flat-text" files
+and so you need an eitor that is good at
+editing text files.
+
+Our recommended editor for Windows is NotePad++ which
+can be downloaded and installed from:
+
+\url{http://sourceforge.net/projects/notepad-plus/files/}
+
+Then download a recent version of Python 2 from the
+\url{www.python.org} web site.
+
+\url{http://www.python.org/download/releases/2.5.4/}
+
+Once you have installed Python, you should have a new
+folder on your computer like {\tt C:{\textbackslash}Python25}.
+
+To create a Python program, run NotePad++ from the Start Menu
+and save the file with a suffix of ``.py''.  For this
+exercse, put a folder on your Desktop named 
+{\tt py4inf}.  It is best to keep your folder names short
+and not to have any spaces in your folder or file name.
+
+Lets make our first Python program be:
+
+\beforeverb
+\begin{verbatim}
+print 'Hello Chuck'
+\end{verbatim}
+\afterverb
+%
+Except that you should change it to be your name.  Lets
+save the file into {\tt Desktop{\textbackslash}py4inf{\textbackslash}prog1.py}.
+
+The run the command line.  Different versions of Windows
+do this differently:
+
+\begin{itemize}
+\item Windows Vista and Windows-7: Press {\bf Start}
+and then in the command search window enter the word
+{\tt command} and press enter.
+
+\item Windows-XP: Press {\bf Start}, then {\bf Run}, and 
+then enter {\tt cmd} in the dialog box and press {\bf OK}.
+\end{itemize}
+
+You will find yourself in a text window with a prompt that
+tells you what folder you are currently ``in''.  
+
+Windows Vista and Windows-7: {\tt C:{\textbackslash}Users{\textbackslash}csev}\\
+Windows XP: {\tt C:{\textbackslash}Documents and Settings{\textbackslash}csev}
+
+This is your ``home directory''.  Now we need to move into 
+the folder where you have saved your Python program using
+the following commands:
+
+\beforeverb
+\begin{verbatim}
+C:\Users\csev\> cd Desktop
+C:\Users\csev\Desktop> cd py4inf
+\end{verbatim}
+\afterverb
+%
+Then type 
+
+\beforeverb
+\begin{verbatim}
+C:\Users\csev\Desktop\py4inf> dir 
+\end{verbatim}
+\afterverb
+%
+To list your files.  You should see the {\tt prog1.py} when 
+you type the {\tt dir} command.
+
+To run your program, simply type the name of your file at the 
+command prompt and press enter.
+
+\beforeverb
+\begin{verbatim}
+C:\Users\csev\Desktop\py4inf> prog1.py
+Hello Chuck
+C:\Users\csev\Desktop\py4inf> 
+\end{verbatim}
+\afterverb
+%
+You can edit the file in NotePad++, save it and then switch back
+to the command line and execute the program again by typing
+the file name again at the command line prompt.
+
+If you get confused in the command line window - just close it
+and start a new one.
+
+Hint: You can also press the ``up-arrow'' in the command line to 
+scroll back and run a previously entered command again.
+
+You should also look in the preferences for NotePad++ and set it 
+to expand tab characters to be four spaces.  It will save you lots
+of effort looking for indentation errors.
+
+You can also find further information on editing and running 
+Python programs at \url{www.py4inf.com}.
+
+\chapter{Python Programming on Macintosh}
+
+In this appendix, we walk through a series of steps
+so you can run Python on Macintosh.  Since Python is
+already included in the Macintosh Operating system, we need to 
+learn how to edit Python files and run Python programs
+in the terminal window.
+
+There approaches you can take to editing and running
+Python programs, and this is just one
+approach we have found to be very simple.
+
+First, you need to install a programmer editor.  You
+do notwant to use TextEdit or Microsoft Word to edit
+Python programs.  Programs must be in "flat-text" files
+and so you need an eitor that is good at
+editing text files.
+
+Our recommended editor for Macintosh is TextWrangler which
+can be downloaded and installed from:
+
+\url{http://www.barebones.com/products/TextWrangler/}
+
+To create a Python program, run from 
+{\bf TextWrangler} from your {\bf Applications} folder.
+
+Lets make our first Python program be:
+
+\beforeverb
+\begin{verbatim}
+print 'Hello Chuck'
+\end{verbatim}
+\afterverb
+%
+Except that you should change it to be your name.  
+Lets save the file in a folder on your Desktop named 
+{\tt py4inf}.  It is best to keep your folder names short
+and not to have any spaces in your folder or file name.
+Once you have made the folder, save the file 
+into {\tt Desktop{\textbackslash}py4inf{\textbackslash}prog1.py}.
+
+The run the {\bf Terminal} program.  The easiest way is to 
+press the Spotlight icon (the magnifying glass) in the upper
+right of your screen and enter ``terminial'' and launch the
+application that comes up.
+
+You start in your ``home directory''.  You can see the current 
+directory by typing the {\tt pwd} command in the terminal window.
+
+\beforeverb
+\begin{verbatim}
+67-194-80-15:~ csev$ pwd
+/Users/csev
+67-194-80-15:~ csev$ 
+\end{verbatim}
+\afterverb
+%
+We must be in the folder that contains your Python program 
+to run the program.  We user the {\tt cd} command to move to a new 
+folder and then the {\tt ls} command to list the files in the 
+folder.
+
+\beforeverb
+\begin{verbatim}
+67-194-80-15:~ csev$ cd Desktop
+67-194-80-15:Desktop csev$ cd py4inf
+67-194-80-15:py4inf csev$ ls
+prog1.py
+67-194-80-15:py4inf csev$ 
+\end{verbatim}
+\afterverb
+%
+To run your program, simply type the {\tt python} command followed
+by the name of your file at the 
+command prompt and press enter.
+
+\beforeverb
+\begin{verbatim}
+67-194-80-15:py4inf csev$ python prog1.py
+Hello Chuck
+67-194-80-15:py4inf csev$ 
+\end{verbatim}
+\afterverb
+%
+You can edit the file in TextWrangler, save it and then switch back
+to the command line and execute the program again by typing
+the file name again at the command line prompt.
+
+If you get confused in the command line window - just close it
+and start a new one.
+
+Hint: You can also press the ``up-arrow'' in the command line to 
+scroll back and run a previously entered command again.
+
+You should also look in the preferences for TextWrangler and set it 
+to expand tab characters to be four spaces.  It will save you lots
+of effort looking for indentation errors.
+
+You can also find further information on editing and running 
+Python programs at \url{www.py4inf.com}.
+
+
+
+\chapter{Contributor List}
+\section*{Contributor List for ``Python for Informatics''}
+
+Bruce Shields for copy editing early drafts,
+Sarah Hegge,
+Steven Cherry,
+Sarah Kathleen Barbarow,
+Andrea Parker,
+Radaphat Chongthammakun,
+Megan Hixon,
+Kirby Urner,
+Sarah Kathleen Barbrow,
+Katie Kujala,
+Noah Botimer,
+Emily Alinder,
+Mark Thompson-Kular,
+James Perry,
+Eric Hofer,
+Eytan Adar,
+Peter Robinson,
+Deborah J. Nelson,
+Jonathan C. Anthony,
+Eden Rassette,
+Jeannette Schroeder,
+Justin Feezell,
+Chuanqi Li,
+Gerald Gordinier,
+Gavin Thomas Strassel,
+Ryan Clement,
+Alissa Talley,
+Caitlin Holman,
+Yong-Mi Kim,
+Karen Stover,
+
+% CONTRIB
+
+\section*{Contributor List for ``Think Python''}
+
+\index{contributors}
+
+(Allen B. Downey)
+
+More than 100 sharp-eyed and thoughtful readers have sent in
+suggestions and corrections over the past few years.  Their
+contributions, and enthusiasm for this project, have been a
+huge help.
+
+For the detail on the nature of each of the contributions from
+these individuals, see the ``Think Python'' text.
+
+Lloyd Hugh Allen,
+Yvon Boulianne,
+Fred Bremmer,
+Jonah Cohen,
+Michael Conlon,
+Benoit Girard,
+Courtney Gleason and Katherine Smith,
+Lee Harr,
+James Kaylin,
+David Kershaw,
+Eddie Lam,
+Man-Yong Lee,
+David Mayo,
+Chris McAloon,
+Matthew J. Moelter,
+Simon Dicon Montford,
+John Ouzts,
+Kevin Parks,
+David Pool,
+Michael Schmitt,
+Robin Shaw,
+Paul Sleigh,
+Craig T. Snydal,
+Ian Thomas,
+Keith Verheyden,
+Peter Winstanley,
+Chris Wrobel,
+Moshe Zadka,
+Christoph Zwerschke,
+James Mayer,
+Hayden McAfee,
+Angel Arnal,
+Tauhidul Hoque and Lex Berezhny,
+Dr. Michele Alzetta,
+Andy Mitchell,
+Kalin Harvey,
+Christopher P. Smith,
+David Hutchins,
+Gregor Lingl,
+Julie Peters,
+Florin Oprina,
+D.~J.~Webre,
+Ken,
+Ivo Wever,
+Curtis Yanko,
+Ben Logan,
+Jason Armstrong,
+Louis Cordier,
+Brian Cain,
+Rob Black,
+Jean-Philippe Rey at Ecole Centrale Paris,
+Jason Mader at George Washington University made a number
+Jan Gundtofte-Bruun,
+Abel David and Alexis Dinno,
+Charles Thayer,
+Roger Sperberg,
+Sam Bull,
+Andrew Cheung,
+C. Corey Capel,
+Alessandra,
+Wim Champagne,
+Douglas Wright,
+Jared Spindor,
+Lin Peiheng,
+Ray Hagtvedt,
+Torsten H\"{u}bsch,
+Inga Petuhhov,
+Arne Babenhauserheide,
+Mark E. Casida,
+Scott Tyler,
+Gordon Shephard,
+Andrew Turner,
+Adam Hobart,
+Daryl Hammond and Sarah Zimmerman,
+George Sass,
+Brian Bingham,
+Leah Engelbert-Fenton,
+Joe Funke,
+Chao-chao Chen,
+Jeff Paine,
+Lubos Pintes,
+Gregg Lind and Abigail Heithoff,
+Max Hailperin,
+Chotipat Pornavalai,
+Stanislaw Antol,
+Eric Pashman,
+Miguel Azevedo,
+Jianhua Liu,
+Nick King,
+Martin Zuther,
+Adam Zimmerman,
+Ratnakar Tiwari,
+Anurag Goel,
+Kelli Kratzer,
+Mark Griffiths,
+Roydan Ongie,
+Patryk Wolowiec,
+Mark Chonofsky,
+Russell Coleman,
+Wei Huang,
+Karen Barber,
+Nam Nguyen,
+St\'{e}phane Morin,
+and
+Paul Stoop.
+
+\normalsize
+
+\printindex
+
+\clearemptydoublepage
+
+
+\end{document}
