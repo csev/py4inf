@@ -3130,7 +3130,7 @@ following loop:
 largest = None
 print 'Before:', largest
 for itervar in [3, 41, 12, 9, 74, 15]:
-    if largest is None or largest < itervar:
+    if largest is None or itervar > largest :
         largest = itervar
     print 'Loop:', itervar, largest
 print 'Largest:', largest
@@ -3169,7 +3169,7 @@ since {\tt largest} is {\tt None}, we immediately set
 
 After the first iteration, {\tt largest} is no longer {\tt None},
 so the second part of the compound logical expression that checks
-{\tt largest < itervar} triggers only when we see a value that is
+{\tt itervar > largest} triggers only when we see a value that is
 larger than the ``largest so far''.  When we see a new ``even larger''
 value we take that new value for {\tt largest}.  You can see in the 
 program output that {\tt largest} progresses from 3 to 41 to 74.
