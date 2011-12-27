@@ -1,5 +1,5 @@
 % The contents of this file is 
-% Copyright (c) 2010,2011  Charles R. Severance, All Righs Reserved
+% Copyright (c) 2009-2011  Charles R. Severance, All Righs Reserved
 
 %\documentclass[10pt,b5paper]{book}
 \documentclass[10pt]{book}
@@ -17,7 +17,7 @@
 \usepackage{upquote}
 
 \newcommand{\thetitle}{Python for Informatics: Exploring Information}
-\newcommand{\theversion}{0.0.5}
+\newcommand{\theversion}{0.0.6}
 
 \makeindex
 
@@ -108,7 +108,7 @@ Charles Severance\\
 \thispagestyle{empty}
 
 {\small
-Copyright \copyright ~2009, 2010 Charles Severance.
+Copyright \copyright ~2009-2011 Charles Severance.
 
 
 Printing history:
@@ -157,11 +157,6 @@ The \LaTeX\ source for the
 a Computer Scientist}
 version of this book is available from
 \url{http://www.thinkpython.com}.
-
-The \LaTeX\ source for the 
-\emph{Python for Informatics: Exploring Information}
-version of the book is available from 
-\url{http://source.sakaiproject.org/contrib/csev/trunk/pyinf/}.
 
 The cover image shows social connectivity of NSF grant investigators 
 at the University of Michigan
@@ -910,11 +905,11 @@ term {\bf variable} to refer to the labels we use to refer to this stored data.
 %
 In this example, we ask Python to remember the value six and use the label {\bf x}
 so we can retrieve the value later.   We verify that Python has actually remembered
-the value using {\bf print}. Then we ask Python to retrieve {\bf x} and add one to 
-it and put the newly-computed value in {\bf y}.  Then we ask Python to print out
+the value using {\bf print}. Then we ask Python to retrieve {\bf x} and multiply
+it by seven and put the newly-computed value in {\bf y}.  Then we ask Python to print out
 the value currently in {\bf y}.
 
-Even through we are typing these commands into Python one line at a time, Python
+Even though we are typing these commands into Python one line at a time, Python
 is treating them as an ordered sequence of statements with later statements able
 to retrieve data created in earlier statements.   We are writing our first 
 simple paragraph with four sentences in a logical and meaningful order.
@@ -974,9 +969,8 @@ the beginning.
 
 \section{Writing a program}
 
-Typing commands into the Python interpreter is a great way to experiment
-with Python's features, but it is a bad way to type in many lines
-of Python to solve a more complex problem.  
+Typing commands into the Python interpreter is a great way to experiment 
+with Python’s features, but it is not recommended for solving more complex problems.
 
 When we want to write a program, 
 we use a text editor to write the Python instructions into a file,
@@ -1020,7 +1014,7 @@ program and is not particularly useful, but in the strictest definition,
 it is a Python program.
 
 It might be easiest to understand what a program is by thinking about a problem 
-that a program might be built to solve and the looking at a program
+that a program might be built to solve, and then looking at a program
 that would solve that problem.
 
 Lets say you are doing Social Computing research on Facebook posts and 
@@ -1144,7 +1138,7 @@ program.
 Beginning programmers often take the fact that Python leaves no
 room for errors as evidence that Python is mean, hateful and cruel.
 While Python seems to like everyone else, Python knows them 
-personally and holds grudge against them.  Because of this grudge,
+personally and holds a grudge against them.  Because of this grudge,
 Python takes our perfectly written programs and rejects them as 
 ``unfit'' just to torment us.
 
@@ -1243,7 +1237,7 @@ fragments that make up the big picture.  While the book is written linearly and
 if you are taking a course, it will progress in a linear fashion, don't hesitate
 to be very non-linear in how you approach the material.  Look forwards and backwards
 and read with a light touch.  By skimming more advanced material without 
-fully understanding the details, you can get a better understanding of they ``why?'' 
+fully understanding the details, you can get a better understanding of the ``why?'' 
 of programming.  By reviewing previous material and even re-doing earlier 
 exercises, you will realize that you actually learned a lot of material even 
 if the material you are currently staring at seems a bit impenetrable.
@@ -1255,7 +1249,7 @@ a beautiful sculpture.
 
 If something seems particularly hard, there is usually no value in staying up all 
 night and staring at it.   Take a break, take a nap, have a snack, explain what you 
-are having a problem with someone (or perhaps your dog), and then come back it with
+are having a problem with to someone (or perhaps your dog), and then come back it with
 fresh eyes.  I assure you that once you learn the programming concepts in the book
 you will look back and see that it was all really easy and elegant and it simply 
 took you a bit of time to absorb it.
@@ -1576,7 +1570,8 @@ print lst
 \end{verbatim}
 \afterverb
 %
-The {\tt findall()} method searches the string in the second argument and returns a list of all of the strings that look like e-mail addresses.   We are using a special character that indicates a non-whitespace character ({\textbackslash}S). 
+The {\tt findall()} method searches the string in the second argument and returns a list of all of the strings that look like e-mail addresses.   We are using a two-character sequence 
+that matches a non-whitespace character ({\textbackslash}S). 
 
 The output of the program would be:
 
@@ -2080,8 +2075,6 @@ Enter file:mbox-short.txt
 \end{verbatim}
 \afterverb
 %
-
-67-194-95-44:code csev$ 
 
 \end{ex}
 
@@ -2751,7 +2744,7 @@ Attr: yes
 %
 Using an XML parser such as {\tt ElementTree} has the advantage
 that while the XML in this example is quite simple, it turns
-out that there are many rules regarding valid XML and using 
+out there are many rules regarding valid XML and using 
 {\tt ElementTree} allows us to extract data from XML without 
 worrying about the rules of XML syntax.
 
@@ -2823,7 +2816,7 @@ applications using these techniques. The general name for these
 application-to-application contracts is {\bf Application Program 
 Interfaces} or APIs.  When we use an API, generally one program
 makes a set of {\bf services} available for use by other applications
-and publishes the APIs (i.e. the ``rules'') which must be followed to 
+and publishes the APIs (i.e. the ``rules'') that must be followed to 
 access the services provided by the program.
 
 When we begin to build our programs where the functionality of
@@ -5518,6 +5511,7 @@ Alissa Talley,
 Caitlin Holman,
 Yong-Mi Kim,
 Karen Stover,
+Cherie Edmonds,
 
 % CONTRIB
 

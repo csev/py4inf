@@ -469,9 +469,14 @@ linking them end-to-end.  For example:
 
 \beforeverb
 \begin{verbatim}
-first = 'throat'
-second = 'warbler'
-print first + second
+>>> first = 10
+>>> second = 15
+>>> print first+second
+25
+>>> first = '100'
+>>> second = '150'
+>>> print first + second
+100150
 \end{verbatim}
 \afterverb
 %
@@ -503,18 +508,19 @@ Some silly stuff
 \afterverb
 %
 Before getting input from the user, it is a good idea to print a
-prompt telling the user what to input.  \verb"raw_input" can take a
-prompt as an argument:
+prompt telling the user what to input.  You can pass a string
+to \verb"raw_input" to be displayed to the user before pausing
+for input:
 
 \index{prompt}
 
 \beforeverb
 \begin{verbatim}
->>> name = raw_input('What...is your name?\n')
-What...is your name?
-Arthur, King of the Britons!
+>>> name = raw_input('What is your name?\n')
+What is your name?
+Chuck
 >>> print name
-Arthur, King of the Britons!
+Chuck
 \end{verbatim}
 \afterverb
 %
@@ -1097,6 +1103,21 @@ case, you can use the {\tt pass} statement, which does nothing.
 \begin{verbatim}
 if x < 0 :
     pass          # need to handle negative values!
+\end{verbatim}
+\afterverb
+%
+If you enter an if statement in the Python interpreter, the prompt will change 
+from three chevrons to three dots to indicate you are in the middle of a block of
+statements as shown below:
+
+\beforeverb
+\begin{verbatim}
+>>> x = 3
+>>> if x < 10:
+...    print 'Small'
+... 
+Small
+>>>
 \end{verbatim}
 \afterverb
 %
@@ -1699,7 +1720,7 @@ a result.  The result is called the {\bf return value}.
 
 Python provides a number of important built-in functions that
 we can use without needing to provide the function definition.
-In a sense, the creators or Python wrote a set of functions 
+The creators of Python wrote a set of functions 
 to solve common problems and included them in Python for us to use.
 
 The {\tt max} and {\tt min} functions give us the largest and 
@@ -1735,6 +1756,9 @@ in the string.
 %
 These functions are not limited to looking at strings, they can operate
 on any set of values as we will see in later chapters.
+
+You should treat the names of built-in functions as reserved words (i.e.
+avoid using ``max'' as a variable name).
 
 \section{Type conversion functions}
 \index{conversion!type}
@@ -3039,13 +3063,12 @@ These loops are generally constructed by:
 
 \begin{itemize}
 
-\item Initialize one or more variables before the loop starts.
+\item Initializing one or more variables before the loop starts.
 
-\item Perform some computation on each item in the loop body, 
-possibly changing the variables in the body of the loop
+\item Performing some computation on each item in the loop body, 
+possibly changing the variables in the body of the loop.
 
-\item At the end of the loop, the variables contain the information
-we are looking for
+\item Looking at the resulting variables when the loop completes.
 
 \end{itemize}
 
@@ -3445,7 +3468,7 @@ letter, {\tt fruit[-2]} yields the second to last, and so on.
 \index{negative index}
 
 
-\section{Traversal through a string with a {\tt for} loop}
+\section{Traversal through a string with a loop}
 \label{for}
 
 \index{traversal}
@@ -3496,45 +3519,6 @@ for char in fruit:
 Each time through the loop, the next character in the string is assigned
 to the variable {\tt char}.  The loop continues until no characters are
 left.
-
-\index{concatenation}
-\index{abecedarian}
-\index{McCloskey, Robert}
-
-The following example shows how to use concatenation (string addition)
-and a {\tt for} loop to generate an abecedarian series (that is, in
-alphabetical order).  In Robert McCloskey's book \emph{Make
-Way for Ducklings}, the names of the ducklings are Jack, Kack, Lack,
-Mack, Nack, Ouack, Pack, and Quack.  This loop outputs these names in
-order:
-
-\beforeverb
-\begin{verbatim}
-prefixes = 'JKLMNOPQ'
-suffix = 'ack'
-
-for letter in prefixes:
-    print letter + suffix
-\end{verbatim}
-\afterverb
-%
-The output is:
-
-\beforeverb
-\begin{verbatim}
-Jack
-Kack
-Lack
-Mack
-Nack
-Oack
-Pack
-Qack
-\end{verbatim}
-\afterverb
-%
-Of course, that's not quite right because ``Ouack'' and
-``Quack'' are misspelled.
 
 
 \section{String slices}
@@ -3764,9 +3748,9 @@ against a man armed with a Pineapple.
 \section{{\tt string} methods}
 
 Strings are an example of Python {\bf objects}.  An object contains
-both data (the actual string itself) as well as {\bf methods} which
-are effectively functions which are built into the object and 
-available to any {\bf instance} of the object.
+both data (the actual string itself) as well as {\bf methods}, which
+are effectively functions which that are built into the object and 
+are available to any {\bf instance} of the object.
 
 Python has a function called {\tt dir} that lists the methods available
 for an object.  The {\tt type} function shows the type of an object 
@@ -3995,7 +3979,7 @@ when the first operand is a string, {\tt \%} is the format operator.
 \index{format string}
 
 The first operand is the {\bf format string}, which contains
-one or more {\bf format sequences}, which
+one or more {\bf format sequences} that
 specify how
 the second operand is formatted.  The result is a string.
 
@@ -4962,7 +4946,7 @@ You can download the file from
 
 \begin{ex}
 Write a program 
-to prompt for a file name an then read through the file 
+to prompt for a file name, and then read through the file 
 and look for lines of the form:
 
 {\tt
@@ -5105,9 +5089,10 @@ Cheddar
 \end{verbatim}
 \afterverb
 %
-Unlike strings, lists are mutable.  When the bracket operator appears
-on the left side of an assignment, it identifies the element of the
-list that will be assigned.
+Unlike strings, lists are mutable because you can change the order 
+of items in a list or reassign an item in a list.  
+When the bracket operator appears on the left side of an assignment, 
+it identifies the element of the list that will be assigned.
 
 \index{mutability}
 
@@ -7125,7 +7110,10 @@ Enter a file name: mbox-short.txt
 \index{type!tuple}
 \index{sequence}
 
-A tuple is a sequence of values much like a list.  
+A tuple\footnote{Fun fact: The word ``tuple'' comes from the names
+given to seqences of numbers of varying lengths: single, 
+double, triple, quadruple, quituple, sextuple, septuple, etc.}
+is a sequence of values much like a list.  
 The values stored in a tuple can be any type, and
 they are indexed by integers.
 The important difference is that tuples are {\bf immutable}.
@@ -7147,7 +7135,7 @@ Syntactically, a tuple is a comma-separated list of values:
 \afterverb
 %
 Although it is not necessary, it is common to enclose tuples in
-parentheses to help use quickly identify tuples when we look at
+parentheses to help us quickly identify tuples when we look at
 Python code:
 
 \index{parentheses!tuples in}
@@ -7643,8 +7631,8 @@ frequency analysis.
 \end{verbatim}
 \afterverb
 %
-The fact that this relatively complex data parsing and analysis 
-can be done with a relatively easy-to-understand 19 line Python
+The fact that this complex data parsing and analysis 
+can be done with an easy-to-understand 19 line Python
 program is one reason why Python is a good choice as a language 
 for exploring information.
 
