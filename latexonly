@@ -51,8 +51,8 @@
 \newcommand{\beforefig}{\vspace{1.3\parskip}}
 \newcommand{\afterfig}{\vspace{-0.2\parskip}}
 
-\newcommand{\beforeverb}{\vspace{0.6\parskip}}
-\newcommand{\afterverb}{\vspace{0.6\parskip}}
+\newcommand{\beforeverb}{\vspace{0.6\parskip\fontsize{9}{11}}}
+\newcommand{\afterverb}{\vspace{0.6\parskip\normalsize}}
 
 \newcommand{\adjustpage}[1]{\enlargethispage{#1\baselineskip}}
 

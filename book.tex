@@ -1878,6 +1878,7 @@ for i in range(10):
 %
 This program produces the following list of 10 random numbers
 between 0.0 and up to but not including 1.0.
+
 \beforeverb
 \begin{verbatim}
 0.301927091705
@@ -1939,13 +1940,13 @@ Gaussian, exponential, gamma, and a few more.
 \section{Math functions}
 \index{math function}
 \index{function, math}
+\index{module}
+\index{module object}
 
 Python has a math {\bf module} that provides most of the familiar
 mathematical functions.  
 Before we can use the module, we have to import it:
 
-\index{module}
-\index{module object}
 \beforeverb
 \begin{verbatim}
 >>> import math
@@ -2075,7 +2076,7 @@ take arguments as their inputs.
 The first line of the function definition is called the {\bf header};
 the rest is called the {\bf body}.  The header has to end with a colon
 and the body has to be indented.  By convention, the indentation is
-always four spaces (see Section~\ref{editor}).  The body can contain
+always four spaces.  The body can contain
 any number of statements.
 
 The strings in the print statements are enclosed in double
@@ -2810,6 +2811,7 @@ and then use the {\tt break} statement to jump out of the loop.
 This loop is obviously an {\bf infinite loop} because the logical 
 expression on the
 {\tt while} statement is simply the logical constant {\tt True}:
+
 \beforeverb
 \begin{verbatim}
 n = 10
@@ -3071,12 +3073,12 @@ respectively.
 
 \index{loop!maximum}
 \index{loop!minimum}
+\index{None special value}
+\index{special value!None}
 \label{maximumloop}
 To find the largest value in a list or sequence, we construct the
 following loop:
 
-\index{None special value}
-\index{special value!None}
 \beforeverb
 \begin{verbatim}
 largest = None
@@ -3684,6 +3686,7 @@ are available to any {\bf instance} of the object.
 Python has a function called {\tt dir} that lists the methods available
 for an object.  The {\tt type} function shows the type of an object 
 and the {\tt dir} function shows the available methods.
+
 \beforeverb
 \begin{verbatim}
 >>> stuff = 'Hello world'
@@ -3856,9 +3859,11 @@ in \verb"'banana'".
 Often, we want to look into a string and find a substring.  For example
 if we were presented a series of lines formatted as follows:
 
-{\tt
+\beforeverb
+\begin{alltt}
 From stephen.marquard@{\bf uct.ac.za} Sat Jan  5 09:14:16 2008
-}
+\end{alltt}
+\afterverb
 
 And we wanted to pull out only the second half of the address (i.e.
 {\tt uct.ac.za}) from each line.  We can do this by using the {\tt find}
@@ -4139,9 +4144,11 @@ performing a similar operation on each.
 \begin{ex}
 Take the following Python code that stores a string:`
 
-{\tt
+\beforeverb
+\begin{alltt}
 str = 'X-DSPAM-Confidence: {\bf 0.8475}'
-}
+\end{alltt}
+\afterverb
 
 Use {\tt find} and string slicing to extract the portion
 of the string after the colon character and then use the 
@@ -4265,16 +4272,18 @@ string can be thought of as a sequence of characters.  For example, this
 is a sample of a text file which records mail activity from various
 individuals in an open source project development team:
 
-{\tt
-From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008\\
-Return-Path: <postmaster@collab.sakaiproject.org>\\
-Date: Sat, 5 Jan 2008 09:12:18 -0500\\
-To: source@collab.sakaiproject.org\\
-From: stephen.marquard@uct.ac.za\\
-Subject: [sakai] svn commit: r39772 - content/branches/\\
-Details: http://source.sakaiproject.org/viewsvn/?view=rev\&rev=39772\\
+\beforeverb
+\begin{alltt}
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+Return-Path: <postmaster@collab.sakaiproject.org>
+Date: Sat, 5 Jan 2008 09:12:18 -0500
+To: source@collab.sakaiproject.org
+From: stephen.marquard@uct.ac.za
+Subject: [sakai] svn commit: r39772 - content/branches/
+Details: http://source.sakaiproject.org/viewsvn/?view=rev\&rev=39772
 ...
-}
+\end{alltt}
+\afterverb
 
 The entire file of mail interactions is available from 
 \url{www.py4inf.com/code/mbox.txt} 
@@ -4323,16 +4332,18 @@ So when we look at the lines in a file, we need to \emph{imagine}
 that there is a special invisible character at the end of each line
 that marks the end of the line called the newline.  
 
-{\tt
-From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008\verb"\n"\\
-Return-Path: <postmaster@collab.sakaiproject.org>\verb"\n"\\
-Date: Sat, 5 Jan 2008 09:12:18 -0500\verb"\n"\\
-To: source@collab.sakaiproject.org\verb"\n"\\
-From: stephen.marquard@uct.ac.za\verb"\n"\\
-Subject: [sakai] svn commit: r39772 - content/branches/\verb"\n"\\
-Details: http://source.sakaiproject.org/viewsvn/?view=rev\&rev=39772\verb"\n"\\
-...
-}
+% \beforeverb
+% \begin{alltt}
+% From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008\verb"\n"\\
+% Return-Path: <postmaster@collab.sakaiproject.org>\verb"\n"\\
+% Date: Sat, 5 Jan 2008 09:12:18 -0500\verb"\n"\\
+% To: source@collab.sakaiproject.org\verb"\n"\\
+% From: stephen.marquard@uct.ac.za\verb"\n"\\
+% Subject: [sakai] svn commit: r39772 - content/branches/\verb"\n"\\
+% Details: http://source.sakaiproject.org/viewsvn/?view=rev\&rev=39772\verb"\n"\\
+% ...
+% \end{alltt}
+% \afterverb
 
 So the newline character separates the characters 
 in the file into lines.
@@ -4604,6 +4615,7 @@ in the eyes of our users?''.
 I told you not to peek.  This is your last chance.
 
 What if our user types something that is not a file name?
+
 \beforeverb
 \begin{verbatim}
 python search6.py 
@@ -4668,6 +4680,7 @@ The {\tt exit} function terminates the program.  It is a function
 that we call that never returns.  Now when our user (or 
 QA team) types in silliness or bad file names, 
 we ``catch'' them and recover gracefully:
+
 \beforeverb
 \begin{verbatim}
 python search7.py
@@ -4878,9 +4891,11 @@ Write a program
 to prompt for a file name, and then read through the file 
 and look for lines of the form:
 
-{\tt
+\beforeverb
+\begin{alltt}
 X-DSPAM-Confidence: {\bf 0.8475}
-}
+\end{alltt}
+\afterverb
 
 When you encounter a line that starts with 
 ``X-DSPAM-Confidence:'' pull apart the line to extract the
@@ -5042,23 +5057,7 @@ used to be 123, is now 5.
 
 You can think of a list as a relationship between indices and
 elements.  This relationship is called a {\bf mapping}; each index
-``maps to'' one of the elements.  Here is a state diagram showing {\tt
-cheeses}, {\tt numbers} and {\tt empty}:
-
-\index{state diagram}
-\index{diagram!state}
-\index{mapping}
-
-\beforefig
-\centerline{\includegraphics{figs/list_state.eps}}
-\afterfig
-
-Lists are represented by boxes with the word ``list'' outside
-and the elements of the list inside.  {\tt cheeses} refers to
-a list with three elements indexed 0, 1 and 2.
-{\tt numbers} contains two elements; the diagram shows that the
-value of the second element has been reassigned from 123 to 5.
-{\tt empty} refers to a list with no elements.
+``maps to'' one of the elements.  
 
 \index{item assignment}
 \index{assignment!item}
@@ -5582,9 +5581,11 @@ lines'' and then {\bf parse} the line to find some interesting
 \emph{part} of the line.  What if we wanted to print out the day of the 
 week from those lines that start with ``From ''.
 
-{\tt
+\beforeverb
+\begin{alltt}
 From stephen.marquard@uct.ac.za {\bf Sat} Jan  5 09:14:16 2008
-}
+\end{alltt}
+\afterverb
 
 The {\tt split} method is very effective when faced with this 
 kind of problem.
@@ -5812,18 +5813,7 @@ Here's how it is used:
 \afterverb
 %
 The parameter {\tt t} and the variable {\tt letters} are
-aliases for the same object.  The stack diagram looks like
-this:
-
-\index{stack diagram}
-\index{diagram!stack}
-
-\beforefig
-\centerline{\includegraphics{figs/stack5.eps}}
-\afterfig
-
-Since the list is shared by two frames, I drew
-it between them.
+aliases for the same object.  
 
 It is important to distinguish between operations that
 modify lists and operations that create new lists.  For
@@ -6017,9 +6007,11 @@ and look for a ``needle in the haystack''.
 Let's revisit our program that is looking for the day of the
 week on the from lines of our file:
 
-{\tt
+\beforeverb
+\begin{alltt}
 From stephen.marquard@uct.ac.za {\bf Sat} Jan  5 09:14:16 2008
-}
+\end{alltt}
+\afterverb
 
 Since we are breaking this line into words, we could dispense
 with the use of {\tt startswith} and simply look at the 
@@ -6848,6 +6840,7 @@ enough of the documentation to know where to look to see if someone
 has already written something that makes your job much easier.
 
 The following is an abbreviated version of the output:
+
 \beforeverb
 \begin{verbatim}
 Enter the file name: romeo-full.txt

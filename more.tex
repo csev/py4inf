@@ -326,14 +326,14 @@ to the program to deal with these files as well.
 
 \beforeverb
 \begin{verbatim}
-           lines = list()
-           for line in fhand:
-               lines.append(line)
-           if len(lines) == 3 and lines[2].startswith('Sent from my iPhone') :
-               continue
-           if len(lines) > 1:
-                print len(lines), thefile
-                print lines[:4]
+lines = list()
+for line in fhand:
+    lines.append(line)
+if len(lines) == 3 and lines[2].startswith('Sent from my iPhone'):
+    continue
+if len(lines) > 1:
+     print len(lines), thefile
+     print lines[:4]
 \end{verbatim}
 \afterverb
 %
@@ -383,7 +383,7 @@ for (dirname, dirs, files) in os.walk('.'):
            for line in fhand:
                lines.append(line)
            fhand.close()
-           if len(lines) == 3 and lines[2].startswith('Sent from my iPhone') :
+           if len(lines) == 3 and lines[2].startswith('Sent from my iPhone'):
                print 'iPhone:', thefile
                continue
 \end{verbatim}
@@ -411,6 +411,7 @@ caught some files we did not want to catch.
 
 Once we are satisfied that this is the list of files we want to delete,
 we make the following change to the program:
+
 \beforeverb
 \begin{verbatim}
            if size == 2578 or size == 2565:
@@ -443,6 +444,7 @@ since the bad files are already gone.
 
 If we rerun {\tt txtcount.py} we can see that we have removed
 899 bad files:
+
 \beforeverb
 \begin{verbatim}
 python txtcount.py 
@@ -759,13 +761,12 @@ and it is already in the dictionary as a key, you have two files with
 duplicate content so print out the file in the dictionary
 and the file you just read.  Here is some sample output
 from a run in a folder of image files:
+
 \beforeverb
 \begin{verbatim}
 ./2004/11/15-11-04_0923001.jpg ./2004/11/15-11-04_1016001.jpg
 ./2005/06/28-06-05_1500001.jpg ./2005/06/28-06-05_1502001.jpg
 ./2006/08/11-08-06_205948_01.jpg ./2006/08/12-08-06_155318_02.jpg
-./2006/09/28-09-06_225657_01.jpg ./2006/09-50-years/28-09-06_225657_01.jpg
-./2006/09/29-09-06_002312_01.jpg ./2006/09-50-years/29-09-06_002312_01.jpg
 \end{verbatim}
 \afterverb
 %
