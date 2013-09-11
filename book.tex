@@ -139,19 +139,6 @@ to a new variable named {\tt message};
 the second assigns the integer {\tt 17} to {\tt n}; the third
 assigns the (approximate) value of $\pi$ to {\tt pi}.
 
-\index{state diagram}
-\index{diagram!state}
-
-A common way to represent variables on paper is to write the name with
-an arrow pointing to the variable's value.  This kind of figure is
-called a {\bf state diagram} because it shows what state each of the
-variables is in (think of it as the variable's state of mind).
-This diagram shows the result of the previous example:
-
-\beforefig
-\centerline{\includegraphics{figs/state2.eps}}
-\afterfig
-
 To display the value of a variable, you can use a print statement:
 
 \beforeverb
@@ -849,10 +836,6 @@ addition, multiplication, or string concatenation.
 expressions involving multiple operators and operands are evaluated.
 \index{rules of precedence}
 \index{precedence}
-
-\item[state diagram:]  A graphical representation of a set of variables and the
-values they refer to.
-\index{state diagram}
 
 \item[statement:]  A section of code that represents a command or action.  So
 far, the statements we have seen are assignments and print statements.
@@ -3476,13 +3459,7 @@ Python
 %
 The operator {\tt [n:m]} returns the part of the string from the 
 ``n-eth'' character to the ``m-eth'' character, including the first but
-excluding the last.  This behavior is counterintuitive, but it might
-help to imagine the indices pointing \emph{between} the
-characters, as in the following diagram:
-
-\beforefig
-\centerline{\includegraphics{figs/banana.eps}}
-\afterfig
+excluding the last.  
 
 If you omit the first index (before the colon), the slice starts at
 the beginning of the string.  If you omit the second index, the slice
@@ -5684,14 +5661,6 @@ False
 \end{verbatim}
 \afterverb
 %
-So the state diagram looks like this:
-
-\index{state diagram}
-\index{diagram!state}
-
-\beforefig
-\centerline{\includegraphics{figs/list2.eps}}
-\afterfig
 
 In this case we would say that the two lists are {\bf equivalent},
 because they have the same elements, but not {\bf identical}, because
@@ -5729,14 +5698,6 @@ True
 \end{verbatim}
 \afterverb
 %
-The state diagram looks like this:
-
-\index{state diagram}
-\index{diagram!state}
-
-\beforefig
-\centerline{\includegraphics{figs/list3.eps}}
-\afterfig
 
 The association of a variable with an object is called a {\bf
 reference}.  In this example, there are two references to the same
@@ -7595,31 +7556,6 @@ for last, first in directory:
 This loop traverses the keys in {\tt directory}, which are tuples.  It
 assigns the elements of each tuple to {\tt last} and {\tt first}, then
 prints the name and corresponding telephone number.
-
-There are two ways to represent tuples in a state diagram.  The more
-detailed version shows the indices and elements just as they appear in
-a list.  For example, the tuple \verb"('Cleese', 'John')" would appear:
-
-\index{state diagram}
-\index{diagram!state}
-
-\beforefig
-\centerline{\includegraphics{figs/tuple1.eps}}
-\afterfig
-
-But in a larger diagram you might want to leave out the
-details.  For example, a diagram of the telephone directory might
-appear:
-
-\beforefig
-\centerline{\includegraphics{figs/dict2.eps}}
-\afterfig
-
-Here the tuples are shown using Python syntax as a graphical
-shorthand.
-
-The telephone number in the diagram is the complaints line for the
-BBC, so please don't call it.
 
 \section{Sequences: strings, lists, and tuples--Oh My!}
 \index{sequence}
