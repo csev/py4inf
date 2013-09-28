@@ -2632,9 +2632,12 @@ an approach where we started producing documents that were specifically
 designed to be consumed by other 
 programs (i.e. not HTML to be displayed in a browser).
 
-The most common approach when two programs are exchanging data across 
-the web is to exchange the data in a format called the ``eXtensible Markup 
-Language'' or XML.  
+There are two common formats that we use when exchanging data across the web.
+The ``eXtensible Markup Language'' or XML has been in use for a very long time 
+and is best suited for exchanging document-style data.   When programs just want 
+to exchange dictionaries, lists, or other internal information with each other,
+they use JavaScript Object Notation or JSON (see \url{www.json.org}).  
+We will look at both formats.
 
 \section{eXtensible Markup Language - XML}
 
@@ -2767,12 +2770,123 @@ Attribute 7
 \afterverb
 %
 
+\section{JavaScript Object Notation - JSON}
+\index{JSON}
+\index{JavaScript Object Notation}
+
+The JSON format was inspired by the object and array format used in the JavaScript
+language.  But since Python was invented before JavaScript, Python's syntax
+for dictionaries and lists influenced the syntax of JSON.  So the format of JSON
+is nearly identical to a combination of Python lists and dictionaries.
+
+Here is a JSON encoding that is roughly equivalent to the simple XML from above:
+
+\beforeverb
+\begin{verbatim}
+{
+  "name" : "Chuck",
+  "phone" : {
+    "type" : "intl",
+    "number" : "+1 734 303 4456"
+   },
+   "email" : {
+     "hide" : "yes"
+   }
+}
+\end{verbatim}
+\afterverb
+%
+You will notice some differences.  First, in XML, we can add attributes like
+``intl'' to the ``phone'' tag.  In JSON we simply have key-value pairs.  Also
+the XML ``person'' tag is gone, replaced by a set of outer curly-braces.  
+
+In general JSON structures are simpler than XML because JSON has less capabilities
+than XML.  But JSON has the advantage that it maps {\em directly} to some combination
+of dictionaries and lists.   And since nearly all programming languages 
+have something equivalent to Python's dictionaries and lists, JSON is a very
+natural format to have two cooperating programs exchange data.
+
+JSON is quickly becoming the format of choice for nearly all data exchange between 
+applications because of its relative simplicity compared to XML.
+
+\section{Parsing JSON}
+
+We construct our JSON by nesting dictionaries (objects) and lists as needed.  In 
+this example we represent a list of users where each user is a set of 
+key value pairs (i.e. a dictionary).  So we have a list of dictionaries.
+
+In the following program, we use the built-in {\bf json} library parse 
+the JSON and read through the data.   Compare this closely to the equivalent
+XML data and code above.  The JSON has less detail so we must know in advance 
+that we are getting a list, and the list is of users and each user is a set of 
+key value pairs.  The JSON is more succinct (an advantage) but also is 
+less self-describing (a disadvantage).
+
+\beforeverb
+\begin{verbatim}
+import json
+
+input = '''
+[
+  { "id" : "001",
+    "x" : "2",
+    "name" : "Chuck"
+  } ,
+  { "id" : "009",
+    "x" : "7",
+    "name" : "Chuck"
+  } 
+]'''
+
+info = json.loads(input)
+print 'User count:', len(info)
+
+for item in info:
+    print 'Name', item['name']
+    print 'Id', item['id']
+    print 'Attribute', item['x']
+\end{verbatim}
+\afterverb
+%
+
+If you compare the code to extract data from the parsed JSON and XML
+you will see that what we get from {\bf json.loads()} 
+is a Python list which we traverse with 
+a {\bf for} loop and each item within that list
+is a Python dictionary which we use the Python
+index operator to extract the various bits of each user.   Once the JSON has
+been parsed - we simply have native Python objects and structures.  We don't
+have to use the JSON library to dig through the parsed JSON since the returned
+data is simply native Python structures.
+
+The output of this program is exactly the same as the XML version above.
+
+\beforeverb
+\begin{verbatim}
+User count: 2
+Name Chuck
+Id 001
+Attribute 2
+Name Brent
+Id 009
+Attribute 7
+\end{verbatim}
+\afterverb
+%
+In general, there is an industry trend away from XML and towards JSON for 
+web services.  Because the JSON is simpler and more directly maps to native 
+data structures we already have in programming languages, the parsing 
+and data extraction code is usually simpler and more direct when using JSON.
+But XML is more self-descriptive than JSON and so there are 
+some applications where XML retains an advantage.  For example, most word 
+processors store documents internally using XML rather than JSON.
+
 \section{Application Programming Interfaces (API)}
 
 We now have the ability to exchange data between applications using HyperText
 Transport Protocol (HTTP) and a way to represent complex data that we are 
 sending back and forth between these applications using eXtensible 
-Markup Language (XML).
+Markup Language (XML) or JavaScript Object Notation (JSON).
 
 The next step is to begin to define and document ``contracts'' between 
 applications using these techniques. The general name for these 
@@ -2814,199 +2928,134 @@ to have good performance and meet the user's needs.
 When an application makes a set of services in its API available over the web, 
 we call these {\bf web services}. 
 
-\section{Twitter web services}
+\section{Google geocoding web service}
+\index{Google}
+\index{geocoding}
+\index{web service}
 
-{\bf Note:} Since this section was written, Twitter has 
-dramatically changed the format and rules for the use of its API.
-So the code that uses the Twitter API will no longer work.  It 
-still shows how one would work with an XML-based API in general.
+Google has an excellent web service that allows us to make use of their 
+large database of geographic information.   We can submit a geogrpahical
+search string like ``Ann Arbor, MI'' to their Geocoding API and have Google 
+return its best guess as to where on a map we might find our search string and
+tells us about the landmarks neaby.
 
-You can view the Twitter API documentation at 
-\url{http://apiwiki.twitter.com/}.  The Twitter API is an example
-of the REST style of web services.
-We will focus on the Twitter API
-to retrieve a list of a user's friends and their statuses.  As an 
-example, you can visit the following URL:
+The geocoding service is free but rate-limited so you cannot make unlimited
+use of the API is a commercial application.   But if you have some survey data
+where an end-user has entered a location in a free-format input box, you can use
+this API to clean up your data quite nicely.  
 
-\url{http://api.twitter.com/1/statuses/friends/drchuck.xml}
+{\em When you are using a free API like Google's geocoding API, you need
+to be respectful in your use of these resources.  If too many people abuse the
+service, Google might drop or significatly curtail its free service.}
+\index{rate limiting}
 
-To see a list of the friends of the twitter account {\tt drchuck}.
-It may look like a mess in your browser.   To see the actual XML
-returned by Twitter, you can view the source of the returned
-``web page''.
+You can read the online documentation for this service, but it is quite simple
+and you can even test it using a browser by typing the following URL into your 
+browser:
 
-We can retrieve this same XML using Python using the {\tt urllib}
-utility:
+\url{http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=Ann+Arbor%2C+MI}
+
+Make sure to un-wrap the URL and remove any spaces from the URL before pasting
+it into your browser.
+
+The following is a simple application to prompt the user for a search string
+and call the Google geocoding API and extract information from the returned
+JSON.
 
 \beforeverb
 \begin{verbatim}
-import urllib
+iimport urllib
+import json
 
-TWITTER_URL = 'http://api.twitter.com/l/statuses/friends/ACCT.xml'
+serviceurl = 'http://maps.googleapis.com/maps/api/geocode/json?'
 
 while True:
-    print ''
-    acct = raw_input('Enter Twitter Account:')
-    if ( len(acct) < 1 ) : break
-    url = TWITTER_URL.replace('ACCT', acct)
+    address = raw_input('Enter location: ')
+    if len(address) < 1 : break
+
+    url = serviceurl + urllib.urlencode({'sensor':'false', 
+          'address': address})
     print 'Retrieving', url
-    document = urllib.urlopen (url).read()
-    print document[:250]
+    uh = urllib.urlopen(url)
+    data = uh.read()
+    print 'Retrieved',len(data),'characters'
+
+    try: js = json.loads(str(data))
+    except: js = None
+    if 'status' not in js or js['status'] != 'OK':
+        print '==== Failure To Retrieve ===='
+        print data
+        continue
+
+    print json.dumps(js, indent=4)
+
+    lat = js["results"][0]["geometry"]["location"]["lat"]
+    lng = js["results"][0]["geometry"]["location"]["lng"]
+    print 'lat',lat,'lng',lng
+    location = js['results'][0]['formatted_address']
+    print location
 \end{verbatim}
 \afterverb
 %
-The program prompts for a Twitter account and opens the URL
-for the friends and statuses API and then retrieves the 
-text from the URL and shows us the first 250 characters of
-the text.
+The program takes the search string and constructs a URL with the
+search string as a properly encoded parameter and then uses
+{\bf urllib} to retrieve the text from the Google gecoding API.
+Unlike a fixed web page, the data we get depends on the parameters
+we send and the geographical data stored in Google's servers.
+
+Once we retrieve the JSON data, we parse it with the {\bf json}
+library and do a few checks to make sure that we received good data 
+and then extract the information that we are looking for.
+
+The output of the program is as follows (some of the returned
+JSON has been removed):
 
 \beforeverb
 \begin{verbatim}
-python twitter1.py
-
-Enter Twitter Account:drchuck
-Retrieving http://api.twitter.com/l/statuses/friends/drchuck.xml
-<?xml version="1.0" encoding="UTF-8"?>
-<users type="array">
-<user>
-  <id>115636613</id>
-  <name>Steve Coppin</name>
-  <screen_name>steve_coppin</screen_name>
-  <location>Kent, UK</location>
-  <description>Software developing, best practicing, agile e
-
-Enter Twitter Account:
+$ python geojson.py
+Enter location: Ann Arbor, MI
+Retrieving http://maps.googleapis.com/maps/api/
+  geocode/json?sensor=false&address=Ann+Arbor%2C+MI
+Retrieved 1669 characters
+{
+    "status": "OK", 
+    "results": [
+        {
+            "geometry": {
+                "location_type": "APPROXIMATE", 
+                "location": {
+                    "lat": 42.2808256, 
+                    "lng": -83.7430378
+                }
+            }, 
+            "address_components": [
+                {
+                    "long_name": "Ann Arbor", 
+                    "types": [
+                        "locality", 
+                        "political"
+                    ], 
+                    "short_name": "Ann Arbor"
+                } 
+            ], 
+            "formatted_address": "Ann Arbor, MI, USA", 
+            "types": [
+                "locality", 
+                "political"
+            ]
+        }
+    ]
+}
+lat 42.2808256 lng -83.7430378
+Ann Arbor, MI, USA
+Enter location:
 \end{verbatim}
 \afterverb
 %
-In this application, we have retrieved the XML exactly as if it were
-an HTML web page.  If we wanted to extract data from the XML, we 
-could use Python string functions but this would become pretty complex
-as we tried to really start to dig into the XML in detail.
-
-If we were to dump out some of the retrieved XML it would look roughly as follows:
-
-\beforeverb
-\begin{verbatim}
-<?xml version="1.0" encoding="UTF-8"?>
-<users type="array">
-  <user>
-    <id>115636613</id>
-    <name>Steve Coppin</name>
-    <screen_name>steve_coppin</screen_name>
-    <location>Kent, UK</location>
-    <status>
-      <id>10174607039</id>
-      <source>web</source>
-      </status>
-  </user>
-  <user>
-    <id>17428929</id>
-    <name>davidkocher</name>
-    <screen_name>davidkocher</screen_name>
-    <location>Bern</location>
-    <status>
-      <id>10306231257</id>
-      <text>@MikeGrace If possible please post a detailed bug report </text>
-    </status>
-  </user>
-  ...
-\end{verbatim}
-\afterverb
-%
-The top level tag is a {\tt users} and there are multiple {\tt user} tags
-below within the {\tt users} tag.   There is also a {\tt status} tag below
-the {\tt user} tag.  
-
-\section{Handling XML data from an API}
-
-When we receive well-formed XML data from an API, we generally use
-an XML parser such as {\tt ElementTree} to extract information from
-the XML data.
-
-In the program below, we retrieve the friends and statuses from
-the Twitter API and then parse the returned XML to show the first
-four friends and their statuses.
-
-\beforeverb
-\begin{verbatim}
-import urllib
-import xml.etree.ElementTree as ET
-
-TWITTER_URL = 'http://api.twitter.com/l/statuses/friends/ACCT.xml'
-
-while True:
-    print ''
-    acct = raw_input('Enter Twitter Account:')
-    if ( len(acct) < 1 ) : break
-    url = TWITTER_URL.replace('ACCT', acct)
-    print 'Retrieving', url
-    document = urllib.urlopen (url).read()
-    print 'Retrieved', len(document), 'characters.' 
-    tree = ET.fromstring(document)
-    count = 0
-    for user in tree.findall('user'):
-        count = count + 1
-        if count > 4 : break
-        print user.find('screen_name').text
-        status =  user.find('status')
-        if status : 
-            txt = status.find('text').text
-            print '  ',txt[:50]
-\end{verbatim}
-\afterverb
-%
-We use the {\tt findall} method to get a list of the {\tt user} 
-nodes and loop through the list using a {\tt for } loop.  
-For each {\tt user} node, we pull out the text of the \verb"screen_name" node
-and then pull out the {\tt status} node.   If there is a {\tt status}
-node, we pull out the text of the {\tt text} node and print the first 50 
-characters of the status text.
-
-The pattern is pretty straightforward, we use {\tt findall} and {\tt find}
-to pull out a list of nodes or a single node and then if a node is a complex
-element with more sub-nodes we look deeper into the node until we reach the 
-text element that we are interested in.
-
-The program runs as follows:
-
-\beforeverb
-\begin{verbatim}
-python twitter2.py 
-
-Enter Twitter Account:drchuck
-Retrieving http://api.twitter.com/l/statuses/friends/drchuck.xml
-Retrieved 193310 characters.
-steve_coppin
-   Looking forward to some "oh no the markets closed,
-davidkocher
-   @MikeGrace If possible please post a detailed bug 
-hrheingold
-   From today's Columbia Journalism Review, on crap d
-huge_idea
-   @drchuck  #cnx2010 misses you, too.  Thanks for co
-
-Enter Twitter Account:hrheingold
-Retrieving http://api.twitter.com/l/statuses/friends/hrheingold.xml
-Retrieved 208081 characters.
-carr2n
-   RT @tysone: Saturday's proclaimation by @carr2n pr
-tiffanyshlain
-   RT @ScottKirsner: Turning smartphones into a tool 
-soniasimone
-   @ACCompanyC Funny, smart, cute, and also nice! He 
-JenStone7617
-   Watching "Changing The Equation: High Tech Answers
-
-Enter Twitter Account:
-\end{verbatim}
-\afterverb
-%
-While the code for parsing the XML and extracting the fields
-using {\tt ElementTree} takes a few lines to express what 
-we are looking for in the XML, it is much simpler than trying 
-to use Python string parsing to pull apart the XML and find 
-the data elements.
+You can download 
+\url{www.py4inf.com/code/geojson.py} and 
+\url{www.py4inf.com/code/geoxml.py} to explore the JSON
+and XML variants of the Google geocoding API. 
 
 \section{Glossary}
 
@@ -3020,10 +3069,11 @@ two application components.
 \item[ElementTree:] A built-in Python library used to parse XML data.
 \index{ElementTree}
 
-\item[XML:] eXtensible Markup Language - A format that allows for 
-the markup of structured data.
-\index{XML}
-\index{eXtensible Markup Language}
+\item[JSON:] JavaScript Object Notation- A format that allows for 
+the markup of structured data based on the syntax of JavaScript
+Objects.
+\index{JSON}
+\index{JavaScript Object Notation}
 
 \item[REST:] REpresentational State Transfer - A style of Web Services 
 that provide access to resources within an application using the HTTP
@@ -3035,36 +3085,24 @@ made of components connected across a network.
 \index{SOA}
 \index{Service Oriented Architecture}
 
+\item[XML:] eXtensible Markup Language - A format that allows for 
+the markup of structured data.
+\index{XML}
+\index{eXtensible Markup Language}
+
 \end{description}
 
 \section{Exercises}
 
 \begin{ex}
-Change the program that retrieves twitter data 
-({\tt twitter2.py}) to also
-print out the location for each of the friends
-indented under the name by two spaces as follows:
-
-\beforeverb
-\begin{verbatim}
-Enter Twitter Account:drchuck
-Retrieving http://api.twitter.com/l/statuses/friends/drchuck.xml
-Retrieved 194533 characters.
-steve_coppin
-   Kent, UK
-   Looking forward to some "oh no the markets closed,
-davidkocher
-   Bern
-   @MikeGrace If possible please post a detailed bug 
-hrheingold
-   San Francisco Bay Area
-   RT @barrywellman: Lovely AmBerhSci Internet & Comm
-huge_idea
-   Boston, MA
-   @drchuck  #cnx2010 misses you, too.  Thanks for co
-\end{verbatim}
-\afterverb
-%
+Change either the 
+\url{www.py4inf.com/code/geojson.py} or
+\url{www.py4inf.com/code/geoxml.py} to print out the 
+two-character country code from the retrieved data.
+Add error checking so your program does not traceback
+if the country code is not there.  Once you have it 
+working, search for ``Atlantic Ocean'' and make sure
+it can handle locations that are not in any country.
 \end{ex}
 
 \chapter{Using databases and Structured Query Language (SQL)}
