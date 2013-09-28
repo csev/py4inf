@@ -1,3 +1,4 @@
+<iframe src="http://rcm-na.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=drchu02-20&o=1&p=8&l=as4&m=amazon&f=ifr&ref=ss_til&asins=1492339245" style="float:right;width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
 Python for Informatics: Exploring Information
 =============================================
 
@@ -27,5 +28,5 @@ If you are an absolute beginner at programming, Python for Informatics is
 likely the best starting point for your programming learning.   Once you 
 understand the basics of programming from this book and its associated 
 materials, you will be better prepared to learn from the more 
-advanced books.
+advanced books or other online Python courses.
 
