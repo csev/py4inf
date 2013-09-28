@@ -1,23 +1,24 @@
 import urllib
-import xml.etree.ElementTree as ET
+import twurl
+import json
 
-TWITTER_URL = 'http://api.twitter.com/1/statuses/friends/ACCT.xml'
+TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
 
 while True:
     print ''
     acct = raw_input('Enter Twitter Account:')
     if ( len(acct) < 1 ) : break
-    url = TWITTER_URL.replace('ACCT', acct)
+    url = twurl.augment(TWITTER_URL,
+        {'screen_name': acct, 'count': '5'} )
     print 'Retrieving', url
-    document = urllib.urlopen (url).read()
-    print 'Retrieved', len(document), 'characters.' 
-    tree = ET.fromstring(document)
-    count = 0
-    for user in tree.findall('user'):
-        count = count + 1
-        if count > 4 : break
-        print user.find('screen_name').text
-        status =  user.find('status')
-        if status is not None : 
-            txt = status.find('text').text
-            print '  ',txt[:50]
+    connection = urllib.urlopen(url)
+    data = connection.read()
+    headers = connection.info().dict
+    print 'Remaining', headers['x-rate-limit-remaining']
+    js = json.loads(data)
+    print json.dumps(js, indent=4)
+
+    for u in js['users'] :
+        print u['screen_name']
+        s = u['status']['text']
+        print '  ',s[:50]

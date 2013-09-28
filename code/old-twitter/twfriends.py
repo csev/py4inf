@@ -1,11 +1,10 @@
-import urllib
-import twurl
-import json
 import sqlite3
+import urllib
+import xml.etree.ElementTree as ET
 
-TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
+TWITTER_URL = 'http://api.twitter.com/l/statuses/friends/ACCT.xml'
 
-conn = sqlite3.connect('friends.db')
+conn = sqlite3.connect('twdata.db')
 cur = conn.cursor()
 
 cur.execute('''CREATE TABLE IF NOT EXISTS People 
@@ -34,26 +33,20 @@ while True:
             conn.commit()
             if cur.rowcount != 1 : 
                 print 'Error inserting account:',acct
-                continue
+		continue
             id = cur.lastrowid
 
-    url = twurl.augment(TWITTER_URL, {'screen_name': acct, 'count': '5'} )
-    print 'Retrieving account', acct
-    connection = urllib.urlopen(url)
-    data = connection.read()
-    headers = connection.info().dict
-    print 'Remaining', headers['x-rate-limit-remaining']
-
-    js = json.loads(data)
-    # print json.dumps(js, indent=4)
+    url = TWITTER_URL.replace('ACCT', acct)
+    print 'Retrieving', url
+    document = urllib.urlopen (url).read()
+    tree = ET.fromstring(document)
 
     cur.execute('UPDATE People SET retrieved=1 WHERE name = ?', (acct, ) )
 
     countnew = 0
     countold = 0
-    for u in js['users'] :
-        friend = u['screen_name']
-        print friend
+    for user in tree.findall('user'):
+        friend = user.find('screen_name').text
         cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1', 
             (friend, ) )
         try:

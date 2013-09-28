@@ -1,12 +1,18 @@
 import urllib
+import twurl
 
-TWITTER_URL = 'http://api.twitter.com/1/statuses/friends/ACCT.xml'
+TWITTER_URL = 'https://api.twitter.com/1.1/statuses/user_timeline.json'
 
 while True:
     print ''
     acct = raw_input('Enter Twitter Account:')
     if ( len(acct) < 1 ) : break
-    url = TWITTER_URL.replace('ACCT', acct)
+    url = twurl.augment(TWITTER_URL,
+        {'screen_name': acct, 'count': '2'} )
     print 'Retrieving', url
-    document = urllib.urlopen (url).read()
-    print document[:250]
+    connection = urllib.urlopen(url)
+    data = connection.read()
+    print data[:250]
+    headers = connection.info().dict
+    # print headers
+    print 'Remaining', headers['x-rate-limit-remaining']
