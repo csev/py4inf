@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect('twdata.db')
+conn = sqlite3.connect('friends.db')
 cur = conn.cursor()
 
 cur.execute('SELECT * FROM People')

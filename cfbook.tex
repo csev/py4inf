@@ -196,7 +196,7 @@ on real-world uses and simple examples of Python for data analysis
 including regular expressions for searching and parsing, 
 automating tasks on your computer, retrieving data across 
 the network, scraping web pages for data, 
-using web services, parsing XML data, and creating 
+using web services, parsing XML and JSON data, and creating 
 and using databases using Structured Query Language.
 
 The ultimate goal of all of these changes is a shift from a 
@@ -3175,7 +3175,7 @@ while True:
     data = connection.read()
     print data[:250]
     headers = connection.info().dict
-	# print headers
+    # print headers
     print 'Remaining', headers['x-rate-limit-remaining']
 \end{verbatim}
 \afterverb
@@ -3774,18 +3774,19 @@ Here is the source code for our Twitter spidering application:
 
 \beforeverb
 \begin{verbatim}
+iimport urllib
+import twurl
+import json
 import sqlite3
-import urllib
-import xml.etree.ElementTree as ET
 
-TWITTER_URL = 'http://api.twitter.com/l/statuses/friends/ACCT.xml'
+TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
 
-conn = sqlite3.connect('twdata.db')
+conn = sqlite3.connect('spider.db')
 cur = conn.cursor()
 
 cur.execute('''
-CREATE TABLE IF NOT EXISTS 
-Twitter (name TEXT, retrieved INTEGER, friends INTEGER)''')
+CREATE TABLE IF NOT EXISTS Twitter 
+(name TEXT, retrieved INTEGER, friends INTEGER)''')
 
 while True:
     acct = raw_input('Enter a Twitter account, or quit: ')
@@ -3798,17 +3799,23 @@ while True:
             print 'No unretrieved Twitter accounts found'
             continue
 
-    url = TWITTER_URL.replace('ACCT', acct)
+    url = twurl.augment(TWITTER_URL, 
+               {'screen_name': acct, 'count': '20'} )
     print 'Retrieving', url
-    document = urllib.urlopen (url).read()
-    tree = ET.fromstring(document)
+    connection = urllib.urlopen(url)
+    data = connection.read()
+    headers = connection.info().dict
+    # print 'Remaining', headers['x-rate-limit-remaining']
+    js = json.loads(data)
+    # print json.dumps(js, indent=4)
 
     cur.execute('UPDATE Twitter SET retrieved=1 WHERE name = ?', (acct, ) )
 
     countnew = 0
     countold = 0
-    for user in tree.findall('user'):
-        friend = user.find('screen_name').text
+    for u in js['users'] :
+        friend = u['screen_name']
+        print friend
         cur.execute('SELECT friends FROM Twitter WHERE name = ? LIMIT 1', 
             (friend, ) )
         try:
@@ -3827,7 +3834,7 @@ cur.close()
 \end{verbatim}
 \afterverb
 %
-Our database is stored in the file {\tt twdata.db} and it has one 
+Our database is stored in the file {\tt spider.db} and it has one 
 table named {\tt Twitter} and each row in the {\tt Twitter} table
 has a column for the account name, whether we have retrieved the friends
 of this account, and how many times this account has been ``friended''.
@@ -3846,7 +3853,7 @@ friends and statuses for that account, add them to the database
 or update them and increase their {\tt friends count}.
 
 Once we retrieve the list of friends and statuses, we loop 
-through all of the {\tt user} items in the returned XML
+through all of the {\tt user} items in the returned JSON
 and retrieve the \verb"screen_name" for each user.  Then we use
 the {\tt SELECT } statement to see if we already have stored this
 particular \verb"screen_name" in the database and retrieve the
@@ -3856,8 +3863,9 @@ friend count ({\tt friends}) if the record exists.
 \begin{verbatim}
     countnew = 0
     countold = 0
-    for user in tree.findall('user'):
-        friend = user.find('screen_name').text
+    for u in js['users'] :
+        friend = u['screen_name']
+        print friend
         cur.execute('SELECT friends FROM Twitter WHERE name = ? LIMIT 1', 
             (friend, ) )
         try:
@@ -3902,26 +3910,26 @@ runs as follows:
 \beforeverb
 \begin{verbatim}
 Enter a Twitter account, or quit: drchuck
-Retrieving http://api.twitter.com/l/statuses/friends/drchuck.xml
-New accounts= 100  revisited= 0
+Retrieving http://api.twitter.com/1.1/friends ...
+New accounts= 20  revisited= 0
 Enter a Twitter account, or quit: quit
 \end{verbatim}
 \afterverb
 %
 Since this is the first time we have run the program, the database
-is empty and we create the database in the file {\tt twdata.db} and
+is empty and we create the database in the file {\tt spider.db} and
 add a table named {\tt Twitter} to the database.  Then we retrieve
 some friends and add them all to the database since the database is
 empty.
 
 At this point, we might want to write a simple database dumper
-to take a look at what is in our {\tt twdata.db} file:
+to take a look at what is in our {\tt spider.db} file:
 
 \beforeverb
 \begin{verbatim}
 import sqlite3
 
-conn = sqlite3.connect('twdata.db')
+conn = sqlite3.connect('spider.db')
 cur = conn.cursor()
 cur.execute('SELECT * FROM Twitter')
 count = 0
@@ -3948,7 +3956,7 @@ spider above, its output will be as follows:
 (u'davidkocher', 0, 1)
 (u'hrheingold', 0, 1)
 ...
-100 rows.
+20 rows.
 \end{verbatim}
 \afterverb
 %
@@ -3965,11 +3973,11 @@ a Twitter account as follows:
 \beforeverb
 \begin{verbatim}
 Enter a Twitter account, or quit: 
-Retrieving http://api.twitter.com/l/statuses/friends/opencontent.xml
-New accounts= 98  revisited= 2
+Retrieving http://api.twitter.com/1.1/friends ...
+New accounts= 18  revisited= 2
 Enter a Twitter account, or quit: 
-Retrieving http://api.twitter.com/l/statuses/friends/lhawthorn.xml
-New accounts= 97  revisited= 3
+Retrieving http://api.twitter.com/1.1/friends ...
+New accounts= 17  revisited= 3
 Enter a Twitter account, or quit: quit
 \end{verbatim}
 \afterverb
@@ -4000,10 +4008,11 @@ their data as follows:
 
 \beforeverb
 \begin{verbatim}
-    url = TWITTER_URL.replace('ACCT', acct)
+    url = twurl.augment(TWITTER_URL, {'screen_name': acct, 'count': '20'} )
     print 'Retrieving', url
-    document = urllib.urlopen (url).read()
-    tree = ET.fromstring(document)
+    connection = urllib.urlopen(url)
+    data = connection.read()
+    js = json.loads(data)
 
     cur.execute('UPDATE Twitter SET retrieved=1 WHERE name = ?', (acct, ) )
 \end{verbatim}
@@ -4032,7 +4041,7 @@ then run the dumping program, it will give us the following output:
 (u'kthanos', 0, 2)
 (u'LectureTools', 0, 1)
 ...
-295 rows.
+55 rows.
 \end{verbatim}
 \afterverb
 %
@@ -4040,7 +4049,7 @@ We can see that we have properly recorded that we have visited
 {\tt lhawthorn} and {\tt opencontent}.  Also the accounts 
 {\tt cnxorg} and {\tt kthanos} already have two followers.
 Since we now have retrieved the friends of three people
-({\tt drchuck}, {\tt opencontent} and {\tt lhawthorn}) our table has 295 rows 
+({\tt drchuck}, {\tt opencontent} and {\tt lhawthorn}) our table has 55 rows 
 of friends to retrieve.
 
 Each time we run the program and press enter, it will pick the next 
@@ -4053,11 +4062,6 @@ database.
 Since the program's data is all stored on disk in a database, 
 the spidering activity can be suspended and resumed as many times as you 
 like with no loss of data.
-
-\emph{Note: One more time before we leave this topic, 
-be very careful when running this Twitter spidering program.  
-You do not want to pull too much data or run the program for 
-too long and end up having your Twitter access shut off.}
 
 \section{Basic data modeling}
 
@@ -4099,8 +4103,8 @@ INSERT INTO Pals (from_friend,to_friend) VALUES ('drchuck', 'lhawthorn')
 \end{verbatim}
 \afterverb
 %
-As we are processing the 100 friends from the {\tt drchuck}
-Twitter feed, we will insert 100 records with ``drchuck''
+As we are processing the 20 friends from the {\tt drchuck}
+Twitter feed, we will insert 20 records with ``drchuck''
 as the first parameter so we will end up duplicating the 
 string many times in the database.
 
@@ -4184,13 +4188,14 @@ the new version of the program:
 
 \beforeverb
 \begin{verbatim}
-import sqlite3
 import urllib
-import xml.etree.ElementTree as ET
+import twurl
+import json
+import sqlite3
 
-TWITTER_URL = 'http://api.twitter.com/l/statuses/friends/ACCT.xml'
+TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
 
-conn = sqlite3.connect('twdata.db')
+conn = sqlite3.connect('friends.db')
 cur = conn.cursor()
 
 cur.execute('''CREATE TABLE IF NOT EXISTS People 
@@ -4202,7 +4207,7 @@ while True:
     acct = raw_input('Enter a Twitter account, or quit: ')
     if ( acct == 'quit' ) : break
     if ( len(acct) < 1 ) :
-        cur.execute('''SELECT id,name FROM People 
+        cur.execute('''SELECT id, name FROM People 
             WHERE retrieved = 0 LIMIT 1''')
         try:
             (id, acct) = cur.fetchone()
@@ -4215,25 +4220,32 @@ while True:
         try:
             id = cur.fetchone()[0]
         except:
-            cur.execute('''INSERT OR IGNORE INTO People 
-                (name, retrieved) VALUES ( ?, 0)''', ( acct, ) )
+            cur.execute('''INSERT OR IGNORE INTO People (name, retrieved) 
+                VALUES ( ?, 0)''', ( acct, ) )
             conn.commit()
             if cur.rowcount != 1 : 
                 print 'Error inserting account:',acct
                 continue
             id = cur.lastrowid
 
-    url = TWITTER_URL.replace('ACCT', acct)
-    print 'Retrieving', url
-    document = urllib.urlopen (url).read()
-    tree = ET.fromstring(document)
+    url = twurl.augment(TWITTER_URL, 
+       {'screen_name': acct, 'count': '20'} )
+    print 'Retrieving account', acct
+    connection = urllib.urlopen(url)
+    data = connection.read()
+    headers = connection.info().dict
+    print 'Remaining', headers['x-rate-limit-remaining']
+
+    js = json.loads(data)
+    # print json.dumps(js, indent=4)
 
     cur.execute('UPDATE People SET retrieved=1 WHERE name = ?', (acct, ) )
 
     countnew = 0
     countold = 0
-    for user in tree.findall('user'):
-        friend = user.find('screen_name').text
+    for u in js['users'] :
+        friend = u['screen_name']
+        print friend
         cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1', 
             (friend, ) )
         try:
@@ -4248,8 +4260,8 @@ while True:
                 continue
             friend_id = cur.lastrowid
             countnew = countnew + 1
-        cur.execute('''INSERT OR IGNORE INTO Follows 
-            (from_id, to_id) VALUES (?, ?)''', (id, friend_id) )
+        cur.execute('''INSERT OR IGNORE INTO Follows (from_id, to_id) 
+            VALUES (?, ?)''', (id, friend_id) )
     print 'New accounts=',countnew,' revisited=',countold
     conn.commit()
 
@@ -4342,7 +4354,7 @@ row.
 This is a very common pattern and is done twice in the program above.
 This code shows how we look up the {\tt id} for a 
 friend's account when we have extracted a \verb"screen_name"
-from a {\tt user} node in the retrieved Twitter XML.
+from a {\tt user} node in the retrieved Twitter JSON.
 
 Since over time it will be increasingly likely that the account
 will already be in the database, we first check to see if the
@@ -4360,7 +4372,7 @@ and control will transfer into the {\tt except} section.
 
 \beforeverb
 \begin{verbatim}
-        friend = user.find('screen_name').text
+        friend = u['screen_name']
         cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1',
             (friend, ) )
         try:
@@ -4393,7 +4405,7 @@ our newly created row.
 \subsection{Storing the friend relationship}
 
 Once we know the key value for both the Twitter user
-and the friend in the XML, it is a simple matter to insert
+and the friend in the JSON, it is a simple matter to insert
 the two numbers into the {\tt Follows} table
 with the following code:
 
@@ -4415,14 +4427,14 @@ Here is a sample execution of this program:
 Enter a Twitter account, or quit: 
 No unretrieved Twitter accounts found
 Enter a Twitter account, or quit: drchuck
-Retrieving http://api.twitter.com/l/statuses/friends/drchuck.xml
-New accounts= 100  revisited= 0
+Retrieving http://api.twitter.com/1.1/friends ...
+New accounts= 20  revisited= 0
 Enter a Twitter account, or quit: 
-Retrieving http://api.twitter.com/l/statuses/friends/opencontent.xml
-New accounts= 97  revisited= 3
+Retrieving http://api.twitter.com/1.1/friends ...
+New accounts= 17  revisited= 3
 Enter a Twitter account, or quit: 
-Retrieving http://api.twitter.com/l/statuses/friends/lhawthorn.xml
-New accounts= 97  revisited= 3
+Retrieving http://api.twitter.com/1.1/friends ...
+New accounts= 17  revisited= 3
 Enter a Twitter account, or quit: quit
 \end{verbatim}
 \afterverb
@@ -4442,14 +4454,14 @@ People:
 (3, u'lhawthorn', 1)
 (4, u'steve_coppin', 0)
 (5, u'davidkocher', 0)
-295 rows.
+55 rows.
 Follows:
 (1, 2)
 (1, 3)
 (1, 4)
 (1, 5)
 (1, 6)
-300 rows.
+60 rows.
 \end{verbatim}
 \afterverb
 %
@@ -4551,7 +4563,7 @@ been run several times.
 \begin{verbatim}
 import sqlite3
 
-conn = sqlite3.connect('twdata.db')
+conn = sqlite3.connect('spider.db')
 cur = conn.cursor()
 
 cur.execute('SELECT * FROM People')
@@ -4598,21 +4610,21 @@ People:
 (3, u'lhawthorn', 1)
 (4, u'steve_coppin', 0)
 (5, u'davidkocher', 0)
-295 rows.
+55 rows.
 Follows:
 (1, 2)
 (1, 3)
 (1, 4)
 (1, 5)
 (1, 6)
-300 rows.
+60 rows.
 Connections for id=2:
 (2, 1, 1, u'drchuck', 1)
 (2, 28, 28, u'cnxorg', 0)
 (2, 30, 30, u'kthanos', 0)
 (2, 102, 102, u'SomethingGirl', 0)
 (2, 103, 103, u'ja_Pac', 0)
-100 rows.
+20 rows.
 \end{verbatim}
 \afterverb
 %

@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect('twdata.db')
+conn = sqlite3.connect('spider.db')
 cur = conn.cursor()
 cur.execute('SELECT * FROM Twitter')
 count = 0
