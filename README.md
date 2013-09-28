@@ -1,7 +1,5 @@
-py4inf
-======
-
 Python for Informatics: Exploring Information
+=============================================
 
 Python for Informatics is designed to introduce students to programming and 
 software development through the lens of exploring data.   You can think of 
@@ -9,7 +7,7 @@ the Python programming language as your tool to solve data problems that are
 far beyond the capability of a spreadsheet.
 
 * Free electronic copies of this book in many formats http://www.pythonlearn.com/book.php
-* Printed book for only $9.95 https://www.createspace.com/4430203
+* Printed books can be purchased from https://www.createspace.com/4430203
 * Lectures, notes, etc - http://www.pythonlearn.com/
 * Sample code solutions from the book are avilable at - http://www.pythonlearn.com/code/
 * Free, online PY4INF MOOC with a Mozilla Badge - https://online.dr-chuck.com/
