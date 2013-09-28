@@ -1,4 +1,3 @@
-<iframe src="http://rcm-na.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=drchu02-20&o=1&p=8&l=as4&m=amazon&f=ifr&ref=ss_til&asins=1492339245" style="float:right;width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
 Python for Informatics: Exploring Information
 =============================================
 
@@ -8,7 +7,7 @@ the Python programming language as your tool to solve data problems that are
 far beyond the capability of a spreadsheet.
 
 * Free electronic copies of this book in many formats http://www.pythonlearn.com/book.php
-* Printed books can be purchased from https://www.createspace.com/4430203
+* Printed books can be purchased from https://www.createspace.com/4430203 or from Amazon
 * Lectures, notes, etc - http://www.pythonlearn.com/
 * Sample code solutions from the book are avilable at - http://www.pythonlearn.com/code/
 * Free, online PY4INF MOOC with a Mozilla Badge - https://online.dr-chuck.com/
