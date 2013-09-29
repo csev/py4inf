@@ -6,7 +6,12 @@ to clean up some user-entered geographic locations of
 university names and then placing the data on a Google
 Map.
 
-But the first problem to solve is that the Google geocoding
+You should install the SQLite browser in your FireFox to view
+and modify the databases from:
+
+https://addons.mozilla.org/en-us/firefox/addon/sqlite-manager/
+
+The first problem to solve is that the Google geocoding
 API is rate limited to 2500 requests per day.  So if you have
 a lot of data you might need to stop and restart the lookup
 process several times.  So we break the problem into two
@@ -29,6 +34,9 @@ the database.
 
 Here is a sample run after there is already some data in the 
 database:
+
+Mac: python geoload.py
+Win: geoload.py
 
 Found in database  Northeastern University
 
@@ -68,6 +76,9 @@ executable JavaScript code.
 
 A run of the geodump.py program is as follows:
 
+Mac: python geodump.py
+Win: geodump.py
+
 Northeastern University, 360 Huntington Avenue, Boston, MA 02115, USA 42.3396998 -71.08975
 Bradley University, 1501 West Bradley Avenue, Peoria, IL 61625, USA 40.6963857 -89.6160811
 ...
@@ -78,9 +89,9 @@ Kokshetau, Kazakhstan 53.2833333 69.3833333
 12 records written to where.js
 Open where.html to view the data in a browser
 
-The file (where.html) consists of HTML and JavaScript to visualize a Google Map.
-It reads the most recent data in where.js to get the data to be visualized.
-Here is the format of the where.js file:
+The file (where.html) consists of HTML and JavaScript to visualize 
+a Google Map.  It reads the most recent data in where.js to get 
+the data to be visualized.  Here is the format of the where.js file:
 
 myData = [
 [42.3396998,-71.08975, 'Northeastern University, 360 Huntington Avenue, Boston, MA 02115, USA'],
@@ -89,11 +100,13 @@ myData = [
    ...
 ];
 
-This is a JavaScript list of lists.  The syntax for JavaScript list constants is very similar 
-to Python so the syntax should be familiar to you.
+This is a JavaScript list of lists.  The syntax for JavaScript 
+list constants is very similar to Python so the syntax should 
+be familiar to you.
 
-Simply open where.html in a browser to see the locations.  You can hover over each map
-pin to find the location that the gecoding API returned for the user-entered input.
-If you cannot see any data when you open the where.html file, you might 
+Simply open where.html in a browser to see the locations.  You 
+can hover over each map pin to find the location that the 
+gecoding API returned for the user-entered input.  If you 
+cannot see any data when you open the where.html file, you might 
 want to check the JavaScript or developer console for your browser.
 
