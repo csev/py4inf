@@ -26,7 +26,7 @@ if maxrank == minrank or maxrank is None or minrank is None:
     print "Error - please run sprank.py to compute page rank"
     quit()
 
-fhand.write('{"nodes":[\n')
+fhand.write('spiderJson = {"nodes":[\n')
 count = 0
 map = dict()
 ranks = dict()
@@ -54,7 +54,7 @@ for row in cur :
     srank = 19 * ( (rank - minrank) / (maxrank - minrank) ) 
     fhand.write('{"source":'+str(map[row[0]])+',"target":'+str(map[row[1]])+',"value":1}')
     count = count + 1
-fhand.write(']}')
+fhand.write(']};')
 fhand.close()
 cur.close()
 

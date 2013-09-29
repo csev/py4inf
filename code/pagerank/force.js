@@ -22,7 +22,7 @@ var svg = d3.select("#chart").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-d3.json("spider.json", function(json) {
+function loadData(json) {
   force
       .nodes(json.nodes)
       .links(json.links);
@@ -66,4 +66,5 @@ d3.json("spider.json", function(json) {
         .attr("cy", function(d) { return d.y; });
   });
 
-});
+}
+loadData(spiderJson);
