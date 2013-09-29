@@ -52,7 +52,7 @@ for row in cur :
     if count > 0 : fhand.write(',\n')
     rank = ranks[row[0]]
     srank = 19 * ( (rank - minrank) / (maxrank - minrank) ) 
-    fhand.write('{"source":'+str(map[row[0]])+',"target":'+str(map[row[1]])+',"value":1}')
+    fhand.write('{"source":'+str(map[row[0]])+',"target":'+str(map[row[1]])+',"value":3}')
     count = count + 1
 fhand.write(']};')
 fhand.close()

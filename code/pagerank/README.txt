@@ -73,11 +73,11 @@ Mac: python sprank.py
 Win: sprank.py 
 
 How many iterations:2
-1 0.0
-2 0.0
+1 0.546848992536
+2 0.226714939664
 [(1, 0.559), (2, 0.659), (3, 0.985), (4, 2.135), (5, 0.659)]
 
-You can dump the daabase again to see that page rank has been updated:
+You can dump the database again to see that page rank has been updated:
 
 Mac: python spdump.py 
 Win: spdump.py 
@@ -104,10 +104,30 @@ All pages set to a rank of 1.0
 Mac: python sprank.py 
 Win: sprank.py 
 
-How many iterations:2
-1 0.0
-2 0.0
-[(1, 0.559), (2, 0.659), (3, 0.985), (4, 2.135), (5, 0.659)]
+How many iterations:50
+1 0.546848992536
+2 0.226714939664
+3 0.0659516187242
+4 0.0244199333
+5 0.0102096489546
+6 0.00610244329379
+...
+42 0.000109076928206
+43 9.91987599002e-05
+44 9.02151706798e-05
+45 8.20451504471e-05
+46 7.46150183837e-05
+47 6.7857770908e-05
+48 6.17124694224e-05
+49 5.61236959327e-05
+50 5.10410499467e-05
+[(512, 0.02963718031139026), (1, 12.790786721866658), (2, 28.939418898678284), (3, 6.808468390725946), (4, 13.469889092397006)]
+
+For each iteration of the page rank algorithm it prints the average
+change per page of the page rank.   The network initially is quite 
+unbalanced and so the individual page ranks are changeing wildly.
+But in a few short iterations, the page rank converges.  You 
+should run prank.py long enough that the page ranks converge.
 
 If you want to visualize the current top pages in terms of page rank,
 run spjson.py to write the pages out in JSON format to be viewed in a
