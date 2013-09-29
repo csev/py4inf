@@ -4820,7 +4820,7 @@ Retrieved 2063 characters {    "results" : [
 
 Resolving Kokshetau Institute of Economics and Management
 Retrieving http://maps.googleapis.com/maps/api/
-    geocode/json?sensor=false&address=Kokshetau+Institute+of+Economics+and+Management
+    geocode/json?sensor=false&address=Kokshetau+Inst ...
 Retrieved 1749 characters {    "results" : [  
 {u'status': u'OK', u'results': ... }
 ...
@@ -4867,7 +4867,7 @@ the data to be visualized.  Here is the format of the {\bf where.js} file:
 \beforeverb
 \begin{verbatim}
 myData = [
-[42.3396998,-71.08975, 'Northeastern University, 360 ... Boston, MA 02115, USA'],
+[42.3396998,-71.08975, 'Northeastern Uni ... Boston, MA 02115'],
 [40.6963857,-89.6160811, 'Bradley University, ... Peoria, IL 61625, USA'],
 [32.7775,35.0216667, 'Technion, Viazman 87, Kesalsaba, 32000, Israel'],
    ...
@@ -5048,6 +5048,257 @@ that is represented by the node.
 If you rerun the other utilities, re-run {\bf spjson.py} 
 press refresh in the browser to get the new data from {\bf spider.json}.
 
+\section{Visualizing mail data}
+
+Up to this point in the book, you have become quite familiar with our 
+{\bf mbox-short.txt} and {\bf mbox.txt} data files.   Now it is time to take
+our analysis of E-Mail data to the next level.  
+
+Ii the real world, sometimes you have to pull down mail data from servers
+and that might take quite some time and the data might be inconsistent, 
+error filled and need a lot of cleanup or adjustment.  In this section, we
+work with an application that is the most complex so far and pull down nearly a 
+gigabyte of data and visualize it.
+
+\beforefig
+\centerline{\includegraphics[height=2.50in]{figs2/wordcloud.eps}}
+\afterfig
+
+You can download this application from:
+
+\url{www.py4inf.com/code/gmane.zip}
+
+We will be using data from a free E-Mail list archiving service called 
+\url{www.gmane.org}.  This serivce is very popular with open-source
+proejcts because it rpovides a nice searchable archive of their project's
+E-Mail activity.  They also have a very liberal policy regarding accessing 
+their data through their API.  They have no rate limits, but ask that you 
+don't overload their service and take only the data you need.  You can read
+gmane's terms and conditions at this page:
+
+\url{http://gmane.org/export.php}
+
+{\em So it is very important that you make use of the gmane.org data
+responsibly by adding delays ot your access of their services and spreading
+long-running jobs over a longer period of time.  Do not abuse this free service
+and ruin it for the rest of us.}
+
+When I spidered the Sakai email data using this software, it produced nearly 
+a Gigabyte of data and I spread the download process over about five days.  
+The file {\bf README.txt} in the above ZIP may have instructions as to how
+you can download a pre-spidered copy of the {\bf content.sqlite} file for 
+a majority of the Sakai email corpus so you don't have to spider for 
+five days just to run the programs.  If you download the pre-spidered
+content, you should still run the spidering process to catch up with 
+more recent messages.
+
+The first step is to spider the gmane repository.  The base URL 
+is hard-coded in the {\bf gmane.py} and is hard-coded to the Sakai
+developer list.  You can spider another repository by changing that
+base url.   Make sure to delete the {\bf content.sqlite} file if you 
+switch the base url.  
+
+The {\bf gmane.py} file operates as a responsible caching spider in 
+that it runs slowly and retrieves one mail message per second so 
+as to avoid getting throttled by gmane.   It stores all of
+its data in a database and can be interrupted and re-started 
+as often as needed.   It may take many hours to pull all the data
+down.  So you may need to restart several times.
+
+Here is a run of gmane.py getting the last five messages of the
+sakai developer list:
+
+\beforeverb
+\begin{verbatim}
+How many messages:10
+http://download.gmane.org/gmane.comp.cms.sakai.devel/51410/51411 9460
+    nealcaidin@sakaifoundation.org 2013-04-05 re: [building ...
+http://download.gmane.org/gmane.comp.cms.sakai.devel/51411/51412 3379
+    samuelgutierrezjimenez@gmail.com 2013-04-06 re: [building ...
+http://download.gmane.org/gmane.comp.cms.sakai.devel/51412/51413 9903
+    da1@vt.edu 2013-04-05 [building sakai] melete 2.9 oracle ...
+http://download.gmane.org/gmane.comp.cms.sakai.devel/51413/51414 349265
+    m.shedid@elraed-it.com 2013-04-07 [building sakai] ...
+http://download.gmane.org/gmane.comp.cms.sakai.devel/51414/51415 3481
+    samuelgutierrezjimenez@gmail.com 2013-04-07 re: ...
+http://download.gmane.org/gmane.comp.cms.sakai.devel/51415/51416 0
+
+Does not start with From 
+\end{verbatim}
+\afterverb
+%
+The program scans {\bf content.sqlite} from one up to the first message number not
+already spidered and starts spidering at that message.  It continues spidering
+until it has spidered the desired number of messages or it reaches a page
+that does not appear to be a properly formatted message.
+
+Sometimes {\url gmane.org} is missing a message.  Perhaps administrators can delete messages
+or perhaps they get lost.   If your spider stops, and it seems it has hit
+a missing message, go into the SQLite Manager and add a row with the missing id leaving
+all the other fields blank and restart {\bf gmane.py}.   This will unstick the 
+spidering process and allow it to continue.  These empty messages will be ignored in the next
+phase of the process.
+
+One nice thing is that once you have spidered all of the messages and have them in 
+{\bf content.sqlite}, you can run {\bf gmane.py} again to get new messages as 
+they get sent to the list.  
+
+The {\bf content.sqlite} data is pretty raw, with an innefficient data model, 
+and not compressed.
+This is intentional as it allows you to look at {\bf content.sqlite}
+in the SQLite Manager to debug problems with the spidering process.
+It would be a bad idea to run any queries against this database as they 
+would be quite slow.
+
+The second process is to run the program {\bf gmodel.py}.  This program reads the rough/raw 
+data from {\bf content.sqlite} and produces a cleaned-up and well-modeled version of the 
+data in the file {\bf index.sqlite}.  The file index.sqlite will be much smaller (often 10X
+smaller) than {\bf content.sqlite} because it also compresses the header and body text.
+
+Each time {\bf gmodel.py} runs - it deletes and re-builds {\bf index.sqlite}, allowing
+you to adjust its parameters and edit the mapping tables in {\bf content.sqlite} to tweak the 
+data cleaning process. This is a sample run of {\bf gmadel.py}.  It prints a line out each time
+250 mail messages are processed so you can see some progress happening as this program may
+run for a while processing nearly a Gigabyre of mail data.
+
+\beforeverb
+\begin{verbatim}
+Loaded allsenders 1588 and mapping 28 dns mapping 1
+1 2005-12-08T23:34:30-06:00 ggolden22@mac.com
+251 2005-12-22T10:03:20-08:00 tpamsler@ucdavis.edu
+501 2006-01-12T11:17:34-05:00 lance@indiana.edu
+751 2006-01-24T11:13:28-08:00 vrajgopalan@ucmerced.edu
+...
+\end{verbatim}
+\afterverb
+%
+
+The {\bf gmodel.py} program handles a number of data cleaing tasks.
+
+Domain names are truncated to two levels for .com, .org, .edu, and .net 
+other domain names are truncated to three levels.  So si.umich.edu becomes
+umich.edu and caret.cam.ac.uk becomes cam.ac.uk.   Also mail addresses are
+forced to lower case and some of the @gmane.org address like the following
+
+\beforeverb
+\begin{verbatim}
+   arwhyte-63aXycvo3TyHXe+LvDLADg@public.gmane.org
+\end{verbatim}
+\afterverb
+%
+are converted to the real address whenever there is a matching real email
+address elsewhere in the message corpus.
+
+If you look in the {\bf content.sqlite} database there are two tables that allow
+you to map both domain names and individual email addresses that change over 
+the lifetime of the email list.  For example, Steve Githens used the following
+email addresses as he changed jobs over the life of the Sakai developer list:
+
+\beforeverb
+\begin{verbatim}
+s-githens@northwestern.edu
+sgithens@cam.ac.uk
+swgithen@mtu.edu
+\end{verbatim}
+\afterverb
+%
+We can add two entries to the Mapping table in {\bf content.sqlite} so 
+{\bf gmodel.py} will map all three to one address:
+
+\beforeverb
+\begin{verbatim}
+s-githens@northwestern.edu ->  swgithen@mtu.edu
+sgithens@cam.ac.uk -> swgithen@mtu.edu
+\end{verbatim}
+\afterverb
+%
+You can also make similar entries in the DNSMapping table if there are multiple
+DNS names you want mapped to a single DNS.  In the Sakai data I added the following
+mapping:
+
+\beforeverb
+\begin{verbatim}
+iupui.edu -> indiana.edu
+\end{verbatim}
+\afterverb
+%
+So all the folks from the various Indiana University campuses are tracked together.
+
+You can re-run the {\bf gmodel.py} over and over as you look at the data, and add mappings
+to make the data cleaner and cleaner.   When you are done, you will have a nicely
+indexed version of the email in {\bf index.sqlite}.   This is the file to use to do data
+analysis.   With this file, data analysis will be really quick.
+
+The first, simplest data analysis is to determine "who sent the most mail" and "which 
+organzation sent the most mail"?  This is done using {\bf gbasic.py}:
+
+\beforeverb
+\begin{verbatim}
+How many to dump? 5
+Loaded messages= 51330 subjects= 25033 senders= 1584
+
+Top 5 Email list participants
+steve.swinsburg@gmail.com 2657
+azeckoski@unicon.net 1742
+ieb@tfd.co.uk 1591
+csev@umich.edu 1304
+david.horwitz@uct.ac.za 1184
+
+Top 5 Email list organizations
+gmail.com 7339
+umich.edu 6243
+uct.ac.za 2451
+indiana.edu 2258
+unicon.net 2055
+\end{verbatim}
+\afterverb
+%
+Note how much more quickly {\bf gbasic.py} runs compared to {\bf gmane.py}
+or even {\bf gmodel.py}. They are all working on the same data, but 
+{\bf gbasic.py} is using the compressed and normalized data in 
+{\bf index.sqlite}.  If you have a lot of data to manage, a multi-step
+process like the one in ths application may take a little longer to develop,
+but will save you a lot of time when you really start to explore
+and vizualize your data.
+
+Youcan produce a simple vizualization of the word frequence in the subject lines
+in the file {\bf gword.py}:
+
+\beforeverb
+\begin{verbatim}
+Range of counts: 33229 129
+Output written to gword.jsonp
+\end{verbatim}
+\afterverb
+%
+
+This produces the file {\bf gword.jsonp} which you can visualize using
+{\bf gword.htm} to produce a word cloud siilar to the one at the beginning 
+of this section.
+
+A second visualization is produced  by {\bf gline.py}.  It computes email 
+participation by organizations over time.
+
+\beforeverb
+\begin{verbatim}
+Loaded messages= 51330 subjects= 25033 senders= 1584
+Top 10 Oranizations
+['gmail.com', 'umich.edu', 'uct.ac.za', 'indiana.edu', 
+'unicon.net', 'tfd.co.uk', 'berkeley.edu', 'longsight.com', 
+'stanford.edu', 'ox.ac.uk']
+Output written to gline.jsonp
+\end{verbatim}
+\afterverb
+%
+Its output is written to {\bf gline.jsonp} which is visualized using {\bf gline.htm}.
+
+\beforefig
+\centerline{\includegraphics[height=2.50in]{figs2/mailorg.eps}}
+\afterfig
+
+This is a relatively complex and sophisticated application and is pretty much
+ready to do some heavy data retrieval and analysis from mail data using 
+\url{gmane}.
 
 \chapter{Automating common tasks on your computer}
 
