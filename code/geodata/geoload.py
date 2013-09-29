@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS Locations (address TEXT, geodata TEXT)''')
 fh = open("where.data")
 count = 0
 for line in fh:
-    if count > 5 : break
+    if count > 200 : break
     address = line.strip()
     print ''
     cur.execute("SELECT geodata FROM Locations WHERE address= ?", (buffer(address), ))
