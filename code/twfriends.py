@@ -5,7 +5,7 @@ import sqlite3
 
 TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
 
-conn = sqlite3.connect('friends.db')
+conn = sqlite3.connect('friends.sqlite')
 cur = conn.cursor()
 
 cur.execute('''CREATE TABLE IF NOT EXISTS People 

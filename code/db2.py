@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect('music.db')
+conn = sqlite3.connect('music.sqlite')
 cur = conn.cursor()
 
 cur.execute('INSERT INTO Tracks (title, plays) VALUES ( ?, ? )', 

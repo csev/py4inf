@@ -5,7 +5,7 @@ import sqlite3
 
 TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
 
-conn = sqlite3.connect('spider.db')
+conn = sqlite3.connect('spider.sqlite')
 cur = conn.cursor()
 
 cur.execute('''

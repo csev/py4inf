@@ -3478,7 +3478,7 @@ database is as follows:
 \begin{verbatim}
 import sqlite3
 
-conn = sqlite3.connect('music.db')
+conn = sqlite3.connect('music.sqlite3')
 cur = conn.cursor()
 
 cur.execute('DROP TABLE IF EXISTS Tracks ')
@@ -3493,7 +3493,7 @@ conn.close()
 \index{cursor function}
 \index{function!cursor}
 The {\tt connect} operation makes a ``connection'' to the database 
-stored in the file {\tt music.db} in the current directory.   If
+stored in the file {\tt music.sqlite3} in the current directory.   If
 the file does not exist, it will be created.  The reason this
 is called a ``connection'' is that sometimes the database is stored
 on a separate ``database server'' from the server on which we 
@@ -3567,7 +3567,7 @@ second parameter to the {\tt execute()} call.
 \begin{verbatim}
 import sqlite3
 
-conn = sqlite3.connect('music.db')
+conn = sqlite3.connect('music.sqlite3')
 cur = conn.cursor()
 
 cur.execute('INSERT INTO Tracks (title, plays) VALUES ( ?, ? )', 
@@ -3781,7 +3781,7 @@ import sqlite3
 
 TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
 
-conn = sqlite3.connect('spider.db')
+conn = sqlite3.connect('spider.sqlite3')
 cur = conn.cursor()
 
 cur.execute('''
@@ -3834,7 +3834,7 @@ cur.close()
 \end{verbatim}
 \afterverb
 %
-Our database is stored in the file {\tt spider.db} and it has one 
+Our database is stored in the file {\tt spider.sqlite3} and it has one 
 table named {\tt Twitter} and each row in the {\tt Twitter} table
 has a column for the account name, whether we have retrieved the friends
 of this account, and how many times this account has been ``friended''.
@@ -3917,19 +3917,19 @@ Enter a Twitter account, or quit: quit
 \afterverb
 %
 Since this is the first time we have run the program, the database
-is empty and we create the database in the file {\tt spider.db} and
+is empty and we create the database in the file {\tt spider.sqlite3} and
 add a table named {\tt Twitter} to the database.  Then we retrieve
 some friends and add them all to the database since the database is
 empty.
 
 At this point, we might want to write a simple database dumper
-to take a look at what is in our {\tt spider.db} file:
+to take a look at what is in our {\tt spider.sqlite3} file:
 
 \beforeverb
 \begin{verbatim}
 import sqlite3
 
-conn = sqlite3.connect('spider.db')
+conn = sqlite3.connect('spider.sqlite3')
 cur = conn.cursor()
 cur.execute('SELECT * FROM Twitter')
 count = 0
@@ -4195,7 +4195,7 @@ import sqlite3
 
 TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
 
-conn = sqlite3.connect('friends.db')
+conn = sqlite3.connect('friends.sqlitesqlite3')
 cur = conn.cursor()
 
 cur.execute('''CREATE TABLE IF NOT EXISTS People 
@@ -4563,7 +4563,7 @@ been run several times.
 \begin{verbatim}
 import sqlite3
 
-conn = sqlite3.connect('spider.db')
+conn = sqlite3.connect('spider.sqlite3')
 cur = conn.cursor()
 
 cur.execute('SELECT * FROM People')
