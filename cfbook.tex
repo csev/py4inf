@@ -1600,7 +1600,7 @@ import re
 hand = open('mbox-short.txt')
 for line in hand:
     line = line.rstrip()
-    x = re.findall('[a-zA-Z0-9]\S+@\S+[a-zA-Z]', line)
+    x = re.findall('[a-zA-Z0-9]\S*@\S*[a-zA-Z]', line)
     if len(x) > 0 :
         print x
 \end{verbatim}
@@ -2935,12 +2935,12 @@ we call these {\bf web services}.
 
 Google has an excellent web service that allows us to make use of their 
 large database of geographic information.   We can submit a geogrpahical
-search string like ``Ann Arbor, MI'' to their Geocoding API and have Google 
+search string like ``Ann Arbor, MI'' to their geocoding API and have Google 
 return its best guess as to where on a map we might find our search string and
 tells us about the landmarks neaby.
 
-The geocoding service is free but rate-limited so you cannot make unlimited
-use of the API is a commercial application.   But if you have some survey data
+The geocoding service is free but rate limited so you cannot make unlimited
+use of the API in a commercial application.   But if you have some survey data
 where an end-user has entered a location in a free-format input box, you can use
 this API to clean up your data quite nicely.  
 
@@ -3063,7 +3063,7 @@ and XML variants of the Google geocoding API.
 
 It is quite common that you need some kind of 
 ``API key'' to make use of a vendor's API.  The
-general isead is that they want to know who is using 
+general idea is that they want to know who is using 
 their services and how much each user is using.  
 Perhaps they have free and pay tiers of their services
 or have a policy that limits the number of requests 
@@ -3094,7 +3094,7 @@ richness.  The OAuth web site has information about various
 OAuth libraries.
 
 For this next sample program we will download these files: 
-{\bf twurl.py}, {\bf twitter1.py}, {\bf hidden.py}, 
+{\bf twurl.py}, {\bf hidden.py}, 
 {\bf oauth.py}, 
 and
 {\bf twitter1.py} from 
@@ -6333,6 +6333,7 @@ Karen Stover,
 Cherie Edmonds,
 Maria Seiferle,
 Romer Kristi D. Aranas (RK),
+Grant Boyer,
 
 % CONTRIB
 

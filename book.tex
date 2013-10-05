@@ -5903,6 +5903,7 @@ are documented at \url{docs.python.org/lib/typesseq-mutable.html}.
 
 
 \item Pick an idiom and stick with it.
+\index{idiom}
 
 Part of the problem with lists is that there are too many
 ways to do things.  For example, to remove an element from
@@ -6478,26 +6479,25 @@ Here is what the code might look like:
 
 \beforeverb
 \begin{verbatim}
-def histogram(s):
-    d = dict()
-    for c in s:
-        if c not in d:
-            d[c] = 1
-        else:
-            d[c] = d[c] + 1
-    return d
+word = 'brontosaurus'
+d = dict()
+for c in word:
+    if c not in d:
+        d[c] = 1
+    else:
+        d[c] = d[c] + 1
+print d
 \end{verbatim}
 \afterverb
 %
-The name of the function is {\bf histogram}, which is a statistical
+We are effectively computing a {\bf histogram}, which is a statistical
 term for a set of counters (or frequencies).  
 
 \index{histogram}
 \index{frequency}
 \index{traversal}
 
-The first line of the
-function creates an empty dictionary.  The {\tt for} loop traverses
+The {\tt for} loop traverses
 the string.  Each time through the loop, if the character {\tt c} is
 not in the dictionary, we create a new item with key {\tt c} and the
 initial value 1 (since we have seen this letter once).  If {\tt c} is
@@ -6505,20 +6505,16 @@ already in the dictionary we increment {\tt d[c]}.
 
 \index{histogram}
 
-Here's how it works:
+Here's the output of the program:
 
 \beforeverb
 \begin{verbatim}
->>> h = histogram('brontosaurus')
->>> print h
 {'a': 1, 'b': 1, 'o': 2, 'n': 1, 's': 2, 'r': 2, 'u': 2, 't': 1}
 \end{verbatim}
 \afterverb
 %
 The histogram indicates that the letters {\tt 'a'} and \verb"'b'"
 appear once; \verb"'o'" appears twice, and so on.
-
-\begin{ex}
 
 \index{get method}
 \index{method!get}
@@ -6530,19 +6526,36 @@ the default value.  For example:
 
 \beforeverb
 \begin{verbatim}
->>> h = histogram('a')
->>> print h
-{'a': 1}
->>> h.get('a', 0)
-1
->>> h.get('b', 0)
+>>> counts = { 'chuck' : 1 , 'fred' : 42, 'jan': 100}
+>>> print counts.get('jan', 0)
+100
+>>> print counts.get('paul', 0)
 0
 \end{verbatim}
 \afterverb
 %
-Use {\tt get} to write {\tt histogram} more concisely.  You
-should be able to eliminate the {\tt if} statement.
-\end{ex}
+We can use {\tt get} to write our histogram loop more concisely.  
+Because the {\tt get} method automatically handles the case where a key
+is not in a dictionary, we can reduce four lines down to one
+and eliminate the {\tt if} statement.
+
+\beforeverb
+\begin{verbatim}
+word = 'brontosaurus'
+d = dict()
+for c in word:
+    d[c] = d.get(c,0) + 1
+print d
+\end{verbatim}
+\afterverb
+%
+The use of the {\tt get} method to simplify this counting loop 
+ends up being a very commonly used ``idiom'' in Python and 
+we will use it many times the rest of the book.   So you should
+take a moment and compare the loop using the {\tt if} statement
+and {\tt in} operator with the loop using the {\tt get} method.
+They do exactly the same thing, but one is more succinct.
+\index{idiom}
 
 \section{Dictionaries and files}
 
@@ -6639,14 +6652,14 @@ Python code to get us the output that will be more helpful.
 
 If you use a dictionary as the sequence 
 in a {\tt for} statement, it traverses
-the keys of the dictionary.  For example, \verb"print_hist"
+the keys of the dictionary.  This loop
 prints each key and the corresponding value:
 
 \beforeverb
 \begin{verbatim}
-def print_hist(h):
-    for c in h:
-        print c, h[c]
+counts = { 'chuck' : 1 , 'fred' : 42, 'jan': 100}
+for key in counts:
+    print key, counts[key]
 \end{verbatim}
 \afterverb
 %
@@ -6654,17 +6667,44 @@ Here's what the output looks like:
 
 \beforeverb
 \begin{verbatim}
->>> h = histogram('parrot')
->>> print_hist(h)
-a 1
-p 1
-r 2
-t 1
-o 1
+jan 100
+chuck 1
+fred 42
 \end{verbatim}
 \afterverb
 %
 Again, the keys are in no particular order.
+
+\index{idiom}
+We can use this pattern to implement the various loop idioms
+that we have described earlier.  For example if we wanted 
+to find all the entries in a dictionary with a value 
+above ten, we could write the following code:
+
+\beforeverb
+\begin{verbatim}
+counts = { 'chuck' : 1 , 'fred' : 42, 'jan': 100}
+for key in counts:
+    if key[counts] > 10 :
+        print key, counts[key]
+\end{verbatim}
+\afterverb
+%
+The {\tt for} loop iterates through the 
+{\em keys} of the dictionary, so we must 
+use the index operator to retrieve the 
+corresponding {\em value}
+for each key.
+Here's what the output looks like:
+
+\beforeverb
+\begin{verbatim}
+jan 100
+fred 42
+\end{verbatim}
+\afterverb
+%
+We see only the entries with a value above 10.
 
 \index{keys method}
 \index{method!keys}
@@ -6678,11 +6718,11 @@ as follows:
 
 \beforeverb
 \begin{verbatim}
-def print_sorted_hist(h):
-    lst = h.keys()
-    lst.sort()
-    for c in lst:
-        print c, h[c]
+counts = { 'chuck' : 1 , 'fred' : 42, 'jan': 100}
+lst = counts.keys()
+lst.sort()
+for key in lst:
+    print key, counts[key]
 \end{verbatim}
 \afterverb
 %
@@ -6690,13 +6730,9 @@ Here's what the output looks like:
 
 \beforeverb
 \begin{verbatim}
->>> h = histogram('parrot')
->>> print_sorted_hist(h)
-a 1
-o 1
-p 1
-r 2
-t 1
+chuck 1
+fred 42
+jan 100
 \end{verbatim}
 \afterverb
 %
@@ -6850,7 +6886,7 @@ for errors automatically.  For example, if you are computing the
 average of a list of numbers, you could check that the result is
 not greater than the largest element in the list or less than
 the smallest.  This is called a ``sanity check'' because it detects
-results that are ``insane.''
+results that are ``completely illogical.''
 
 \index{sanity check}
 \index{consistency check}
@@ -6943,19 +6979,34 @@ Enter a file name: mbox-short.txt
 \end{ex}
 
 \begin{ex}
-Write a program to read through a mail log, and figure 
-out who had the most messages in the file.  The program looks 
-for ``From'' lines and takes the second parameter on those 
-lines as the person who sent the mail.
+Write a program to read through a mail log, and 
+build a histogram using a dictionary to count how many 
+messages have come from each email address 
+and print the dictionary.
 
-The program creates a Python dictionary that maps 
-the sender's address to the total number of messages for that person.
+\beforeverb
+\begin{verbatim}
+Enter file name: mbox-short.txt
+{'gopal.ramasammycook@gmail.com': 1, 'louis@media.berkeley.edu': 3, 
+'cwen@iupui.edu': 5, 'antranig@caret.cam.ac.uk': 1, 
+'rjlowe@iupui.edu': 2, 'gsilver@umich.edu': 3, 
+'david.horwitz@uct.ac.za': 4, 'wagnermr@iupui.edu': 1, 
+'zqian@umich.edu': 4, 'stephen.marquard@uct.ac.za': 2, 
+'ray@media.berkeley.edu': 1}
+\end{verbatim}
+\afterverb
+\end{ex}
 
-After all the data has been read the program looks 
-through the dictionary using a maximum loop
+\begin{ex}
+Add code to the above program to figure out who has the 
+most messages in the file.
+
+After all the data has been read  and the dictionary has been
+created, look through the dictionary using a 
+a maximum loop
  (see Section~\ref{maximumloop})
 to find who has the most 
-messages and how many messages the person has.
+messages and print how many messages the person has.
 
 \beforeverb
 \begin{verbatim}
