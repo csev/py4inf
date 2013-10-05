@@ -6429,7 +6429,7 @@ but you can read more about it at
 \index{set membership}
 \index{membership!set}
 
-Write a function that reads the words in {\tt words.txt} and
+Write a program that reads the words in {\tt words.txt} and
 stores them as keys in a dictionary.  It doesn't matter what the
 values are.  Then you can use the {\tt in} operator
 as a fast way to check whether a string is in
@@ -7888,9 +7888,12 @@ Enter a file name: mbox-short.txt
 
 
 \begin{ex}
-Write a function called \verb"most_frequent" that takes a string and
-prints the letters in decreasing order of frequency.  Find text
-samples from several different languages and see how letter frequency
+Write a program that reads a file and 
+prints the {\em letters} in decreasing order of frequency.  Your program
+should convert all the input to lower case and only count the letters a-z.
+Your program should not count spaces, digits, punctuation or anything 
+other than the letters a-z.
+Find text samples from several different languages and see how letter frequency
 varies between languages.  Compare your results with the tables at
 \url{wikipedia.org/wiki/Letter_frequencies}.
 
