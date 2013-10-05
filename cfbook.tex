@@ -936,7 +936,7 @@ convention, Python scripts have names that end with {\tt .py}.
 \index{script}
 
 To execute the script, you have to tell the Python interpreter 
-the name of the file.  In a UNIX or Windows command window, 
+the name of the file.  In a Unix or Windows command window, 
 you would type {\tt python hello.py} as follows:
 
 \beforeverb
@@ -1887,13 +1887,13 @@ Matches any decimal digit; equivalent to the set [0-9].
 {\textbackslash}D \newline
 Matches any non-digit character; equivalent to the set [\verb"^"0-9].
 
-\section{Bonus section for UNIX users}
+\section{Bonus section for Unix users}
 
-Support for searching files using regular expressions was built into the UNIX operating system 
+Support for searching files using regular expressions was built into the Unix operating system 
 since the 1960's and it is available in nearly all programming languages in one form or another.
 
 \index{grep}
-As a matter of fact, there is a command-line program built into UNIX 
+As a matter of fact, there is a command-line program built into Unix 
 called {\bf grep} (Generalized Regular Expression Parser) that does pretty much 
 the same as the {\tt search()} examples in this chapter.  So if you have a 
 Macintosh or Linux system, you can try the following commands in your command line window.
@@ -1982,7 +1982,7 @@ The notion that the ``+'' and ``*'' characters in a regular expression expand ou
 \index{greedy matching}
 
 \item[grep:]
-A command available in most UNIX systems that searches through text files looking for lines that match regular expressions.  The command name stands for "Generalized Regular Expression Parser".
+A command available in most Unix systems that searches through text files looking for lines that match regular expressions.  The command name stands for "Generalized Regular Expression Parser".
 \index{grep}
 
 \item[regular expression:]
@@ -1998,7 +1998,7 @@ A special character that matches any character.   In regular expressions the wil
 
 \begin{ex}
 Write a simple program to simulate the operation of the the {\tt grep} command 
-on UNIX.  Ask the user to enter a regular expression and count the number
+on Unix.  Ask the user to enter a regular expression and count the number
 of lines that matched the regular expression:
 
 \beforeverb
@@ -2935,7 +2935,7 @@ we call these {\bf web services}.
 \index{web service}
 
 Google has an excellent web service that allows us to make use of their 
-large database of geographic information.   We can submit a geogrpahical
+large database of geographic information.   We can submit a geographical
 search string like ``Ann Arbor, MI'' to their geocoding API and have Google 
 return its best guess as to where on a map we might find our search string and
 tells us about the landmarks neaby.
@@ -3118,13 +3118,6 @@ appropriate variables in the file:
 \end{verbatim}
 \afterverb
 %
-Since Twitter changes its API from time to time and changes
-its policies and procedures around those keys and secrets
-from time to time, you might want to check
-\url{www.pythonlearn.com/twitter}
-to see if there are any recent changes to the process 
-or procedures.
-
 The Twitter web service are accessed using a URL like this:
 
 \url{https://api.twitter.com/1.1/statuses/user_timeline.json}
@@ -4897,7 +4890,7 @@ engine.   We will first spider a small subset of the web and then run
 a simplified version of the Google page rank algorithm to
 to determine which pages are most highly connected and then visualize
 the page rank and connectivity of our small corner of the web.
-We will use the D2 JavaScript visualization library 
+We will use the D3 JavaScript visualization library 
 \url{http://d3js.org/} to produce the visualization output.
 
 You can download and extract this application from:
@@ -5258,7 +5251,7 @@ Note how much more quickly {\bf gbasic.py} runs compared to {\bf gmane.py}
 or even {\bf gmodel.py}. They are all working on the same data, but 
 {\bf gbasic.py} is using the compressed and normalized data in 
 {\bf index.sqlite}.  If you have a lot of data to manage, a multi-step
-process like the one in ths application may take a little longer to develop,
+process like the one in this application may take a little longer to develop,
 but will save you a lot of time when you really start to explore
 and visualize your data.
 
@@ -5518,7 +5511,7 @@ to construct file paths.  The {\tt os.path.join}
 knows these differences and knows what system
 we are running on and it does the proper concatenation
 depending on the system.  So the same Python code
-runs on either Windows or UNIX-style systems.
+runs on either Windows or Unix-style systems.
 
 Once we have the full file name with directory
 path, we use the {\tt os.path.getsize} utility
