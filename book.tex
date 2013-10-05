@@ -7239,17 +7239,19 @@ sort them from longest to shortest:
 
 \beforeverb
 \begin{verbatim}
-def sort_by_length(words):
-    t = list()
-    for word in words:
-       t.append((len(word), word))
+txt = 'but soft what light in yonder window breaks'
+words = txt.split()
+t = list()
+for word in words:
+   t.append((len(word), word))
 
-    t.sort(reverse=True)
+t.sort(reverse=True)
 
-    res = list()
-    for length, word in t:
-        res.append(word)
-    return res
+res = list()
+for length, word in t:
+    res.append(word)
+
+print res
 \end{verbatim}
 \afterverb
 %
@@ -7265,8 +7267,22 @@ only considers the second element to break ties.  The keyword argument
 \index{traversal}
 
 The second loop traverses the list of tuples and builds a list of
-words in descending order of length.
+words in descending order of length.  So among the five character words,
+they are sorted in {\em reverse} alphabetical order.  So ``what'' appears
+before ``soft'' in the following list.
 
+The output of the program is as follows:
+%
+\beforeverb
+\begin{verbatim}
+['yonder', 'window', 'breaks', 'light', 'what', 
+'soft', 'but', 'in']
+\end{verbatim}
+\afterverb
+%
+Of course the line loses much of its poetic impact 
+when turned into a Python list and sorted in 
+descending word length order.
 
 \section{Tuple assignment}
 \label{tuple assignment}
