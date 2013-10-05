@@ -19,7 +19,7 @@
 \usepackage{upquote}
 
 \newcommand{\thetitle}{Python for Informatics: Exploring Information}
-\newcommand{\theversion}{0.0.8-d1}
+\newcommand{\theversion}{0.0.8-d2}
 
 \makeindex
 
@@ -4534,7 +4534,7 @@ The following is an example of a {\tt SELECT} with a
 \beforeverb
 \begin{verbatim}
 SELECT * FROM Follows JOIN People 
-    ON Follows.to_id = People.id WHERE Follows.from_id = 2
+    ON Follows.from_id = People.id WHERE People.id = 1
 \end{verbatim}
 \afterverb
 %
@@ -4583,7 +4583,7 @@ for row in cur :
 print count, 'rows.'
 
 cur.execute('''SELECT * FROM Follows JOIN People 
-    ON Follows.to_id = People.id WHERE Follows.from_id = 2''')
+    ON Follows.from_id = People.id WHERE People.id = 2''')
 count = 0
 print 'Connections for id=2:'
 for row in cur :
@@ -4781,15 +4781,16 @@ a lot of data you might need to stop and restart the lookup
 process several times.  So we break the problem into two
 phases.  
 
+\index{cache}
 In the first phase we take our input ``survey'' data in the file
 {\bf where.data} and read it one line at a time, and retreive the
-geocoded informtion from Google and store it 
+geocoded information from Google and store it 
 in a database {\bf geodata.sqlite}.
 Before we use the geocoding API for each user-entered location, 
 we simply check to see if we already have the data for that 
 particular line of input.  The database is functioning as a 
 local ``cache'' of our geocoding data to make sure we never ask 
-for the same data twice.
+Google for the same data twice.
 
 You can re-start the process at any time by removing the file
 {\bf geodata.sqlite}.
@@ -4861,7 +4862,7 @@ Open where.html to view the data in a browser
 \afterverb
 %
 The file {\bf where.html} consists of HTML and JavaScript to visualize 
-a Google map.  It reads the most recent data in where.js to get 
+a Google map.  It reads the most recent data in {\bf where.js} to get 
 the data to be visualized.  Here is the format of the {\bf where.js} file:
 
 \beforeverb
@@ -4892,7 +4893,7 @@ want to check the JavaScript or developer console for your browser.
 
 In this application, we will perform some of the functions of a search
 engine.   We will first spider a small subset of the web and then run
-a highly over similified version of the Google page rank algorithm to
+a simplified version of the Google page rank algorithm to
 to determine which pages are most highly connected and then visualize
 the page rank and connectivity of our small corner of the web.
 We will use the D2 JavaScript visualization library 
@@ -5070,7 +5071,7 @@ You can download this application from:
 
 We will be using data from a free e-mail list archiving service called 
 \url{www.gmane.org}.  This serivce is very popular with open-source
-proejcts because it rpovides a nice searchable archive of their project's
+projects because it provides a nice searchable archive of their 
 e-mail activity.  They also have a very liberal policy regarding accessing 
 their data through their API.  They have no rate limits, but ask that you 
 don't overload their service and take only the data you need.  You can read
@@ -5260,7 +5261,7 @@ process like the one in ths application may take a little longer to develop,
 but will save you a lot of time when you really start to explore
 and visualize your data.
 
-You can produce a simple visualization of the word frequence in the subject lines
+You can produce a simple visualization of the word frequency in the subject lines
 in the file {\bf gword.py}:
 
 \beforeverb
