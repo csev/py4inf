@@ -6527,10 +6527,10 @@ the default value.  For example:
 
 \beforeverb
 \begin{verbatim}
->>> counts = { 'chuck' : 1 , 'fred' : 42, 'jan': 100}
+>>> counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
 >>> print counts.get('jan', 0)
 100
->>> print counts.get('paul', 0)
+>>> print counts.get('tim', 0)
 0
 \end{verbatim}
 \afterverb
@@ -6659,7 +6659,7 @@ prints each key and the corresponding value:
 
 \beforeverb
 \begin{verbatim}
-counts = { 'chuck' : 1 , 'fred' : 42, 'jan': 100}
+counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
 for key in counts:
     print key, counts[key]
 \end{verbatim}
@@ -6671,7 +6671,7 @@ Here's what the output looks like:
 \begin{verbatim}
 jan 100
 chuck 1
-fred 42
+annie 42
 \end{verbatim}
 \afterverb
 %
@@ -6685,9 +6685,9 @@ above ten, we could write the following code:
 
 \beforeverb
 \begin{verbatim}
-counts = { 'chuck' : 1 , 'fred' : 42, 'jan': 100}
+counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
 for key in counts:
-    if key[counts] > 10 :
+    if counts[key] > 10 :
         print key, counts[key]
 \end{verbatim}
 \afterverb
@@ -6702,7 +6702,7 @@ Here's what the output looks like:
 \beforeverb
 \begin{verbatim}
 jan 100
-fred 42
+annie 42
 \end{verbatim}
 \afterverb
 %
@@ -6720,8 +6720,9 @@ as follows:
 
 \beforeverb
 \begin{verbatim}
-counts = { 'chuck' : 1 , 'fred' : 42, 'jan': 100}
+counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
 lst = counts.keys()
+print lst
 lst.sort()
 for key in lst:
     print key, counts[key]
@@ -6732,13 +6733,16 @@ Here's what the output looks like:
 
 \beforeverb
 \begin{verbatim}
+['jan', 'chuck', 'annie']
+annie 42
 chuck 1
-fred 42
 jan 100
 \end{verbatim}
 \afterverb
 %
-So now the keys are in alphabetical order.
+First you see the list of keys in unsorted order that 
+we get from the {\tt keys} method.  Then we see the key/value
+pairs in order from the {\tt for} loop.
 
 \section{Advanced text parsing}
 
@@ -7006,7 +7010,7 @@ most messages in the file.
 
 After all the data has been read  and the dictionary has been
 created, look through the dictionary using a 
-a maximum loop
+maximum loop
  (see Section~\ref{maximumloop})
 to find who has the most 
 messages and print how many messages the person has.
