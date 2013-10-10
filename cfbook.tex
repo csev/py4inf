@@ -193,8 +193,8 @@ sophisticated data analysis solutions.  Some topics like {\tt try} and
 on conditionals.  Functions are given very light treatment until 
 they are needed to handle program complexity rather introduced 
 as an early lesson in abstraction.  Nearly all user-defined functions
-have been removed from the example code and excercises outside Chapter 4.
-The word ``recursion''\footnote{\url{Except of course for this line.}}.
+have been removed from the example code and exercises outside Chapter 4.
+The word ``recursion''\footnote{Except of course for this line.}
 does not appear in the book at all.
 
 In chapters 1 and 11-16, all of the material is brand new, focusing
@@ -208,17 +208,16 @@ and using databases using Structured Query Language.
 The ultimate goal of all of these changes is a shift from a 
 Computer Science to an Informatics
 focus is to only include topics into a first technology 
-class that can be applied even if one chooses not to 
+class that can be useful even if one chooses not to 
 become a professional programmer.
 
 Students who find this book interesting and want to further explore
 should look at Allen B. Downey's \emph{Think Python} book.  Because there
 is a lot of overlap between the two books,
 students will quickly pick up skills in the additional
-areas of computing in general and computational thinking 
+areas of technical programming and algorithmic thinking 
 that are covered in \emph{Think Python}.
-And given that the books have a similar writing style and at times
-have identical text and examples, you should be 
+And given that the books have a similar writing style, you should be 
 able to move quickly through \emph{Think Python} with a minimum of effort.
 
 \index{Creative Commons License}
@@ -932,7 +931,7 @@ the beginning.
 \section{Writing a program}
 
 Typing commands into the Python interpreter is a great way to experiment 
-with Python’s features, but it is not recommended for solving more complex problems.
+with Python's features, but it is not recommended for solving more complex problems.
 
 When we want to write a program, 
 we use a text editor to write the Python instructions into a file,
@@ -2944,7 +2943,7 @@ Google has an excellent web service that allows us to make use of their
 large database of geographic information.   We can submit a geographical
 search string like ``Ann Arbor, MI'' to their geocoding API and have Google 
 return its best guess as to where on a map we might find our search string and
-tells us about the landmarks neaby.
+tells us about the landmarks nearby.
 
 The geocoding service is free but rate limited so you cannot make unlimited
 use of the API in a commercial application.   But if you have some survey data
@@ -3006,7 +3005,7 @@ while True:
 %
 The program takes the search string and constructs a URL with the
 search string as a properly encoded parameter and then uses
-{\bf urllib} to retrieve the text from the Google gecoding API.
+{\bf urllib} to retrieve the text from the Google geocoding API.
 Unlike a fixed web page, the data we get depends on the parameters
 we send and the geographical data stored in Google's servers.
 
@@ -3092,7 +3091,7 @@ You can read more about the OAuth protocol at
 As the Twitter API became increasingly valuable, Twitter
 went from an open and public API to an API that required
 the use of OAuth signatures on each API request. Thankfully
-there are a number of convienent and free OAuth libraries
+there are a number of convenient and free OAuth libraries
 are available 
 so you can avoid writing an OAuth implementation from scratch
 by reading the specification.  These libraries are of 
@@ -4783,7 +4782,7 @@ phases.
 
 \index{cache}
 In the first phase we take our input ``survey'' data in the file
-{\bf where.data} and read it one line at a time, and retreive the
+{\bf where.data} and read it one line at a time, and retrieve the
 geocoded information from Google and store it 
 in a database {\bf geodata.sqlite}.
 Before we use the geocoding API for each user-entered location, 
@@ -4882,7 +4881,7 @@ Python so the syntax should be familiar to you.
 
 Simply open {\bf where.html} in a browser to see the locations.  You 
 can hover over each map pin to find the location that the 
-gecoding API returned for the user-entered input.  If you 
+geocoding API returned for the user-entered input.  If you 
 cannot see any data when you open the {\bf where.html} file, you might 
 want to check the JavaScript or developer console for your browser.
 
@@ -4977,7 +4976,7 @@ How many iterations:2
 \end{verbatim}
 \afterverb
 %
-You can dump the daabase again to see that page rank has been updated:
+You can dump the database again to see that page rank has been updated:
 
 \beforeverb
 \begin{verbatim}
@@ -5055,7 +5054,7 @@ Up to this point in the book, you have become quite familiar with our
 {\bf mbox-short.txt} and {\bf mbox.txt} data files.   Now it is time to take
 our analysis of e-mail data to the next level.  
 
-Ii the real world, sometimes you have to pull down mail data from servers
+In the real world, sometimes you have to pull down mail data from servers
 and that might take quite some time and the data might be inconsistent, 
 error filled and need a lot of cleanup or adjustment.  In this section, we
 work with an application that is the most complex so far and pull down nearly a 
@@ -5070,7 +5069,7 @@ You can download this application from:
 \url{www.py4inf.com/code/gmane.zip}
 
 We will be using data from a free e-mail list archiving service called 
-\url{www.gmane.org}.  This serivce is very popular with open-source
+\url{www.gmane.org}.  This service is very popular with open-source
 projects because it provides a nice searchable archive of their 
 e-mail activity.  They also have a very liberal policy regarding accessing 
 their data through their API.  They have no rate limits, but ask that you 
@@ -5144,7 +5143,7 @@ One nice thing is that once you have spidered all of the messages and have them 
 {\bf content.sqlite}, you can run {\bf gmane.py} again to get new messages as 
 they get sent to the list.  
 
-The {\bf content.sqlite} data is pretty raw, with an innefficient data model, 
+The {\bf content.sqlite} data is pretty raw, with an inefficient data model, 
 and not compressed.
 This is intentional as it allows you to look at {\bf content.sqlite}
 in the SQLite Manager to debug problems with the spidering process.
@@ -5230,7 +5229,7 @@ indexed version of the e-mail in {\bf index.sqlite}.   This is the file to use t
 analysis.   With this file, data analysis will be really quick.
 
 The first, simplest data analysis is to determine "who sent the most mail?" and "which 
-organzation sent the most mail"?  This is done using {\bf gbasic.py}:
+organization sent the most mail"?  This is done using {\bf gbasic.py}:
 
 \beforeverb
 \begin{verbatim}
