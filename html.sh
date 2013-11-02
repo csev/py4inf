@@ -9,3 +9,9 @@ grep -v latexonly cfbook.image.tex > a; mv a cfbook.image.tex
 imagen -png cfbook
 hacha cfbook.html
 mv index.html cfbook.css cfbook*.html cfbook*.png cfbook*.gif *motif.gif html
+rm cfbook.haux cfbook.hind cfbook.htoc cfbook.image.tex
+
+echo " "
+echo "Patching the HTML ..."
+python fixhtml.py
+

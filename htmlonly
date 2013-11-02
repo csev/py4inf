@@ -23,6 +23,8 @@
 
 \newcommand{\vfill}{}
 
+\newcommand{\textbackslash}{\char`\\}
+
 \htmlhead{\rawhtmlinput{header.html}}
 
 \htmlfoot{\rawhtmlinput{footer.html}}
