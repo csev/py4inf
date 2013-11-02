@@ -1,6 +1,5 @@
 import urllib
 
-fhand = urllib.urlopen('http://localhost:8080/')
+fhand = urllib.urlopen('http://www.dr-chuck.com/page1.htm')
 for line in fhand:
-   print line.strip()
-
+    print line.strip()

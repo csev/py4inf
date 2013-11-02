@@ -2181,13 +2181,156 @@ library specifically designed to support the HTTP protocol
 for the retrieval of
 documents and data over the web.
 
+\section{Retrieving an image over HTTP}
+
+\index{urllib!image}
+\index{image!jpg}
+\index{jpg}
+In the above example, we retreived a plain text file 
+which had newlines in the file and we simply copied the
+data to the screen as the program ran.   We can use a similar
+program to retrieve an image across using HTTP.   Instead
+of copying the data to the screen as the program runs,
+we accumulate the data in a string, trim off the headers
+and then save the image data to a file as follows:
+
+\beforeverb
+\begin{verbatim}
+import socket
+import time
+
+mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+mysock.connect(('www.py4inf.com', 80))
+mysock.send('GET http://www.py4inf.com/cover.jpg HTTP/1.0\n\n')
+
+
+count = 0
+picture = "";
+while True:
+    data = mysock.recv(5120)
+    if ( len(data) < 1 ) : break
+    # time.sleep(0.25)
+    count = count + len(data)
+    print len(data),count
+    picture = picture + data
+
+mysock.close()
+
+# Look for the end of the header (2 CRLF)
+pos = picture.find("\r\n\r\n");
+print 'Header length',pos
+print picture[:pos]
+
+# Skip past the header and save the picture data
+picture = picture[pos+4:]
+fhand = open("stuff.jpg","w")
+fhand.write(picture);
+fhand.close()
+\end{verbatim}
+\afterverb
+%
+When the program runs it produces the following output:
+
+\beforeverb
+\begin{verbatim}
+$ python urljpeg.py 
+2920 2920
+1460 4380
+1460 5840
+1460 7300
+...
+1460 62780
+1460 64240
+2920 67160
+1460 68620
+1681 70301
+Header length 240
+HTTP/1.1 200 OK
+Date: Sat, 02 Nov 2013 02:15:07 GMT
+Server: Apache
+Last-Modified: Sat, 02 Nov 2013 02:01:26 GMT
+ETag: "19c141-111a9-4ea280f8354b8"
+Accept-Ranges: bytes
+Content-Length: 70057
+Connection: close
+Content-Type: image/jpeg
+\end{verbatim}
+\afterverb
+%
+You can see that that for this url, the 
+{\tt Content-Type } header indicates that
+body of the document is an image ({\tt image/jpeg}).
+Once the program completes, you can view the image data by opening
+the file {\tt stuff.jpg} in an image viewer.
+
+As the program runs, 
+can see that we don't get 5120 characters each time we 
+call the {\tt recv()} method.
+We get as many characters that have been transfered across the network 
+to us by the web server at the moment we call {\tt recv()}.  
+In this example, we either get 1460 or
+2920 characters each time we request up to 5120 characters of data.
+
+Your results may be different depending on your network speed.  Also
+note that on the last call to {\tt recv()} we get 1681 bytes which is the end
+of the stream and in the next call to {\tt recv()} we get a zero length
+string that tells us that the server has called {\tt close()} on its end 
+of the socket and there is no more data forthcoming.
+
+\index{time}
+\index{time.sleep}
+We can slow down our successive calls {\tt recv()} by uncommmenting the call 
+to {\tt time.sleep()}.  This way, we wait a quarter of a second after each call
+so that the server can ``get ahead'' of us and send more data to us
+before we call {\tt recv()}.  With the delay in place the program 
+executes as follows:
+\beforeverb
+\begin{verbatim}
+$ python urljpeg.py 
+1460 1460
+5120 6580
+5120 11700
+...
+5120 62900
+5120 68020
+2281 70301
+Header length 240
+HTTP/1.1 200 OK
+Date: Sat, 02 Nov 2013 02:22:04 GMT
+Server: Apache
+Last-Modified: Sat, 02 Nov 2013 02:01:26 GMT
+ETag: "19c141-111a9-4ea280f8354b8"
+Accept-Ranges: bytes
+Content-Length: 70057
+Connection: close
+Content-Type: image/jpeg
+\end{verbatim}
+\afterverb
+%
+Now other than the first and last calls to {\tt recv()}, we now get 
+5120 characters each time we ask for new data.  
+
+There is a buffer between the server making {\tt send()} requests 
+and our application making {\tt recv()} requests.  When we run the 
+program with the delay in place, at some point the server might 
+fill up the buffer in the socket and be forced to pause until our
+program starts to empty the buffer.  The pausing of either the 
+sending application or the receiving application is called 
+``flow control''.
+\index{flow control}
+
 \section{Retrieving web pages with {\tt urllib}}
 
-The {\tt urllib} library makes it very easy to retrieve
-web pages and process the data in Python.   Using {\tt urllib}
+While we can manually send and receive data over HTTP 
+using the socket library, there is a much simpler way to 
+to perform this common task in Python by 
+using the {\tt urllib} library.
+
+Using {\tt urllib},
 you can treat a web page much like a file.   You simply
 indicate which web page you would like to retrieve and
-{\tt urllib} handles all of the HTTP protocol details.
+{\tt urllib} handles all of the HTTP protocol and header 
+details.
 
 The equivalent code to read the {\tt romeo.txt} file
 from the web using {\tt urllib} is as follows:
@@ -2970,7 +3113,7 @@ JSON.
 
 \beforeverb
 \begin{verbatim}
-iimport urllib
+import urllib
 import json
 
 serviceurl = 'http://maps.googleapis.com/maps/api/geocode/json?'
@@ -3773,7 +3916,7 @@ Here is the source code for our Twitter spidering application:
 
 \beforeverb
 \begin{verbatim}
-iimport urllib
+import urllib
 import twurl
 import json
 import sqlite3
