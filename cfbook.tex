@@ -2223,7 +2223,7 @@ print picture[:pos]
 
 # Skip past the header and save the picture data
 picture = picture[pos+4:]
-fhand = open("stuff.jpg","w")
+fhand = open("stuff.jpg","wb")
 fhand.write(picture);
 fhand.close()
 \end{verbatim}
@@ -2949,7 +2949,7 @@ You will notice some differences.  First, in XML, we can add attributes like
 ``intl'' to the ``phone'' tag.  In JSON we simply have key-value pairs.  Also
 the XML ``person'' tag is gone, replaced by a set of outer curly-braces.  
 
-In general JSON structures are simpler than XML because JSON has less capabilities
+In general JSON structures are simpler than XML because JSON has fewer capabilities
 than XML.  But JSON has the advantage that it maps {\em directly} to some combination
 of dictionaries and lists.   And since nearly all programming languages 
 have something equivalent to Python's dictionaries and lists, JSON is a very
