@@ -160,7 +160,7 @@ and they cannot be used as variable names.<br />
 <br />
 <a name="@default56"></a><br />
 <br />
-Python reserves 31 keywords<sup><a name="text2" href="#note2">1</a></sup> for its use:
+Python reserves 31 keywords<sup><a name="text3" href="#note3">1</a></sup> for its use:
 </font><pre><font size="4" color="blue">
 and       del       from      not       while    
 as        elif      global    or        with     
@@ -223,7 +223,7 @@ exponentiation, as in the following examples:
 0
 </font></pre><font color="black">The value of <tt>minute</tt> is 59, and in conventional arithmetic 59
 divided by 60 is 0.98333, not 0. The reason for the discrepancy is
-that Python is performing <b>floor division</b><sup><a name="text3" href="#note3">2</a></sup>.<br />
+that Python is performing <b>floor division</b><sup><a name="text4" href="#note4">2</a></sup>.<br />
 <br />
 <a name="@default64"></a>
 <a name="@default65"></a>
@@ -358,7 +358,7 @@ linking them end-to-end. For example:</font><br />
 <font color="black">Sometimes we would like to take the value for a variable from the user
 via their keyboard.
 Python provides a built-in function called <code>raw_input</code> that gets
-input from the keyboard<sup><a name="text4" href="#note4">3</a></sup>. When this function is called, the program stops and
+input from the keyboard<sup><a name="text5" href="#note5">3</a></sup>. When this function is called, the program stops and
 waits for the user to type something. When the user presses <font color="purple">Return</font> or <font color="purple">Enter</font>, the program resumes and <code>raw_input</code>
 returns what the user typed as a string.</font><br />
 <br />
@@ -478,7 +478,7 @@ programmer has chosen variable names that reflect the intent of the programmer
 regarding what data will be stored in each variable.<br />
 <br />
 We call these wisely-chosen variable names "mnemonic variable names". The
-word <em>mnemonic</em><sup><a name="text5" href="#note5">4</a></sup> 
+word <em>mnemonic</em><sup><a name="text6" href="#note6">4</a></sup> 
 means "memory aid".
 We choose mnemonic variable names to help us remember why we created the variable
 in the first place.<br />
@@ -701,15 +701,15 @@ Write a program which prompts the user for a Celsius temperature,
 convert the temperature to Fahrenheit and print out the converted
 temperature.
 </em></font></div><br />
-<hr width="50%" size="1" /><dl><dt><font size="5" color="black"><a name="note2" href="#text2">1</a></font></dt><dd><font color="black">In Python 3.0, <tt>exec</tt> is no
+<hr width="50%" size="1" /><dl><dt><font size="5" color="black"><a name="note3" href="#text3">1</a></font></dt><dd><font color="black">In Python 3.0, <tt>exec</tt> is no
 longer a keyword, but <tt>nonlocal</tt> is.
-</font></dd><dt><font size="5" color="black"><a name="note3" href="#text3">2</a></font></dt><dd><font color="black">In Python 3.0,
+</font></dd><dt><font size="5" color="black"><a name="note4" href="#text4">2</a></font></dt><dd><font color="black">In Python 3.0,
 the result of this division is a <tt>float</tt>. 
 In Python 3.0, the new operator
 <tt>//</tt> performs integer division.
-</font></dd><dt><font size="5" color="black"><a name="note4" href="#text4">3</a></font></dt><dd><font color="black">In Python 3.0, this function is named
+</font></dd><dt><font size="5" color="black"><a name="note5" href="#text5">3</a></font></dt><dd><font color="black">In Python 3.0, this function is named
  <tt>input</tt>.
-</font></dd><dt><font size="5" color="black"><a name="note5" href="#text5">4</a></font></dt><dd><font color="black">See 
+</font></dd><dt><font size="5" color="black"><a name="note6" href="#text6">4</a></font></dt><dd><font color="black">See 
 <tt>http://en.wikipedia.org/wiki/Mnemonic</tt>
 for an extended description of the word "mnemonic".
 </font></dd></dl>

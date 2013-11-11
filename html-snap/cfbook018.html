@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="GENERATOR" content="hevea 1.07" />
 <title>
-Python Programming on Macintosh
+Python Programming on Windows
 </title>
 </head>
 <body>
@@ -13,70 +13,78 @@ Python Programming on Macintosh
 <a href="index.html"><img src="contents_motif.gif" alt="Up" /></a>
 <a href="cfbook019.html"><img src="next_motif.gif" alt="Next" /></a>
 <hr />
-<h1><font color="black"><a name="htoc190">Appendix&nbsp;B</a>&nbsp;&nbsp;Python Programming on Macintosh</font></h1>
+<h1><font color="black"><a name="htoc196">Appendix&nbsp;A</a>&nbsp;&nbsp;Python Programming on Windows</font></h1>
 <font color="black">In this appendix, we walk through a series of steps
-so you can run Python on Macintosh. Since Python is
-already included in the Macintosh Operating system, we need to 
-learn how to edit Python files and run Python programs
-in the terminal window.<br />
-<br />
-There approaches you can take to editing and running
-Python programs, and this is just one
-approach we have found to be very simple.<br />
+so you can run Python on Windows. There are many different 
+approaches you can take, and this is just one
+approach to keep things simple.<br />
 <br />
 First, you need to install a programmer editor. You
-do not want to use TextEdit or Microsoft Word to edit
+do not want to use Notepad or Microsoft Word to edit
 Python programs. Programs must be in "flat-text" files
 and so you need an editor that is good at
 editing text files.<br />
 <br />
-Our recommended editor for Macintosh is TextWrangler which
+Our recommended editor for Windows is NotePad++ which
 can be downloaded and installed from:<br />
 <br />
-<tt>http://www.barebones.com/products/TextWrangler/</tt><br />
+<tt>http://sourceforge.net/projects/notepad-plus/files/</tt><br />
 <br />
-To create a Python program, run from 
-<b>TextWrangler</b> from your <b>Applications</b> folder.<br />
+Then download a recent version of Python 2 from the
+<tt>www.python.org</tt> web site.<br />
+<br />
+<tt>http://www.python.org/download/releases/2.7.5/</tt><br />
+<br />
+Once you have installed Python, you should have a new
+folder on your computer like <tt>C:\Python27</tt>.<br />
+<br />
+To create a Python program, run NotePad++ from the Start Menu
+and save the file with a suffix of ".py". For this
+exercise, put a folder on your Desktop named 
+<tt>py4inf</tt>. It is best to keep your folder names short
+and not to have any spaces in your folder or file name.<br />
 <br />
 Lets make our first Python program be:
 </font><pre><font size="4" color="blue">
 print 'Hello Chuck'
-</font></pre><font color="black">Except that you should change it to be your name. 
-Lets save the file in a folder on your Desktop named 
-<tt>py4inf</tt>. It is best to keep your folder names short
-and not to have any spaces in your folder or file name.
-Once you have made the folder, save the file 
-into <tt>Desktoppy4infprog1.py</tt>.<br />
+</font></pre><font color="black">Except that you should change it to be your name. Lets
+save the file into <tt>Desktop\py4inf\prog1.py</tt>.<br />
 <br />
-The run the <b>Terminal</b> program. The easiest way is to 
-press the Spotlight icon (the magnifying glass) in the upper
-right of your screen and enter "terminal" and launch the
-application that comes up.<br />
+The run the command line. Different versions of Windows
+do this differently:
+</font><ul><li>
+<font color="black">Windows Vista and Windows-7: Press <b>Start</b>
+and then in the command search window enter the word
+<tt>command</tt> and press enter.</font><br />
 <br />
-You start in your "home directory". You can see the current 
-directory by typing the <tt>pwd</tt> command in the terminal window.
+</li><li><font color="black">Windows-XP: Press <b>Start</b>, then <b>Run</b>, and 
+then enter <tt>cmd</tt> in the dialog box and press <b>OK</b>.
+</font></li></ul>
+<font color="black">You will find yourself in a text window with a prompt that
+tells you what folder you are currently "in". <br />
+<br />
+Windows Vista and Windows-7: <tt>C:\Users\csev</tt><br />
+Windows XP: <tt>C:\Documents and Settings\csev</tt><br />
+<br />
+This is your "home directory". Now we need to move into 
+the folder where you have saved your Python program using
+the following commands:
 </font><pre><font size="4" color="blue">
-67-194-80-15:~ csev$ pwd
-/Users/csev
-67-194-80-15:~ csev$ 
-</font></pre><font color="black">We must be in the folder that contains your Python program 
-to run the program. We user the <tt>cd</tt> command to move to a new 
-folder and then the <tt>ls</tt> command to list the files in the 
-folder.
+C:\Users\csev\&gt; cd Desktop
+C:\Users\csev\Desktop&gt; cd py4inf
+</font></pre><font color="black">Then type 
 </font><pre><font size="4" color="blue">
-67-194-80-15:~ csev$ cd Desktop
-67-194-80-15:Desktop csev$ cd py4inf
-67-194-80-15:py4inf csev$ ls
-prog1.py
-67-194-80-15:py4inf csev$ 
-</font></pre><font color="black">To run your program, simply type the <tt>python</tt> command followed
-by the name of your file at the 
+C:\Users\csev\Desktop\py4inf&gt; dir 
+</font></pre><font color="black">To list your files. You should see the <tt>prog1.py</tt> when 
+you type the <tt>dir</tt> command.<br />
+<br />
+To run your program, simply type the name of your file at the 
 command prompt and press enter.
 </font><pre><font size="4" color="blue">
-67-194-80-15:py4inf csev$ python prog1.py
+C:\Users\csev\Desktop\py4inf&gt; prog1.py
 Hello Chuck
-67-194-80-15:py4inf csev$ 
-</font></pre><font color="black">You can edit the file in TextWrangler, save it and then switch back
+C:\Users\csev\Desktop\py4inf&gt; 
+</font></pre><font color="black">You can edit the file in NotePad++, save it and then switch back
 to the command line and execute the program again by typing
 the file name again at the command line prompt.<br />
 <br />
@@ -86,7 +94,7 @@ and start a new one.<br />
 Hint: You can also press the "up-arrow" in the command line to 
 scroll back and run a previously entered command again.<br />
 <br />
-You should also look in the preferences for TextWrangler and set it 
+You should also look in the preferences for NotePad++ and set it 
 to expand tab characters to be four spaces. It will save you lots
 of effort looking for indentation errors.<br />
 <br />

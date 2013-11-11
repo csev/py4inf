@@ -17,10 +17,10 @@ Tuples
 <a name="tuplechap"></a>
 <a name="toc114"></a>
 <h2><font color="black"><a name="htoc125">10.1</a>&nbsp;&nbsp;Tuples are immutable</font></h2>
-<a name="@default635"></a>
-<a name="@default636"></a>
-<a name="@default637"></a>
-<font color="black">A tuple<sup><a name="text8" href="#note8">1</a></sup>
+<a name="@default641"></a>
+<a name="@default642"></a>
+<a name="@default643"></a>
+<font color="black">A tuple<sup><a name="text9" href="#note9">1</a></sup>
 is a sequence of values much like a list. 
 The values stored in a tuple can be any type, and
 they are indexed by integers.
@@ -29,10 +29,10 @@ Tuples are also <b>comparable</b> and <b>hashable</b> so we can
 sort lists of them and use tuples as key values in Python
 dictionaries.<br />
 <br />
-<a name="@default638"></a>
-<a name="@default639"></a>
-<a name="@default640"></a>
-<a name="@default641"></a><br />
+<a name="@default644"></a>
+<a name="@default645"></a>
+<a name="@default646"></a>
+<a name="@default647"></a><br />
 <br />
 Syntactically, a tuple is a comma-separated list of values:
 </font><pre><font size="4" color="blue">
@@ -41,14 +41,14 @@ Syntactically, a tuple is a comma-separated list of values:
 parentheses to help us quickly identify tuples when we look at
 Python code:</font><br />
 <br />
-<a name="@default642"></a>
+<a name="@default648"></a>
 <pre><font size="4" color="blue">
 &gt;&gt;&gt; t = ('a', 'b', 'c', 'd', 'e')
 </font></pre><font color="black">To create a tuple with a single element, you have to include the final
 comma:</font><br />
 <br />
-<a name="@default643"></a>
-<a name="@default644"></a>
+<a name="@default649"></a>
+<a name="@default650"></a>
 <pre><font size="4" color="blue">
 &gt;&gt;&gt; t1 = ('a',)
 &gt;&gt;&gt; type(t1)
@@ -62,8 +62,8 @@ with a string in parentheses that evaluates to a string:
 </font></pre><font color="black">Another way to construct a tuple is the built-in function <tt>tuple</tt>.
 With no argument, it creates an empty tuple:</font><br />
 <br />
-<a name="@default645"></a>
-<a name="@default646"></a>
+<a name="@default651"></a>
+<a name="@default652"></a>
 <pre><font size="4" color="blue">
 &gt;&gt;&gt; t = tuple()
 &gt;&gt;&gt; print t
@@ -81,28 +81,28 @@ avoid using it as a variable name.<br />
 Most list operators also work on tuples. The bracket operator
 indexes an element:</font><br />
 <br />
-<a name="@default647"></a>
-<a name="@default648"></a>
+<a name="@default653"></a>
+<a name="@default654"></a>
 <pre><font size="4" color="blue">
 &gt;&gt;&gt; t = ('a', 'b', 'c', 'd', 'e')
 &gt;&gt;&gt; print t[0]
 'a'
 </font></pre><font color="black">And the slice operator selects a range of elements.</font><br />
 <br />
-<a name="@default649"></a>
-<a name="@default650"></a>
-<a name="@default651"></a>
-<a name="@default652"></a>
+<a name="@default655"></a>
+<a name="@default656"></a>
+<a name="@default657"></a>
+<a name="@default658"></a>
 <pre><font size="4" color="blue">
 &gt;&gt;&gt; print t[1:3]
 ('b', 'c')
 </font></pre><font color="black">But if you try to modify one of the elements of the tuple, you get
 an error:</font><br />
 <br />
-<a name="@default653"></a>
-<a name="@default654"></a>
-<a name="@default655"></a>
-<a name="@default656"></a>
+<a name="@default659"></a>
+<a name="@default660"></a>
+<a name="@default661"></a>
+<a name="@default662"></a>
 <pre><font size="4" color="blue">
 &gt;&gt;&gt; t[0] = 'A'
 TypeError: object doesn't support item assignment
@@ -115,10 +115,10 @@ one tuple with another:
 </font></pre>
 <a name="toc115"></a>
 <h2><font color="black"><a name="htoc126">10.2</a>&nbsp;&nbsp;Comparing tuples</font></h2>
-<a name="@default657"></a>
-<a name="@default658"></a>
-<a name="@default659"></a>
-<a name="@default660"></a>
+<a name="@default663"></a>
+<a name="@default664"></a>
+<a name="@default665"></a>
+<a name="@default666"></a>
 <font color="black">The comparison operators work with tuples and other sequences;
 Python starts by comparing the first element from each
 sequence. If they are equal, it goes on to the next element,
@@ -137,28 +137,31 @@ This feature lends itself to a pattern called <b>DSU</b> for
 </font><dl compact="compact"><dt><font color="black"><b>Decorate</b></font></dt><dd><font color="black"> a sequence by building a list of tuples
 with one or more sort keys preceding the elements from the sequence,</font><br />
 <br />
-</dd><dt><font color="black"><b>Sort</b></font></dt><dd><font color="black"> the list of tuples uring the Python built-in <tt>sort</tt>, and</font><br />
+</dd><dt><font color="black"><b>Sort</b></font></dt><dd><font color="black"> the list of tuples using the Python built-in <tt>sort</tt>, and</font><br />
 <br />
 </dd><dt><font color="black"><b>Undecorate</b></font></dt><dd><font color="black"> by extracting the sorted elements of the sequence.</font></dd></dl>
 <a name="DSU"></a>
-<a name="@default661"></a>
-<a name="@default662"></a>
-<a name="@default663"></a>
-<a name="@default664"></a>
+<a name="@default667"></a>
+<a name="@default668"></a>
+<a name="@default669"></a>
+<a name="@default670"></a>
+<a name="@default671"></a>
 <font color="black">For example, suppose you have a list of words and you want to
 sort them from longest to shortest:
 </font><pre><font size="4" color="blue">
-def sort_by_length(words):
-    t = list()
-    for word in words:
-       t.append((len(word), word))
+txt = 'but soft what light in yonder window breaks'
+words = txt.split()
+t = list()
+for word in words:
+   t.append((len(word), word))
 
-    t.sort(reverse=True)
+t.sort(reverse=True)
 
-    res = list()
-    for length, word in t:
-        res.append(word)
-    return res
+res = list()
+for length, word in t:
+    res.append(word)
+
+print res
 </font></pre><font color="black">The first loop builds a list of tuples, where each
 tuple is a word preceded by its length.<br />
 <br />
@@ -166,20 +169,30 @@ tuple is a word preceded by its length.<br />
 only considers the second element to break ties. The keyword argument
 <tt>reverse=True</tt> tells <tt>sort</tt> to go in decreasing order.<br />
 <br />
-<a name="@default665"></a>
-<a name="@default666"></a>
-<a name="@default667"></a><br />
+<a name="@default672"></a>
+<a name="@default673"></a>
+<a name="@default674"></a><br />
 <br />
 The second loop traverses the list of tuples and builds a list of
-words in descending order of length.</font><br />
+words in descending order of length. So among the five character words,
+they are sorted in <em>reverse</em> alphabetical order. So "what" appears
+before "soft" in the following list.<br />
+<br />
+The output of the program is as follows:
+</font><pre><font size="4" color="blue">
+['yonder', 'window', 'breaks', 'light', 'what', 
+'soft', 'but', 'in']
+</font></pre><font color="black">Of course the line loses much of its poetic impact 
+when turned into a Python list and sorted in 
+descending word length order.</font><br />
 <br />
 <a name="toc116"></a>
 <h2><font color="black"><a name="htoc127">10.3</a>&nbsp;&nbsp;Tuple assignment</font></h2>
 <a name="tuple assignment"></a>
-<a name="@default668"></a>
-<a name="@default669"></a>
-<a name="@default670"></a>
-<a name="@default671"></a>
+<a name="@default675"></a>
+<a name="@default676"></a>
+<a name="@default677"></a>
+<a name="@default678"></a>
 <font color="black">One of the unique syntactic features of the Python language
 is the ability to have a tuple on the left hand
 side of an assignment statement. This allows you to assign
@@ -199,7 +212,7 @@ to the variables <tt>x</tt> and <tt>y</tt> in a single statement.
 &gt;&gt;&gt; 
 </font></pre><font color="black">It is not magic, Python <em>roughly</em> translates the 
 tuple assignment syntax
-to be the following:<sup><a name="text9" href="#note9">2</a></sup></font>
+to be the following:<sup><a name="text10" href="#note10">2</a></sup></font>
 <pre><font size="4" color="blue">
 &gt;&gt;&gt; m = [ 'have', 'fun' ]
 &gt;&gt;&gt; x = m[0]
@@ -235,8 +248,8 @@ of the assignments.<br />
 The number of variables on the left and the number of
 values on the right have to be the same:</font><br />
 <br />
-<a name="@default672"></a>
-<a name="@default673"></a>
+<a name="@default679"></a>
+<a name="@default680"></a>
 <pre><font size="4" color="blue">
 &gt;&gt;&gt; a, b = 1, 2, 3
 ValueError: too many values to unpack
@@ -244,9 +257,9 @@ ValueError: too many values to unpack
 (string, list or tuple). For example, to split an email address
 into a user name and a domain, you could write:</font><br />
 <br />
-<a name="@default674"></a>
-<a name="@default675"></a>
-<a name="@default676"></a>
+<a name="@default681"></a>
+<a name="@default682"></a>
+<a name="@default683"></a>
 <pre><font size="4" color="blue">
 &gt;&gt;&gt; addr = 'monty@python.org'
 &gt;&gt;&gt; uname, domain = addr.split('@')
@@ -261,13 +274,13 @@ python.org
 </font></pre>
 <a name="toc117"></a>
 <h2><font color="black"><a name="htoc128">10.4</a>&nbsp;&nbsp;Dictionaries and tuples</font></h2>
-<a name="@default677"></a>
-<a name="@default678"></a>
-<a name="@default679"></a>
-<a name="@default680"></a>
+<a name="@default684"></a>
+<a name="@default685"></a>
+<a name="@default686"></a>
+<a name="@default687"></a>
 <font color="black">Dictionaries have a method called <tt>items</tt> that returns a list of
 tuples, where each tuple is a key-value 
-pair<sup><a name="text10" href="#note10">3</a></sup>.
+pair<sup><a name="text11" href="#note11">3</a></sup>.
 </font><pre><font size="4" color="blue">
 &gt;&gt;&gt; d = {'a':10, 'b':1, 'c':22}
 &gt;&gt;&gt; t = d.items()
@@ -292,8 +305,8 @@ dictionary sorted by key:
 <br />
 <a name="toc118"></a>
 <h2><font color="black"><a name="htoc129">10.5</a>&nbsp;&nbsp;Multiple assignment with dictionaries</font></h2>
-<a name="@default681"></a>
-<a name="@default682"></a>
+<a name="@default688"></a>
+<a name="@default689"></a>
 <font color="black">Combining <tt>items</tt>, tuple assignment and <tt>for</tt>, you
 can see a nice code pattern for traversing the keys and values of a dictionary
 in a single loop:
@@ -310,8 +323,8 @@ next key/value pair in the dictionary (still in hash order).<br />
 <br />
 The output of this loop is:
 </font><pre><font size="4" color="blue">
-0 a
-2 c
+10 a
+22 c
 1 b
 </font></pre><font color="black">Again in hash key order (i.e. no particular order).<br />
 <br />
@@ -336,13 +349,14 @@ matter to sort the list in reverse order and print out the new, sorted list.
 &gt;&gt;&gt; l
 [(22, 'c'), (10, 'a'), (1, 'b')]
 &gt;&gt;&gt; 
-</font></pre><font color="black">By hand-constructing the list of tuples to have the value as the first
+</font></pre><font color="black">By carefully constructing the list of tuples to have the value as the first
 element of each tuple, we can sort the list of tuples and get our dictionary
 contents sorted by value.</font><br />
 <br />
 <a name="toc119"></a>
 <h2><font color="black"><a name="htoc130">10.6</a>&nbsp;&nbsp;The most common words</font></h2>
-<font color="black">Coming back to our running example of the text from <em>Romeo and Juliet</em> 
+<a name="@default690"></a><font color="black">
+Coming back to our running example of the text from <em>Romeo and Juliet</em> 
 Act 2, Scene 2, we can augment our program to use this technique to 
 print the ten most common words in the text as follows:
 </font><pre><font size="4" color="blue">
@@ -403,8 +417,8 @@ for exploring information.</font><br />
 <br />
 <a name="toc120"></a>
 <h2><font color="black"><a name="htoc131">10.7</a>&nbsp;&nbsp;Using tuples as keys in dictionaries</font></h2>
-<a name="@default683"></a>
-<a name="@default684"></a>
+<a name="@default691"></a>
+<a name="@default692"></a>
 <font color="black">Because tuples are <b>hashable</b> and lists are not, if we want to 
 create a <b>composite</b> key to use in a dictionary we must use a tuple as
 the key.<br />
@@ -420,7 +434,7 @@ directory[last,first] = number
 </font></pre><font color="black">The expression in brackets is a tuple. We could use tuple
 assignment in a <tt>for</tt> loop to traverse this dictionary.</font><br />
 <br />
-<a name="@default685"></a>
+<a name="@default693"></a>
 <pre><font size="4" color="blue">
 for last, first in directory:
     print first, last, directory[last,first]
@@ -430,7 +444,7 @@ prints the name and corresponding telephone number.</font><br />
 <br />
 <a name="toc121"></a>
 <h2><font color="black"><a name="htoc132">10.8</a>&nbsp;&nbsp;Sequences: strings, lists, and tuples--Oh My!</font></h2>
-<a name="@default686"></a>
+<a name="@default694"></a>
 <font color="black">I have focused on lists of tuples, but almost all of the examples in
 this chapter also work with lists of lists, tuples of tuples, and
 tuples of lists. To avoid enumerating the possible combinations, it
@@ -440,11 +454,11 @@ In many contexts, the different kinds of sequences (strings, lists and
 tuples) can be used interchangeably. So how and why do you choose one
 over the others?<br />
 <br />
-<a name="@default687"></a>
-<a name="@default688"></a>
-<a name="@default689"></a>
-<a name="@default690"></a>
-<a name="@default691"></a><br />
+<a name="@default695"></a>
+<a name="@default696"></a>
+<a name="@default697"></a>
+<a name="@default698"></a>
+<a name="@default699"></a><br />
 <br />
 To start with the obvious, strings are more limited than other
 sequences because the elements have to be characters. They are
@@ -471,17 +485,17 @@ and <tt>reversed</tt>, which take any sequence as a parameter
 and return a new list with the same elements in a different
 order.</font><br />
 <br />
-<a name="@default692"></a>
-<a name="@default693"></a>
-<a name="@default694"></a>
-<a name="@default695"></a><br />
+<a name="@default700"></a>
+<a name="@default701"></a>
+<a name="@default702"></a>
+<a name="@default703"></a><br />
 <br />
 <a name="toc122"></a>
 <h2><font color="black"><a name="htoc133">10.9</a>&nbsp;&nbsp;Debugging</font></h2>
-<a name="@default696"></a>
-<a name="@default697"></a>
-<a name="@default698"></a>
-<a name="@default699"></a>
+<a name="@default704"></a>
+<a name="@default705"></a>
+<a name="@default706"></a>
+<a name="@default707"></a>
 <font color="black">Lists, dictionaries and tuples are known generically as <b>data
  structures</b>; in this chapter we are starting to see compound data
 structures, like lists of tuples, and dictionaries that contain tuples
@@ -517,7 +531,7 @@ works and that you understand. Then you can start rebuilding.</font></dd></dl>
 and forget the others. Each activity comes with its own failure
 mode.<br />
 <br />
-<a name="@default700"></a><br />
+<a name="@default708"></a><br />
 <br />
 For example, reading your code might help if the problem is a
 typographical error, but not if the problem is a conceptual
@@ -525,7 +539,7 @@ misunderstanding. If you don't understand what your program does, you
 can read it 100 times and never see the error, because the error is in
 your head.<br />
 <br />
-<a name="@default701"></a><br />
+<a name="@default709"></a><br />
 <br />
 Running experiments can help, especially if you run small, simple
 tests. But if you run experiments without thinking or reading your
@@ -534,8 +548,8 @@ which is the process of making random changes until the program
 does the right thing. Needless to say, random walk programming
 can take a long time.<br />
 <br />
-<a name="@default702"></a>
-<a name="@default703"></a><br />
+<a name="@default710"></a>
+<a name="@default711"></a><br />
 <br />
 You have to take time to think. Debugging is like an
 experimental science. You should have at least one hypothesis about
@@ -567,47 +581,47 @@ try the others.</font><br />
 <dl compact="compact"><dt><font color="black"><b>comparable:</b></font></dt><dd><font color="black"> A type where one value can be checked to see if it is
 greater than, less than or equal to another value of the same type.
 Types which are comparable can be put in a list and sorted.
-</font><a name="@default704"></a><br />
+</font><a name="@default712"></a><br />
 <br />
 </dd><dt><font color="black"><b>data structure:</b></font></dt><dd><font color="black"> A collection of related values, often
 organized in lists, dictionaries, tuples, etc.
-</font><a name="@default705"></a><br />
+</font><a name="@default713"></a><br />
 <br />
 </dd><dt><font color="black"><b>DSU:</b></font></dt><dd><font color="black"> Abbreviation of "decorate-sort-undecorate," a
 pattern that involves building a list of tuples, sorting, and
 extracting part of the result.
-</font><a name="@default706"></a><br />
+</font><a name="@default714"></a><br />
 <br />
 </dd><dt><font color="black"><b>gather:</b></font></dt><dd><font color="black"> The operation of assembling a variable-length
 argument tuple.
-</font><a name="@default707"></a><br />
+</font><a name="@default715"></a><br />
 <br />
 </dd><dt><font color="black"><b>hashable:</b></font></dt><dd><font color="black"> A type that has a hash function. Immutable
 types like integers,
 floats and strings are hashable; mutable types like lists and
 dictionaries are not.
-</font><a name="@default708"></a><br />
+</font><a name="@default716"></a><br />
 <br />
 </dd><dt><font color="black"><b>scatter:</b></font></dt><dd><font color="black"> The operation of treating a sequence as a list of
 arguments.
-</font><a name="@default709"></a><br />
+</font><a name="@default717"></a><br />
 <br />
 </dd><dt><font color="black"><b>shape (of a data structure):</b></font></dt><dd><font color="black"> A summary of the type,
 size and composition of a data structure.
-</font><a name="@default710"></a><br />
+</font><a name="@default718"></a><br />
 <br />
 </dd><dt><font color="black"><b>singleton:</b></font></dt><dd><font color="black"> A list (or other sequence) with a single element.
-</font><a name="@default711"></a><br />
+</font><a name="@default719"></a><br />
 <br />
 </dd><dt><font color="black"><b>tuple:</b></font></dt><dd><font color="black"> An immutable sequence of elements.
-</font><a name="@default712"></a><br />
+</font><a name="@default720"></a><br />
 <br />
 </dd><dt><font color="black"><b>tuple assignment:</b></font></dt><dd><font color="black"> An assignment with a sequence on the
 right side and a tuple of variables on the left. The right
 side is evaluated and then its elements are assigned to the
 variables on the left.
-</font><a name="@default713"></a>
-<a name="@default714"></a></dd></dl>
+</font><a name="@default721"></a>
+<a name="@default722"></a></dd></dl>
 <a name="toc124"></a>
 <h2><font color="black"><a name="htoc135">10.11</a>&nbsp;&nbsp;Exercises</font></h2><br />
 <div align="left"><font color="black"><b>Exercise&nbsp;1</b>&nbsp;&nbsp;<em>
@@ -657,21 +671,24 @@ Enter a file name: mbox-short.txt
 19 1
 </em></font></pre></div><br />
 <div align="left"><font color="black"><b>Exercise&nbsp;3</b>&nbsp;&nbsp;<em>
-Write a function called <code>most_frequent</code> that takes a string and
-prints the letters in decreasing order of frequency. Find text
-samples from several different languages and see how letter frequency
+Write a program that reads a file and 
+prints the </em>letters<em> in decreasing order of frequency. Your program
+should convert all the input to lower case and only count the letters a-z.
+Your program should not count spaces, digits, punctuation or anything 
+other than the letters a-z.
+Find text samples from several different languages and see how letter frequency
 varies between languages. Compare your results with the tables at
 <tt>wikipedia.org/wiki/Letter_frequencies</tt>.</em></font><br />
 <br />
-<a name="@default715"></a>
-<a name="@default716"></a></div><br />
-<hr width="50%" size="1" /><dl><dt><font size="5" color="black"><a name="note8" href="#text8">1</a></font></dt><dd><font color="black">Fun fact: The word "tuple" comes from the names
-given to seqences of numbers of varying lengths: single, 
+<a name="@default723"></a>
+<a name="@default724"></a></div><br />
+<hr width="50%" size="1" /><dl><dt><font size="5" color="black"><a name="note9" href="#text9">1</a></font></dt><dd><font color="black">Fun fact: The word "tuple" comes from the names
+given to sequences of numbers of varying lengths: single, 
 double, triple, quadruple, quituple, sextuple, septuple, etc.
-</font></dd><dt><font size="5" color="black"><a name="note9" href="#text9">2</a></font></dt><dd><font color="black">Python does not translate the 
+</font></dd><dt><font size="5" color="black"><a name="note10" href="#text10">2</a></font></dt><dd><font color="black">Python does not translate the 
 syntax literally. For example if you try this with a dictionary
 it will not work as might expect.
-</font></dd><dt><font size="5" color="black"><a name="note10" href="#text10">3</a></font></dt><dd><font color="black">This behavior is slightly different in Python 3.0.
+</font></dd><dt><font size="5" color="black"><a name="note11" href="#text11">3</a></font></dt><dd><font color="black">This behavior is slightly different in Python 3.0.
 </font></dd></dl>
 <hr />
 <a href="cfbook010.html"><img src="previous_motif.gif" alt="Previous" /></a>

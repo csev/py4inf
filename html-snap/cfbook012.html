@@ -15,9 +15,9 @@ Regular expressions
 <hr />
 <h1><font color="black"><a name="htoc136">Chapter&nbsp;11</a>&nbsp;&nbsp;Regular expressions</font></h1>
 <font color="black">So far we have been reading through files, looking for patterns and extracting various bits of lines that we find interesting. We have been using string methods like <tt>split</tt> and <tt>find</tt> and using lists and string slicing to extract portions of the lines.
-<a name="@default717"></a>
-<a name="@default718"></a>
-<a name="@default719"></a><br />
+<a name="@default725"></a>
+<a name="@default726"></a>
+<a name="@default727"></a><br />
 <br />
 This task of searching and extracting is so common that Python has a very powerful library called <b>regular expressions</b> that handles many of these tasks quite elegantly. The reason we have not introduced regular expressions earlier in the book is because while they are very powerful, they are a little complicated and their syntax takes some getting used to. <br />
 <br />
@@ -28,7 +28,7 @@ Regular expressions are almost their own little programming language for searchi
 <tt>http://docs.python.org/library/re.html</tt><br />
 <br />
 The regular expression library must be imported into your program before you can use it. The simplest use of the regular expression library is the <tt>search()</tt> function. The following program demonstrates a trivial use of the search function.
-</font><a name="@default720"></a>
+</font><a name="@default728"></a>
 <pre><font size="4" color="blue">
 import re
 hand = open('mbox-short.txt')
@@ -37,7 +37,7 @@ for line in hand:
     if re.search('From:', line) :
         print line
 </font></pre><font color="black">We open the file, loop through each line and use the regular expression <tt>search()</tt> to only print out lines that contain the string "From:". This program does not use the real power of regular expressions since we could have just as easily used <tt>line.find()</tt> to accomplish the same result.
-<a name="@default721"></a><br />
+<a name="@default729"></a><br />
 <br />
 The power of the regular expressions comes when we add to special characters to the search string that allow us to more precisely control which lines match the string. Adding these special characters to our regular expression allow us to do sophisticated matching and extraction while writing very little code.<br />
 <br />
@@ -53,13 +53,13 @@ for line in hand:
     if re.search('^From:', line) :
         print line
 </font></pre><font color="black">Now we will only match lines that <em>start with</em> the string "From:". This is still a very simple example that we could have done equivalently with the <tt>startswith()</tt> method from the string library. But it serves to introduce the notion that regular expressions contain special action characters that give us more control as to what will match the regular expression.
-</font><a name="@default722"></a><br />
+</font><a name="@default730"></a><br />
 <br />
 <a name="toc125"></a>
 <h2><font color="black"><a name="htoc137">11.1</a>&nbsp;&nbsp;Character matching in regular expressions</font></h2>
 <font color="black">There are a number of other special characters that let us build even more powerful regular expressions. The most commonly used special character is the period character which matches any character.
-<a name="@default723"></a>
-<a name="@default724"></a><br />
+<a name="@default731"></a>
+<a name="@default732"></a><br />
 <br />
 In the following example, the regular expression "F..m:" would match any of the strings "From:", "Fxxm:", "F12m:", or "F!@m:" since the period characters in the regular expression match any character.
 </font><pre><font size="4" color="blue">
@@ -95,7 +95,7 @@ colon character and the at-sign.
 </font><font size="3" color="black">It is possible to tell an asterisk or plus-sign not to be so "greedy" by adding 
 another character. See the detailed documentation for information on turning off the 
 greedy behavior.
-</font><a name="@default725"></a><br />
+</font><a name="@default733"></a><br />
 <br />
 <a name="toc126"></a>
 <h2><font color="black"><a name="htoc138">11.2</a>&nbsp;&nbsp;Extracting data using regular expressions</font></h2>
@@ -107,20 +107,20 @@ Return-Path: &lt;postmaster@collab.sakaiproject.org&gt;
 Received: (from apache@localhost)
 Author: stephen.marquard@uct.ac.za
 </font></pre><font color="black">We don't want to write code for each of the types of lines, splitting and slicing differently for each line. This following program uses <tt>findall()</tt> to find the lines with e-mail addresses in them and extract one or more addresses from each of those lines.
-</font><a name="@default726"></a>
-<a name="@default727"></a>
+</font><a name="@default734"></a>
+<a name="@default735"></a>
 <pre><font size="4" color="blue">
 import re
 s = 'Hello from csev@umich.edu to cwen@iupui.edu about the meeting @2PM'
 lst = re.findall('\S+@\S+', s)
 print lst
 </font></pre><font color="black">The <tt>findall()</tt> method searches the string in the second argument and returns a list of all of the strings that look like e-mail addresses. We are using a two-character sequence 
-that matches a non-whitespace character (S). <br />
+that matches a non-whitespace character (\S). <br />
 <br />
 The output of the program would be:
 </font><pre><font size="4" color="blue">
 ['csev@umich.edu', 'cwen@iupui.edu']
-</font></pre><font color="black">Translating the regular expression, we are looking for substrings that have at least one non-whitespace character, followed by an at-sign, followed by at least one more non-white space characters. Also, the "S+" matches as many non-whitespace characters as possible (this is called <b>"greedy"</b> matching in regular expressions). <br />
+</font></pre><font color="black">Translating the regular expression, we are looking for substrings that have at least one non-whitespace character, followed by an at-sign, followed by at least one more non-white space characters. Also, the "\S+" matches as many non-whitespace characters as possible (this is called <b>"greedy"</b> matching in regular expressions). <br />
 <br />
 The regular expression would match twice (csev@umich.edu and cwen@iupui.edu) but it would not match the string "@2PM" because there are no non-blank characters <em>before</em> the at-sign. 
 We can use this regular expression in a program to read all the lines in a file and print out anything that looks like an e-mail address as follows:
@@ -147,13 +147,13 @@ If we run the program on <tt>mbox.txt</tt> we get the following output:
 ['source@collab.sakaiproject.org;']
 </font></pre><font color="black">Some of our E-mail addresses have incorrect characters like "<code>&lt;</code>" or ";" at the beginning or end. Let's declare that we are only interested in the portion of the string that starts and ends with a letter or a number.<br />
 <br />
-To do this, we use another feature of regular expressions. Square brackets are used to indicate a set of multiple acceptable characters we are willing to consider matching. In a sense, the "S" is asking to match the set of "non-whitespace characters". Now we will be a little more explicit in terms of the characters we will match.<br />
+To do this, we use another feature of regular expressions. Square brackets are used to indicate a set of multiple acceptable characters we are willing to consider matching. In a sense, the "\S" is asking to match the set of "non-whitespace characters". Now we will be a little more explicit in terms of the characters we will match.<br />
 <br />
 Here is our new regular expression:
 </font><pre><font size="4" color="blue">
 [a-zA-Z0-9]\S*@\S*[a-zA-Z]
-</font></pre><font color="black">This is getting a little complicated and you can begin to see why regular expressions are their own little language unto themselves. Translating this regular expression, we are looking for substrings that start with a <em>single</em> lowercase letter, upper case letter, or number "[a-zA-Z0-9]" followed by zero or more non blank characters "S*", followed by an at-sign, followed by zero or more non-blank characters "S*" followed by an upper or lower case letter. Note that we switched from "+" to "*" to indicate zero-or-more non-blank characters since "[a-zA-Z0-9]" is already one non-blank character. Remember that the "*" or "+" applies to the single character immediately to the left of the plus or asterisk.
-<a name="@default728"></a><br />
+</font></pre><font color="black">This is getting a little complicated and you can begin to see why regular expressions are their own little language unto themselves. Translating this regular expression, we are looking for substrings that start with a <em>single</em> lowercase letter, upper case letter, or number "[a-zA-Z0-9]" followed by zero or more non blank characters "\S*", followed by an at-sign, followed by zero or more non-blank characters "\S*" followed by an upper or lower case letter. Note that we switched from "+" to "*" to indicate zero-or-more non-blank characters since "[a-zA-Z0-9]" is already one non-blank character. Remember that the "*" or "+" applies to the single character immediately to the left of the plus or asterisk.
+<a name="@default736"></a><br />
 <br />
 If we use this expression in our program, our data is much cleaner:
 </font><pre><font size="4" color="blue">
@@ -161,7 +161,7 @@ import re
 hand = open('mbox-short.txt')
 for line in hand:
     line = line.rstrip()
-    x = re.findall('[a-zA-Z0-9]\S+@\S+[a-zA-Z]', line)
+    x = re.findall('[a-zA-Z0-9]\S*@\S*[a-zA-Z]', line)
     if len(x) &gt; 0 :
         print x
 </font></pre>
@@ -208,11 +208,11 @@ X-DSPAM-Probability: 0.0000
 X-DSPAM-Confidence: 0.6178
 X-DSPAM-Probability: 0.0000
 </font></pre><font color="black">But now we have to solve the problem of extracting the numbers using <tt>split</tt>. While it would be simple enough to use <tt>split</tt>, we can use another feature of regular expressions to both search and parse the line at the same time.
-<a name="@default729"></a><br />
+<a name="@default737"></a><br />
 <br />
 Parentheses are another special character in regular expressions. When you add parentheses to a regular expression they are ignored when matching the string, but when you are using <tt>findall()</tt>, parentheses indicate that while you want the whole expression to match, you only are interested in extracting a portion of the substring that matches the regular expression. 
-<a name="@default730"></a>
-<a name="@default731"></a><br />
+<a name="@default738"></a>
+<a name="@default739"></a><br />
 <br />
 So we make the following change to our program:
 </font><pre><font size="4" color="blue">
@@ -323,11 +323,11 @@ Matches the end of the line.<br />
 . <br />
 Matches any character (a wildcard).<br />
 <br />
-s <br />
+\s <br />
 Matches a whitespace character.<br />
 <br />
-S <br />
-Matches a non-whitespace character (opposite of s).<br />
+\S <br />
+Matches a non-whitespace character (opposite of \s).<br />
 <br />
 * <br />
 Applies to the immediately preceding character and indicates to match zero or more of the preceding character.<br />
@@ -353,24 +353,25 @@ When the first character in the set notation is a caret, it inverts the logic. T
 ( ) <br />
 When parentheses are added to a regular expression, they are ignored for the purpose of matching, but allow you to extract a particular subset of the matched string rather than the whole string when using <tt>findall()</tt>.<br />
 <br />
-b <br />
+\b <br />
 Matches the empty string, but only at the start or end of a word.<br />
 <br />
-B <br />
+\B <br />
 Matches the empty string, but not at the start or end of a word.<br />
 <br />
-d <br />
+\d <br />
 Matches any decimal digit; equivalent to the set [0-9].<br />
 <br />
-D <br />
+\D <br />
 Matches any non-digit character; equivalent to the set [<code>^</code>0-9].</font><br />
 <br />
 <a name="toc130"></a>
-<h2><font color="black"><a name="htoc142">11.6</a>&nbsp;&nbsp;Bonus section for UNIX users</font></h2>
-<font color="black">Support for searching files using regular expressions was built into the UNIX operating system 
+<h2><font color="black"><a name="htoc142">11.6</a>&nbsp;&nbsp;Bonus section for Unix users</font></h2>
+<font color="black">Support for searching files using regular expressions was built into the Unix operating system 
 since the 1960's and it is available in nearly all programming languages in one form or another.<br />
 <br />
-As a matter of fact, there is a command-line program built into UNIX 
+<a name="@default740"></a>
+As a matter of fact, there is a command-line program built into Unix 
 called <b>grep</b> (Generalized Regular Expression Parser) that does pretty much 
 the same as the <tt>search()</tt> examples in this chapter. So if you have a 
 Macintosh or Linux system, you can try the following commands in your command line window.
@@ -380,7 +381,7 @@ From: stephen.marquard@uct.ac.za
 From: louis@media.berkeley.edu
 From: zqian@umich.edu
 From: rjlowe@iupui.edu
-</font></pre><font color="black">This tells <tt>grep</tt> to show you lines that start with the string "From:" in the file <tt>mbox-short.txt</tt>. If you experiment with the <tt>grep</tt> command a bit and read the documentation for <tt>grep</tt>, you will find some subtle differences between the regular expression support in Python and the regular expression support in <tt>grep</tt>. As an example, <tt>grep</tt> does not support the non-blank character "S" so you will need to use the slightly more complex set notation "[<code>^</code> ]"- which simply means - match a character that is anything other than a space.</font><br />
+</font></pre><font color="black">This tells <tt>grep</tt> to show you lines that start with the string "From:" in the file <tt>mbox-short.txt</tt>. If you experiment with the <tt>grep</tt> command a bit and read the documentation for <tt>grep</tt>, you will find some subtle differences between the regular expression support in Python and the regular expression support in <tt>grep</tt>. As an example, <tt>grep</tt> does not support the non-blank character "\S" so you will need to use the slightly more complex set notation "[<code>^</code> ]"- which simply means - match a character that is anything other than a space.</font><br />
 <br />
 <a name="toc131"></a>
 <h2><font color="black"><a name="htoc143">11.7</a>&nbsp;&nbsp;Debugging</font></h2>
@@ -433,24 +434,24 @@ because it is easily broken.</font><br />
 <br />
 </dd><dt><font color="black"><b>greedy matching:</b></font></dt><dd><font color="black">
 The notion that the "+" and "*" characters in a regular expression expand outward to match the largest possible string.
-</font><a name="@default732"></a>
-<a name="@default733"></a><br />
+</font><a name="@default741"></a>
+<a name="@default742"></a><br />
 <br />
 </dd><dt><font color="black"><b>grep:</b></font></dt><dd><font color="black">
-A command available in most UNIX systems that searches through text files looking for lines that match regular expressions. The command name stands for "Generalized Regular Expression Parser".
-</font><a name="@default734"></a><br />
+A command available in most Unix systems that searches through text files looking for lines that match regular expressions. The command name stands for "Generalized Regular Expression Parser".
+</font><a name="@default743"></a><br />
 <br />
 </dd><dt><font color="black"><b>regular expression:</b></font></dt><dd><font color="black">
 A language for expressing more complex search strings. A regular expression may contain special characters that indicate that a search only matches at the beginning or end of a line or many other similar capabilities.</font><br />
 <br />
 </dd><dt><font color="black"><b>wild card:</b></font></dt><dd><font color="black">
 A special character that matches any character. In regular expressions the wild card character is the period character.
-</font><a name="@default735"></a></dd></dl>
+</font><a name="@default744"></a></dd></dl>
 <a name="toc133"></a>
 <h2><font color="black"><a name="htoc145">11.9</a>&nbsp;&nbsp;Exercises</font></h2><br />
 <div align="left"><font color="black"><b>Exercise&nbsp;1</b>&nbsp;&nbsp;<em>
 Write a simple program to simulate the operation of the the <tt>grep</tt> command 
-on UNIX. Ask the user to enter a regular expression and count the number
+on Unix. Ask the user to enter a regular expression and count the number
 of lines that matched the regular expression:
 </em></font><pre><font size="4" color="blue"><em>
 $ python grep.py
