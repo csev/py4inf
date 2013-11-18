@@ -19,7 +19,7 @@
 \usepackage{upquote}
 
 \newcommand{\thetitle}{Python for Informatics: Exploring Information}
-\newcommand{\theversion}{0.0.8-d2}
+\newcommand{\theversion}{0.0.8-d3}
 
 \makeindex
 
@@ -164,7 +164,7 @@ to write a Python textbook that focused on exploring data
 instead of understanding algorithms and abstractions.
 My goal in SI502 is to teach people life-long data handling 
 skills using Python.  Few of my
-students were planning to be be professional 
+students were planning to be professional 
 computer programmers.  Instead, they
 planned be librarians, managers, lawyers, biologists, economists, etc. 
 who happened to want to skillfully use technology in their chosen field.
@@ -1055,7 +1055,7 @@ from machine language up to the high-level languages.
 
 \begin{description}
 
-\item[input:] Get data from the the ``outside world''.  This might be 
+\item[input:] Get data from the ``outside world''.  This might be 
 reading data from a file, or even some kind of sensor like 
 a microphone or GPS.  In our initial programs, our input will come from the user
 typing data on the keyboard.
@@ -1316,7 +1316,7 @@ What is a program?
 \end{ex}
 
 \begin{ex}
-What is is the difference between a compiler and an interpreter?
+What is the difference between a compiler and an interpreter?
 \end{ex}
 
 \begin{ex}
@@ -1740,7 +1740,7 @@ for line in hand:
 \end{verbatim}
 \afterverb
 %
-Translating our regular expression, we are looking for lines that start with ``Details:', followed by any any number of characters ``.*'' followed by ``rev='' and then by one or more digits.   We want lines that match the entire expression but we only want to extract the integer number at the end of the line so we surround ``[0-9]+'' with parentheses.  
+Translating our regular expression, we are looking for lines that start with ``Details:', followed by any number of characters ``.*'' followed by ``rev='' and then by one or more digits.   We want lines that match the entire expression but we only want to extract the integer number at the end of the line so we surround ``[0-9]+'' with parentheses.  
 
 When we run the program, we get the following output:
 
@@ -2002,7 +2002,7 @@ A special character that matches any character.   In regular expressions the wil
 \section{Exercises}
 
 \begin{ex}
-Write a simple program to simulate the operation of the the {\tt grep} command 
+Write a simple program to simulate the operation of the {\tt grep} command 
 on Unix.  Ask the user to enter a regular expression and count the number
 of lines that matched the regular expression:
 
@@ -2257,7 +2257,7 @@ Content-Type: image/jpeg
 \end{verbatim}
 \afterverb
 %
-You can see that that for this url, the 
+You can see that for this url, the 
 {\tt Content-Type } header indicates that
 body of the document is an image ({\tt image/jpeg}).
 Once the program completes, you can view the image data by opening
@@ -2323,7 +2323,7 @@ sending application or the receiving application is called
 
 While we can manually send and receive data over HTTP 
 using the socket library, there is a much simpler way to 
-to perform this common task in Python by 
+perform this common task in Python by 
 using the {\tt urllib} library.
 
 Using {\tt urllib},
@@ -4425,7 +4425,7 @@ Depending on whether or not the person is already
 in the {\tt People} table, we either need to: 
 (1) look up the person in the {\tt People} table and 
 retrieve the {\tt id} value for the person 
-or (2) add the person the the {\tt People} table and get the 
+or (2) add the person the {\tt People} table and get the 
 {\tt id} value for the newly added row.
 
 \item Insert the row that captures the ``follows'' relationship.
@@ -5035,8 +5035,8 @@ want to check the JavaScript or developer console for your browser.
 
 In this application, we will perform some of the functions of a search
 engine.   We will first spider a small subset of the web and then run
-a simplified version of the Google page rank algorithm to
-to determine which pages are most highly connected and then visualize
+a Simplified version of the Google page rank algorithm to
+determine which pages are most highly connected and then visualize
 the page rank and connectivity of our small corner of the web.
 We will use the D3 JavaScript visualization library 
 \url{http://d3js.org/} to produce the visualization output.
@@ -5356,7 +5356,7 @@ sgithens@cam.ac.uk -> swgithen@mtu.edu
 \afterverb
 %
 You can also make similar entries in the DNSMapping table if there are multiple
-DNS names you want mapped to a single DNS.  The following mapping was added to the the Sakai data:
+DNS names you want mapped to a single DNS.  The following mapping was added to the Sakai data:
 
 \beforeverb
 \begin{verbatim}
@@ -5449,7 +5449,7 @@ directories and folders on your computers and read those files
 as well.
 
 In this chapter, we will write programs that scan 
-scan through your computer and 
+through your computer and 
 perform some operation on each file.  
 Files are organized into directories (also called ``folders'').
 Simple Python scripts
@@ -5934,7 +5934,7 @@ text = handle.read()
 We can simplify this program a bit by taking the file name
 from the command line when we start Python.  Up to now,
 we simply run our Python programs and respond to the 
-prompts as as follows:
+prompts as follows:
 
 \beforeverb
 \begin{verbatim}
