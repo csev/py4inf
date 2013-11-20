@@ -10,6 +10,7 @@
     <script>
 
       function initialize() {
+        alert("To see the title of a marker, hover over the marker but don't click.");
         var myLatlng = new google.maps.LatLng(37.39361,-122.099263)
         var mapOptions = {
           zoom: 3,
@@ -21,23 +22,23 @@
         i = 0;
         var markers = [];
         for ( pos in myData ) {
-        i = i + 1;
-        var row = myData[pos];
-        // if ( i < 3 ) { alert(row); }
-        var newLatlng = new google.maps.LatLng(row[0], row[1]);
-        var marker = new google.maps.Marker({
-            position: newLatlng,
-            map: map,
-            title: row[2]
-        });
-        markers.push(marker);
+            i = i + 1;
+            var row = myData[pos];
+		    window.console && console.log(row);
+            // if ( i < 3 ) { alert(row); }
+            var newLatlng = new google.maps.LatLng(row[0], row[1]);
+            var marker = new google.maps.Marker({
+                position: newLatlng,
+                map: map,
+                title: row[2]
+            });
+            markers.push(marker);
         }
       }
-      alert("To see the title of a marker, hover over the marker but don't click.");
     </script>
   </head>
   <body onload="initialize()">
-    <div id="map_canvas"></div>
+<div id="map_canvas" style="height: 500px"></div>
 <p><b>About this Map</b></p>
 <p>
 This is a cool map from 
