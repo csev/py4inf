@@ -33,8 +33,12 @@ for line in fh:
     data = uh.read()
     print 'Retrieved',len(data),'characters',data[:20].replace('\n',' ')
     count = count + 1
-    try: js = json.loads(str(data))
-    except: js = None
+    try: 
+        js = json.loads(str(data))
+        print js  # We print in case unicode causes an error
+    except: 
+        continue
+
     if 'status' not in js or (js['status'] != 'OK' and js['status'] != 'ZERO_RESULTS') : 
         print '==== Failure To Retrieve ===='
         print data
@@ -43,7 +47,6 @@ for line in fh:
     cur.execute('''INSERT INTO Locations (address, geodata) 
             VALUES ( ?, ? )''', ( buffer(address),buffer(data) ) )
     conn.commit() 
-    print js
     time.sleep(1)
 
 print "Run geodump.py to read the data from the database so you can vizualize it on a map."
