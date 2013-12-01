@@ -41,7 +41,7 @@ print 'Range of counts:',highest,lowest
 bigsize = 80
 smallsize = 20
 
-fhand = open('gword.jsonp','w')
+fhand = open('gword.js','w')
 fhand.write("gword = [")
 first = True
 for k in x[:100]:
@@ -53,4 +53,4 @@ for k in x[:100]:
     fhand.write("{text: '"+k+"', size: "+str(size)+"}")
 fhand.write( "\n];\n")
 
-print "Output written to gword.jsonp"
+print "Output written to gword.js"

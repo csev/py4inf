@@ -21,12 +21,15 @@ for row in cur :
     if lat == 0 or lng == 0 : continue
     where = js['results'][0]['formatted_address']
     where = where.replace("'","")
-    print where, lat, lng
+    try :
+        print where, lat, lng
 
-    count = count + 1
-    if count > 1 : fhand.write(",\n")
-    output = "["+str(lat)+","+str(lng)+", '"+where+"']"
-    fhand.write(output)
+        count = count + 1
+        if count > 1 : fhand.write(",\n")
+        output = "["+str(lat)+","+str(lng)+", '"+where+"']"
+        fhand.write(output)
+    except:
+        continue
 
 fhand.write("\n];\n")
 cur.close()

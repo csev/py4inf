@@ -3,7 +3,7 @@ import sqlite3
 conn = sqlite3.connect('spider.sqlite')
 cur = conn.cursor()
 
-print "Creating JSON output on spider.json..."
+print "Creating JSON output on spider.js..."
 howmany = int(raw_input("How many nodes? "))
 
 cur.execute('''SELECT COUNT(from_id) AS inbound, old_rank, new_rank, id, url 
@@ -11,7 +11,7 @@ cur.execute('''SELECT COUNT(from_id) AS inbound, old_rank, new_rank, id, url
     WHERE html IS NOT NULL AND ERROR IS NULL
     GROUP BY id ORDER BY id,inbound''')
 
-fhand = open('spider.json','w')
+fhand = open('spider.js','w')
 nodes = list()
 maxrank = None
 minrank = None
