@@ -6,12 +6,12 @@ software development through the lens of exploring data.   You can think of
 the Python programming language as your tool to solve data problems that are 
 far beyond the capability of a spreadsheet.
 
+* Programming for Everybody course using this book on Coursera - http://www.pr4e.org
 * Free electronic copies of this book in many formats http://www.pythonlearn.com/book.php
 * Printed books can be purchased from https://www.createspace.com/4430203 or from Amazon
 * Lectures, notes, etc - http://www.pythonlearn.com/
 * Sample code solutions from the book are avilable at - http://www.pythonlearn.com/code/
-* Free, online PY4INF MOOC with a Mozilla Badge - https://online.dr-chuck.com/
-* Open Educational Resources (OER) for the book - https://online.dr-chuck.com/files/oer/py4inf-002/
+* Open Educational Resources (OER) for the book - http://oer.pr4e.org/
 
 I hope you find the book useful and hope to make it as easy as possible for teachers
 to adopt and use this book by providing these materials.
