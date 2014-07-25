@@ -7,7 +7,7 @@ latex book
 dvipdf book.dvi book.pdf
 if [[ "$OSTYPE" == "darwin"* ]]; then
   open book.pdf
-elif [[ "$OSTYPE" == "linux-gnu" ]]; then
+elif [[ "$OSTYPE" == "linux-gnu" && -n "$DISPLAY" ]]; then
   xdg-open book.pdf
 else
   echo "Output on book.pdf"

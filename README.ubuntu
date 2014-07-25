@@ -10,3 +10,5 @@ sudo apt-get install texlive-latex-extra
 
 sudo apt-get install hevea
 
+sudo apt-get install imagemagick
+
