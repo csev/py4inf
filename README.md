@@ -1,31 +1,94 @@
 Python for Informatics: Exploring Information
 =============================================
 
-Python for Informatics is designed to introduce students to programming and 
-software development through the lens of exploring data.   You can think of 
-the Python programming language as your tool to solve data problems that are 
-far beyond the capability of a spreadsheet.
+This is the source code for "Python for Informatics: Exploring Information"
+the web site for this book is http://www.pythonlearn.com/
 
-* Programming for Everybody course using this book on Coursera - http://www.pr4e.org
-* Free electronic copies of this book in many formats http://www.pythonlearn.com/book.php
-* Printed books can be purchased from https://www.createspace.com/4430203 or from Amazon
-* Lectures, notes, etc - http://www.pythonlearn.com/
-* Sample code solutions from the book are avilable at - http://www.pythonlearn.com/code/
-* Open Educational Resources (OER) for the book - http://oer.pr4e.org/
+LaTeX Files
+-----------
 
-I hope you find the book useful and hope to make it as easy as possible for teachers
-to adopt and use this book by providing these materials.
+The source file for the book is *book.tex* - this file includes the 
+per-chapter files *00-cover.tex* through *AD-copyright.tex*
 
-If you are interested in a book that teaches Python from the perspective of
-a Computer Scientist, I recommend "Think Python" written by Allen B. Downey 
-or the "Interactive Python" web site:
+Workflow
+--------
 
-* Think Python - http://shop.oreilly.com/product/0636920025696.do
-* Interactive Python - http://interactivepython.org/
+Once you have LaTeX and HeVeA installed properly the workflow is simple. 
+To produce the PDF version of the book you type:
 
-If you are an absolute beginner at programming, Python for Informatics is 
-likely the best starting point for your programming learning.   Once you 
-understand the basics of programming from this book and its associated 
-materials, you will be better prepared to learn from the more 
-advanced books or other online Python courses.
+    bash book.sh
+
+This leaves the output on *book.pdf* and if you are on a Mac or Linux, it
+even attempts to open the PDF viewer for your system.
+
+To produce the HTML version of the book you type:
+
+    bash html.sh
+
+This produces files in the *html* folder.  This folder contains the book, chapters in
+HTML and the images for the book.  
+
+To make EPUB or MOBI files I use the Caliper software.  The steps that I tak in Caliper
+are here:
+
+* [Importing HTML into Caliper](CALIPER.md)
+
+I also have a server that builds the latest version from this repository at this URL:
+
+    http://do1.dr-chuck.com/py4inf/EN-us/
+
+I don't yet have the files that make up the build server checked in because it is 
+still a bit of a hack.  If you want to set up your own build server - I will check
+the files in.
+
+Software Installation - Macintosh
+---------------------------------
+
+Running the script to produce the PDF is really easy and convenent on the Mac.  Simply
+install this software:
+
+https://tug.org/mactex/
+
+Make sure to install the extras as well.   If you have a recent Mac you **cannot** make
+the binary download of *hevea* work as it is a PowerPC binary.  If you want to do the HTML
+generation, you need a variant of Linux.
+
+Software Installation - Ubuntu
+------------------------------
+
+This is the rough set of steps I use on ubuntu:
+
+    sudo apt-get install texlive-latex-base
+    sudo apt-get install texlive-latex-recommended
+    sudo apt-get install texlive-fonts-recommended 
+    sudo apt-get install texlive-latex-extra
+    sudo apt-get install hevea
+    sudo apt-get install imagemagick
+
+You could put them all on one long apt-get, but I like to see if they work :)
+
+Once this is done, the *book.sh* and *html.sh* should both work just fine.  For
+my own sanity, I have Parallels with an ubuntu image that I can use to generate
+HTML.  It was easier than keeping a four-year-old MacBook running with Rosetta
+support.
+
+TO DO
+-----
+
+I need to document and check in the code to run a build server.  The build server
+is another way for a MacBook without HeVeA to develop.  Edit locally, check the PDF
+and then check in the changes wait a tick and then the HTML is made in the build 
+server.
+
+I also need to work up documentation as to how to fork this repo for a language 
+translation effort on this book.   I have refactored the source to make it
+easier to edit the book using git and my build server can handle any number of 
+languages.  If you are interested in starting a language translation project
+for this book - please read the Appendix on copyright and contact me.
+
+Chuck Severance - 
+Fri Jul 25 20:25:16 EDT 2014
+
+
+
 
