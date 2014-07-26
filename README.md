@@ -28,14 +28,14 @@ To produce the HTML version of the book you type:
 This produces files in the *html* folder.  This folder contains the book, chapters in
 HTML and the images for the book.  
 
-To make EPUB or MOBI files I use the Calibre software.  The steps that I tak in Caliper
+To make EPUB or MOBI files I use the Calibre software.  The steps that I take in Caliper
 are here:
 
 * [Importing HTML into Calibre](CALIBRE.md)
 
 I also have a server that builds the latest version from this repository at this URL:
 
-http://do1.dr-chuck.com/py4inf/EN-us/
+* http://do1.dr-chuck.com/py4inf/EN-us/
 
 I don't yet have the files that make up the build server checked in because it is 
 still a bit of a hack.  If you want to set up your own build server - I will check
@@ -47,7 +47,7 @@ Software Installation - Macintosh
 Running the script to produce the PDF is really easy and convenent on the Mac.  Simply
 install this software:
 
-https://tug.org/mactex/
+* https://tug.org/mactex/
 
 Make sure to install the extras as well.   If you have a recent Mac you **cannot** make
 the binary download of *hevea* work as it is a PowerPC binary.  If you want to do the HTML
