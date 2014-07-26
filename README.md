@@ -35,7 +35,7 @@ are here:
 
 I also have a server that builds the latest version from this repository at this URL:
 
-    http://do1.dr-chuck.com/py4inf/EN-us/
+http://do1.dr-chuck.com/py4inf/EN-us/
 
 I don't yet have the files that make up the build server checked in because it is 
 still a bit of a hack.  If you want to set up your own build server - I will check
