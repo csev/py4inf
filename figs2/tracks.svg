@@ -13,7 +13,7 @@
    height="303.55728"
    id="svg4392"
    version="1.1"
-   inkscape:version="0.47 r22583"
+   inkscape:version="0.48.0 r9654"
    sodipodi:docname="tracks.svg">
   <defs
      id="defs4394">
@@ -51,7 +51,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -83,7 +83,7 @@
          sodipodi:role="line"
          id="tspan4408"
          x="153.33333"
-         y="115">Friends</tspan></text>
+         y="115">Tracks</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
