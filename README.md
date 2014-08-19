@@ -72,6 +72,39 @@ my own sanity, I have Parallels with an Ubuntu image that I can use to generate
 HTML.  It was easier than keeping a four-year-old MacBook running with Rosetta
 support.
 
+Translating This Book
+---------------------
+
+This book is available with a 
+Creative Commons
+Attribution-NonCommercial-ShareAlike 3.0 Unported License.  So as long as you
+are not intending to profit rom the translation, no permission to translate
+and publish is needed.  If you want to sell the resulting translated book 
+commercially, please see the Appendix on Copyright and contact me.
+
+Here are some of the translations in-progress:
+
+* Spanish - http://do1.dr-chuck.com/py4inf/ES-es/
+* Italian - (Need link)
+* Korean - (Need link)
+
+You can use any technology you like LaTeX, Google Docs, WikiBook or whatever you choose.
+
+If you can figure out LaTeX, the easiest way to translate the book is to fork
+my repo on GitHub and start translating in your own repo.  That way it will be easier
+to catch up with changes I make to the English version of the book.  This is how 
+the Spanish translation be being done by Hedemarrie Dussan in this github repository:
+
+* https://github.com/hedemarrie/py4inf-esp
+
+If you start a translation in github, please contact me so I can add it to my automatic 
+build process:
+
+* http://do1.dr-chuck.com/py4inf/
+
+This way your latest work will be easily found by students and linked from my web site
+once the translation is well under way.
+
 TO DO
 -----
 
@@ -79,12 +112,6 @@ I need to document and check in the code to run a build server.  The build serve
 is another way for a MacBook user without HeVeA to develop.  Edit locally, check 
 the PDF and then check in the changes wait a tick and then the HTML is made in 
 the build server.
-
-I also need to work up documentation as to how to fork this repo for a language 
-translation effort on this book.   I have refactored the source to make it
-easier to edit the book using git and my build server can handle any number of 
-languages.  If you are interested in starting a language translation project
-for this book - please read the Appendix on copyright and contact me.
 
 I have no idea how LaTeX works on Windows.  I would be happy to get a PR
 with some documentation.
