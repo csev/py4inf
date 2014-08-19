@@ -88,6 +88,8 @@ Here are some of the translations in-progress:
 * Italian - (Need link)
 * Korean - (Need link)
 
+Feel free to send me a link (or just edit this page and send me a Pull Request).
+
 You can use any technology you like LaTeX, Google Docs, WikiBook or whatever you choose.
 
 If you can figure out LaTeX, the easiest way to translate the book is to fork
@@ -103,7 +105,7 @@ build process:
 * http://do1.dr-chuck.com/py4inf/
 
 This way your latest work will be easily found by students and linked from my web site
-once the translation is well under way.
+once the translation is under way.
 
 TO DO
 -----
