@@ -78,7 +78,7 @@ Translating This Book
 This book is available with a 
 Creative Commons
 Attribution-NonCommercial-ShareAlike 3.0 Unported License.  So as long as you
-are not intending to profit rom the translation, no permission to translate
+are not intending to profit from the translation, no permission to translate
 and publish is needed.  If you want to sell the resulting translated book 
 commercially, please see the Appendix on Copyright and contact me.
 
@@ -117,7 +117,7 @@ I have no idea how LaTeX works on Windows.  I would be happy to get a PR
 with some documentation.
 
 Chuck Severance - 
-Fri Jul 25 20:25:16 EDT 2014
+Mon Aug 18 22:20:12 EDT 2014
 
 
 
