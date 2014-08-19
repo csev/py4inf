@@ -95,7 +95,7 @@ You can use any technology you like LaTeX, Google Docs, WikiBook or whatever you
 If you can figure out LaTeX, the easiest way to translate the book is to fork
 my repo on GitHub and start translating in your own repo.  That way it will be easier
 to catch up with changes I make to the English version of the book.  This is how 
-the Spanish translation be being done by Hedemarrie Dussan in this github repository:
+the Spanish translation is being done by Hedemarrie Dussan in this github repository:
 
 * https://github.com/hedemarrie/py4inf-esp
 
