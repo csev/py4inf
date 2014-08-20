@@ -1,0 +1,188 @@
+\indexentry{hardware}{2}
+\indexentry{hardware!architecture}{2}
+\indexentry{problem solving}{4}
+\indexentry{programming language}{5}
+\indexentry{language!programming}{5}
+\indexentry{interactive mode}{6}
+\indexentry{script}{10}
+\indexentry{program}{11}
+\indexentry{bug}{15}
+\indexentry{central processing unit}{15}
+\indexentry{CPU}{15}
+\indexentry{compile}{15}
+\indexentry{high-level language}{15}
+\indexentry{interactive mode}{15}
+\indexentry{interpret}{15}
+\indexentry{low-level language}{15}
+\indexentry{machine code}{15}
+\indexentry{main memory}{15}
+\indexentry{parse}{15}
+\indexentry{portability}{15}
+\indexentry{print statement}{15}
+\indexentry{statement!print}{15}
+\indexentry{problem solving}{15}
+\indexentry{program}{15}
+\indexentry{prompt}{15}
+\indexentry{secondary memory}{15}
+\indexentry{semantics}{15}
+\indexentry{semantic error}{15}
+\indexentry{source code}{15}
+\indexentry{value}{19}
+\indexentry{type}{19}
+\indexentry{string}{19}
+\indexentry{quotation mark}{19}
+\indexentry{type}{19}
+\indexentry{string type}{19}
+\indexentry{type!str}{19}
+\indexentry{int type}{19}
+\indexentry{type!int}{19}
+\indexentry{float type}{19}
+\indexentry{type!float}{19}
+\indexentry{quotation mark}{20}
+\indexentry{semantic error}{20}
+\indexentry{error!semantic}{20}
+\indexentry{error message}{20}
+\indexentry{variable}{20}
+\indexentry{assignment statement}{20}
+\indexentry{statement!assignment}{20}
+\indexentry{keyword}{21}
+\indexentry{underscore character}{21}
+\indexentry{keyword}{21}
+\indexentry{statement}{21}
+\indexentry{interactive mode}{21}
+\indexentry{script mode}{21}
+\indexentry{operator, arithmetic}{22}
+\indexentry{arithmetic operator}{22}
+\indexentry{operand}{22}
+\indexentry{expression}{22}
+\indexentry{Python 3.0}{22}
+\indexentry{floor division}{22}
+\indexentry{floating-point division}{22}
+\indexentry{division!floor}{22}
+\indexentry{division!floating-point}{22}
+\indexentry{expression}{22}
+\indexentry{evaluate}{22}
+\indexentry{order of operations}{23}
+\indexentry{rules of precedence}{23}
+\indexentry{PEMDAS}{23}
+\indexentry{parentheses!overriding precedence}{23}
+\indexentry{modulus operator}{24}
+\indexentry{operator!modulus}{24}
+\indexentry{divisibility}{24}
+\indexentry{string!operation}{24}
+\indexentry{operator!string}{24}
+\indexentry{concatenation}{24}
+\indexentry{keyboard input}{24}
+\indexentry{Python 3.0}{25}
+\indexentry{raw\_input function}{25}
+\indexentry{function!raw\_input}{25}
+\indexentry{prompt}{25}
+\indexentry{newline}{25}
+\indexentry{ValueError}{25}
+\indexentry{exception!ValueError}{25}
+\indexentry{comment}{25}
+\indexentry{mnemonic}{26}
+\indexentry{debugging}{28}
+\indexentry{syntax error}{28}
+\indexentry{error!syntax}{28}
+\indexentry{error message}{28}
+\indexentry{use before def}{28}
+\indexentry{exception}{28}
+\indexentry{runtime error}{28}
+\indexentry{error!runtime}{28}
+\indexentry{case-sensitivity, variable names}{28}
+\indexentry{semantic error}{28}
+\indexentry{error!semantic}{28}
+\indexentry{order of operations}{28}
+\indexentry{assignment}{28}
+\indexentry{concatenation}{28}
+\indexentry{comment}{28}
+\indexentry{expression}{28}
+\indexentry{floating-point}{28}
+\indexentry{floor division}{29}
+\indexentry{integer}{29}
+\indexentry{keyword}{29}
+\indexentry{mnemonic}{29}
+\indexentry{modulus operator}{29}
+\indexentry{operator!modulus}{29}
+\indexentry{operand}{29}
+\indexentry{operator}{29}
+\indexentry{rules of precedence}{29}
+\indexentry{precedence}{29}
+\indexentry{statement}{29}
+\indexentry{string}{29}
+\indexentry{type}{29}
+\indexentry{value}{29}
+\indexentry{variable}{29}
+\indexentry{boolean expression}{31}
+\indexentry{expression!boolean}{31}
+\indexentry{logical operator}{31}
+\indexentry{operator!logical}{31}
+\indexentry{True special value}{31}
+\indexentry{False special value}{31}
+\indexentry{special value!True}{31}
+\indexentry{special value!False}{31}
+\indexentry{bool type}{31}
+\indexentry{type!bool}{31}
+\indexentry{comparison operator}{31}
+\indexentry{operator!comparison}{31}
+\indexentry{logical operator}{32}
+\indexentry{operator!logical}{32}
+\indexentry{and operator}{32}
+\indexentry{or operator}{32}
+\indexentry{not operator}{32}
+\indexentry{operator!and}{32}
+\indexentry{operator!or}{32}
+\indexentry{operator!not}{32}
+\indexentry{conditional statement}{32}
+\indexentry{statement!conditional}{32}
+\indexentry{if statement}{32}
+\indexentry{statement!if}{32}
+\indexentry{conditional execution}{32}
+\indexentry{condition}{32}
+\indexentry{compound statement}{32}
+\indexentry{statement!compound}{32}
+\indexentry{pass statement}{33}
+\indexentry{statement!pass}{33}
+\indexentry{alternative execution}{33}
+\indexentry{else keyword}{33}
+\indexentry{keyword!else}{33}
+\indexentry{branch}{33}
+\indexentry{chained conditional}{34}
+\indexentry{conditional!chained}{34}
+\indexentry{elif keyword}{34}
+\indexentry{keyword!elif}{34}
+\indexentry{nested conditional}{34}
+\indexentry{conditional!nested}{34}
+\indexentry{traceback}{36}
+\indexentry{fahrenheit}{36}
+\indexentry{celsius}{36}
+\indexentry{temperature conversion}{36}
+\indexentry{short circuit}{37}
+\indexentry{guardian pattern}{37}
+\indexentry{pattern!guardian}{37}
+\indexentry{debugging}{38}
+\indexentry{traceback}{38}
+\indexentry{whitespace}{38}
+\indexentry{error!runtime}{39}
+\indexentry{runtime error}{39}
+\indexentry{exception!OverflowError}{39}
+\indexentry{OverflowError}{39}
+\indexentry{floor division}{39}
+\indexentry{division!floor}{39}
+\indexentry{body}{39}
+\indexentry{boolean expression}{39}
+\indexentry{expression!boolean}{39}
+\indexentry{branch}{39}
+\indexentry{chained conditional}{39}
+\indexentry{conditional!chained}{39}
+\indexentry{conditional statement}{40}
+\indexentry{statement!conditional}{40}
+\indexentry{condition}{40}
+\indexentry{compound statement}{40}
+\indexentry{guardian pattern}{40}
+\indexentry{pattern!guardian}{40}
+\indexentry{nested conditional}{40}
+\indexentry{conditional!nested}{40}
+\indexentry{traceback}{40}
+\indexentry{short circuit}{40}

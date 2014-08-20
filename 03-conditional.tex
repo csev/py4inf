@@ -1,18 +1,16 @@
 % LaTeX source for ``Python for Informatics: Exploring Information''
 % Copyright (c)  2010-  Charles R. Severance, All Rights Reserved
 
-\chapter{Conditional execution}
+\chapter{조건부 실행}
 
-\section{Boolean expressions}
+\section{불 연산식(Boolean expressions)}
 \index{boolean expression}
 \index{expression!boolean}
 \index{logical operator}
 \index{operator!logical}
 
-A {\bf boolean expression} is an expression that is either true
-or false.  The following examples use the 
-operator {\tt ==}, which compares two operands and produces
-{\tt True} if they are equal and {\tt False} otherwise:
+{\bf 불 연산식(boolean expression)}은 참(True) 혹은 거짓(False)를 가진 연산 표현식이다. 
+다음 예제는 {\tt ==} 연산자를 사용하는데 두개의 피연산자를 비교하여 값이 동일하면 {\tt 참(True)}, 그렇지 않으면 {\tt 거짓(False)}을 출력한다.
 
 \beforeverb
 \begin{verbatim}
@@ -23,8 +21,8 @@ False
 \end{verbatim}
 \afterverb
 %
-{\tt True} and {\tt False} are special
-values that belong to the type {\tt bool}; they are not strings:
+
+{\tt 참(True)}과 {\tt 거짓(False)}은 {\tt 불(bool)}형식에 속하는 특별한 값들이고, 문자열은 아니다.
 
 \index{True special value}
 \index{False special value}
@@ -42,44 +40,41 @@ values that belong to the type {\tt bool}; they are not strings:
 \end{verbatim}
 \afterverb
 %
-The {\tt ==} operator is one of the {\bf comparison operators}; the
-others are:
+
+{\tt ==}연산자는 {\bf 비교(comparison operators)} 연산자 중의 하나이고, 다른 연산자는 다음과 같다.
 
 \beforeverb
 \begin{verbatim}
-      x != y               # x is not equal to y
-      x > y                # x is greater than y
-      x < y                # x is less than y
-      x >= y               # x is greater than or equal to y
-      x <= y               # x is less than or equal to y
-      x is y               # x is the same as y
-      x is not y           # x is not the same as y
+      x != y               # x는 y와 값이 같지 않다.
+      x > y                # x는 y보다 크다.
+      x < y                # x는 y보다 작다.
+      x >= y               # x는 y보다 크거나 같다.
+      x <= y               # x는 y보다 작거나 같다.
+      x is y               # x는 y와 같다.
+      x is not y           # x는 y와 개체가 동일하지 않다.
 \end{verbatim}
 \afterverb
 %
-Although these operations are probably familiar to you, the Python
-symbols are different from the mathematical symbols.  A common error
-is to use a single equal sign ({\tt =}) instead of a double equal sign
-({\tt ==}).  Remember that {\tt =} is an assignment operator and
-{\tt ==} is a comparison operator.   There is no such thing as
-{\tt =<} or {\tt =>}.
+여러분에게 이들 연산자가 친숙할지 모르지만, 파이썬 기호는 수학 기호와는 다르다. 
+일반적인 오류에는 비교의 같다의 의미로 {\tt ==} 연산자 대신에 {\tt =}를 사용하는 것이다.
+{\tt =} 연산자는 할당 연산자이고, {\tt ==}연산자는 비교 연산자이다. {\tt =<}, {\tt =>} 비교 연산자는 파이썬에는 없다.
 
 \index{comparison operator}
 \index{operator!comparison}
 
 
-\section {Logical operators}
+\section {논리 연산자}
 \index{logical operator}
 \index{operator!logical}
 
-There are three {\bf logical operators}: {\tt and}, {\tt
-or}, and {\tt not}.  The semantics (meaning) of these operators is
-similar to their meaning in English.  For example,
+
+
+3개의 {\bf 논리 연산자(logical operators)}: {\tt and}, {\tt
+or}, {\tt not}가 있다. 논리 연산자 의미는 영어 의미와 유사하다. 예를 들어,
 
 {\tt x > 0 and x < 10} 
 
-is true only if {\tt x} is greater than 0
-\emph{and} less than 10.
+{\tt x}이 0 보다 크다. \emph{그리고(and)}, 10 보다 작으면 참이다.
 
 \index{and operator}
 \index{or operator}
@@ -88,16 +83,12 @@ is true only if {\tt x} is greater than 0
 \index{operator!or}
 \index{operator!not}
 
-{\tt n\%2 == 0 or n\%3 == 0} is true if \emph{either} of the conditions
-is true, that is, if the number is divisible by 2 \emph{or} 3.
 
-Finally, the {\tt not} operator negates a boolean
-expression, so {\tt not (x > y)} is true if {\tt x > y} is false,
-that is, if {\tt x} is less than or equal to {\tt y}.
+{\tt n\%2 == 0 or n\%3 == 0}은 두 조건문 중의 하나만 참이되면, 즉, 숫자가 2 \emph{혹은(or)} 3으로 나누어진다면 참이다.
 
-Strictly speaking, the operands of the logical operators should be
-boolean expressions, but Python is not very strict.
-Any nonzero number is interpreted as ``true.''
+마지막으로 {\tt not} 연산자는 불 연산 표현을 부정한다. {\tt x > y}이 거짓이면, {\tt not (x > y)}은 참이다. 즉, {\tt x}이 {\tt y} 보다 작거나 같으면 참이다.
+
+엄밀히 말해서, 논리 연산자의 두 피연산자는 모두 불 연산 표현이여야 하지만, 파이썬은 그렇게 엄격하지는 않는다. 어떤 0이 아닌 숫자 모두 "true"로 해석된다.
 
 \beforeverb
 \begin{verbatim}
@@ -106,12 +97,10 @@ True
 \end{verbatim}
 \afterverb
 %
-This flexibility can be useful, but there are some subtleties to
-it that might be confusing.  You might want to avoid it (unless
-you know what you are doing).
+이러한 유연함이 유용할 수 있으나, 혼란을 줄 수도 있으니 유의해서 사용해야 됩니다. 무슨 일을 하고 있는지 정확하게 알지 못한다면 피하는게 좋습니다.
 
-\section{Conditional execution}
-\label{conditional execution}
+\section{조건문 실행}
+%\label{conditional execution}
 
 \index{conditional statement}
 \index{statement!conditional}
@@ -119,10 +108,8 @@ you know what you are doing).
 \index{statement!if}
 \index{conditional execution}
 
-In order to write useful programs, we almost always need the ability
-to check conditions and change the behavior of the program
-accordingly.  {\bf Conditional statements} give us this ability.  The
-simplest form is the {\tt if} statement:
+유용한 프로그램을 작성하기 위해서는 조건을 확인하고 조건에 따라 프로그램의 실행을 바꿀 수 있어야 한다.  
+{\bf 조건문(Conditional statements)}은 그럴 수 있는 능력을 부여한다. 가장 간단한 형태는  {\tt if} 문이다.
 
 \beforeverb
 \begin{verbatim}
@@ -131,35 +118,24 @@ if x > 0 :
 \end{verbatim}
 \afterverb
 %
-The boolean expression after the {\tt if} statement is
-called the {\bf condition}.  We end the {\tt if} 
-statement with a colon character (:) and the line(s) 
-after the if statement are indented.  
+{\tt if}문 뒤에 불 연산 표현문을 {\bf 조건(condition)}이라고 한다.
 
 \beforefig
 \centerline{\includegraphics[height=1.75in]{figs2/if.eps}}
 \afterfig
 
-If the logical condition is true, then the indented
-statement gets executed.  If the logical condition is 
-false, the indented statement is skipped.
+만약 조건문이 참이면, 들여쓰기 된 스테이트먼트가 실행된다. 만약 조건문이 거짓이면, 들여쓰기 된 스테이트먼트의 실행을 생략한다.
 
 \index{condition}
 \index{compound statement}
 \index{statement!compound}
 
-{\tt if} statements have the same structure as function definitions
-or {\tt for} loops.  The statement consists of a header line
-that ends with the colon character (:) 
-followed by an indented block.  Statements like this are
-called {\bf compound statements} because they stretch 
-across more than one line.
+{\tt if}문은 함수 정의나 {\tt for} 반복문과 동일한 구조를 가진다.
+{\tt if}문은 콜론(:)으로 끝나는 헤더 머리부문과 들여쓰기 블록으로 구성된다.
+{\tt if}문과 같은 구문을 한 줄 이상에 걸쳐 작성되기 때문에 {\bf 복합문(compound statements)}이라고 한다.
 
-There is no limit on the number of statements that can appear in
-the body, but there has to be at least one.
-Occasionally, it is useful to have a body with no statements (usually
-as a place keeper for code you haven't written yet).  In that
-case, you can use the {\tt pass} statement, which does nothing.
+{\tt if}문 본문에 실행 명령문의 제한은 없으나 최소한 한 줄은 있어야 한다.
+때때로, 본문에 하나의 실행명령문이 없는 경우가 있다. 아직 코드를 작성하지 않고 자리를 잡아 놓는 경우로, 아무것도 수행하지 않는 {\tt pass}문을 사용할 수 있다.
 
 \index{pass statement}
 \index{statement!pass}
@@ -167,13 +143,11 @@ case, you can use the {\tt pass} statement, which does nothing.
 \beforeverb
 \begin{verbatim}
 if x < 0 :
-    pass          # need to handle negative values!
+    pass          # 음수값을 처리 예정!
 \end{verbatim}
 \afterverb
 %
-If you enter an if statement in the Python interpreter, the prompt will change 
-from three chevrons to three dots to indicate you are in the middle of a block of
-statements as shown below:
+if문을 파이썬 인터프리터에서 타이핑하고 엔터를 치게 되면 명령 프롬프트가 갈매기 세마리에서 점 세개로 바뀌어 본문을 작성중에 있다는 것을 다음과 같이 보여줍니다.
 
 \beforeverb
 \begin{verbatim}
@@ -187,16 +161,14 @@ Small
 \afterverb
 %
 
-\section{Alternative execution}
-\label{alternative execution}
+\section{대한 실행}
+%\label{alternative execution}
 
 \index{alternative execution}
 \index{else keyword}
 \index{keyword!else}
 
-A second form of the {\tt if} statement is {\bf alternative execution},
-in which there are two possibilities and the condition determines
-which one gets executed.  The syntax looks like this:
+{\tt if}문의 두 번째 형태는 {\bf 대안 실행(alternative execution)}으로 두 가지 경우의 수가 존재하고, 조건이 어느 방향인지를 결정한다. 구문(Syntax)은 아래와 같다.   
 
 \beforeverb
 \begin{verbatim}
@@ -207,30 +179,21 @@ else :
 \end{verbatim}
 \afterverb
 %
-If the remainder when {\tt x} is divided by 2 is 0, then we
-know that {\tt x} is even, and the program displays a message to that
-effect.  If the condition is false, the second set of statements is
-executed.  
+{\tt x}가 2로 나누었을 때, 0이되면, {\tt x}는 짝수이고, 프로그램은 짝수 결과 메시지를 출력한다. 만약 조건이 거짓이라면, 두 번째 명령문 블록이 실행된다.
 
 \beforefig
 \centerline{\includegraphics[height=1.75in]{figs2/if-else.eps}}
 \afterfig
 
-Since the condition must be true or false, exactly one of
-the alternatives will be executed.  The alternatives are called
-{\bf branches}, because they are branches in the flow of execution.
+조건은 참 혹은 거짓이서, 대안 중 하나만 정확하게 실행될 것이다. 대안을 {\bf 분기(Branch)}라고도 하는데 이유는 실행 흐름의 분기가 되기 때문이다.
 
 \index{branch}
 
-
-
-\section{Chained conditionals}
+\section{연쇄 조건문}
 \index{chained conditional}
 \index{conditional!chained}
-
-Sometimes there are more than two possibilities and we need more than
-two branches.  One way to express a computation like that is a {\bf
-chained conditional}:
+때때로, 두 가지 이상의 경우의 수가 있으며, 두 가지 이상의 분기가 필요하다.
+이 같은 연산을 표현하는 방법이 {\bf 연쇄 조건문(chained conditional)}이다.
 
 \beforeverb
 \begin{verbatim}
@@ -243,16 +206,13 @@ else:
 \end{verbatim}
 \afterverb
 %
-{\tt elif} is an abbreviation of ``else if.''  Again, exactly one
-branch will be executed.  
+{\tt elif}는 ''else if''의 축약어이다. 이번에도 단 한번의 분기만 실행된다.
 
 \beforefig
 \centerline{\includegraphics[height=3.00in]{figs2/elif.eps}}
 \afterfig
 
-There is no limit on the number of {\tt
-elif} statements.  If there is an {\tt else} clause, it has to be
-at the end, but there doesn't have to be one.
+{\tt elif}문의 갯수에 제한은 없다. {\tt else}문이 있다면, 거기서 끝마쳐야 하지만, 연쇄 조건문에 필히 있어야 하는 것은 아니다.
 
 \index{elif keyword}
 \index{keyword!elif}
@@ -269,19 +229,17 @@ elif choice == 'c':
 \end{verbatim}
 \afterverb
 %
-Each condition is checked in order.  If the first is false,
-the next is checked, and so on.  If one of them is
-true, the corresponding branch executes, and the statement
-ends.  Even if more than one condition is true, only the
-first true branch executes.  
+각 조건은 순서대로 점검한다. 만약 첫 번째가 거짓이면, 다음을 점검하고 계속 점검해 나간다.
+순서대로 진행 주에 하나의 조건이 참이면, 해당 분기가 수행되고, {\tt if}문 전체는 종료된다. 
+설사 하나 이상의 조건이 참이라고 하더라도, 첫 번째 참 분기만 수행된다.
 
 
-\section{Nested conditionals}
+\section{중첩 조건문}
 \index{nested conditional}
 \index{conditional!nested}
 
-One conditional can also be nested within another.  We could have
-written the trichotomy example like this:
+하나의 조건문이 조건문 내부에 중첨될 수도 있다. 
+다음처럼 삼분 예제를 작성할 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -295,15 +253,15 @@ else:
 \end{verbatim}
 \afterverb
 %
-The outer conditional contains two branches.  The
-first branch contains a simple statement.  The second branch
-contains another {\tt if} statement, which has two branches of its
-own.  Those two branches are both simple statements,
-although they could have been conditional statements as well.
+
+바깥 조건문에 두 개의 분기가 있다. 첫 분기는 간단한 명령 실행문을 담고 있다. 두 번째 분기는 자체가 두 개의 분기를 가지고 있는 또 다른 {\tt if}문을 담고 있다.
+자체로 둘다 조건문이지만, 두 분기 모두 간단한 실행 명령문이다.
 
 \beforefig
 \centerline{\includegraphics[height=2.50in]{figs2/nested.eps}}
 \afterfig
+
+
 
 Although the indentation of the statements makes the structure
 apparent, {\bf nested conditionals} become difficult to read very
