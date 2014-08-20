@@ -84,8 +84,8 @@ commercially, please see the Appendix on Copyright and contact me.
 
 Here are some of the translations in-progress:
 
-* Spanish - Book: http://do1.dr-chuck.com/py4inf/ES-es/  Repository: http://do1.dr-chuck.com/py4inf/ES-es/ (Lead: Hedemarrie Dussan)
-* Korean - Book: https://github.com/statkclee/py4inf-kor/raw/master/book\_kor\_ch03.pdf Repositoyr: https://github.com/statkclee/py4inf-kor (Lead: Victor KC Lee)
+* Spanish - Book: http://do1.dr-chuck.com/py4inf/ES-es/  Repository: https://github.com/hedemarrie/py4inf-esp (Lead: Hedemarrie Dussan)
+* Korean - Book: https://github.com/statkclee/py4inf-kor/raw/master/book_kor_ch03.pdf Repositoyr: https://github.com/statkclee/py4inf-kor (Lead: Victor KC Lee)
 * Italian - (Need link)
 
 Feel free to send me a link (or just edit this page and send me a Pull Request).
