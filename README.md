@@ -84,8 +84,8 @@ commercially, please see the Appendix on Copyright and contact me.
 
 Here are some of the translations in-progress:
 
-* Spanish - Book: http://do1.dr-chuck.com/py4inf/ES-es/  Repository: https://github.com/hedemarrie/py4inf-esp (Lead: Hedemarrie Dussan)
-* Korean - Book: https://github.com/statkclee/py4inf-kor/raw/master/book_kor_ch03.pdf Repositoyr: https://github.com/statkclee/py4inf-kor (Lead: Victor KC Lee)
+* Spanish - [Formatted Book](http://do1.dr-chuck.com/py4inf/ES-es/)  [Book source](https://github.com/hedemarrie/py4inf-esp) (Lead: Hedemarrie Dussan)
+* Korean - [Formatted Book](https://github.com/statkclee/py4inf-kor/raw/master/book_kor_ch03.pdf) [Book Source](https://github.com/statkclee/py4inf-kor) (Lead: Victor KC Lee)
 * Italian - (Need link)
 
 Feel free to send me a link (or just edit this page and send me a Pull Request).
@@ -94,10 +94,7 @@ You can use any technology you like LaTeX, Google Docs, WikiBook or whatever you
 
 If you can figure out LaTeX, the easiest way to translate the book is to fork
 my repo on GitHub and start translating in your own repo.  That way it will be easier
-to catch up with changes I make to the English version of the book.  This is how 
-the Spanish translation be being done by Hedemarrie Dussan in this github repository:
-
-* https://github.com/hedemarrie/py4inf-esp
+to catch up with changes I make to the English version of the book.  
 
 If you start a translation in github, please contact me so I can add it to my automatic 
 build process:
