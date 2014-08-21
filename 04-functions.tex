@@ -1,18 +1,16 @@
 % LaTeX source for ``Python for Informatics: Exploring Information''
 % Copyright (c)  2010-  Charles R. Severance, All Rights Reserved
 
-\chapter{Functions}
+\chapter{함수}
 \label{funcchap}
 
-\section{Function calls}
+\section{함수 호출}
 \label{functionchap}
 \index{function call}
 
-In the context of programming, a {\bf function} is a named sequence of
-statements that performs a computation.  When you define a function,
-you specify the name and the sequence of statements.  Later, you can
-``call'' the function by name.  
-We have already seen one example of a {\bf function call}:
+프로그래밍 문맥에서, {\bf 함수(function)}는 연산을 수행하는 일련의 명명된 명령문이다. 
+함수를 정의할 때, 이름과 일련의 명령문을 명시한다. 후에, 함수를 이름으로 ''호출(call)''할 수 있다.
+이미 {\bf 함수 호출(function call)}의 예제를 살펴 보았다.  
 
 \beforeverb
 \begin{verbatim}
@@ -21,29 +19,22 @@ We have already seen one example of a {\bf function call}:
 \end{verbatim}
 \afterverb
 %
-The name of the function is {\tt type}.  The expression in parentheses
-is called the {\bf argument} of the function.  The argument is 
-a value or variable that we are passing into the function as input 
-to the function.  
-The result, for the {\tt type} function, is the type of the argument.
+함수명은 {\tt type}이다. 괄호안의 표현식을 함수의 {\bf 인수(argument)}라고 한다. 
+인수는 함수의 입력값으로 함수 내부로 전달되는 값이나 변수이다. 앞의 {\tt type} 함수의 결과값은 인수의 형(type)이다.
 
 \index{parentheses!argument in}
 
-It is common to say that a function ``takes'' an argument and ``returns''
-a result.  The result is called the {\bf return value}.
+통상 함수가 인수를 받아 결과를 돌려준다고 한다. 결과를 {\bf 결과값(return value)}이라고 부른다.
 
 \index{argument}
 \index{return value}
 
-\section{Built-in functions}
+\section{내장(Built-in) 함수}
 
-Python provides a number of important built-in functions that
-we can use without needing to provide the function definition.
-The creators of Python wrote a set of functions 
-to solve common problems and included them in Python for us to use.
+파이썬에는 함수를 정의할 필요없이 사용할 수 있는 많은 중요 내장함수가 있다.
+파이썬을 처음 만든 사람이 공통의 문제를 해결할 수 있는 함수를 작성해서 여러분이 사용할 수 있도록 파이썬에 포함을 했습니다.
 
-The {\tt max} and {\tt min} functions give us the largest and 
-smallest values in a list, respectively:
+{\tt max}와 {\tt min} 함수는 리스트의 최소값과 최대값을 각기 계산해서 여러분에게 보여줍니다.
 
 \beforeverb
 \begin{verbatim}
@@ -55,15 +46,11 @@ smallest values in a list, respectively:
 \end{verbatim}
 \afterverb
 %
-The {\tt max} function tells us the ``largest character'' in the 
-string (which turns out to be the letter ``w'') and the {\tt min}
-function shows us the smallest character which turns out to be a 
-space.
+{\tt max} 함수는 문자열의 "가장 큰 문자", 상기 예제에서는 ''w'', 
+{\tt min}함수는 최소 문자를, 상기 예제에서는 공백, 출력합니다.
 
-Another very common built-in function is the {\tt len} function
-which tells us how many items are in its argument. If the argument
-to {\tt len} is a string, it returns the number of characters 
-in the string.
+또 다른 매우 자주 사용되는 내장 함수는 얼마나 많은 항목이 있는지 출력하는 {\tt len}함수가 있습니다.
+만약 {\tt len} 함수의 인수가 문자열이면 문자열의 문자 갯수를 반환합니다.
 
 \beforeverb
 \begin{verbatim}
@@ -73,13 +60,13 @@ in the string.
 \end{verbatim}
 \afterverb
 %
-These functions are not limited to looking at strings, they can operate
-on any set of values as we will see in later chapters.
 
-You should treat the names of built-in functions as reserved words (i.e.
-avoid using ``max'' as a variable name).
+이들 함수는 문자열에만 한정된 것이 아니라, 뒷장에서 보듯이 다양하게 다양한 자료형에 사용될 수 있습니다.
 
-\section{Type conversion functions}
+내장함수의 이름은 사전에 점유된 예약어로 다뤄야 하고, 예를 들어 ''max''를 변수명으로 사용을 피해야 합니다.
+
+
+\section{형 변환 함수}
 \index{conversion!type}
 \index{type conversion}
 
@@ -91,9 +78,8 @@ avoid using ``max'' as a variable name).
 % they are on the list of ``built-in functions'' so I am
 % willing to call them functions.
 
-Python also provides built-in functions that convert values
-from one type to another.  The {\tt int} function takes any value and
-converts it to an integer, if it can, or complains otherwise:
+파이썬은 A형(type)에서 B형(type)으로 값을 변환하는 내장 함수를 제공합니다.
+{\tt int}함수는 임의의 값을 입력 받아 변환이 가능하면 정수형으로 변환하고, 그렇지 않으면 불평을 합니다.
 
 \index{int function}
 \index{function!int}
@@ -107,8 +93,8 @@ ValueError: invalid literal for int(): Hello
 \end{verbatim}
 \afterverb
 %
-{\tt int} can convert floating-point values to integers, but it
-doesn't round off; it chops off the fraction part:
+
+{\tt int}는 부동 소수점 값을 정수로 변환할 수 있지만 소수점 이하를 절사합니다.
 
 \beforeverb
 \begin{verbatim}
@@ -119,8 +105,8 @@ doesn't round off; it chops off the fraction part:
 \end{verbatim}
 \afterverb
 %
-{\tt float} converts integers and strings to floating-point
-numbers:
+
+{\tt float}는 정수와 문자열을 부동 소수점으로 변환합니다.
 
 \index{float function}
 \index{function!float}
@@ -134,7 +120,8 @@ numbers:
 \end{verbatim}
 \afterverb
 %
-Finally, {\tt str} converts its argument to a string:
+
+마지막으로, {\tt str}은 인수를 문자열로 변환합니다.
 
 \index{str function}
 \index{function!str}
@@ -149,41 +136,28 @@ Finally, {\tt str} converts its argument to a string:
 \afterverb
 %
 
-\section{Random numbers}
+\section{난수(Random numbers)}
 
 \index{random number}
 \index{number, random}
 \index{deterministic}
 \index{pseudorandom}
 
-Given the same inputs, most computer programs generate the same
-outputs every time, so they are said to be {\bf deterministic}.
-Determinism is usually a good thing, since we expect the same
-calculation to yield the same result.  For some applications, though,
-we want the computer to be unpredictable.  Games are an obvious
-example, but there are more.
-
-Making a program truly nondeterministic turns out to be not so easy,
-but there are ways to make it at least seem nondeterministic.  One of
-them is to use {\bf algorithms} that generate {\bf pseudorandom} numbers.
-Pseudorandom numbers are not truly random because they are generated
-by a deterministic computation, but just by looking at the numbers it
-is all but impossible to distinguish them from random.
+동일한 입력을 받을 때, 대부분의 컴퓨터는 매번 동일한 출력값을 생성하기 때문에 {\bf 결정적(deterministic)}이라고 합니다.
+결정론이 대체로 좋은데 왜냐하면, 동일한 계산은 동일한 결과를 기대할 수 있기 때문입니다. 하지만, 어떤 어플리케이션에서는 컴퓨터가 예측불가능하길 바랍니다. 게임이 좋은 예이고, 더 많은 예를 찾을 수 있습니다. 
+프로그램을 온전하게 비결정론적으로 만드는 것은 쉽지 않은 것으로 밝혀졌지만, 비결정론적인 것처럼 보이게 하는 방법은 있습니다. {\bf 의사 난수(pseudorandom numbers)}를 생성하는 알고리즘을 사용하는 방법이 그 중 하나입니다. 의사 난수는 이미 결정된 연산에 의해서 생성된다는 점에서 
+진정한 의미의 난수는 아니지만,이렇게 생성된 숫자를 진정한 난수와 구별하기는 불가능에 가깝다.
 
 \index{random module}
 \index{module!random}
 
-The {\tt random} module provides functions that generate
-pseudorandom numbers (which I will simply call ``random'' from
-here on).
+{\tt random} 모듈은 의사 난수를 생성하는 함수를 제공한다. (이하 의사 난수 대신 ''난수(random)''로 간략히 부르기로 한다.)
 
 \index{random function}
 \index{function!random}
 
-The function {\tt random} returns a random float
-between 0.0 and 1.0 (including 0.0 but not 1.0).  Each time you
-call {\tt random}, you get the next number in a long series.  To see a
-sample, run this loop:
+{\tt random} 함수는 0.0과 1.0 사이의 부동 소수점 난수를 반환한다. {\tt random} 함수는 0.0은 생성하지만 1.0은 생성하지 않는다.
+매번 {\tt random} 함수를 호출할 때 마다 이미 생성된 난수열에서 하나씩 하나씩 뽑아 쓰게 됩니다. 샘플로 다음 반복문을 실행해 봅시다.
 
 \beforeverb
 \begin{verbatim}
@@ -195,8 +169,8 @@ for i in range(10):
 \end{verbatim}
 \afterverb
 %
-This program produces the following list of 10 random numbers
-between 0.0 and up to but not including 1.0.
+
+프로그램이 0.0과 1.0을 포함하지 않는 최대 1.0에서 10개의 난수 리스트를 생성합니다.
 
 \beforeverb
 \begin{verbatim}
@@ -213,16 +187,15 @@ between 0.0 and up to but not including 1.0.
 \end{verbatim}
 \afterverb
 %
+
 \begin{ex}
-Run the program on your system and see what numbers you get.
-Run the program more than once and see what numbers you get.
+여러분의 컴퓨터에 프로그램을 실행해서, 어떤 난수가 생성되는지 살펴보세요.
+한번 이상 프로그램을 실행하여 보고, 어떤 난수가 생성되는지 다시 살펴보세요.
 \end{ex}
 
-The {\tt random} function is only one of many 
-functions which handle random numbers.
-The function {\tt randint} takes parameters {\tt low} and
-{\tt high} and returns an integer between {\tt low} and
-{\tt high} (including both).
+{\tt random}함수는 난수를 다루는 단지 많은 함수 중의 하나입니다.
+{\tt randint} 함수는 {\tt 최저(low)}와 {\tt 최고(high)} 매개 변수를 입력받아
+{\tt 최저값(low)}와 {\tt 최고값(high)}을 포함하는 두 사이의 정수를 반환합니다.
 
 \index{randint function}
 \index{function!randint}
@@ -236,8 +209,8 @@ The function {\tt randint} takes parameters {\tt low} and
 \end{verbatim}
 \afterverb
 %
-To choose an element from a sequence at random, you can use
-{\tt choice}:
+
+무작위로 배열로부터 하나의 숫자를 뽑아내기 위해서, {\tt choice}를 사용합니다.
 
 \index{choice function}
 \index{function!choice}
@@ -252,19 +225,18 @@ To choose an element from a sequence at random, you can use
 \end{verbatim}
 \afterverb
 %
-The {\tt random} module also provides functions to generate
-random values from continuous distributions including
-Gaussian, exponential, gamma, and a few more.
 
-\section{Math functions}
+{\tt random} 모듈은 정규분포, 지수분포, 감마분포 및 몇가지 추가된 연속형 분포에서
+난수를 생성할 수 있는 함수도 제공합니다.
+
+\section{수학 함수}
 \index{math function}
 \index{function, math}
 \index{module}
 \index{module object}
 
-Python has a math {\bf module} that provides most of the familiar
-mathematical functions.  
-Before we can use the module, we have to import it:
+파이썬은 가장 친숙한 수학 함수를 제공하는 수학 모듈이 있습니다.
+수학 모듈을 사용하기 전에, 수학 모듈 가져오기를 실행합니다.
 
 \beforeverb
 \begin{verbatim}
@@ -272,8 +244,8 @@ Before we can use the module, we have to import it:
 \end{verbatim}
 \afterverb
 %
-This statement creates a {\bf module object} named math.  If
-you print the module object, you get some information about it:
+
+이 명령문은 math 모듈 개체를 생성한다. 모듈 개체를 출력하면, 모듈 개체에 대한 정보를 얻을 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -282,10 +254,9 @@ you print the module object, you get some information about it:
 \end{verbatim}
 \afterverb
 %
-The module object contains the functions and variables defined in the
-module.  To access one of the functions, you have to specify the name
-of the module and the name of the function, separated by a dot (also
-known as a period).  This format is called {\bf dot notation}.
+
+모듈 개체는 모듈에 정의된 함수와 변수를 담고 있다. 함수 중에 하나에 접근하기 위해서, 점으로 구분되는 모듈의 이름과 함수의 이름을 명시해야 한다.
+이런 형식을 {\bf 점 표기법(dot notation)}이라고 부른다.
 
 \index{dot notation}
 
@@ -299,9 +270,9 @@ known as a period).  This format is called {\bf dot notation}.
 \end{verbatim}
 \afterverb
 %
-The first example computes the logarithm base 10 of the
-signal-to-noise ratio.  The math module also provides a
-function called {\tt log} that computes logarithms base {\tt e}.
+
+첫 예제는 로그 지수 10으로 신호 대비 소음 비율을  계산한다.
+수학 모듈은 자연 로그를 {\tt log}함수를 호출해서 사용할 수 있도록 제공한다.
 
 \index{log function}
 \index{function!log}
@@ -310,11 +281,8 @@ function called {\tt log} that computes logarithms base {\tt e}.
 \index{trigonometric function}
 \index{function, trigonometric}
 
-The second example finds the sine of {\tt radians}.  The name of the
-variable is a hint that {\tt sin} and the other trigonometric
-functions ({\tt cos}, {\tt tan}, etc.)  take arguments in radians. To
-convert from degrees to radians, divide by 360 and multiply by $2
-\pi$:
+두 번째 예제는 라디안의 사인값을 찾는 것이다. 변수의 이름이 힌트로 {\tt sin}과 다른 삼각 함수({\tt cos}, {\tt tan} 등)는 라디안을 인수로 받는다.
+도수에서 라디안으로 변환하기 위해서 360으로 나누고 $2\pi$를 곱한다.
 
 \beforeverb
 \begin{verbatim}
@@ -325,15 +293,12 @@ convert from degrees to radians, divide by 360 and multiply by $2
 \end{verbatim}
 \afterverb
 %
-The expression {\tt math.pi} gets the variable {\tt pi} from the math
-module.  The value of this variable is an approximation
-of $\pi$, accurate to about 15 digits.
+
+{\tt math.pi} 표현문은 수학 모듈에서 {\tt pi} 변수를 얻고, $\pi$와 근사적으로 동일하고 15 자리수까지 정확하다. 
 
 \index{pi}
 
-If you know
-your trigonometry, you can check the previous result by comparing it to
-the square root of two divided by two:
+삼각함수를 배웠다면, 앞의 연산 결과를 2를 루트를 씌우고 2로 나누어서 비교한다.
 
 \index{sqrt function}
 \index{function!sqrt}
@@ -347,20 +312,17 @@ the square root of two divided by two:
 %
 
 
-\section{Adding new functions}
+\section{신규 함수 추가}
 
-So far, we have only been using the functions that come with Python,
-but it is also possible to add new functions.
-A {\bf function definition} specifies the name of a new function and
-the sequence of statements that execute when the function is called.
-Once we define a function, we can reuse the function over and over 
-throughout our program.
+지금까지 파이썬에 딸려 있는 함수를 사용했지만 새로운 함수를 추가하는 것도 가능하다.
+{\bf 함수 정의(function definition)}는 신규 함수명과 함수가 호출될 때 실행할 일련의 명령문을 명세한다.
+함수를 신규로 정의하면, 프로그램 내내 반복해서 함수를 재사용할 수 있다. 
 
 \index{function}
 \index{function definition}
 \index{definition!function}
 
-Here is an example:
+여기 예제가 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -370,6 +332,9 @@ def print_lyrics():
 \end{verbatim}
 \afterverb
 %
+{\tt def}는 이것이 함수 정의를 나타내는 키워드입니다. 함수명은 \verb"print_lyrics"입니다.
+함수명을 명명 규칙은 변수명과 동일합니다. 문자, 숫자, 그리고 몇몇 
+
 {\tt def} is a keyword that indicates that this is a function
 definition.  The name of the function is \verb"print_lyrics".  The
 rules for function names are the same as for variable names: letters,
