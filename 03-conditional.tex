@@ -161,7 +161,7 @@ Small
 \afterverb
 %
 
-\section{대한 실행}
+\section{대안 실행}
 %\label{alternative execution}
 
 \index{alternative execution}
@@ -450,22 +450,19 @@ ZeroDivisionError: integer division or modulo by zero
 \index{debugging}
 \index{traceback}
 
-The traceback Python displays when an error occurs contains
-a lot of information, but it can be overwhelming, especially
-when there are many frames on the stack.  The most
-useful parts are usually:
+오류가 발생했을 때, 파이썬이 화면에 출력하는 트레이스백(traceback)은 상당한 정보를 담고 있지만, 특히 스택에 많은 프레임이 있는 경우 엄청나게 보일 수도 있다.
+대체로 유용한 정보는 다음과 같다.
 
 \begin{itemize}
 
-\item What kind of error it was, and
+\item 어떤 종류의 오류인가.
 
-\item Where it occurred.
+\item 어디서 발생했는가.
 
 \end{itemize}
 
-Syntax errors are usually easy to find, but there are a few
-gotchas.  Whitespace errors can be tricky because spaces and
-tabs are invisible and we are used to ignoring them.
+구문 오류는 대체로 발견하기 쉽지만, 몇 가지는 애매합니다. 공백 오류가 대표적인데, 공백(space)과 탭(tab)은 구별이 되지 않고,
+통상 무시하고 넘어가기 쉽기 때문입니다.
 
 \index{whitespace}
 
@@ -480,19 +477,12 @@ SyntaxError: invalid syntax
 \end{verbatim}
 \afterverb
 %
-In this example, the problem is that the second line is indented by
-one space.  But the error message points to {\tt y}, which is
-misleading.  In general, error messages indicate where the problem was
-discovered, but the actual error might be earlier in the code,
-sometimes on a previous line.
+이 예제의 문제는 두 번째 줄이 한 칸 공백으로 들여써서 발생하는 것입니다. 하지만, {\tt y}에 오류 메시지가 있는데 프로그래머를 잘못된 곳으로 인도합니다. 대체로 오류 메시지는 문제가 어디에서 발견되었는지를 지칭하지만, 실제 오류는 코드 앞에서 종종 선행하는 줄에 있을 수 있습니다.
 
 \index{error!runtime}
 \index{runtime error}
 
-The same is true of runtime errors.  Suppose you are trying
-to compute a signal-to-noise ratio in decibels.  The formula
-is $SNR_{db} = 10 \log_{10} (P_{signal} / P_{noise})$.  In Python,
-you might write something like this:
+동일한 문제가 실행 오류에도 있습니다. 데시벨(decibels)로 신호 대비 잡음비를 계산한다고 가정합시다. 공식은 $SNR_{db} = 10 \log_{10} (P_{signal} / P_{noise})$입니다. 파이썬에서 아래와 같이 작성할 수 있습니다.
 
 \beforeverb
 \begin{verbatim}
@@ -505,9 +495,9 @@ print decibels
 \end{verbatim}
 \afterverb
 %
-But when you run it, you get an error message\footnote{In Python 3.0,
-  you no longer get an error message; the division operator performs
-  floating-point division even with integer operands.}:
+
+하지만, 실행하게 되면, 다음과 같은 오류 메시지\footnote{파이썬 3.0에서는 오류 메시지가 발생하지 않습니다.
+ 정수 피연산자인 경우에도 나눗셈 연산자가 부동 소수점 나눗셈을 수행합니다.}가 발생합니다. 
 
 \index{exception!OverflowError}
 \index{OverflowError}
@@ -521,90 +511,76 @@ OverflowError: math range error
 \end{verbatim}
 \afterverb
 %
-The error message indicates line 5, but there is nothing
-wrong with that line.  To find the real error, it might be
-useful to print the value of {\tt ratio}, which turns out to
-be 0.  The problem is in line 4, because dividing two integers
-does floor division.  The solution is to represent signal power
-and noise power with floating-point values.
+
+오류 메지지가 5번째 줄에 있지만, 잘못된 것은 없습니다. 실제 오류를 발견하기 위해서, 
+출력값은 0인 {\tt ratio}의 값을 {\tt print}문을 사용해서 출력해 보는 것이 도움이 됩니다.
+문제는 4번째 줄에 있는데, 두 정수를 나누기를 소수점 연산을 했기 때문입니다. 
+\verb"signal_power" 와 \verb"noise_power" 를 부동 소수점값으로  표현하는게 해결책입니다.
 
 \index{floor division}
 \index{division!floor}
 
-In general, error messages tell you where the problem was discovered, 
-but that is often not where it was caused.
+대체로, 오류 메시지는 어디에 문제가 발견되었는지를 말해주지만, 종종 어디서 원인이 발생했는지는 말해주지 않습니다.
 
-
-\section{Glossary}
+\section{용어 정의}
 
 \begin{description}
 
-\item[body:] The sequence of statements within a compound statement.
+\item[몸통부문(body):] 복합문 내부에 열련의 명령문 실행을 기술한 부문
 \index{body}
 
-\item[boolean expression:]  An expression whose value is either 
-{\tt True} or {\tt False}.
+\item[불 표현식(boolean expression):] {\tt 참(True)} 혹은 {\tt 거짓(False)}의 값을 가지는 표현식
 \index{boolean expression}
 \index{expression!boolean}
 
-\item[branch:] One of the alternative sequences of statements in
-a conditional statement.
+\item[분기(branch):] 조건문에서 대안 실행 명령문의 한 흐름
 \index{branch}
 
-\item[chained conditional:]  A conditional statement with a series
-of alternative branches.
+\item[연쇄 조건문(chained conditional):] 일련의 대안 분기가 있는 조건문
 \index{chained conditional}
 \index{conditional!chained}
 
-\item[comparison operator:] One of the operators that compares
-its operands: {\tt ==}, {\tt !=}, {\tt >}, {\tt <}, {\tt >=}, and {\tt <=}.
+\item[비교 연산자(comparison operator):] 피연산자를 {\tt ==}, {\tt !=}, {\tt >}, {\tt <}, {\tt >=}, {\tt <=}로 비교하는 연산자
 
-\item[conditional statement:]  A statement that controls the flow of
-execution depending on some condition.
+\item[조건문(conditional statement):] 조건에 따라 명령의 흐름을 조절하는 명령문
+
 \index{conditional statement}
 \index{statement!conditional}
 
-\item[condition:] The boolean expression in a conditional statement
-that determines which branch is executed.
+\item[조건(condition):] 조건문에서 어느 분기를 실행할지 결정하는 불 표현식
 \index{condition}
 
-\item[compound statement:]  A statement that consists of a header
-and a body.  The header ends with a colon (:).  The body is indented
-relative to the header.
+\item[복합문(compound statement):] 머리부문(head)와 몸통부문(body)으로 구성된 스테이트먼트.
+머리부문은 콜론(:)으로 끝나며, 몸통부문은 머리부문을 기준으로 들여쓰기로 구별된다.
 \index{compound statement}
 
-\item[guardian pattern:] Where we construct a logical expression 
-with additional
-comparisons to take advantage of the short circuit behavior.
+\item[가디언 패턴(guardian pattern):] 
+단락(short circuit) 행동을 잘 이용하도록 논리 표현식을 구성하는 것
 \index{guardian pattern}
 \index{pattern!guardian}
 
-\item[logical operator:] One of the operators that combines boolean
-expressions: {\tt and}, {\tt or}, and {\tt not}.
+\item[논리 연산자(logical operator):] 불 표현식을 결합하는 연산자 중의 하나 ({\tt and}, {\tt or}, {\tt not})
 
-\item[nested conditional:]  A conditional statement that appears
-in one of the branches of another conditional statement.
+\item[중첩 조건문(nested conditional):] 
+하나의 조건문이 다른 조건문 분기에 나타나는 조건문.
 \index{nested conditional}
 \index{conditional!nested}
 
-\item[traceback:]  A list of the functions that are executing,
-printed when an exception occurs.
+\item[트레이스백(traceback):] 예외 사항이 발생했을 때 실행되고, 출력되는 함수 리스트
 \index{traceback}
 
-\item[short circuit:]  When Python is part-way through evaluating a 
-logical expression and stops the evaluation because Python 
-knows the final value for the expression 
-without needing to evaluate the rest of the expression.
+\item[단락(short circuit):]
+왜냐하면 파이썬이 나머지 조건 표현식 평가를 할 필요없이 최종 결과를 알기 때문에,
+파이썬이 논리 표현식 평가를 일부 진행하고, 더 이상의 평가를 멈출 때.
+
 \index{short circuit}
 
 \end{description}
 
-\section{Exercises}
+\section{연습문제}
 
 \begin{ex}
-Rewrite your pay computation to give the employee 1.5 
-times the hourly rate for 
-hours worked above 40 hours.
+40시간 이상 일할 경우 시급을 1.5배 더 종업원에게 지급하는 봉급계산 프로그램을 다시 작성하세요.
 
 \begin{verbatim}
 Enter Hours: 45
@@ -614,10 +590,9 @@ Pay: 475.0
 \end{ex}
 
 \begin{ex}
-Rewrite your pay program using {\tt try} and {\tt except} 
-so that your program handles non-numeric input gracefully
-by printing a message and exiting the program.
-The following shows two executions of the program:
+{\tt try}, {\tt except}를 사용하여 봉급계산 프로그램을 다시 작성하세요.
+숫자가 아닌 입력값을 잘 처리해서 메시지를 출력하고 프로그램을 종료하게 됩니다.
+다음은 프로그램의 출력 결과를 보여줍니다.
 
 \begin{verbatim}
 Enter Hours: 20
@@ -630,10 +605,8 @@ Error, please enter numeric input
 \end{ex}
 
 \begin{ex}
-Write a program to prompt for a score between 0.0 and 1.0.
-If the score is out of range print an error.  If the score
-is between 0.0 and 1.0, print a grade using the following 
-table:
+0.0과 1.0 사이의 점수를 출력하는 프로그램을 작성하세요.
+만약 점수가 범위 밖이면 오류를 출력합니다. 만약 점수가 0.0과 1.0 사이라면, 다음의 테이블에 따라 등급을 출력합니다.
 
 \begin{verbatim}
 Score   Grade
@@ -658,8 +631,6 @@ C
 Enter score: 0.5
 F
 \end{verbatim}
-
-Run the program repeatedly as shown above to test the 
-various different values for input.
+입력값으로 다양한 다른 값을 출력하도록 반복적으로 보이는 것처럼 프로그램을 실행하세요.
 \end{ex}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/W32TeX) (format=pdflatex 2014.1.6)  20 AUG 2014 18:22
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/W32TeX) (format=pdflatex 2014.1.6)  21 AUG 2014 12:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -959,10 +959,10 @@ LaTeX Font Info:    Font shape `LUC/nanummj/m/it' in size <10.95> not available
 (Font)              Font shape `LUC/nanummj/m/sl' tried instead on input line 7
 7.
 Package epstopdf Info: Source file: <figs2/if.eps>
-(epstopdf)                    date: 2014-08-20 15:51:18
+(epstopdf)                    date: 2014-08-21 11:01:36
 (epstopdf)                    size: 17480 bytes
 (epstopdf)             Output file: <figs2/if-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-08-20 15:53:02
+(epstopdf)                    date: 2014-08-21 11:01:36
 (epstopdf)                    size: 8226 bytes
 (epstopdf)             Command: <repstopdf --outfile=figs2/if-eps-converted-to.
 pdf figs2/if.eps>
@@ -976,10 +976,10 @@ Package pdftex.def Info: figs2/if-eps-converted-to.pdf used on input line 124.
 (pdftex.def)             Requested size: 221.43091pt x 126.47249pt.
  [2 <./figs2/if-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <figs2/if-else.eps>
-(epstopdf)                    date: 2014-08-20 15:51:18
+(epstopdf)                    date: 2014-08-21 11:01:36
 (epstopdf)                    size: 19901 bytes
 (epstopdf)             Output file: <figs2/if-else-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-08-20 15:53:03
+(epstopdf)                    date: 2014-08-21 11:01:36
 (epstopdf)                    size: 8881 bytes
 (epstopdf)             Command: <repstopdf --outfile=figs2/if-else-eps-converte
 d-to.pdf figs2/if-else.eps>
@@ -995,10 +995,10 @@ Package pdftex.def Info: figs2/if-else-eps-converted-to.pdf used on input line
 (pdftex.def)             Requested size: 334.5064pt x 126.47249pt.
  [3 <./figs2/if-else-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <figs2/elif.eps>
-(epstopdf)                    date: 2014-08-20 15:51:18
+(epstopdf)                    date: 2014-08-21 11:01:36
 (epstopdf)                    size: 19763 bytes
 (epstopdf)             Output file: <figs2/elif-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-08-20 15:53:04
+(epstopdf)                    date: 2014-08-21 11:01:36
 (epstopdf)                    size: 8800 bytes
 (epstopdf)             Command: <repstopdf --outfile=figs2/elif-eps-converted-t
 o.pdf figs2/elif.eps>
@@ -1013,10 +1013,10 @@ Package pdftex.def Info: figs2/elif-eps-converted-to.pdf used on input line 212
 (pdftex.def)             Requested size: 225.08961pt x 216.81pt.
  [4 <./figs2/elif-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <figs2/nested.eps>
-(epstopdf)                    date: 2014-08-20 15:51:18
+(epstopdf)                    date: 2014-08-21 11:01:36
 (epstopdf)                    size: 20877 bytes
 (epstopdf)             Output file: <figs2/nested-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-08-20 15:53:06
+(epstopdf)                    date: 2014-08-21 11:01:36
 (epstopdf)                    size: 9087 bytes
 (epstopdf)             Command: <repstopdf --outfile=figs2/nested-eps-converted
 -to.pdf figs2/nested.eps>
@@ -1032,21 +1032,15 @@ Package pdftex.def Info: figs2/nested-eps-converted-to.pdf used on input line 2
 (pdftex.def)             Requested size: 378.76814pt x 180.67499pt.
  [5 <./figs2/nested-eps-converted-to.pdf>] [6] [7]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 494.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 485.
  [8]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 510.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 500.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 510.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 500.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 510.
-
-Underfull \hbox (badness 2547) in paragraph at lines 554--558
-[]\OT1/ptm/m/n/10.95 A con-di-tional state-ment with a se-ries of al-ter-na-tiv
-e
- []
-
-[9] [10])
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 500.
+ [9] [10])
 No file book_kor_ch03.ind.
 [11] [12
 
@@ -1078,13 +1072,13 @@ Package createspace Info: book cost is 3.66USD (2.15USD for pro plan)
 
 (./book_kor_ch03.aux) ) 
 Here is how much of TeX's memory you used:
- 5812 strings out of 493308
- 81527 string characters out of 6137823
- 142760 words of memory out of 5000000
- 8980 multiletter control sequences out of 15000+600000
- 94781 words of font info for 256 fonts, out of 8000000 for 9000
+ 5842 strings out of 493308
+ 82112 string characters out of 6137823
+ 142750 words of memory out of 5000000
+ 9005 multiletter control sequences out of 15000+600000
+ 102124 words of font info for 281 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 43i,12n,69p,397b,432s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 43i,12n,69p,460b,460s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/usr/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.
 enc}<c:/usr/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
 c:/usr/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/usr
@@ -1112,76 +1106,81 @@ lic/nanumtype1/nanummjbb2.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/publi
 c/nanumtype1/nanummjbb3.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/
 nanumtype1/nanummjbb5.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/na
 numtype1/nanummjbb7.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanu
-mtype1/nanummjbb9.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumt
-ype1/nanummjbbb.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtyp
-e1/nanummjbbc.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1
-/nanummjbbd.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/n
-anummjbbe.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nan
-ummjbc0.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanum
-mjbc1.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummj
-bc2.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjbc
-5.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjbc6.
-pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjbc7.pf
-b><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjbc8.pfb>
-<c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjbc9.pfb><c
-:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjbcc.pfb><c:/
-usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjbd3.pfb><c:/us
-r/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjbd5.pfb><c:/usr/
-texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjbd6.pfb><c:/usr/te
-xlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmac.pfb><c:/usr/texl
-ive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmac.pfb><c:/usr/texliv
-e/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmad.pfb><c:/usr/texlive/
-2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmad.pfb><c:/usr/texlive/20
-13/texmf-dist/fonts/type1/public/nanumtype1/nanummjmae.pfb><c:/usr/texlive/2013
-/texmf-dist/fonts/type1/public/nanumtype1/nanummjmaf.pfb><c:/usr/texlive/2013/t
-exmf-dist/fonts/type1/public/nanumtype1/nanummjmb0.pfb><c:/usr/texlive/2013/tex
-mf-dist/fonts/type1/public/nanumtype1/nanummjmb1.pfb><c:/usr/texlive/2013/texmf
--dist/fonts/type1/public/nanumtype1/nanummjmb2.pfb><c:/usr/texlive/2013/texmf-d
-ist/fonts/type1/public/nanumtype1/nanummjmb3.pfb><c:/usr/texlive/2013/texmf-dis
-t/fonts/type1/public/nanumtype1/nanummjmb4.pfb><c:/usr/texlive/2013/texmf-dist/
-fonts/type1/public/nanumtype1/nanummjmb5.pfb><c:/usr/texlive/2013/texmf-dist/fo
-nts/type1/public/nanumtype1/nanummjmb6.pfb><c:/usr/texlive/2013/texmf-dist/font
-s/type1/public/nanumtype1/nanummjmb7.pfb><c:/usr/texlive/2013/texmf-dist/fonts/
-type1/public/nanumtype1/nanummjmb8.pfb><c:/usr/texlive/2013/texmf-dist/fonts/ty
-pe1/public/nanumtype1/nanummjmb9.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type
-1/public/nanumtype1/nanummjmb9.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/
-public/nanumtype1/nanummjmba.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/pu
-blic/nanumtype1/nanummjmbb.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/publ
-ic/nanumtype1/nanummjmbc.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public
-/nanumtype1/nanummjmbd.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/n
-anumtype1/nanummjmbe.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nan
-umtype1/nanummjmc0.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanum
-type1/nanummjmc1.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumty
-pe1/nanummjmc2.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype
-1/nanummjmc3.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/
-nanummjmc4.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/na
-nummjmc5.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanu
-mmjmc6.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanumm
-jmc7.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjm
-c7.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmc8
-.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmc9.p
-fb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmca.pfb
-><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmcc.pfb><
-c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmcd.pfb><c:
-/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmce.pfb><c:/u
-sr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmcf.pfb><c:/usr
-/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmd0.pfb><c:/usr/t
-exlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmd1.pfb><c:/usr/tex
-live/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmd2.pfb><c:/usr/texli
-ve/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmd3.pfb><c:/usr/texlive
-/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmd4.pfb><c:/usr/texlive/2
-013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmd5.pfb><c:/usr/texlive/201
-3/texmf-dist/fonts/type1/public/nanumtype1/nanummjmd6.pfb><c:/usr/texlive/2013/
-texmf-dist/fonts/type1/public/nanumtype1/nanummjmd6.pfb><c:/usr/texlive/2013/te
-xmf-dist/fonts/type1/public/nanumtype1/nanummjmd7.pfb><c:/usr/texlive/2013/texm
-f-dist/fonts/type1/urw/courier/ucrr8a.pfb><c:/usr/texlive/2013/texmf-dist/fonts
-/type1/urw/courier/ucrr8a.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/urw/t
-imes/utmb8a.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/urw/times/utmr8a.pf
-b><c:/usr/texlive/2013/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on book_kor_ch03.pdf (14 pages, 3437644 bytes).
+mtype1/nanummjbb8.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumt
+ype1/nanummjbb9.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtyp
+e1/nanummjbba.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1
+/nanummjbbb.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/n
+anummjbbc.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nan
+ummjbbd.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanum
+mjbbe.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummj
+bc0.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjbc
+1.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjbc2.
+pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjbc5.pf
+b><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjbc6.pfb>
+<c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjbc7.pfb><c
+:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjbc8.pfb><c:/
+usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjbc9.pfb><c:/us
+r/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjbcc.pfb><c:/usr/
+texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjbd1.pfb><c:/usr/te
+xlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjbd2.pfb><c:/usr/texl
+ive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjbd3.pfb><c:/usr/texliv
+e/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjbd4.pfb><c:/usr/texlive/
+2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjbd5.pfb><c:/usr/texlive/20
+13/texmf-dist/fonts/type1/public/nanumtype1/nanummjbd6.pfb><c:/usr/texlive/2013
+/texmf-dist/fonts/type1/public/nanumtype1/nanummjmac.pfb><c:/usr/texlive/2013/t
+exmf-dist/fonts/type1/public/nanumtype1/nanummjmac.pfb><c:/usr/texlive/2013/tex
+mf-dist/fonts/type1/public/nanumtype1/nanummjmad.pfb><c:/usr/texlive/2013/texmf
+-dist/fonts/type1/public/nanumtype1/nanummjmad.pfb><c:/usr/texlive/2013/texmf-d
+ist/fonts/type1/public/nanumtype1/nanummjmae.pfb><c:/usr/texlive/2013/texmf-dis
+t/fonts/type1/public/nanumtype1/nanummjmaf.pfb><c:/usr/texlive/2013/texmf-dist/
+fonts/type1/public/nanumtype1/nanummjmb0.pfb><c:/usr/texlive/2013/texmf-dist/fo
+nts/type1/public/nanumtype1/nanummjmb1.pfb><c:/usr/texlive/2013/texmf-dist/font
+s/type1/public/nanumtype1/nanummjmb2.pfb><c:/usr/texlive/2013/texmf-dist/fonts/
+type1/public/nanumtype1/nanummjmb3.pfb><c:/usr/texlive/2013/texmf-dist/fonts/ty
+pe1/public/nanumtype1/nanummjmb4.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type
+1/public/nanumtype1/nanummjmb5.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/
+public/nanumtype1/nanummjmb6.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/pu
+blic/nanumtype1/nanummjmb7.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/publ
+ic/nanumtype1/nanummjmb8.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public
+/nanumtype1/nanummjmb9.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/n
+anumtype1/nanummjmb9.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nan
+umtype1/nanummjmba.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanum
+type1/nanummjmbb.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumty
+pe1/nanummjmbc.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype
+1/nanummjmbd.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/
+nanummjmbe.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/na
+nummjmc0.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanu
+mmjmc1.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanumm
+jmc2.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjm
+c3.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmc4
+.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmc5.p
+fb><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmc6.pfb
+><c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmc7.pfb><
+c:/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmc7.pfb><c:
+/usr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmc8.pfb><c:/u
+sr/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmc9.pfb><c:/usr
+/texlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmca.pfb><c:/usr/t
+exlive/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmcc.pfb><c:/usr/tex
+live/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmcd.pfb><c:/usr/texli
+ve/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmce.pfb><c:/usr/texlive
+/2013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmcf.pfb><c:/usr/texlive/2
+013/texmf-dist/fonts/type1/public/nanumtype1/nanummjmd0.pfb><c:/usr/texlive/201
+3/texmf-dist/fonts/type1/public/nanumtype1/nanummjmd1.pfb><c:/usr/texlive/2013/
+texmf-dist/fonts/type1/public/nanumtype1/nanummjmd2.pfb><c:/usr/texlive/2013/te
+xmf-dist/fonts/type1/public/nanumtype1/nanummjmd3.pfb><c:/usr/texlive/2013/texm
+f-dist/fonts/type1/public/nanumtype1/nanummjmd4.pfb><c:/usr/texlive/2013/texmf-
+dist/fonts/type1/public/nanumtype1/nanummjmd5.pfb><c:/usr/texlive/2013/texmf-di
+st/fonts/type1/public/nanumtype1/nanummjmd6.pfb><c:/usr/texlive/2013/texmf-dist
+/fonts/type1/public/nanumtype1/nanummjmd6.pfb><c:/usr/texlive/2013/texmf-dist/f
+onts/type1/public/nanumtype1/nanummjmd7.pfb><c:/usr/texlive/2013/texmf-dist/fon
+ts/type1/urw/courier/ucrr8a.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/urw
+/courier/ucrr8a.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/urw/times/utmb8
+a.pfb><c:/usr/texlive/2013/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/usr/
+texlive/2013/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on book_kor_ch03.pdf (14 pages, 3636033 bytes).
 PDF statistics:
- 462 PDF objects out of 1000 (max. 8388607)
- 335 compressed objects within 4 object streams
+ 482 PDF objects out of 1000 (max. 8388607)
+ 350 compressed objects within 4 object streams
  0 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
