@@ -261,15 +261,9 @@ else:
 \centerline{\includegraphics[height=2.50in]{figs2/nested.eps}}
 \afterfig
 
+명령문 블록을 들여쓰는 것이 구조를 명확히 하지만, 중첩 조건문의 경우 가독성이 급격히 저하된다. 일반적으로, 가능하면 중첩 조건문을 피하는 것을 권장한다.
 
-
-Although the indentation of the statements makes the structure
-apparent, {\bf nested conditionals} become difficult to read very
-quickly. In general, it is a good idea to avoid them when you can.
-
-Logical operators often provide a way to simplify nested conditional
-statements.  For example, we can rewrite the following code using a
-single conditional:
+논리 연산자를 사용하여 중첩 조건문을 간략히 할 수 있다. 예를 들어, 단일 조건문으로 가지고 앞의 코드를 다시 작성할 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -279,8 +273,8 @@ if 0 < x:
 \end{verbatim}
 \afterverb
 %
-The {\tt print} statement is executed only if we make it past both
-conditionals, so we can get the same effect with the {\tt and} operator:
+
+{\tt print}문은 두개의 조건문이 통과될 때만 실행돼서, {\tt and} 연산자와 동일한 효과를 거둘 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -290,12 +284,11 @@ if 0 < x and x < 10:
 \afterverb
 
 
-\section{Catching exceptions using try and except}
-\label{catch1}
+\section{try와 catch를 활용한 예외 처리}
+%\label{catch1}
 
-Earlier we saw a code segment where we used the \verb"raw_input" and
-{\tt int} functions to read and parse an integer number entered by
-the user.  We also saw how treacherous doing this could be:
+앞에서 사용자가 타이핑한 것을 읽어 정수로 파싱하기 위해서 함수 \verb"raw_input"와 {\tt int}을 사용한 프로그램 코드를 살펴 보았다.
+또한 이렇게 하는 코딩하는 것이 얼마나 위험한 것인지도 살펴보았다.
 
 \beforeverb
 \begin{verbatim}
@@ -308,18 +301,14 @@ ValueError: invalid literal for int()
 \end{verbatim}
 \afterverb
 %
-When we are executing these statements in the Python interpreter, 
-we get a new prompt from the interpreter, think ``oops'' and move 
-on to our next statement.  
+파이썬 인터프리터에서 상기 명령문을 실행할 때, "이런" 잠시 있다가 다음 명령 실행문으로 넘어가는 새로운 명령 프롬프트를 보게 된다.
 
-However if this code is placed in a 
-Python script and this error occurs, your script immediately 
-stops in its tracks with a traceback.  
-It does not execute the following statement. 
+하지만, 코드가 파이썬 스크립트로 실행이 되면 오류가 발생하고 즉시, 그 지점에서 멈추게 된다. 다음의 명령 실행문은 실행하지 않는다.
+
 \index{traceback}
 
-Here is a sample program to convert a Fahrenheit temperature 
-to a Celsius temperature:
+화씨 온도를 섭씨 온도로 변환하는 간단한 프로그램이 있다.
+
 \index{fahrenheit}
 \index{celsius}
 \index{temperature conversion}
@@ -333,8 +322,8 @@ print cel
 \end{verbatim}
 \afterverb
 %
-If we execute this code and give it invalid input, it simply fails
-with an unfriendly error message:
+
+이 코드를 실행하고 적절하지 않은 입력값을 타이핑하게되면, 다소 불친절한 오류 메시지와 함께 작동을 멈춘다.
 
 \beforeverb
 \begin{verbatim}
@@ -351,20 +340,13 @@ ValueError: invalid literal for float(): fred
 \end{verbatim}
 \afterverb
 %
-There is a conditional execution structure built into 
-Python to handle these types of expected and unexpected
-errors called ``try / except''.  The idea of {\tt try}
-and {\tt except} is that you know that some sequence
-of instruction(s) may have a problem and you want to 
-add some statements to be executed if an error occurs.
-These extra statements (the except block) are ignored
-if there is no error.
 
-You can think of the {\tt try} and {\tt except} feature
-in Python as an ``insurance policy'' on a sequence of
-statements.
+이런 종류의 예측되거나, 예측 못한 오류를 다루는 ``try / except''로 불리는 조건 실행 구조가 파이썬에 내장되어 있다.
+{\tt try}와 {\tt except}의 기본 사항은 일부 명령문이 문제를 가 있다는 것을 사전에 알고 있고, 만약 그 때문에 오류가 발생하게 된다면 대신 실행할 명령문을 프로그램에 추가하는 것이다. {\tt except} 블록의 명령문은 오류가 없다면 실행되지 않는다.
 
-We can rewrite our temperature converter as follows:
+파이썬의 {\tt try}, {\tt except} 기능을 프로그램 코드의 실행에 보험을 든다고 생각할 수 있다.
+
+온도 변환기 프로그램을 다음과 같이 다시 작성할 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -379,13 +361,9 @@ except:
 \afterverb
 %
 
-Python starts by executing the 
-sequence of statements in the 
-{\tt try} block.  If all goes
-well, it skips the {\tt except} block and proceeds.  If an
-exception occurs in the {\tt try} block, 
-Python jumps out of the {\tt try} block and
-executes the sequence of statements in the {\tt except} block.
+파이썬은 {\tt try} 블록의 명령문을 우선 실행합니다. 만약 모든 것이 순조롭다면, {\tt except} 블록을 건너뛰고, 다음 코드를 실행합니다.
+
+{\tt except}이 {\tt try} 블록에서 발생하면, 파이썬은 {\tt try}블록을 건너뛰고 {\tt except}블록의 명령문을 수행합니다. 
 
 \beforeverb
 \begin{verbatim}
@@ -400,34 +378,22 @@ Please enter a number
 \afterverb
 %
 
-Handling an exception with a {\tt try} statement is called {\bf
-catching} an exception.  In this example, the {\tt except} clause
-prints an error message.  In general,
-catching an exception gives you a chance to fix the problem, or try
-again, or at least end the program gracefully.
+{\tt try}문으로 예외사항을 다루는 것을 예외 처리한다{\bf catching an exception}고 부릅니다.
+예제에서는 {\tt except} 절에서는 단순히 오류 메시지를 출력만 합니다. 대체로, 예외 처리는 오류를 고치거나, 다시 시작하거나, 최소한 프로그램이 정상적으로 종료될 수 있게 합니다.
 
-\section{Short circuit evaluation of logical expressions}
-\index{short circuit}
+\section{논리 연산식의 단락(Short circuit) 평가}
+%\index{short circuit}
 
-When Python is processing a logical expression such as 
-{\tt x >= 2 and (x/y) > 2}, it evaluates the expression
-from left-to-right.  Because of the definition of {\tt and},
-if {\tt x} is less than 2, the expression {\tt x >= 2} is 
-{\tt False} and so the whole expression is {\tt False} regardless
-of whether {\tt (x/y) > 2} evaluates to {\tt True} or {\tt False}.
-
-When Python detects that there is nothing to be gained by evaluating
-the rest of a logical expression, it stops its evaluation and does
-not do the computations in the rest of the logical expression.  
-When the evaluation of a logical expression stops because the overall
-value is already known, it is called {\bf short-circuiting} 
-the evaluation.
+파이썬이 {\tt x >= 2 and (x/y) > 2}와 같은 논리 연산식을 처리할 때, 왼쪽에서부터 오른쪽으로 연산식을 평가한다.
+{\tt and}의 정의 때문에 {\tt x}이 2보다 작다면, {\tt x >= 2}은 {\tt 거짓(False)}이 되서, 전체는 {\tt (x/y) > 2}이 {\tt 참(True)} 혹은 {\tt 거짓(False)}에 관계없이 {\tt 거짓(False)}이 된다. 
+파이썬이 논리 연산식의 나머지 부분을 평가해도 나아지는 것이 없다고 탐지할 때, 평가를 멈추고 나머지 논리 연산식에 대한 연산도 중지한다. 최종 논리 연산식의 값이 이미 알려졌기 때문에
+더 이상의 연산을 멈출 때, 이를 단락(Short-circuiting) 평가라고 한다.
 
 \index{guardian pattern}
 \index{pattern!guardian}
-While this may seem like a fine point, the short circuit behavior
-leads to a clever technique called the {\bf guardian pattern}.  
-Consider the following code sequence in the Python interpreter:
+
+이것이 세심해 보일 수 있지만, 단락 행동이 가디언 {\bf 패넌(guardian pattern)}으로 불리는 좀 더 똑똑한 기술로 연결된다.
+파이썬 인터프리터의 다음 코드를 살펴보자.
 
 \beforeverb
 \begin{verbatim}
@@ -449,14 +415,11 @@ ZeroDivisionError: integer division or modulo by zero
 \end{verbatim}
 \afterverb
 %
-The third calculation failed because Python was evaluating {\tt (x/y)}
-and {\tt y} was zero which causes a runtime error.  But the second example
-did \emph{not} fail because the first part of the expression {\tt x >= 2} 
-evaluated to {\tt False} so the {\tt (x/y)} was not ever executed 
-due to the {\bf short circuit} rule and there was no error.
+파이썬이 {\tt (x/y)}연산을 평가할 때 {\tt y}이 0 이어서 실행오류 발생시켜서, 세번째 연산은 수행되지 않습니다.
+하지만, 두 번째 예제의 경우 {\tt x >= 2} 이 {\tt 거짓(False)}이어서 전체가 {\tt 거짓(False)}이 되어 {\tt (x/y)} 평가가 실행되지 않고,
+단락(Short-circuiting) 평가 규칙에 의해서 오류도 발생하지 않습니다.
 
-We can construct the logical expression to strategically place a {\bf guard}
-evaluation just before the evaluation that might cause an error as follows:
+오류가 발생할 것 같은 평가식 앞에 {\bf 가디언(gardian)} 평가식을 전략적으로 배치해서 논리 평가식을 아래와 같이 구성합니다. 
 
 \beforeverb
 \begin{verbatim}
@@ -476,19 +439,14 @@ ZeroDivisionError: integer division or modulo by zero
 \end{verbatim}
 \afterverb
 %
-In the first logical expression, {\tt x >= 2} is {\tt False} so the evaluation
-stops at the {\tt and}.  In the second logical expression {\tt x >= 2} is {\tt True}
-but {\tt y != 0} is {\tt False} so we never reach {\tt (x/y)}.
+첫 번째 논리 표현식은 {\tt x >= 2}이 {\tt 거짓(False)}이라 {\tt and}에서 멈춥니다.
+두 번째 논리 표현식은 {\tt x >= 2}이 {\tt 참(True)}, {\tt y != 0}은 {\tt 거짓(False)}이어서 {\tt (x/y)}까지 갈 필요는 없습니다.
+세 번째 논리 표현식은 {\tt (x/y)} 연산이 끝난 후에 {\tt y != 0}이 수행되어서 오류가 발생합니다.
 
-In the third logical expression, the {\tt y != 0} is \emph{after} the 
-{\tt (x/y) } calculation so the expression fails with an error.
+두 번째 논리 표현식에서 {\tt y != 0}이 '0'이 아니어만 {\tt (x/y)}이 실행될 수 있도록 {\bf 가디언(gardian)} 역할을 수행한다고 할 수 있다.
 
-In the second expression, we say that {\tt y != 0} acts as a {\bf guard}
-to insure that we only execute {\tt (x/y)} if {\tt y} is non-zero.
-
-
-\section{Debugging}
-\label{whitespace}
+\section{디버깅(Debugging)}
+%\label{whitespace}
 \index{debugging}
 \index{traceback}
 
