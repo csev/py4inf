@@ -673,137 +673,114 @@ print x
 생각을 적절하게 추상화하여 함수를 작성하는 것입니다. 나중에, 리스트에서 가장 작은 값을 찾아내는 코드를 보여 줄 것입니다. 리스트를 인수로 받아 가장 작은 값을 
 반환하는 {\tt min} 함수를 작성해서 여러분에게 보여드릴 것입니다.
 
-\section{Debugging}
+\section{디버깅}
 \label{editor}
 \index{debugging}
 
-If you are using a text editor to write your scripts, you might
-run into problems with spaces and tabs.  The best way to avoid
-these problems is to use spaces exclusively (no tabs).  Most text
-editors that know about Python do this by default, but some
-don't.
+텍스트 에디터로 스크립트를 작성한다면 공백과 탭으로 몇번씩 문제에 봉착했을 것입니다. 이런 문제를 피하는 가장 최선의 방식은 절대 탭을 사용하지 말고
+공백(스페이스)를 사용하는 것입니다. 파이썬을 인식하는 대부분의 텍스트 에디터는 디폴트로 이런 기능을 지원하지만, 몇몇 텍스트 에디터는 지원하지 않아 탭과 공백으로 문제를 야기합니다.
 
 \index{whitespace}
 
-Tabs and spaces are usually invisible, which makes them
-hard to debug, so try to find an editor that manages indentation
-for you.
+탭과 공백은 통상 눈에 보이지 않기 때문에 디버그를 어렵게 합니다. 자동으로 들여쓰기를 해주는 에디터를 프로그램 작성 시 사용하세요.
 
-Also, don't forget to save your program before you run it.  Some
-development environments do this automatically, but some don't.
-In that case the program you are looking at in the text editor
-is not the same as the program you are running.
+프로그램을 실행하기 전에 저장하는 것을 잊지 마세요. 몇몇 개발 환경은 자동저장 기능을 지원하지만 그렇지 않는 것도 있습니다.
+이런 이유 때문에 텍스트 에디터에서 작성한 프로그램과 실행하고 있는 프로그램이 같지 않을 수도 있습니다.
 
-Debugging can take a long time if you keep running the same,
-incorrect, program over and over!
+동일하지만 잘못된 프로그램을 반복적으로 실행한다면, 디버깅은 오래 걸릴 수 있습니다.
 
-Make sure that the code you are looking at is the code you are running.
-If you're not sure, put something like \verb"print 'hello'" at the
-beginning of the program and run it again.  If you don't see
-\verb"hello", you're not running the right program!
+작성하고 있는 코드와 실행하는 코드가 일치하는지 필히 확인하세요. 확신을 하지 못한다면, 프로그램의 첫줄에 \verb"print 'hello'" 을 넣어서 실행해 보세요.
+\verb"hello"를 보지 못한다면, 작성하고 있는 프로그램과 실행하고 있는 프로그램은 다른 것입니다.
 
 
-
-
-\section{Glossary}
+\section{용어정의}
 
 \begin{description}
 
-\item[algorithm:]  A general process for solving a category of
-problems.
+\item[알고리즘(algorithm):] 특정 범주의 문제를 해결하는 일반적인 프로세스
+
 \index{algorithm}
 
-\item[argument:]  A value provided to a function when the function is called.
-This value is assigned to the corresponding parameter in the function.
+\item[인수(argument):] 함수가 호출될 때 함수에 제공되는 값. 이 값은 함수 내부에 상응하는 매개 변수에 할당된다.
+
 \index{argument}
 
-\item[body:] The sequence of statements inside a function definition.
+\item[몸통 부문(body):] 함수 정의문 내부에 일련의 명령문
+
 \index{body}
 
-\item[composition:] Using an expression as part of a larger expression,
-or a statement as part of a larger statement.
+\item[복합(composition):] 
+좀더 큰 표현식의 일부분으로 표현식을 사용하거나, 좀더 큰 명령문의 일부로서의 명령문.
 \index{composition}
 
-\item[deterministic:] Pertaining to a program that does the same
-thing each time it runs, given the same inputs.
+\item[결정론적(deterministic):] 동일한 입력값이 주어지고 실행될 때마다 동일한 행동을 하는 프로그램에 관련된 것.
 \index{deterministic}
 
-\item[dot notation:]  The syntax for calling a function in another
-module by specifying the module name followed by a dot (period) and
-the function name.
+\item[점 표기법(dot notation):] 점과 함수명으로 모듈명을 명세함으로써 다른 모듈의 함수를 호출하는 구문.
 \index{dot notation}
 
-\item[flow of execution:]  The order in which statements are executed during
-a program run.
+\item[실행 흐름(flow of execution):] 프로그램 실행 동안 명령문이 실행되는 순서.
 \index{flow of execution}
 
-\item[fruitful function:] A function that returns a value.
+\item[열매 함수(fruitful function):] 반환값을 가지는 함수.
 \index{fruitful function}
 
-\item[function:] A named sequence of statements that performs some
-useful operation.  Functions may or may not take arguments and may or
-may not produce a result.
+\item[함수(function):] 유용한 연산을 수행하는 이름을 가진 일련의 명령문.
+함수는 인수를 가질 수도 갖지 않을 수도 있고, 결과값을 생성할 수도 생성하지 않을 수도 있다.
 \index{function}
 
-\item[function call:] A statement that executes a function. It
-consists of the function name followed by an argument list.
+\item[함수 호출(function call):] 함수를 실행하는 명령문. 함수 이름과 인수 리스트로 구성된다.
 \index{function call}
 
-\item[function definition:]  A statement that creates a new function,
-specifying its name, parameters, and the statements it executes.
+\item[함수 정의(function definition):] 신규 함수를 정의하는 명령문으로 이름, 매개변수, 실행 명령문을 명세한다.
 \index{function definition}
 
-\item[function object:]  A value created by a function definition.
-The name of the function is a variable that refers to a function
-object.
+\item[함수 개체(function object):] 함수 정의로 생성되는 값. 함수명은 함수 개체를 참조하는 변수다.
 \index{function definition}
 
-\item[header:] The first line of a function definition.
+\item[머리 부문(header):] 함수 정의의 첫번째 줄
 \index{header}
 
-\item[import statement:] A statement that reads a module file and creates
-a module object.
+\item[가져오기 문(import statement):] 모듈 파일을 읽어 모듈 개체를 생성하는 명령문
 \index{import statement}
 \index{statement!import}
 
-\item[module object:] A value created by an {\tt import} statement
-that provides access to the data and code defined in a module.
+\item[모듈 개체(module object):] {\tt import}문에 의해서 생성된 모듈에 정의된 코드와 데이터에 접근할 수 있는 값
 \index{module}
 
-\item[parameter:] A name used inside a function to refer to the value
-passed as an argument.
+\item[매개 변수(parameter):] 인수로 전달된 값을 참조하기 위해 함수 내부에 사용되는 이름
 \index{parameter}
 
-\item[pseudorandom:] Pertaining to a sequence of numbers that appear
-to be random, but are generated by a deterministic program.
+\item[의사 난수(pseudorandom):] 난수처럼 보이는 일련의 숫자와 관련되어 있지만, 결정론적 프로그램에 의해 생성된다.
 \index{pseudorandom}
 
-\item[return value:]  The result of a function.  If a function call
-is used as an expression, the return value is the value of
-the expression.
+\item[반환 값(return value):] 함수의 결과. 함수 호출이 표현식으로 사용된다면, 반환값은 표현식의 값이 된다. 
 \index{return value}
 
-\item[void function:] A function that doesn't return a value.
+\item[빈 함수(void function):] 반환값을 갖지 않는 함수
 \index{void function}
 
 
 \end{description}
 
 
-\section{Exercises}
+\section{연습문제}
 
 \begin{ex}
+파이썬의 "def" 키워드의 목적은 무엇입니까?
+
 What is the purpose of the "def" keyword in Python?
 
-a) It is slang that means "the following code is really cool"\\
-b) It indicates the start of a function\\
-c) It indicates that the following indented section of code is to be stored for later\\
-d) b and c are both true\\
-e) None of the above
+a) "다음의 코드는 정말 좋다"라는 의미를 가진 속어\\
+b) 함수의 시작을 표시한다.\\
+c) 다음의 들여쓰기 코드 부문은 나중을 위해 저장되야 된다는 것을 표시한다.\\
+d) b와 c 모두 사실\\
+e) 위 모두 거짓
 \end{ex}
 
 \begin{ex}
-What will the following Python program print out?
+
+다음 파이썬 프로그램은 무엇을 출력할까요?
 
 \beforeverb
 \begin{verbatim}
@@ -827,9 +804,9 @@ e) Zap Zap Zap
 \end{ex}
 
 \begin{ex}
-Rewrite your pay computation with time-and-a-half for overtime
-and create a function called {\tt computepay} which takes
-two parameters ({\tt hours} and {\tt rate}).
+
+프로그램 작성 시 ({\tt hours}과 {\tt rate})을 매개 변수로 가지는 함수 {\tt computepay}을 생성하여,
+초과근무에 대해서는 50％ 초과 근무 수당을 지급하는 봉급 계산 프로그램을 다시 작성하세요.
 
 \begin{verbatim}
 Enter Hours: 45
@@ -839,9 +816,9 @@ Pay: 475.0
 \end{ex}
 
 \begin{ex}
-Rewrite the grade program from the previous chapter 
-using a function called {\tt computegrade} that takes
-a score as its parameter and returns a grade as a string.
+
+매개 변수로 점수를 받아 문자열로 등급을 반환하는 {\tt computegrade} 함수를 사용하여
+앞장의 등급 프로그램을 다시 작성하세요.
 
 \begin{verbatim}
 Score   Grade
@@ -869,8 +846,8 @@ Enter score: 0.5
 F
 \end{verbatim}
 
-Run the program repeatedly to test the various different values
-for input.
+입력값으로 다양한 다른 값을 테스트하기 위해서 반복적으로 프로그램을 실행하세요.
+
 \end{ex}
 
 
