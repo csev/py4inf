@@ -1,7 +1,7 @@
 % LaTeX source for ``Python for Informatics: Exploring Information''
 % Copyright (c)  2010-  Charles R. Severance, All Rights Reserved
 
-\chapter{Files}
+\chapter{파일}
 
 \index{file}
 \index{type!file}
@@ -12,49 +12,37 @@
 \index{persistence}
 \index{secondary memory}
 
-So far, we have learned how to write programs and communicate 
-our intentions to the {\bf Central Processing Unit} using conditional
-execution, functions, and iterations.  We have learned how to 
-create and use data structures in the {\bf Main Memory}.  The CPU 
-and memory are where our software works and runs.  It is where 
-all of the ``thinking'' happens.  
+지금까지, 프로그램을 어떻게 작성하고 조건문 실행, 함수, 반복을 사용하여 
+{\bf 중앙처리장치(CPU, Central Processing Unit)}에 프로그래머의 의도를 커뮤니케이션하는 것을 학습했다.
+{\bf 주기억장치(Main Memory)}에 어떻게 자료구조를 생성하고 사용하는지를 배웠다.
+CPU와 주기억장치는 소프트웨어가 동작하고 실행하는 곳이고  모든 ''생각(thinking)''이 일어나는 곳이다.
 
-But if you recall from our hardware architecture discussions,
-once the power is turned off, anything stored in either
-the CPU or main memory is erased.  So up to now, our
-programs have just been transient fun exercises to learn Python.
+하지만, 하드웨어 아키텍처를 논의했던 앞의 기억을 되살린다면,
+전원이 꺼지게 되면, CPU와 주기억장치에 저장된 모든 것이 지워진다.
+지금까지 작성한 프로그램은 파이썬을 배우기 위한 일시적으로 재미로 연습한 것이다.
 
 \beforefig
 \centerline{\includegraphics[height=2.50in]{figs2/arch3.eps}}
 \afterfig
 
-In this chapter, we start to work with {\bf Secondary Memory} 
-(or files).
-Secondary memory is not erased even when the power is turned off.  
-Or in the case of a USB flash drive, the
-data we write from our programs can be removed from the 
-system and transported to another system.
+이번 장에서는 {\bf 보조 기억장치(Secondary Memory)} 혹은 파일을 가지고 작업을 시작할 것이다.
+보조 기억장치는 전원이 꺼져도 지워지지 않는다.
+혹은, USB 플래쉬 드라이브를 사용한 경우에는 작성한 데이터는 프로그램으로부터 시스템에서 제거되어 다른 시스템으로 전송될 수 있다.
 
-We will primarily focus on reading and writing text files such as 
-those we create in a text editor.  Later we will see how to work
-with database files which are binary files, specifically designed to be read
-and written through database software.
+우선 텍스트 편집기로 작성한 텍스트 파일을 읽고 쓰는 것에 초점을 맞출 것이다.
+나중에 데이터베이스 소프트웨어로 읽고 쓰도록 설계된 바이너리 파일인 데이터베이스와 어떻게 작업하는지를 보게 될 것이다.
 
-\section{Opening files}
+
+\section{파일 열기}
 \index{file!open}
 \index{open function}
 \index{function!open}
 
-When we want to read or write a file (say on your hard drive), we first
-must {\bf open} the file.  Opening the file communicates with your operating
-system which knows where the data for each file is stored.  When you open
-a file, you are asking the operating system to find the file by name
-and make sure the file exists.  In this example, we open the file 
-{\tt mbox.txt} which should be stored in the same folder that you
-are in when you 
-start Python.
-You can download this file from 
-\url{www.py4inf.com/code/mbox.txt}
+하드 디스크의 파일을 읽거나 쓸려고 할 때, 파일을 {\bf 열여야} 한다.
+파일을 여는 것은 운영체제와 커뮤니케이션하는데 운영체제는 각 파일의 데이터가 어디에 저장되었는지를 알고 있다.
+여러분이 파일을 열 때, 운영체제는 파일이 존재하는 확인하고 이름으로 파일을 찾을 수 있게 요청한다.    
+이번 예제에서, 파이썬을 시작한 동일한 폴더에 저장된 {\tt mbox.txt} 파일을 열 것이다.  
+\url{www.py4inf.com/code/mbox.txt} 에서 파일은 다운로드할 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -65,18 +53,15 @@ You can download this file from
 \afterverb
 %
 \index{file handle}
-If the {\tt open} is successful, the operating system returns us a 
-{\bf file handle}.  The file handle is not the actual data contained
-in the file, but instead it is a ``handle'' that we can use to 
-read the data.   You are given a handle if the requested file
-exists and you have the proper permissions to read the file.
+
+{\tt open}이 성공하면, 운영체제는 {\bf 파일 핸들러(file handle)}을 반환한다.
+{\bf 파일 핸들러(file handle)}은 파일에 담겨있는 실제 데이터가 아니고, 대신에 데이터를 읽을 수 있도록 ''핸들(handle)''을 사용할 수 있도록 한다.
+요청한 파일이 존재하고, 파일을 읽을 수 있는 적절한 권한이 있다면 이제 핸들이 여러분에게 주어졌다.
 
 \beforefig
 \centerline{\includegraphics[height=1.75in]{figs2/handle.eps}}
 \afterfig
-
-If the file does not exist, {\tt open} will fail with a traceback and you 
-will not get a handle to access the contents of the file:
+파일이 존재하지 않는다면, {\tt open}은 트레이스백(traceback) 오류로 파일 열기를 실패하고, 파일에 존재하는 핸들도 얻지 못한다.
 
 \beforeverb
 \begin{verbatim}
@@ -87,16 +72,12 @@ IOError: [Errno 2] No such file or directory: 'stuff.txt'
 \end{verbatim}
 \afterverb
 %
-Later we will use {\tt try} and {\tt except} to deal more gracefully
-with the situation where we attempt to open a file that does 
-not exist.
 
-\section{Text files and lines}
+나중에 {\tt try}와 {\tt except}를 가지고, 존재하지 않는 파일을 열려고 하는 상황을 좀더 우아하게 처리할 것이다.
 
-A text file can be thought of as a sequence of lines, much like a Python
-string can be thought of as a sequence of characters.  For example, this
-is a sample of a text file which records mail activity from various
-individuals in an open source project development team:
+\section{텍스트 파일과 라인}
+파이썬 문자열이 일련의 문자의 열로 생각하는 것과 마찬가지로 텍스트 파일은 일련의 라인으로 생각할 수 있다.
+예를 들어, 다음은 오픈 소스 프로젝트 개발 팀에서 다양한 참여자들의 전자우편 활동을 기록한 텍스트 파일 샘플이다.
 
 \beforeverb
 \begin{alltt}
@@ -110,11 +91,9 @@ Details: http://source.sakaiproject.org/viewsvn/?view=rev\&rev=39772
 ...
 \end{alltt}
 \afterverb
+상호 의사소통한 전자우편 전체 파일은  \url{www.py4inf.com/code/mbox.txt} 에서 가능하고, 간략한 버젼의 파일은 \url{www.py4inf.com/code/mbox.txt}에서 얻을 수 있다.
 
-The entire file of mail interactions is available from 
-\url{www.py4inf.com/code/mbox.txt} 
-and a shortened version of the file is available from
-\url{www.py4inf.com/code/mbox-short.txt}.
+
 These files are in a standard format for a file containing 
 multiple mail messages. The lines which start with 
 ``From '' separate the messages and the lines which start 
