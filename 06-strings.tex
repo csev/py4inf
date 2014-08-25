@@ -532,8 +532,8 @@ True
 
 \section{문자열 파싱(Parsing)}
 
-Often, we want to look into a string and find a substring.  For example
-if we were presented a series of lines formatted as follows:
+종종, 문자열을 들여다 보고 부속 문자열(substring)을 찾고 싶다. 예를 들어,
+아래와 같은 형식으로 구성된 일련의 자료 라인이 주어졌다고 가정하면,
 
 \beforeverb
 \begin{alltt}
@@ -541,14 +541,11 @@ From stephen.marquard@{\bf uct.ac.za} Sat Jan  5 09:14:16 2008
 \end{alltt}
 \afterverb
 
-And we wanted to pull out only the second half of the address (i.e.
-{\tt uct.ac.za}) from each line.  We can do this by using the {\tt find}
-method and string slicing.   
+각 라인의 뒤쪽 전자우편 주소({\tt uct.ac.za})만 뽑아내고 싶을 것이다.
+{\tt find} 메쏘드와 문자열 조각(string sliceing)을 사용해서 작업을 수행할 수 있다.
 
-First, we will find the position of the at-sign in the string.  Then we will
-find the position of the first space \emph{after} the at-sign.  And then we
-will use string slicing to extract the portion of the string which we 
-are looking for.
+우선, 문자열에서 골뱅이(@, at-sign) 기호의 위치를 찾는다. 그리고 
+골뱅이 기호 \emph{뒤} 첫 공백 위치를 찾는다. 그리고 나서 찾고자 하는 부속 문자열을 뽑아내기 위해서 문자열 조각을 사용한다.
 
 \beforeverb
 \begin{verbatim}
@@ -566,38 +563,28 @@ uct.ac.za
 \end{verbatim}
 \afterverb
 %
-We use a version of the {\tt find} method which allows us to specify
-a position in the string where we want {\tt find} to start looking.
-When we slice, we extract the characters 
-from ``one beyond the at-sign through up to \emph{but not including} the 
-space character''.  
 
-The documentation for the {\tt find} method is available at
-\url{docs.python.org/library/string.html}.
+{\tt find} 메쏘드를 사용해서 찾고자 하는 문자열의 시작 위치를 명세한다. 
+문자열 조각낼(slicing) 때, 골뱅기 기호 뒤부터 빈 공백을 \emph{포함하지 않는} 위치까지 문자열을 뽑아낸다.  
 
-\section{Format operator}
+{\tt find} 메쏘드에 대한 문서는 \url{docs.python.org/library/string.html}에서 참조 가능하다.
+
+\section{형식 연산자}
 
 \index{format operator}
 \index{operator!format}
 
-The {\bf format operator}, {\tt \%}
-allows us to construct strings, replacing parts of the strings
-with the data stored in variables.
-When applied to integers, {\tt \%} is the modulus operator.  But
-when the first operand is a string, {\tt \%} is the format operator.
+{\bf 형식 연산자(format operator)}, {\tt \%}는 문자열의 일부를 변수에 저장된 값으로 바꿔 문자열을 구성한다.
+정수에 포맷 연산자가 적용될 때, {\tt \%}는 나머지 연산가 된다. 하지만 첫 피연산자가 문자열이면,  {\tt \%}은 포맷 연산자가 된다.
 
 \index{format string}
 
-The first operand is the {\bf format string}, which contains
-one or more {\bf format sequences} that
-specify how
-the second operand is formatted.  The result is a string.
+첫 피연산자는 {\bf 형식 문자열 format string}로 두번째 피 연산자가 어떤 형식으로 표현되는지를 명세하는 하나 혹은 그 이상의 
+{\bf 형식 열 format sequence}을 담고 있다. 결과값은 문자열이다.
 
 \index{format sequence}
 
-For example, the format sequence \verb"'%d'" means that
-the second operand should be formatted as an
-integer ({\tt d} stands for ``decimal''):
+예를 들어, 형식 열 \verb"'%d'"의 의미는 두번째 피연산자가 정수 형식으로 표현됨을 뜻한다. ({\tt d}는 ``decimal''를 나타낸다.)
 
 \beforeverb
 \begin{verbatim}
@@ -607,11 +594,10 @@ integer ({\tt d} stands for ``decimal''):
 \end{verbatim}
 \afterverb
 %
-The result is the string \verb"'42'", which is not to be confused
-with the integer value {\tt 42}.
 
-A format sequence can appear anywhere in the string,
-so you can embed a value in a sentence:
+결과는 \verb"'42'" 문자열로 정수 {\tt 42}와 혼동하면 안 된다.
+
+형식 열은 문자열 어디에서도 나타날 수 있어서 문장 중간에 값을 임베드(embed)할 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -621,14 +607,12 @@ so you can embed a value in a sentence:
 \end{verbatim}
 \afterverb
 %
-If there is more than one format sequence in the string,
-the second argument has to be a tuple.  Each format sequence is
-matched with an element of the tuple, in order.
 
-The following example uses \verb"'%d'" to format an integer,
-\verb"'%g'" to format
-a floating-point number (don't ask why), and \verb"'%s'" to format
-a string:
+만약 문자열의 형식 열이 하나 이상이라면, 두번째 인수는 튜플(tuple)이 된다.
+형식 열 각각은 튜플의 요소와 순서대로 일치된다.
+
+다음 예제는 정수 형식을 표현하기 위해서 \verb"'%d'", 부동 소수점 형식을 표현하기 위해서 \verb"'%g'",
+문자열 형식을 표현하기 위해서 \verb"'%s'"을 사용한 것을 보여준다. 여기서 왜 부동 소수점 형식이  \verb"'%f'"대신에 \verb"'%g'"인지는 질문하지 말아주세요.
 
 \beforeverb
 \begin{verbatim}
@@ -637,9 +621,8 @@ a string:
 \end{verbatim}
 \afterverb
 %
-The number of elements in the tuple has to match the number
-of format sequences in the string.  Also, the types of the
-elements have to match the format sequences:
+
+튜플 요소 숫자는 문자열의 형식 열의 숫자와 일치해야 하고, 요소의 형도 형식 열과 일치해야 한다.
 
 \index{exception!TypeError}
 \index{TypeError}
@@ -653,12 +636,11 @@ TypeError: illegal argument type for built-in operation
 \end{verbatim}
 \afterverb
 %
-In the first example, there aren't enough elements; in the
-second, the element is the wrong type.
 
-The format operator is powerful, but it can be difficult to use.  You
-can read more about it at
-\url{docs.python.org/lib/typesseq-strings.html}.
+첫 예제는 충분한 요소 개수가 않돼고, 두 번째 예제는 형식이 맞지 않는다.
+
+형식 연산자는 강력하지만, 사용하기가 여럽다. 더 많은 정보는 
+\url{docs.python.org/lib/typesseq-strings.html}에서 찾을 수 있다.
 
 % You can specify the number of digits as part of the format sequence.
 % For example, the sequence \verb"'%8.2f'"
@@ -676,16 +658,13 @@ can read more about it at
 % digits after the decimal point.  
 
 
-\section{Debugging}
+\section{디버깅}
 \index{debugging}
 
-A skill that you should cultivate as you program is always
-asking yourself, ``What could go wrong here?'' or alternatively,
-``What crazy thing might our user do to crash our (seemingly) 
-perfect program?''.
+프로그램을 작성하면서 배양해야 하는 기술은 항상 자신에게 질문을 하는 것이다.
+''여기서 무엇이 잘못 될 수 있을까?'' 혹은 ''사용자가 내가 작성한 완벽한 프로그램을 망가뜨리기 위해 무슨 엄청난 일을 할 것인가?"
 
-For example, look at the program which we used to demonstrate
-the {\tt while} loop in the chapter on iteration:
+예를 들어 앞장의 반복 {\tt while} 루프를 시연하기 위해 사용한 프로그램을 살펴봅시다.
 
 \beforeverb
 \begin{verbatim}
@@ -701,7 +680,8 @@ print 'Done!'
 \end{verbatim}
 \afterverb
 %
-Look what happens when the user enters an empty line of input:
+
+사용자가 입력값으로 빈 공백 줄을 입력하게 될때 무엇이 발생하는지 살펴봅시다.
 
 \beforeverb
 \begin{verbatim}
@@ -717,13 +697,10 @@ Traceback (most recent call last):
 \end{verbatim}
 \afterverb
 %
-The code works fine until it is presented an empty line.  Then
-there is no zeroth character so we get a traceback.  There are two
-solutions to this to make line three ``safe'' even if the line is 
-empty.
+빈 공백줄이 입력될 때까지 코드는 잘 작동합니다. 
+0번째 문자가 없어서 트레이스백(traceback)이 발생한다. 입력줄이 비여있을 때, 코드 3번째 줄을 ''안전''하게 만드는 두가지 방법이 있다.
 
-One possibility is to simply use the {\tt startswith} method
-which returns {\tt False} if the string is empty.
+{\tt startswith} 메쏘드를 사용해서 빈 문자열이면  {\tt 거짓(False)}을 반환한다.
 
 \beforeverb
 \begin{verbatim}
@@ -733,9 +710,8 @@ which returns {\tt False} if the string is empty.
 %
 \index{guardian pattern}
 \index{pattern!guardian}
-Another way to safely write the {\tt if} statement using the {\bf guardian}
-pattern and make sure the second logical expression is evaluated 
-only where there is at least one character in the string.:
+
+{\bf 가디언 패턴(guardian pattern)}을 사용한 {\tt if}문으로 문자열에 적어도 하나의 문자가 있는 경우만 두번째 논리 표현식이 평가되도록 하는 코드를 작성한다.
 
 \beforeverb
 \begin{verbatim}
@@ -744,81 +720,69 @@ only where there is at least one character in the string.:
 \afterverb
 %
 
-\section{Glossary}
+\section{용어정의}
 
 \begin{description}
 
-\item[counter:] A variable used to count something, usually initialized
-to zero and then incremented.
+\item[카운터(counter):] 무언가를 세기 위해서 사용되는 변수로 일반적으로 0으로 초기화 되고 증가한다.
 \index{counter}
 
-\item[empty string:] A string with no characters and length 0, represented
-by two quotation marks.
+\item[빈 문자열(empty string):] 두 인용부호로 표현되는 어떤 문자도 없고 길이가 0인 문자열.
 \index{empty string}
 
-\item[format operator:] An operator, {\tt \%}, that takes a format
-string and a tuple and generates a string that includes
-the elements of the tuple formatted as specified by the format string.
+\item[형식 연산자(format operator):] 
+형식 문자열과 튜플을 받아, 형식 문자열에 지정된 형식으로 튜플 요소를 포함하는 문자열을 생성하는 연산자, {\tt \%}.
 \index{format operator}
 \index{operator!format}
 
-\item[format sequence:] A sequence of characters in a format string,
-like {\tt \%d}, that specifies how a value should be formatted.
+\item[행식 열(format sequence):] 
+{\tt \%d}처럼 어떻게 값이 형식적으로 표현되어야 하는지를 명세하는 ''형식 문자열''의 문자의 열. 
 \index{format sequence}
 
-\item[format string:] A string, used with the format operator, that
-contains format sequences.
+\item[형식 문자열(format string):] 형식 열을 포함하는 형식 연산자와 함께 사용되는 문자열.
 \index{format string}
 
-\item[flag:] A boolean variable used to indicate whether a condition
-is true.
+\item[플래그(flag):] 조건이 참인지를 표기위해 사용하는 불 변수(boolean variable)
 \index{flag}
 
-\item[invocation:] A statement that calls a method.
+\item[호출(invocation):] 메쏘드를 호출하는 명령문.
 \index{invocation}
 
-\item[immutable:] The property of a sequence whose items cannot
-be assigned.
+\item[불변(immutable):] 열의 항목에 할당할 수 없는 특성.
 \index{immutability}
 
-\item[index:] An integer value used to select an item in
-a sequence, such as a character in a string.
+\item[인덱스(index):] 문자열의 문자처럼 열의 항목을 선택하기 위해 사용되는 정수 값.
 \index{index}
 
-\item[item:] One of the values in a sequence.
+\item[항목(item):] 열에 있는 값의 하나.
 \index{item}
 
-\item[method:] A function that is associated with an object and called
-using dot notation.
+\item[메쏘드(method):] 개체와 연관되어 점 표기법을 사용하여 호출되는 함수.
 \index{method}
 
-\item[object:] Something a variable can refer to.  For now,
-you can use ``object'' and ``value'' interchangeably.
+\item[개체(object):] 변수가 참조하는 무엇. 지금에서는 ''개체''와 ''값''을 구별없이 사용한다.
 \index{object}
 
-\item[search:] A pattern of traversal that stops
-when it finds what it is looking for.
+\item[검색(search):] 찾고자 하는 것을 찾았을 때 멈추는 운행법 패턴.
 \index{search pattern}
 \index{pattern!search}
 
-\item[sequence:] An ordered set; that is, a set of
-values where each value is identified by an integer index.
+\item[열(sequence):] 정돈된 세트. 즉, 정수 인텍드로 각각의 값이 확인되는 값의 집합.
 \index{sequence}
 
-\item[slice:] A part of a string specified by a range of indices.
+\item[조각(slice):] 인텍스의 범위로 지정된 문자열 부분.
 \index{slice}
 
-\item[traverse:] To iterate through the items in a sequence,
-performing a similar operation on each.
+\item[운행법(traverse):] 열의 항목을 반복적으로 훑기, 각각에 대해서는 동일한 연산을 수행.
 \index{traversal}
 
 \end{description}
 
 
-\section{Exercises}
+\section{연습문제}
 
 \begin{ex}
-Take the following Python code that stores a string:`
+아래 문자열을 파이썬 코드를 작성하세요.
 
 \beforeverb
 \begin{alltt}
@@ -826,10 +790,8 @@ str = 'X-DSPAM-Confidence: {\bf 0.8475}'
 \end{alltt}
 \afterverb
 
-Use {\tt find} and string slicing to extract the portion
-of the string after the colon character and then use the 
-{\tt float} function to convert the extracted string 
-into a floating point number.
+{\tt find} 메쏘드와 문자열 조각내기를 사용하여 콜론(:) 문자 뒤의 문자열을 뽑아내고 
+{\tt float} 함수를 사용하여 뽑아낸 문자열을 부동 소수점 숫자로 변환하세요.
 
 \end{ex}
 
@@ -838,16 +800,13 @@ into a floating point number.
 \index{string method}
 \index{method!string}
 
-Read the documentation of the string methods at
-\url{docs.python.org/lib/string-methods.html}.  You
-might want to experiment with some of them to make sure
-you understand how they work.  {\tt strip} and
-{\tt replace} are particularly useful.
+\url{https://docs.python.org/2.7/library/stdtypes.html#string-methods}에서 문자열 메쏘드 문서를 읽어보세요.
+어떻게 동작하는가를 이해도를 확인하기 위해서 몇개를 골라 실험을 해보세요.
+{\tt strip}과 {\tt replace}가 특히 유용합니다.
 
-The documentation uses a syntax that might be confusing.
-For example, in \verb"find(sub[, start[, end]])", the brackets
-indicate optional arguments.  So {\tt sub} is required, but
-{\tt start} is optional, and if you include {\tt start},
-then {\tt end} is optional.
+문서는 
+문서는 좀 혼동스러울 수 있는 구문을 사용합니다.
+예를 들어, \verb"find(sub[, start[, end]])"의 꺾쇠기호는 선택(옵션) 인수를 나타냅니다.
+그래서, {\tt sub}은 필수지만, {\tt start}은 선택 사항이고, 만약 {\tt start}가 인수로 포함된다면, {\tt end}는 선택이 된다.  
 \end{ex}
 

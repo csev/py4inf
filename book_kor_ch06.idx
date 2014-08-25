@@ -1,0 +1,89 @@
+\indexentry{sequence}{1}
+\indexentry{character}{1}
+\indexentry{bracket operator}{1}
+\indexentry{operator!bracket}{1}
+\indexentry{index}{1}
+\indexentry{index!starting at zero}{1}
+\indexentry{zero, index starting at}{1}
+\indexentry{index}{1}
+\indexentry{exception!TypeError}{1}
+\indexentry{TypeError}{1}
+\indexentry{len function}{2}
+\indexentry{function!len}{2}
+\indexentry{exception!IndexError}{2}
+\indexentry{IndexError}{2}
+\indexentry{index!negative}{2}
+\indexentry{negative index}{2}
+\indexentry{traversal}{2}
+\indexentry{loop!traversal}{2}
+\indexentry{for loop}{2}
+\indexentry{loop!for}{2}
+\indexentry{statement!for}{2}
+\indexentry{traversal}{2}
+\indexentry{slice operator}{3}
+\indexentry{operator!slice}{3}
+\indexentry{index!slice}{3}
+\indexentry{string!slice}{3}
+\indexentry{slice!string}{3}
+\indexentry{quotation mark}{3}
+\indexentry{copy!slice}{3}
+\indexentry{slice!copy}{3}
+\indexentry{mutability}{3}
+\indexentry{immutability}{3}
+\indexentry{string!immutable}{3}
+\indexentry{TypeError}{3}
+\indexentry{exception!TypeError}{3}
+\indexentry{object}{4}
+\indexentry{item assignment}{4}
+\indexentry{assignment!item}{4}
+\indexentry{immutability}{4}
+\indexentry{concatenation}{4}
+\indexentry{counter}{4}
+\indexentry{counting and looping}{4}
+\indexentry{looping and counting}{4}
+\indexentry{looping!with strings}{4}
+\indexentry{encapsulation}{4}
+\indexentry{in operator}{4}
+\indexentry{operator!in}{4}
+\indexentry{boolean operator}{4}
+\indexentry{operator!boolean}{4}
+\indexentry{string!comparison}{4}
+\indexentry{comparison!string}{4}
+\indexentry{method}{6}
+\indexentry{string!method}{6}
+\indexentry{dot notation}{6}
+\indexentry{parentheses!empty}{6}
+\indexentry{invocation}{6}
+\indexentry{optional argument}{6}
+\indexentry{argument!optional}{6}
+\indexentry{count method}{7}
+\indexentry{method!count}{7}
+\indexentry{format operator}{8}
+\indexentry{operator!format}{8}
+\indexentry{format string}{8}
+\indexentry{format sequence}{8}
+\indexentry{exception!TypeError}{8}
+\indexentry{TypeError}{8}
+\indexentry{debugging}{9}
+\indexentry{guardian pattern}{9}
+\indexentry{pattern!guardian}{9}
+\indexentry{counter}{10}
+\indexentry{empty string}{10}
+\indexentry{format operator}{10}
+\indexentry{operator!format}{10}
+\indexentry{format sequence}{10}
+\indexentry{format string}{10}
+\indexentry{flag}{10}
+\indexentry{invocation}{10}
+\indexentry{immutability}{10}
+\indexentry{index}{10}
+\indexentry{item}{10}
+\indexentry{method}{10}
+\indexentry{object}{10}
+\indexentry{search pattern}{10}
+\indexentry{pattern!search}{10}
+\indexentry{sequence}{10}
+\indexentry{slice}{10}
+\indexentry{traversal}{10}
+\indexentry{string method}{11}
+\indexentry{method!string}{11}
