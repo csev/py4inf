@@ -7,18 +7,16 @@
 \index{type!list}
 
 
-\section{리스틑 열이다.}
+\section{리스트는 열이다.}
 
-Like a string, a {\bf list} is a sequence of values.  In a string, the
-values are characters; in a list, they can be any type.  The values in
-list are called {\bf elements} or sometimes {\bf items}.
+문자열처럼, {\bf 리스트(list)}는 일련의 값이다. 문자열에서, 값은 문자지만, 리스트에서는 임의의 형(type)이 될 수 있다.
+리스트의 값은 {\bf 요소(elements)}나 때때로 {\bf 항목(items)}으로 불린다.
 
 \index{element}
 \index{sequence}
 \index{item}
 
-There are several ways to create a new list; the simplest is to
-enclose the elements in square brackets (\verb"[" and \verb"]"):
+신규 리스틀 생성하는 방법은 여러가지다. 가장 간단한 방법은 꺾쇠 괄호(\verb"[" 와 \verb"]")로 요소를 감싸는 것이다.
 
 \beforeverb
 \begin{verbatim}
@@ -27,10 +25,8 @@ enclose the elements in square brackets (\verb"[" and \verb"]"):
 \end{verbatim}
 \afterverb
 %
-The first example is a list of four integers.  The second is a list of
-three strings.  The elements of a list don't have to be the same type.
-The following list contains a string, a float, an integer, and
-(lo!) another list:
+첫번째 예제는 네 개의 정수 리스트다. 드번째 예제는 3개의 문자열 리스트다.
+문자열의 요소는 같은 형(type)일 필요는 없다. 다음의 리스트는 문자열, 부동 소수점 숫자, 정수, (아!) 또 다른 리스트를 담고 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -38,19 +34,18 @@ The following list contains a string, a float, an integer, and
 \end{verbatim}
 \afterverb
 %
-A list within another list is {\bf nested}.
+
+또 다른 리스트 내부에 리스트는 {\bf 중첩(nested)}되어 있다.
 
 \index{nested list}
 \index{list!nested}
 
-A list that contains no elements is
-called an empty list; you can create one with empty
-brackets, \verb"[]".
+어떤 요소도 담고 있지 않는 리스트는 빈 리스트(empty list)라고 부르고, 빈 꺾쇠 괄호(''[]'')로 생성할 수 있다.
 
 \index{empty list}
 \index{list!empty}
 
-As you might expect, you can assign list values to variables:
+예상했듯이, 리스트 값을 변수에 할당할 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -65,7 +60,7 @@ As you might expect, you can assign list values to variables:
 
 \index{assignment}
 
-\section{Lists are mutable}
+\section{리스트는 변경가능하다.}
 
 \index{list!element}
 \index{access}
@@ -73,10 +68,8 @@ As you might expect, you can assign list values to variables:
 \index{bracket operator}
 \index{operator!bracket}
 
-The syntax for accessing the elements of a list is the same as for
-accessing the characters of a string---the bracket operator.  The
-expression inside the brackets specifies the index.  Remember that the
-indices start at 0:
+리스트의 요소에 접근하는 구문은 문자열의 문자에 접근하는 것과 동일한 꺾쇠 괄호 연산자다.
+꺽쐬 괄호 내부의 표현식은 인덱스를 명세한다. 인덱스는 0 에서부터 시작한다.
 
 \beforeverb
 \begin{verbatim}
@@ -85,10 +78,9 @@ Cheddar
 \end{verbatim}
 \afterverb
 %
-Unlike strings, lists are mutable because you can change the order 
-of items in a list or reassign an item in a list.  
-When the bracket operator appears on the left side of an assignment, 
-it identifies the element of the list that will be assigned.
+
+문자열과 달리, 리스트의 항목의 순서를 바꾸거나, 리스트에 새로운 항목을 재할당할 수 있기 때문에 리스트는 변경가능하다.
+꺾쇠 괄호 연산자가 할당문의 왼쪽편에 나타날 때, 새로 할당될 리스트의 요소를 나타낸다.
 
 \index{mutability}
 
@@ -101,45 +93,41 @@ it identifies the element of the list that will be assigned.
 \end{verbatim}
 \afterverb
 %
-The one-eth element of {\tt numbers}, which
-used to be 123, is now 5.
+
+리스트 {\tt numbers}의 1번째 요소는 123 값을 가지고 있으나, 이제는 5 값을 가진다.
 
 \index{index!starting at zero}
 \index{zero, index starting at}
 
-You can think of a list as a relationship between indices and
-elements.  This relationship is called a {\bf mapping}; each index
-``maps to'' one of the elements.  
+리스트를 인텍스와 요소의 관계로 생각할 수 있다. 이 관계를 {\bf 매핑(mapping)}이라고 부른다. 각각의 인덱스는 요소중의 하나에 대응(''maps to'')된다.
 
 \index{item assignment}
 \index{assignment!item}
 
-List indices work the same way as string indices:
+리스트 인덱스는 문자열 인덱스와 같은 방식으로 동작한다.
 
 \begin{itemize}
 
-\item Any integer expression can be used as an index.
+\item 임의의 정수 표현식은 인덱스로 사용될 수 있다.
 
-\item If you try to read or write an element that does not exist, you
-get an {\tt IndexError}.
+\item 존재하지 않는 요소를 읽거나 쓰려고 하면, {\tt IndexError}가 발생한다.
 
 \index{exception!IndexError}
 \index{IndexError}
 
-\item If an index has a negative value, it counts backward from the
-end of the list.
+\item 인덱스가 음의 값이면, 리스트의 끝에서부터 역으로 센다.
 
 \end{itemize}
 
 \index{list!index}
-
 
 \index{list!membership}
 \index{membership!list}
 \index{in operator}
 \index{operator!in}
 
-The {\tt in} operator also works on lists.
+
+{\tt in} 연산자도 또한 리스트에서 동작한다.
 
 \beforeverb
 \begin{verbatim}
@@ -152,15 +140,15 @@ False
 \afterverb
 
 
-\section{Traversing a list}
+\section{리스트 운행법}
 \index{list!traversal}
 \index{traversal!list}
 \index{for loop}
 \index{loop!for}
 \index{statement!for}
 
-The most common way to traverse the elements of a list is
-with a {\tt for} loop.  The syntax is the same as for strings:
+리스트의 요소를 운행하는 가장 흔한 방법은 {\tt for}문을 사용하는 것이다.
+구문은 문자열에서 사용한 것과 동일하다.
 
 \beforeverb
 \begin{verbatim}
@@ -169,10 +157,9 @@ for cheese in cheeses:
 \end{verbatim}
 \afterverb
 %
-This works well if you only need to read the elements of the
-list.  But if you want to write or update the elements, you
-need the indices.  A common way to do that is to combine
-the functions {\tt range} and {\tt len}:
+
+리스트의 요소를 읽기만 한다면 이것만으로 잘 동작한다. 하지만, 리스트의 요소를 쓰거나, 갱신하는 경우,
+인텍스가 필요하다. 리스트의 요소를 쓰거나 갱신하는 흔한 방법은 {\tt range}와 {\tt len} 함수를 조합하는 것이다.
 
 \index{looping!with indices}
 \index{index!looping with}
@@ -184,18 +171,15 @@ for i in range(len(numbers)):
 \end{verbatim}
 \afterverb
 %
-This loop traverses the list and updates each element.  {\tt len}
-returns the number of elements in the list.  {\tt range} returns
-a list of indices from 0 to $n-1$, where $n$ is the length of
-the list.  Each time through the loop {\tt i} gets the index
-of the next element.  The assignment statement in the body uses
-{\tt i} to read the old value of the element and to assign the
-new value.
+
+상기 루프는 리스트를 운행하고 각 요소를 갱신한다. {\tt len}함수는 리스트의 요소의 갯수를 반환한다.
+{\tt range} 함수는 0 에서 $n-1$ 까지 리스트 인텍스를 반환한다. 여기서, $n$은 리스트의 길이다.
+매번 루프가 반복될 때마다, {\tt i}는 다음 요소의 인덱스를 얻는다. 몸통 부문의 할당문은 {\tt i}를 사용해서 요소의 옛값을 일고 새값을 할당한다.
 
 \index{item update}
 \index{update!item}
 
-A {\tt for} loop over an empty list never executes the body:
+빈 리스트의 {\tt for}문은 결코 몸통부분을 실행하지 않는다.
 
 \beforeverb
 \begin{verbatim}
@@ -204,9 +188,8 @@ for x in empty:
 \end{verbatim}
 \afterverb
 %
-Although a list can contain another list, the nested
-list still counts as a single element.  The length of this list is
-four:
+
+리스트가 또 다른 리스트를 담을 수 있지만, 중첩된 리스트는 여전히 하나의 요소로 센다. 다음 리스트의 길이는 4이다.
 
 \index{nested list}
 \index{list!nested}
@@ -217,12 +200,10 @@ four:
 \end{verbatim}
 \afterverb
 
-
-
-\section{List operations}
+\section{리스트 연산자}
 \index{list!operation}
 
-The {\tt +} operator concatenates lists:
+{\tt +} 연산자는 리스트를 결합한다.
 
 \index{concatenation!list}
 \index{list!concatenation}
@@ -237,7 +218,7 @@ The {\tt +} operator concatenates lists:
 \end{verbatim}
 \afterverb
 %
-Similarly, the {\tt *} operator repeats a list a given number of times:
+유사하게 {\tt *} 연산자는 주어진 횟수 만큼 리스트를 반복한다.
 
 \index{repetition!list}
 \index{list!repetition}
@@ -251,11 +232,10 @@ Similarly, the {\tt *} operator repeats a list a given number of times:
 \end{verbatim}
 \afterverb
 %
-The first example repeats {\tt [0]} four times.  The second example
-repeats the list {\tt [1, 2, 3]} three times.
 
+첫 예제는 {\tt [0]}을 4회 반복한다. 두 번째 예제는 {\tt [1, 2, 3]} 리스트를 3회 반복한다.
 
-\section{List slices}
+\section{리스트 쪼개기(List slices)}
 
 \index{slice operator}
 \index{operator!slice}
@@ -263,7 +243,7 @@ repeats the list {\tt [1, 2, 3]} three times.
 \index{list!slice}
 \index{slice!list}
 
-The slice operator also works on lists:
+쪼개는 연산자는 리스트에도 동작한다.
 
 \beforeverb
 \begin{verbatim}
@@ -277,9 +257,8 @@ The slice operator also works on lists:
 \end{verbatim}
 \afterverb
 %
-If you omit the first index, the slice starts at the beginning.
-If you omit the second, the slice goes to the end.  So if you
-omit both, the slice is a copy of the whole list.
+첫 번째 인덱스를 생략하면, 쪼개기는 처음부터 시작한다. 두 번째 인덱스를 생략하면, 쪼개기는 끝까지 간다.
+그래서 양쪽의 인덱스를 생략하면, 쪼개기는 전체 리스트를 복사한다.
 
 \index{list!copy}
 \index{slice!copy}
@@ -292,14 +271,12 @@ omit both, the slice is a copy of the whole list.
 \end{verbatim}
 \afterverb
 %
-Since lists are mutable, it is often useful to make a copy
-before performing operations that fold, spindle or mutilate
-lists.
+
+리스트는 변경이 가능하기 때문에 리스트를 접고, 돌리고, 훼손하는 연ㅅ나을 수행하기 전에 사본을 만드는 것이 유용하다.
 
 \index{mutability}
 
-A slice operator on the left side of an assignment
-can update multiple elements:
+할당문의 왼편의 쪼개기 연산자는 복수의 요소를 갱신할 수 있다.
 
 \index{slice!update}
 \index{update!slice}
@@ -314,13 +291,12 @@ can update multiple elements:
 \afterverb
 %
 
-\section{List methods}
+\section{리스트 메쏘드}
 
 \index{list!method}
 \index{method, list}
 
-Python provides methods that operate on lists.  For example,
-{\tt append} adds a new element to the end of a list:
+파이썬은 리스트에 연산하는 메쏘드를 제공한다. 예를 들어, {\tt append} 메쏘드는 리스트 끝에 신규 요소를 추가한다.
 
 \index{append method}
 \index{method!append}
@@ -334,8 +310,7 @@ Python provides methods that operate on lists.  For example,
 \end{verbatim}
 \afterverb
 %
-{\tt extend} takes a list as an argument and appends all of
-the elements:
+{\tt extend} 메쏘드는 인수로 리스트를 받아 모든 요소를 리스트에 추가한다.
 
 \index{extend method}
 \index{method!extend}
@@ -350,9 +325,10 @@ the elements:
 \end{verbatim}
 \afterverb
 %
-This example leaves {\tt t2} unmodified.
 
-{\tt sort} arranges the elements of the list from low to high:
+상기 예제는 {\tt t2} 리스트를 변경없이 놓아둔다.
+
+{\tt sort} 메쏘드는 낮음에서 높음으로 리스트의 요소를 정렬한다.
 
 \index{sort method}
 \index{method!sort}
@@ -366,23 +342,21 @@ This example leaves {\tt t2} unmodified.
 \end{verbatim}
 \afterverb
 %
-Most list methods are void; they modify the list and return {\tt None}.
-If you accidentally write {\tt t = t.sort()}, you will be disappointed
-with the result.
+
+대부분의 리스트 메쏘드는 보이드(void)여서, 리스트를 변경하고 {\tt None}을 반환한다.
+우연히 {\tt t = t.sort()} 이렇게 작성한다면, 결과에 실망할 것이다.
 
 \index{void method}
 \index{method!void}
 \index{None special value}
 \index{special value!None}
 
-\section{Deleting elements}
+\section{요소 삭제}
 
 \index{element deletion}
 \index{deletion, element of list}
 
-There are several ways to delete elements from a list.  If you
-know the index of the element you want, you can use
-{\tt pop}:
+리스트에서 요소를 삭제하는 몇 가지 방법이 있다. 리스트 요소 인덱스를 알고 있다면, {\tt pop} 메쏘드를 사용한다.
 
 \index{pop method}
 \index{method!pop}
@@ -398,12 +372,11 @@ b
 \end{verbatim}
 \afterverb
 %
-{\tt pop} modifies the list and returns the element that was removed.
-If you don't provide an index, it deletes and returns the
-last element.
 
-If you don't need the removed value, you can use the {\tt del}
-operator:
+{\tt pop} 메쏘드는 리스트를 변경하여  제거된 요소를 반환한다.
+인덱스를 주지 않으면, 마지막 요소를 지우고 반환한다.
+
+요소에서 제거된 값이 필요없다면, {\tt del} 연산자를 사용할 수 있다.
 
 \index{del operator}
 \index{operator!del}
@@ -418,8 +391,7 @@ operator:
 \afterverb
 %
 
-If you know the element you want to remove (but not the index), you
-can use {\tt remove}:
+인덱스가 아닌 제거할 요소를 알고 있다면, {\tt remove} 메쏘드를 사용할 수 있다.
 
 \index{remove method}
 \index{method!remove}
@@ -433,13 +405,13 @@ can use {\tt remove}:
 \end{verbatim}
 \afterverb
 %
-The return value from {\tt remove} is {\tt None}.
+
+{\tt remove} 메쏘드의 반환값은 {\tt None}이다.
 
 \index{None special value}
 \index{special value!None}
 
-To remove more than one element, you can use {\tt del} with
-a slice index:
+하나 이상의 요소를 제거하기 위해서, 쪼개기 인덱스(slice index)와 {\tt del}을 사용한다.
 
 \beforeverb
 \begin{verbatim}
@@ -450,14 +422,12 @@ a slice index:
 \end{verbatim}
 \afterverb
 %
-As usual, the slice selects all the elements up to, but not
-including, the second index.
 
-\section{Lists and functions}
+마찬가지로, 쪼개기는 두 번째 인덱스를 포함하지 않는 두 번째 인덱스까지의 모든 요소를 선택한다.
 
-There are a number of built-in functions that can be used on lists
-that allow you to quickly look through a list without
-writing your own loops:
+\section{리스트와 함수}
+
+루프를 작성하지 않고 리스트를 빠를게 살펴볼 수 있도록 리스트에 적용할 수 있는 많은 내장함수가 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -475,14 +445,13 @@ writing your own loops:
 \end{verbatim}
 \afterverb
 %
-The {\tt sum()} function only works when the list elements are numbers.
-The other functions ({\tt max()}, {\tt len()}, etc.) work with lists of
-strings and other types that can be comparable.
 
-We could rewrite an earlier program that computed the average of 
-a list of numbers entered by the user using a list.
+리스트 요소가 숫자일 때, {\tt sum()} 함수는 동작한다. {\tt max()}, {\tt len()}, 등등의 함수는 문자열 리스트나,
+ 비교가능한 다른 형(type)의 리스트에 사용할 수 있다.
 
-First, the program to compute an average without a list:
+리스트를 사용해서, 사용자가 입력한 숫자 목록의 평균을 계산하는 앞서 작성한 프로그램을 다시 작성할 수 있다.
+
+우선 리스트 없이 평균을 계산하는 프로그램:
 
 \beforeverb
 \begin{verbatim}
@@ -500,13 +469,10 @@ print 'Average:', average
 \end{verbatim}
 \afterverb
 %
-In this program, we have {\tt count} and {\tt sum} variables to 
-keep the number and running total of the user's numbers as 
-we repeatedly prompt the user for a number.
+이 프로그램에서, {\tt count} 와 {\tt sum} 변수를 사용해서 반복적으로 사용자가 숫자를 입력하면 값을 저장하고, 
+지금까지 사용자가 입력한 누적 합계를 계산하는 것이다.
 
-We could simply remember each number as the user entered it 
-and use built-in functions to compute the sum and count at
-the end.
+단순하게, 사용자가 입력한 각 숫자를 기억하고 내장함수를 사용해서 프로그램 마지막에 합계와 갯수를 계산한다.
 
 \beforeverb
 \begin{verbatim}
@@ -522,22 +488,18 @@ print 'Average:', average
 \end{verbatim}
 \afterverb
 %
-We make an empty list before the loop starts, and then each time we have 
-a number, we append it to the list.  At the end of
-the program, we simply compute the sum of the numbers in the 
-list and divide it by the count of the numbers in the
-list to come up with the average.
 
-\section{Lists and strings}
+루프가 시작되기 전에 빈 리스트를 생성하고, 매번 숫자를 입력할 때, 숫자를 리스트에 추가한다.
+프로그램 마지막에 간단하게 리스트의 합계를 계산하고, 평균을 출력하기 위해서 입력한 숫자 개수로 나누었다.
+
+\section{리스트와 문자열}
 
 \index{list}
 \index{string}
 \index{sequence}
 
-A string is a sequence of characters and a list is a sequence
-of values, but a list of characters is not the same as a
-string.  To convert from a string to a list of characters,
-you can use {\tt list}:
+문자열은 일련의 문자이고, 리스트는 일련의 값이다. 하지만 리스트의 문자는 문자열과 같지는 않다. 문자열에서 리스트의 문자로 변환하기 위해서, 
+{\tt list}를 사용한다.
 
 \index{list!function}
 \index{function!list}
@@ -551,13 +513,11 @@ you can use {\tt list}:
 \end{verbatim}
 \afterverb
 %
-Because {\tt list} is the name of a built-in function, you should
-avoid using it as a variable name.  I also avoid {\tt l} because
-it looks too much like {\tt 1}.  So that's why I use {\tt t}.
 
-The {\tt list} function breaks a string into individual letters.  If
-you want to break a string into words, you can use the {\tt split}
-method:
+{\tt list}는 내장함수의 이름이기 때문에, 변수명으로 사용하는 것을 피해야 한다.
+{\tt l}의 사용을 {\tt 1} 처럼 보이기 때문에 피한다. 그래서, {\tt t}를 사용하였다.
+
+{\tt list} 함수는 문자열을 각각의 문자로 쪼갠다. 문자열을 단어로 쪼개려면, {\tt split} 메쏘드를 사용할 수 있다.
 
 \index{split method}
 \index{method!split}
@@ -573,15 +533,10 @@ the
 \end{verbatim}
 \afterverb
 %
-Once you have used {\tt split} to break the string into 
-a list of tokens, you can use the index operator (square
-bracket) to look at a particular word in the list.
+{\tt split} 메쏘드를 사용해서 문자열을 리스트의 토큰으로 쪼개기만 하면, 인덱스 연산자('[]')를 사용하여 리스트의 특정한 단어를 볼 수 있다.
 
-You can call {\tt split} with 
-an optional argument called a {\bf delimiter} specifies which
-characters to use as word boundaries.
-The following example
-uses a hyphen as a delimiter:
+{\bf 구분자(delimiter)}가 단어의 경계로 어느 문자를 사용할지를 지정하는데, {\tt split} 메쏘드를 호출할 때 두 번째 선택 인수로 사용할 수 있다.
+다음 예제는 구분자로 하이픈('-')을 사용한다.
 
 \index{optional argument}
 \index{argument!optional}
@@ -596,11 +551,9 @@ uses a hyphen as a delimiter:
 \end{verbatim}
 \afterverb
 %
-{\tt join} is the inverse of {\tt split}.  It
-takes a list of strings and
-concatenates the elements.  {\tt join} is a string method,
-so you have to invoke it on the delimiter and pass the
-list as a parameter:
+
+{\tt join} 메쏘드는 {\tt split} 메쏘드의 역이다. 문자열 리스트를 받아 리스트 요소를 결합한다.
+{\tt join}은 문자열 메쏘드여서, 구분자를 호출하여 매개 변수로 넘길 수 있다.
 
 \index{join method}
 \index{method!join}
@@ -615,10 +568,9 @@ list as a parameter:
 \end{verbatim}
 \afterverb
 %
-In this case the delimiter is a space character, so
-{\tt join} puts a space between words.  To concatenate
-strings without spaces, you can use the empty string,
-\verb"''", as a delimiter. 
+
+상기의 경우, 구분자가 공백 문자여서 {\tt join} 메쏘드는 단어 사이에 공백을 넣는다.
+공백없이 문자열을 결합하기 위해서, 구분자로 빈 문자열 \verb"''"을 사용한다.
 
 \index{empty string}
 \index{string!empty}
