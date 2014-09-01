@@ -10,23 +10,17 @@
 \index{type!tuple}
 \index{sequence}
 
-A tuple\footnote{Fun fact: The word ``tuple'' comes from the names
-given to sequences of numbers of varying lengths: single, 
-double, triple, quadruple, quituple, sextuple, septuple, etc.}
-is a sequence of values much like a list.  
-The values stored in a tuple can be any type, and
-they are indexed by integers.
-The important difference is that tuples are {\bf immutable}.
-Tuples are also {\bf comparable} and {\bf hashable} so we can 
-sort lists of them and use tuples as key values in Python
-dictionaries.
+튜플(tuple)\footnote{재미난 사실: 단어 ''튜플(tuple)''은 다양한 길이 (한배, 두배, 세배, 네배, 다섯배, 여섯배, 일곱배 등) 숫자열에 
+주어진 이름에서 유래한다.}은 리스타와 마찬가지로 일련의 값이다. 튜플에 저장된 값은 임의의 형이 될 수 있고, 정수로 색인이 되어 있다.
+중요한 차이점은 튜플은 {\bf 불변(immutable)}하다는 것이다.
+튜플은 또한 {\bf 비교 가능(comparable)}하고 {\bf 해쉬 가능(hashable)}해서, 리스트의 값을 정렬할 수 있고, 파이썬 딕셔너리의 키 값으로 튜플을 사용할 수 있다.
 
 \index{mutability}
 \index{hashable}
 \index{comparable}
 \index{immutability}
 
-Syntactically, a tuple is a comma-separated list of values:
+구문론적으로, 튜플은 콤마로 구분되는 리스트 값이다.
 
 \beforeverb
 \begin{verbatim}
@@ -34,9 +28,8 @@ Syntactically, a tuple is a comma-separated list of values:
 \end{verbatim}
 \afterverb
 %
-Although it is not necessary, it is common to enclose tuples in
-parentheses to help us quickly identify tuples when we look at
-Python code:
+
+꼭 필요하지는 않지만, 파이썬 코드를 봤을 때, 튜플을 빠를게 알아볼 수 있도록 괄호로 튜플을 감싸는 것이 일반적이다.
 
 \index{parentheses!tuples in}
 
@@ -46,8 +39,8 @@ Python code:
 \end{verbatim}
 \afterverb
 %
-To create a tuple with a single element, you have to include the final
-comma:
+
+단일 요소를 가진 튜플을 생성하기 위해서 파지막 콤마를 포함해야 한다.
 
 \index{singleton}
 \index{tuple!singleton}
@@ -60,8 +53,8 @@ comma:
 \end{verbatim}
 \afterverb
 %
-Without the comma Python treats \verb"('a')" as an expression 
-with a string in parentheses that evaluates to a string:
+
+콤마가 없는 경우 파이썬은 \verb"('a')"을 문자열로 평가된느 괄호를 가진 문자열 표현으로 간주한다.
 
 \beforeverb
 \begin{verbatim}
@@ -71,8 +64,8 @@ with a string in parentheses that evaluates to a string:
 \end{verbatim}
 \afterverb
 %
-Another way to construct a tuple is the built-in function {\tt tuple}.
-With no argument, it creates an empty tuple:
+
+튜플을 생성하는 다른 방법은 내장함수 {\tt tuple}을 사용하는 것이다. 인수가 없는 경우, 빈 튜플을 생성한다.
 
 \index{tuple function}
 \index{function!tuple}
@@ -85,9 +78,8 @@ With no argument, it creates an empty tuple:
 \end{verbatim}
 \afterverb
 %
-If the argument is a sequence (string, list or tuple), the result
-of the call to {\tt tuple}
-is a tuple with the elements of the sequence:
+
+만약 인수가 문자열, 리스트 혹은 튜플 같은 열인 경우, {\tt tuple}에 호출한 결과는 요소열을 가진 투플이 된다.
 
 \beforeverb
 \begin{verbatim}
@@ -97,11 +89,9 @@ is a tuple with the elements of the sequence:
 \end{verbatim}
 \afterverb
 %
-Because {\tt tuple} is the name of a constructor, you should
-avoid using it as a variable name.
 
-Most list operators also work on tuples.  The bracket operator
-indexes an element:
+{\tt 튜플(tuple)}이 생성자 이름이 ㄱ때문에 변수명으로 튜플을 사용을 피해야 한다.
+대부분의 리스트 연산자는 튜플에서도 사용가능하다. 꺾쇠 연산자는 요소를 색인한다.
 
 \index{bracket operator}
 \index{operator!bracket}
@@ -114,7 +104,8 @@ indexes an element:
 \end{verbatim}
 \afterverb
 %
-And the slice operator selects a range of elements.
+
+그리고, 슬라이스 연산자(slice operator)는 범위의 요소를 선택한다.
 
 \index{slice operator}
 \index{operator!slice}
@@ -128,8 +119,8 @@ And the slice operator selects a range of elements.
 \end{verbatim}
 \afterverb
 %
-But if you try to modify one of the elements of the tuple, you get
-an error:
+
+하지만, 튜플 요소중의 한나를 변경하고 하면, 오류가 발생한다.
 
 \index{exception!TypeError}
 \index{TypeError}
@@ -143,8 +134,8 @@ TypeError: object doesn't support item assignment
 \end{verbatim}
 \afterverb
 %
-You can't modify the elements of a tuple, but you can replace
-one tuple with another:
+
+튜플의 요소를 변경할 수는 없지만, 튜플을 다른 튜플로 교체는 할 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -655,68 +646,52 @@ for last, first in directory:
 
 \begin{description}
 
-\item[comparable:] A type where one value can be checked to see if it is
-greater than, less than or equal to another value of the same type.
-Types which are comparable can be put in a list and sorted.
+\item[비교가능한(comparable):] 동일한 형의 다른 값과 비교하여 큰지, 작은지, 혹은 같은지를 확인하기 위해서 확인할 수 있는 형(type).
+비교가능한(comparable) 형은 리스트에 넣어서 정렬할 수 있다.
 \index{comparable}
 
-\item[data structure:] A collection of related values, often
-organized in lists, dictionaries, tuples, etc.
+\item[자료 구조(data structure):] 연관된 값의 집합, 종종 리스트, 딕셔너리, 튜플 등으로 조직화된다.
 \index{data structure}
 
-\item[DSU:] Abbreviation of ``decorate-sort-undecorate,'' a
-pattern that involves building a list of tuples, sorting, and
-extracting part of the result.
+\item[DSU:] ``decorate-sort-undecorate,''의 약어로 튜플 리스트를 생성, 정렬, 결과의 일부를 추출을 포함하는 패턴.
 \index{DSU pattern}
 
-\item[gather:] The operation of assembling a variable-length
-argument tuple.
+\item[개더(gather):] 변수-길이 인수 튜플을 조합하는 연산.
 \index{gather}
 
-\item[hashable:] A type that has a hash function.  Immutable
-types like integers,
-floats and strings are hashable; mutable types like lists and
-dictionaries are not.
+\item[해쉬형의(hashable):] 해쉬 함수를 가진 형(type). 정수, 소수점, 문자열 같은 불변형은 해쉬형이다. 
+리스트나 딕셔너리 처럼 변경가능한 형은 해쉬형이 아니다.
 \index{hashable}
 
-\item[scatter:] The operation of treating a sequence as a list of
-arguments.
+\item[스캐터(scatter):] 시퀀스를 리스트 인수로 다루는 연산.
 \index{scatter}
 
-\item[shape (of a data structure):] A summary of the type,
-size and composition of a data structure.
+\item[(자료 구조의) 모양 (shape (of a data structure)):] 자료 구조의 형(type), 크기, 구성의 요약.
 \index{shape}
 
-\item[singleton:] A list (or other sequence) with a single element.
+\item[싱글톤(singleton):] 단일 요소를 가진 리스트 (혹은 다른 시퀀스).
 \index{singleton}
 
-\item[tuple:] An immutable sequence of elements.
+\item[튜플(tuple):] 요소들의 불변 시퀀스.
 \index{tuple}
 
-\item[tuple assignment:] An assignment with a sequence on the
-right side and a tuple of variables on the left.  The right
-side is evaluated and then its elements are assigned to the
-variables on the left.
+\item[튜플 할당(tuple assignment):] 오른편에 스퀀스, 왼편에 튜플 변수를 가진 할당문.
+오른편이 평가되고나서 각 요소들은 왼편의 변수에 할당된다.
 \index{tuple assignment}
 \index{assignment!tuple}
 
 \end{description}
 
 
-\section{Exercises}
+\section{연습문제}
 
 \begin{ex}
-Revise a previous program as follows:  Read and 
-parse the ``From'' lines and pull out the 
-addresses from the line.   Count the number of
-messages from each person using a dictionary.
+앞서 작성한 프로그램을 다음과 같이 수정하세요.
+''From''라인을 읽고 파싱하여 라인에서 주소를 뽑아내세요.
+딕셔너리를 사용하여 각 사람으로부터 메시지 숫자를 셉니다.
 
-After all the data has been read print 
-the person with the most commits by creating
-a list of (count, email) tuples from the 
-dictionary and then sorting the list in reverse
-order and print out the person who has the most
-commits.
+모든 데이터를 읽은 후에 가장 많은 커밋(commit)을 한 사람을 출력하세요.
+딕셔너리로부터 리스트 (count, email) 튜플을 생성하고 역순으로 리스트를 정렬한 후에 가장 많은 커밋을 한 사람을 출력하세요.
 
 \beforeverb
 \begin{verbatim}
@@ -732,12 +707,11 @@ zqian@umich.edu 195
 \afterverb
 \end{ex}
 \begin{ex}
-This program counts the distribution of the hour of the day for 
-each of the messages. You can pull the hour from the ``From'' 
-line by finding the time string and then splitting that string 
-into parts using the colon character. Once you have accumulated 
-the counts for each hour, print out the counts, one per line, 
-sorted by hour as shown below. 
+
+이번 프로그램은 각 메시지에 대한 하루 중 시간의 분포를 셉니다.
+''From'' 라인으로부터 시간 문자열을 찾고 콜론(:) 문자를 사용하여 문자열을 쪼개서 시간을 추출합니다.
+각 시간에 대해서 카운트를 누적하고 아래에 보여지듯이 시간단위로 정렬하여 한 라인에 한시간씩 갯수를 출력합니다.
+
 \beforeverb
 \begin{verbatim}
 Sample Execution:
@@ -761,14 +735,11 @@ Enter a file name: mbox-short.txt
 
 
 \begin{ex}
-Write a program that reads a file and 
-prints the {\em letters} in decreasing order of frequency.  Your program
-should convert all the input to lower case and only count the letters a-z.
-Your program should not count spaces, digits, punctuation or anything 
-other than the letters a-z.
-Find text samples from several different languages and see how letter frequency
-varies between languages.  Compare your results with the tables at
-\url{wikipedia.org/wiki/Letter_frequencies}.
+파일을 읽고, 빈도수를 내림차순으로 {\em 문자(letters)}를 출력하는 프로그램을 작성하세요.
+작성한 프로그램은 모든 입력을 소문자로 변환하고 a-z 문자만 셉니다. 
+공백, 숫자, 문장기호 a-z를 제외한 다른 어떤 것도 세지 않습니다.
+몇몇 다른 언어의 텍스트 샘플을 구해서 언어마다 문자 빈도가 어떻게 바뀌는지 살펴보세요.
+결과를 \url{wikipedia.org/wiki/Letter_frequencies}의 표와 비교하세요.
 
 \index{letter frequency}
 \index{frequency!letter}
