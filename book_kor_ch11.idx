@@ -1,0 +1,20 @@
+\indexentry{regular expressions}{1}
+\indexentry{regex}{1}
+\indexentry{re module}{1}
+\indexentry{regex!search}{1}
+\indexentry{string!find}{1}
+\indexentry{string!startswith}{2}
+\indexentry{wild card}{2}
+\indexentry{regex!wild card}{2}
+\indexentry{greedy}{3}
+\indexentry{findall}{3}
+\indexentry{regex!findall}{3}
+\indexentry{regex!character sets(brackets)}{5}
+\indexentry{string!split}{6}
+\indexentry{regex!parentheses}{6}
+\indexentry{parentheses!regular expression}{6}
+\indexentry{grep}{10}
+\indexentry{greedy}{12}
+\indexentry{greedy matching}{12}
+\indexentry{grep}{12}
+\indexentry{wild card}{12}
