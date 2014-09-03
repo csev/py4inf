@@ -10,11 +10,11 @@
 \indexentry{findall}{3}
 \indexentry{regex!findall}{3}
 \indexentry{regex!character sets(brackets)}{5}
-\indexentry{string!split}{6}
+\indexentry{string!rsplit}{6}
 \indexentry{regex!parentheses}{6}
 \indexentry{parentheses!regular expression}{6}
 \indexentry{grep}{10}
-\indexentry{greedy}{12}
-\indexentry{greedy matching}{12}
-\indexentry{grep}{12}
+\indexentry{greedy}{11}
+\indexentry{greedy matching}{11}
+\indexentry{grep}{11}
 \indexentry{wild card}{12}
