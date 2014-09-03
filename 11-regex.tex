@@ -592,13 +592,19 @@ From: rjlowe@iupui.edu
 \end{verbatim}
 \afterverb
 %
-This tells {\tt grep} to show you lines that start with the string ``From:'' in the file {\tt mbox-short.txt}.   If you experiment with the {\tt grep} command a bit and read the documentation for {\tt grep}, you will find some subtle differences between the regular expression support in Python and the regular expression support in {\tt grep}.  As an example, {\tt grep} does not support the non-blank character ``{\textbackslash}S'' so you will need to use the slightly more complex set notation ``[\verb"^" ]''- which simply means - match a character that is anything other than a space.
 
-\section{Debugging}
+{\tt grep}을 사용하여, {\tt mbox-short.txt} 파일 내부에 ''From:'' 문자열로 시작하는 라인을 보여준다.
+{\tt grep} 명령어를 가지고 약간 실험을 하고 {\tt grep}에 대한 문서를 읽는다면, 파이썬에서 지원하는 정규 표현식과 {\tt grep}에서 지원되는 정규 표현식의 
+차이를 발견할 것이다.
+예를 들어, {\tt grep} 공백이 아닌 문자 ``{\textbackslash}S''을 지원하지 않는다. 그래서 약간 더 복잡한 집합 표기 ``[\verb"^" ]''을 사용해야 한다.
+``[\verb"^" ]''은 간단히 정리하면, 공복을 제외한 임의의 문자와 매칭한다.
 
-Python has some simple and rudimentary built-in documentation that can be quite helpful if you need a quick refresher to trigger your memory about the exact name of a particular method.   This documentation can be viewed in the Python interpreter in interactive mode.
+\section{디버깅}
 
-You can bring up an interactive help system using {\tt help()}.
+만약 특정 메쏘드의 정확한 이름을 기억해 내기 위해서 빠르게 생각나게 하는 것이 필요하다면 도움이 많이 될 수 있는 간단하고 초보적인 내장 문서가 파이썬에 포함되어 있다.
+내장 문서 도움말은 인터랙티브 모드의 파이썬 인터프리터에서 볼 수 있다.
+
+{\tt help()}를 사용하여 인터랙티브 도움을 받을 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -622,7 +628,8 @@ help> modules
 \end{verbatim}
 \afterverb
 %
-If you know what module you want to use, you can use the {\tt dir()} command to find the methods in the module as follows:
+
+특정한 모듈을 사용하고자 한다면, {\tt dir()} 명령어를 사용하여 다음과 같이 모듈의 메쏘드를 찾을 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -634,7 +641,8 @@ If you know what module you want to use, you can use the {\tt dir()} command to 
 \end{verbatim}
 \afterverb
 %
-You can also get a small amount of documentation on a particular method using the dir command.
+
+또한, {\tt dir()} 명령어를 사용하여 특정 메쏘드에 대한 짧은 문서 도움말을 얻을 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -648,42 +656,42 @@ search(pattern, string, flags=0)
 \end{verbatim}
 \afterverb
 %
-The built in documentation is not very extensive, but it can be helpful when you are in a hurry
-or don't have access to a web browser or search engine.
 
-\section{Glossary}
+내장 문서는 광범위하지 않아서, 급하거나, 웹 브라우저나 검색엔진에 접근할 수 없을 때 도움이 될 수 있다.
+
+\section{용어정의}
 
 \begin{description}
 
-\item[brittle code:]
-Code that works when the input data is in a particular format but prone to breakage
-if there is some deviation from the correct format.  We call this ``brittle code'' 
-because it is easily broken.
+\item[부서지기 쉬운 코드(brittle code):]
+입력 데이터가 특정한 형식일 경우에만 작동하는 코드.
+하지만 올바른 형식에서 약간이도 벗아나게 되면 깨지기 쉽니다.
+쉽게 부서지기 때문에 ''부서지기 쉬운 코드(brittle code)''라고 부른다.
 
-\item[greedy matching:]
-The notion that the ``+'' and ``*'' characters in a regular expression expand outward to match the largest possible string.
+\item[욕심쟁이 매칭(greedy matching):]
+정규 표현식의 ``+'', ``*'' 문자는 가능한 큰 문자열을 매칭하기 위해서 밖으로 확장하는 개념.
 \index{greedy}
 \index{greedy matching}
 
 \item[grep:]
-A command available in most Unix systems that searches through text files looking for lines that match regular expressions.  The command name stands for "Generalized Regular Expression Parser".
+정규 표현식에 매칭되는 파일을 탐색하여 라인을 찾는데 대부분의 유닉스 시스템에서 사용가능한 명령어.
+"Generalized Regular Expression Parser"의 약자.
 \index{grep}
 
-\item[regular expression:]
-A language for expressing more complex search strings.  A regular expression may contain special characters that indicate that a search only matches at the beginning or end of a line or many other similar capabilities.
+\item[정규 표현식(regular expression):]
+좀더 복잡한 검색 문자열을 표현하는 언어. 정규 표현식은 특수 문자를 포함해서 검색은 라인의 처음 혹은 끝만 매칭하거나 많은 다른 비슷한 것만 매칭한다.
 
-\item[wild card:]
-A special character that matches any character.   In regular expressions the wild card character is the period character.
+\item[와일드 카드(wild card):]
+임의의 문자를 매칭하는 특수 문자. 정규 표현식에서 와이드 카드 문자는 마침표 문자다.
 \index{wild card}
 
 \end{description}
 
-\section{Exercises}
+\section{연습 문제}
 
 \begin{ex}
-Write a simple program to simulate the operation of the {\tt grep} command 
-on Unix.  Ask the user to enter a regular expression and count the number
-of lines that matched the regular expression:
+유닉스의 {\tt grep} 명령어를 모사하는 간단한 프로그램을 작성하세요.
+사용자가 정규 표현식을 입력하고 정규 표현식에 매칭되는 라인수를 셈하는 프로그램입니다.
 
 \beforeverb
 \begin{verbatim}
@@ -704,13 +712,13 @@ mbox.txt had 4218 lines that matched java$
 \end{ex}
 
 \begin{ex}
-Write a program to look for lines of the form
+
+다음 형식의 라인만을 찾는 프로그램을 작성하세요.
 
 \verb"New Revision: 39772"
 
-And extract the number from each of the lines using a regular expression
-and the {\tt findall()} method.  Compute the average of the numbers and 
-print out the average.
+그리고, 정규 표현식과 {\tt findall()} 메쏘드를 사용하여 각 라인으로부터 숫자를 추출하세요.
+숫자들의 평균을 구하고 출력하세요.
 
 \beforeverb
 \begin{verbatim}
