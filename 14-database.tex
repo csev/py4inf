@@ -1,44 +1,32 @@
 % The contents of this file is 
 % Copyright (c) 2009-  Charles R. Severance, All Righs Reserved
 
-\chapter{Using databases and Structured Query Language (SQL)}
+\chapter{데이터베이스와 SQL(Structured Query Language) 사용하기}
 
-\section{What is a database?}
+\section{데이터베이스가 뭔가요?}
 \index{database}
 
-A {\bf database} is a file that is organized for storing data.
-Most databases are organized like a dictionary in the sense
-that they map from keys to values.  The biggest difference
-is that the database is on disk (or other permanent storage),
-so it persists after the program ends.  Because a database is
-stored on permanent storage, it can store far more data than
-a dictionary, which is limited to the size of the memory 
-in the computer.
+{\bf 데이터베이스(database)}는 데이터를 저장하기 위한 목적으로 조직된 파일이다. 
+대부분의 데이터베이스는 키(key)와 값(value)를 매핑한다는 의미에서 딕셔너리 처럼 조직되었다.
+가장 큰 차이점은 데이터베이스는 디스크(혹은 다른 영구 저장소)에 위치하게 되어서, 프로그램 종료 후에도 정보가 지속적으로 저장된다.
+데이터베이스가 영구 저장소에 저장되어서, 컴퓨터의 메모리 크기에 제한을 받는 딕셔너리보다 훨씬 더 많은 정보를 저장할 수 있다.
 
 \index{database!indexes}
-Like a dictionary, database software is designed to keep 
-the inserting and accessing of data very fast, even for large
-amounts of data.   Database software maintains its performance by 
-building {\bf indexes} as data is added to the database
-to allow the computer to jump quickly to a particular
-entry.
 
-There are many different database systems which are used for a wide
-variety of purposes including: Oracle, MySQL, Microsoft SQL Server, 
-PostgreSQL, and SQLite.  We focus on SQLite in this book because
-it is a very common database and is already built into Python.  
-SQLite is designed to be \emph{embedded} into other applications
-to provide database support within the application.  For example,
-the Firefox browser also uses the SQLite database internally as do 
-many other products.
+딕셔너리처럼, 데이터베이스 소프트웨어는 엄청난 양의 데이터 조차도 매우 빠르게 삽입하고 접근하도록 설계되었다.
+컴퓨터가 특정 항목으로 빠르게 넘어갈 수 있도록 데이터베이스에 데이터를 추가하여 {\bf 인덱스(indexes)}를 구축하여 성능을 보장하는 것이 데이터베이스 소프트웨어다.
+
+다양한 종류의 목적에 사용되는 서로 다른 많은 데이터베이스 시스템이 있다. Oracle, MySQL, Microsoft SQL Server, 
+PostgreSQL, SQLite이 여기에 포함된다. SQLite를 집중해서 살펴볼 것이다. 왜냐하면 매우 일반적인 데이터베이스이고 파이썬에 이미 내장되어 있기 때문이다.
+SQLite는 응용프로그램 내부에서 데이터베이스 지원을 제공하도록 다른 응용프로그램에 \emph{내장(embedded)}되도록 설계되었다.
+예를 들어, 다른 많은 소프트웨어 제품이 그렇듯이, 파이어폭스 브라우져는 SQLite를 사용한다.
 
 \url{http://sqlite.org/}
 
-SQLite is well suited to some of the data manipulation problems that we 
-see in Informatics such as the Twitter spidering application that we 
-describe in this chapter.
+이번 장에서 기술하는 트위터 스파이더링 응용프로그램같은 인포매틱스(Informatics)에서 마주치는 몇몇 데이터 조작 문제에 SQLite가 적합하다.
 
-\section{Database concepts}
+
+\section{데이터베이스 개념}
 
 When you first look at a database it looks like a 
 spreadsheet with multiple sheets.   The primary data structures 
