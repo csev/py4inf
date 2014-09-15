@@ -1,25 +1,17 @@
 % The contents of this file is 
 % Copyright (c) 2009-  Charles R. Severance, All Righs Reserved
 
-\chapter{Using Web Services}
+\chapter{웹서비스 사용하기}
+프로그램을 사용하여 HTTP상에서 문서를 가져오고 파싱하는 것이 쉽게 되면, 다른 프로그램에서 
+활용되도록 특별히 설계된 문서(즉, 브라우져에서 HTML로 보여지지 않는 것)를 생성하는 방법을 개발하는 것은 오래 걸리지 않는다.
 
-Once it became easy to retrieve documents and parse documents 
-over HTTP using programs, it did not take long to develop 
-an approach where we started producing documents that were specifically
-designed to be consumed by other 
-programs (i.e. not HTML to be displayed in a browser).
+웹상에서 데이터를 교환할 때 두 가지 일반적인 형식이 있다.
+XML(``eXtensible Markup Language'')은 오랜 기간 사용되어져 왔고 문서형식 데이터를 교환하는데 적절하다.
+딕셔너리, 리스트 혹은 다른 내부 정보를 프로그램으로 서로 교환할 때, JSON(JavaScript Object Notation, \url{www.json.org})을 사용한다. 두 가지 형식에 대해서 살펴볼 것이다.
 
-There are two common formats that we use when exchanging data across the web.
-The ``eXtensible Markup Language'' or XML has been in use for a very long time 
-and is best suited for exchanging document-style data.   When programs just want 
-to exchange dictionaries, lists, or other internal information with each other,
-they use JavaScript Object Notation or JSON (see \url{www.json.org}).  
-We will look at both formats.
-
-\section{eXtensible Markup Language - XML}
-
-XML looks very similar to HTML, but XML is more structured 
-than HTML.  Here is a sample of an XML document:
+\section{XML(eXtensible Markup Language)}
+XML은 HTML과 매우 유사하지만, XML은 좀더 HTML보다 구조화되었다.
+여기 XML 문서 샘플이 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -33,21 +25,21 @@ than HTML.  Here is a sample of an XML document:
 \end{verbatim}
 \afterverb
 %
-Often it is helpful to think of an XML document as a tree structure
-where there is a top tag {\tt person} and other tags such as {\tt phone}
-are drawn as \emph{children} of their parent nodes.
+
+종종 XML문서를 나무 구조로 생각하는 것이 도움이 된다. 최상단 {\tt person} 태그가 있고
+{\tt phone} 같은 다른 태그는 부모 노드의 \emph{자식(children)} 노드로 그려진다.
 
 \beforefig
 \centerline{\includegraphics[height=1.50in]{figs2/xml-tree.eps}}
 \afterfig
 
-\section{Parsing XML}
+\section{XML 파싱}
 
 \index{ElementTree}
 \index{ElementTree!fromstring}
 \index{ElementTree!find}
-Here is a simple application that parses some XML
-and extracts some data elements from the XML:
+
+다음은 XML을 파싱하고 XML에서 데이터 요소를 추출하는 간단한 응용프로그램이다.
 
 \beforeverb
 \begin{verbatim}
@@ -68,15 +60,12 @@ print 'Attr:',tree.find('email').get('hide')
 \end{verbatim}
 \afterverb
 %
-Calling {\tt fromstring} converts the string representation
-of the XML into a 'tree' of XML nodes.  When the
-XML is in a tree, we have a series of methods which we can call to 
-extract portions of data from the XML.  
 
-The {\tt find} function searches through the 
-XML tree and retrieves a {\bf node} that matches the specified tag.
-Each node can have some text, some attributes (i.e. like hide) and
-some ``child'' nodes.   Each node can be the top of a tree of nodes.
+{\tt fromstring}을 호출하여 XML 문자열 표현식을 XML 노드의 '나무(tree)'로 변환한다.
+XML이 나무구조로 되어 있을 때, XML에서 데이터의 일부분을 추출하기 위해서 호출할 일련의 메쏘드가 있다.
+
+{\tt find} 함수는 XML 나무를 훑어서 특정 태그와 매칭되는 {\bf 노드(node)}를 검색한다. 
+각 노드는 텍스트, 속성(즉, hide 같은), 그리고 ''자식(child)'' 노드로 구성된다. 각 노드는 노드 나무의 최상단이 될 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -85,19 +74,18 @@ Attr: yes
 \end{verbatim}
 \afterverb
 %
-Using an XML parser such as {\tt ElementTree} has the advantage
-that while the XML in this example is quite simple, it turns
-out there are many rules regarding valid XML and using 
-{\tt ElementTree} allows us to extract data from XML without 
-worrying about the rules of XML syntax.
 
-\section{Looping through nodes}
+{\tt ElementTree}같은 XML 파서를 사용하는 것은 잇점이 있는데 상기 예제의 XML은 매우 간단하지만,
+적합한 XML에 대한 많은 규칙이 있고, {\tt ElementTree}를 사용해서 XML 구문 규칙에 얽매이지 않고 XML에서
+데이터를 추출할 수 있다.
+
+\section{노드 반복하기}
 
 \index{ElementTree!findall}
 \index{ElementTree!get}
-Often the XML has multiple nodes and we need to write a loop
-to process all of the nodes.  In the following program, 
-we loop through all of the {\tt user} nodes:
+
+종종 XML은 다중 노드를 가지고 있어서 모든 노드를 처리하기 위해서 루프를 작성할 필요가 있다.
+다음 프로그램에서 모든 {\tt user} 노드를 루프로 반복한다.
 
 \beforeverb
 \begin{verbatim}
@@ -128,11 +116,10 @@ for item in lst:
 \end{verbatim}
 \afterverb
 %
-The {\tt findall} method retrieves a Python list of sub-trees that
-represent the {\tt user} structures in the XML tree.  Then we can 
-write a {\tt for} loop that looks at each of the user nodes, and 
-prints the {\tt name} and {\tt id} text elements as well as the 
-{\tt x} attribute from the {\tt user} node.
+
+{\tt findall} 메쏘드는 XML 나무의 {\tt user} 구조를 표현하는 파이썬 리스트의 하위 나무를 가져온다.
+그리고 나서, {\tt for} 루프를 작성해서 {\tt user} 노드의 각 값을 확인하고 {\tt name}, {\tt id} 텍스트 요소와 
+{\tt user} 노드에서 {\tt x} 속성을 출력한다.
 
 \beforeverb
 \begin{verbatim}
@@ -147,16 +134,15 @@ Attribute 7
 \afterverb
 %
 
-\section{JavaScript Object Notation - JSON}
+\section{JSON(JavaScript Object Notation)}
 \index{JSON}
 \index{JavaScript Object Notation}
 
-The JSON format was inspired by the object and array format used in the JavaScript
-language.  But since Python was invented before JavaScript, Python's syntax
-for dictionaries and lists influenced the syntax of JSON.  So the format of JSON
-is nearly identical to a combination of Python lists and dictionaries.
+JSON 형식은 자바스크립트 언어에서 사용되는 개체와 배열 형식에서 영감을 얻었다.
+하지만 파이썬이 자바스크립트 이전에 개발되어서 딕셔너리와 리스트의 파이썬 구문이 JSON 구문에 영향을 주었다.
+그래서 JSON 포맷이 거의 파이썬의 리스트와 딕셔너리의 조합과 일치한다. 
 
-Here is a JSON encoding that is roughly equivalent to the simple XML from above:
+상기 간단한 XML에 대략 상응하는 JSON으로 작성한 것이 다음에 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -173,31 +159,25 @@ Here is a JSON encoding that is roughly equivalent to the simple XML from above:
 \end{verbatim}
 \afterverb
 %
-You will notice some differences.  First, in XML, we can add attributes like
-``intl'' to the ``phone'' tag.  In JSON we simply have key-value pairs.  Also
-the XML ``person'' tag is gone, replaced by a set of outer curly-braces.  
 
-In general JSON structures are simpler than XML because JSON has fewer capabilities
-than XML.  But JSON has the advantage that it maps {\em directly} to some combination
-of dictionaries and lists.   And since nearly all programming languages 
-have something equivalent to Python's dictionaries and lists, JSON is a very
-natural format to have two cooperating programs exchange data.
+몇가지 차이점에 주목하세요. 첫째로 XML에서는 ''phone'' 태그에 ''intl''같은 속성을 추가할 수 있다.
+JSON에서는 단지 키-밸류 페어(key-value pair)다. 또한 XML ''person'' 태그는 사라지고 중괄호 세트로 대체되었다.
 
-JSON is quickly becoming the format of choice for nearly all data exchange between 
-applications because of its relative simplicity compared to XML.
+일반적으로 JSON 구조가 XML보다 간단하다. 왜냐하면, JSON이 XML보다 적은 역량을 보유하기 때문이다.
+하지만 JSON이 딕셔너리와 리스트의 조합에 {\em 직접} 매핑된다는 장점이 있다.
+그리고, 거의 모든 프로그래밍 언어가 파이썬 딕셔너러와 리스트에 상응하는 것을 가지고 있어서,
+JSON이 두 협업 프로그램이 데이터를 교환하는데 매우 자연스러운 형식이 된다.
 
-\section{Parsing JSON}
+XML에 비해서 상대적으로 단순함으로써, JSON은 응용프로그램 간의 거의 모든 데이터를 교환하는데 있어
+빠르게 선택되고 있다. 
 
-We construct our JSON by nesting dictionaries (objects) and lists as needed.  In 
-this example we represent a list of users where each user is a set of 
-key value pairs (i.e. a dictionary).  So we have a list of dictionaries.
+\section{JSON 파싱하기}
+딕셔너리(개체)와 리스트를 중첩함으로써 JSON을 생성한다. 이번 예제에서,
+각 user가 딕셔너리로 키-밸류 페어(key-value pair)인 user 리스트를 표현한다. 그래서 리스트 딕셔너리가 있다.
 
-In the following program, we use the built-in {\bf json} library parse 
-the JSON and read through the data.   Compare this closely to the equivalent
-XML data and code above.  The JSON has less detail so we must know in advance 
-that we are getting a list, and the list is of users and each user is a set of 
-key value pairs.  The JSON is more succinct (an advantage) but also is 
-less self-describing (a disadvantage).
+다음 프로그램에서 내장된 {\bf json} 라이브러리를 사용하여 JSON을 파싱하여 데이터를 읽어온다.
+이것을 XML과 상응하는 데이터, 코드와 비교해 보세요. JSON은 조금 덜 자세해서 사전에 미리 리스트를 가져올 것이고, user 리스트가 있고 각 user는 키-밸류 페어 집합임을 알 수 있다. JSON은 좀더 간략(장점)하고 하지만 
+좀더 덜 서술적(단점)이다. 
 
 \beforeverb
 \begin{verbatim}
@@ -226,17 +206,15 @@ for item in info:
 \afterverb
 %
 
-If you compare the code to extract data from the parsed JSON and XML
-you will see that what we get from {\bf json.loads()} 
-is a Python list which we traverse with 
-a {\bf for} loop and each item within that list
-is a Python dictionary which we use the Python
-index operator to extract the various bits of each user.   Once the JSON has
-been parsed - we simply have native Python objects and structures.  We don't
-have to use the JSON library to dig through the parsed JSON since the returned
-data is simply native Python structures.
-
-The output of this program is exactly the same as the XML version above.
+JSON과 XML에서 데이터를 추출하는 코드를 비교하면, 
+{\bf json.loads()} 에서 파이썬 리스트를 얻고,
+{\bf for} 루프로 훑고, 리스트 내부의 각 항목은 파이썬 딕셔너리로
+각 user의 다양한 정보를 추출하기 위해서 파이썬 인덱스 연산자를 사용한다. 
+JSON을 파싱하면, 네이티브 파이썬 개체와 구조가 생성된다.
+반환된 데이터가 단순히 네이티브 파이썬 구조체이기 때문에, 파싱된 JSON을 활용하는데
+JSON 라이브러리를 사용할 필요는 없다. 
+ 
+프로그램 출력은 정확하게 상기 XML 버젼과 동일한다.
 
 \beforeverb
 \begin{verbatim}
@@ -250,94 +228,71 @@ Attribute 7
 \end{verbatim}
 \afterverb
 %
-In general, there is an industry trend away from XML and towards JSON for 
-web services.  Because the JSON is simpler and more directly maps to native 
-data structures we already have in programming languages, the parsing 
-and data extraction code is usually simpler and more direct when using JSON.
-But XML is more self-descriptive than JSON and so there are 
-some applications where XML retains an advantage.  For example, most word 
-processors store documents internally using XML rather than JSON.
 
-\section{Application Programming Interfaces (API)}
+일반적으로 웹서비스에 대해서 XML에서 JSON으로 가는 산업 경향이 뚜렷하다.
+JSON이 좀더 간단하고 이미 프로그래밍 언어에서 갖고 있는 네이티브 자료 구조와 직접적으로 매핑되기 때문에
+파싱하고 데이터 추출하는 코드는 JSON을 사용할 때 좀더 간단하고 직접적이다.
+하지만 XML이 JSON보다 좀더 자기 서술적이고 XML이 강점을 가지는 몇몇 어플리케이션이 있다.
+예를 들어, 대부분의 워드 프로세서는 JSON보다는 XML을 사용하여 내부적으로 문서를 저장한다. 
 
-We now have the ability to exchange data between applications using HyperText
-Transport Protocol (HTTP) and a way to represent complex data that we are 
-sending back and forth between these applications using eXtensible 
-Markup Language (XML) or JavaScript Object Notation (JSON).
+\section{API(Application Program Interfaces, 응용 프로그램 인터페이스)}
 
-The next step is to begin to define and document ``contracts'' between 
-applications using these techniques. The general name for these 
-application-to-application contracts is {\bf Application Program 
-Interfaces} or APIs.  When we use an API, generally one program
-makes a set of {\bf services} available for use by other applications
-and publishes the APIs (i.e. the ``rules'') that must be followed to 
-access the services provided by the program.
+이제 HTTP를 사용하여 응용프로그램간에 데이터를 교환하고 XML과 JSON을 사용하여 응용프로그램간에도
+복잡한 데이터를 주고 받을 수 있는 방법을 습득했다.
 
-When we begin to build our programs where the functionality of
-our program includes access to services provided by other programs, 
-we call the approach a {\bf Service-Oriented Architecture} or SOA.
-A SOA approach is one where our overall application makes use of 
-the services of other applications.  A non-SOA approach is where the
-application is a single stand-alone application which contains all of the
-code necessary to implement the application.
+다음 단계는 이들 기법을 사용하여 응용프로그램 간에 ''계약(contract)''을 정의하고 문서화하는 것이다.
+응용프로그램-대-응용프로그램 계약의 일반적 명칭은 APIs, {\bf 응용 프로그램 인터페이스(Application Program 
+Interfaces)}이다. API를 사용할 때, 일반적으로 하나의 프로그램은 다른 응용 프로그램에서 사용되도록
+가능한 서비스 집합을 생성하고 프로그램에서 제공하는 서비스에 접근하도록 API (즉, ''규칙'')를 게시한다.  
 
-We see many examples of SOA when we use the web.  We can go to a single 
-web site and book air travel, hotels, and automobiles all from a 
-single site.  The data for hotels is not stored on the airline computers. 
-Instead, the airline computers contact the services on the hotel computers
-and retrieve the hotel data and present it to the user.  When the user
-agrees to make a hotel reservation using the airline site, the airline site uses
-another web service on the hotel systems to actually make the reservation.
-And when it comes to charge your credit card for the whole transaction, 
-still other computers become involved in the process.
+프로그램의 기능이 다른 프로그램에서 제공되는 서비스에 접근도 포함되도록 프로그램을 개발 할 때,
+이러한 개발 접근법을 SOA, {\bf Service-Oriented Architecture(서비스 지향 아키텍처)}라고 부른다.
+SOA가 아닌 접근법은 응용 프로그램이 하니의 독립 응용 프로그램으로 구현에 필요한 모든 코드를 담고 있다.
+
+웹을 사용할 때 SOA의 많은 사례를 찾아 볼 수 있다. 하나의 웹사이트를 방문하여 비행기표, 호텔, 자동차를 단일
+사이트에서 예약한다. 호텔관련 데이터는 물론 항공사 컴퓨터에 저장되어 있지 않다.
+대신에 항공사 컴퓨터는 호텔 컴퓨터와 계약을 맺어 호텔 데이터를 가져와서 사용자에게 보여준다.
+사용자가 항공사 사이트를 통해서 호텔 예약을 동의할 경우, 항공사 사이트는 실제 예약을 하기 위해서
+호텔 시스템의 또다른 웹서비스를 사용한다.
+전체 트랜젝션에 대해서 카드 결재를 할 때, 여전히 다른 컴퓨터가 프로세스에 물려있다.
 
 \beforefig
 \centerline{\includegraphics[height=2.50in]{figs2/soa.eps}}
 \afterfig
 
-A Service-Oriented Architecture has many advantages including: (1) we 
-always maintain only one copy of data - this is particularly important
-for things like hotel reservations where we do not want to over-commit
-and (2) the owners of the data can set the rules about the use of their 
-data.   With these advantages, a SOA system must be carefully designed
-to have good performance and meet the user's needs.
+서비스 지향 아키텍쳐는 많은 장점을 지니고 있다. (1) 항상 단 하나의 데이터만 유지관리한다. 
+능력 이상으로 예약을 원치않는 호텔  같은 경우에 특히나 중요하다. (2) 데이터 소유자가 
+데이터의 사용에 대한 규칙을 정한다. 이러한 장점으로, SOA 시스템은 좋은 성능과 사용자 요구를 만족하기 위해서
+주의깊이 설계되어야 한다. 
 
-When an application makes a set of services in its API available over the web, 
-we call these {\bf web services}. 
+응응프로그램이 웹상에서 가능한 API 형식의 서비스 집합을 만들 때, {\bf 웹서비스(web services)}라고 부른다.
 
-\section{Google geocoding web service}
+\section{구글 지오코딩 웹서비스(Google Geocoding Web Service)}
 \index{Google}
 \index{geocoding}
 \index{web service}
 
-Google has an excellent web service that allows us to make use of their 
-large database of geographic information.   We can submit a geographical
-search string like ``Ann Arbor, MI'' to their geocoding API and have Google 
-return its best guess as to where on a map we might find our search string and
-tells us about the landmarks nearby.
+구글은 자체적으로 구축한 대용량 지리 정보 데이터베이스를 이용할 수 있게 해주는 훌륭한 웹서비스가 있다.
+``Ann Arbor, MI'' 같은 지리적 검색 문자열을 지오코딩 API에 넣으면, 
+검색 문자열을 찾아서 지도상에 근처의 주요 지형지물과 함께 최선의 예측치를 보여준다. 
 
-The geocoding service is free but rate limited so you cannot make unlimited
-use of the API in a commercial application.   But if you have some survey data
-where an end-user has entered a location in a free-format input box, you can use
-this API to clean up your data quite nicely.  
+지오코딩 서비스는 무료지만 사용량은 제한되어 있어서, 상업적 응용프로그램에 API를 제한없이 사용할 수는 없다.
+하지만, 최종 사용자가 자유형식 입력 박스에 위치정보를 입력하는 설문 데이터가 있다면,
+API를 사용하여 데이터를 깔끔하게 정리할 수는데 사용할 수 있다.
 
 {\em When you are using a free API like Google's geocoding API, you need
 to be respectful in your use of these resources.  If too many people abuse the
 service, Google might drop or significantly curtail its free service.}
 \index{rate limiting}
 
-You can read the online documentation for this service, but it is quite simple
-and you can even test it using a browser by typing the following URL into your 
-browser:
+서비스에 대한 온라인 문서를 정독할 수 있지만, 무척 간단해서 브라우저에 다음 URL을 입력함으로써 테스트까지 할 수 있다.
 
 \url{http://maps.googleapis.com/maps/api/geocode/json?sensor=false &address=Ann+Arbor%2C+MI}
 
-Make sure to un-wrap the URL and remove any spaces from the URL before pasting
-it into your browser.
+URL만 벗겨내고 웹프라우저에 붙여넣기 전에 URL에서 모든 공백이 제거되었는지 확인하세요.
 
-The following is a simple application to prompt the user for a search string
-and call the Google geocoding API and extract information from the returned
-JSON.
+다음은 사용자가 검색 문자열을 입력하고 구글 지오코딩 API를 호출하여 반환된 JSON에서 정보를 추출하는 
+간단한 응용프로그램이다.
 
 \beforeverb
 \begin{verbatim}
@@ -374,18 +329,15 @@ while True:
 \end{verbatim}
 \afterverb
 %
-The program takes the search string and constructs a URL with the
-search string as a properly encoded parameter and then uses
-{\bf urllib} to retrieve the text from the Google geocoding API.
-Unlike a fixed web page, the data we get depends on the parameters
-we send and the geographical data stored in Google's servers.
 
-Once we retrieve the JSON data, we parse it with the {\bf json}
-library and do a few checks to make sure that we received good data 
-and then extract the information that we are looking for.
+프로그램은 검색 문자열을 받아서 적절하게 인코딩된 매개 변수로 검색문자열을 가진 URL을 만든다.
+그리고 나서 {\bf urllib}을 사용하여 구글 지오코딩 API에서 텍스트를 가져온다.
+고정된 웹페이지와 달리, 반환되는 데이터는 전송하는 매개변수와 구글 서비스에 저장된 지리정보 데이터에
+의존하게 된다.
 
-The output of the program is as follows (some of the returned
-JSON has been removed):
+JSON 데이터를 가져오면, {\bf json} 라이브러리로 파싱하고 전송받은 데이터가 올바른지 확인하는 몇가지 절차를 거친 후에 찾고자 하는 정보를 추출한다.
+
+프로그램의 출력은 다음과 같다. (몇몇 JSON 출력은 의도적으로 삭제했다.)
 
 \beforeverb
 \begin{verbatim}
@@ -429,60 +381,38 @@ Enter location:
 \end{verbatim}
 \afterverb
 %
-You can download 
-\url{www.py4inf.com/code/geojson.py} and 
-\url{www.py4inf.com/code/geoxml.py} to explore the JSON
-and XML variants of the Google geocoding API. 
 
-\section{Security and API usage}
+다양한 구글 지오코딩 API의 XML과 JSON을 좀더 살펴보기 위해서 \url{www.py4inf.com/code/geojson.py},
+\url{www.py4inf.com/code/geoxml.py}을 다운로드 받아 보기 바랍니다.
+
+\section{보안과 API 사용}
 \index{OAuth}
 \index{API!key}
 
-It is quite common that you need some kind of 
-``API key'' to make use of a vendor's API.  The
-general idea is that they want to know who is using 
-their services and how much each user is using.  
-Perhaps they have free and pay tiers of their services
-or have a policy that limits the number of requests 
-that a single individual can during a particular 
-time period.
+상용업체의 API를 사용하기 위해서 일종의 ''API키(API key)''가 필요한 것이 일반적이다.
+서비스 제공자 입장에서는 누가 서비스를 사용하고 있으며 각 사용자가 얼마나 사용하는지를 알고자 한다.
+아마도 서비스에 대한 무료와 유료 사용자에 대한 구분이 있거나 특정 기간 동안 한 개인이 사용할 수 있는
+요청수에 대한 제한을 두는 정책이 있다. 
 
-Sometimes once you get your API key, you simply include
-the key as part of POST data or perhaps as a parameter
-on the URL when calling the API.
+때때로 API키를 가지게 되면, POST 데이터의 일부로서 포함하거나 API를 호출할 때
+URL의 매개변수로서 단순하게 키를 포함시킨다.
 
-Other times, the vendor wants increased assurance of
-the source of the requests and so they add expect you 
-to send cryptographically signed messages using shared
-keys and secrets.   A very common technology that is used 
-to sign requests over the Internet is called {\bf OAuth}.
-You can read more about the OAuth protocol at
-\url{http://www.oauth.net}.
+또 다른 경우는 업체가 서비스 요청에 대한 보증을 강화해서 공유키와 비밀번호를 암호화된 메시지 형식으로
+보내도록 요구한다. 인터넷을 통해서 서비스 요청을 암호화하는 일반적인 기술을 {\bf OAuth}라고 한다.
+\url{http://www.oauth.net} 사이트에서 OAuth 프로토콜에 대해 더 많은 정보를 만날 수 있다. 
 
-As the Twitter API became increasingly valuable, Twitter
-went from an open and public API to an API that required
-the use of OAuth signatures on each API request. Thankfully
-there are a number of convenient and free OAuth libraries
+트위터 API가 점차적으로 가치있게 됨에 따라 트위터가 공개된 API에서 매번 API 호출시에 OAuth 인증을 사용하는
+API로 바뀌었다. 다행스럽게도 편리한 많은 OAuth 라이브러리가 많이 있다. 
 
-so you can avoid writing an OAuth implementation from scratch
-by reading the specification.  These libraries are of 
-varying complexity and have varying 
-richness.  The OAuth web site has information about various 
-OAuth libraries.
+그래서 명세서를 읽고 맨바닥에서부터 OAuth 구현을 필할 수 있다. 이용가능한 라이브러리에는 
+다양한 복잡성과 풍부성이 있다. OAuth 웹사이트에서 다양한 OAuth 라이브러리 정보를 확인할 수 있다. 
 
-For this next sample program we will download these files: 
-{\bf twurl.py}, {\bf hidden.py}, 
-{\bf oauth.py}, 
-and
-{\bf twitter1.py} from 
-\url{www.py4inf.com/code} and put them all in a folder
-on your computer.
+다음 샘플 프로그램으로 \url{www.py4inf.com/code} 사이트에서 {\bf twurl.py}, {\bf hidden.py}, 
+{\bf oauth.py}, {\bf twitter1.py} 파일을 다운로드 받아서 컴퓨터에 한 폴더에 저장한다.
 
-To make use of these programs you will need to have a Twitter
-account, and authorize your Python code as an application,
-set up a key, secret, token and token secret.  You will edit
-the file {\bf hidden.py} and put these four strings into the
-appropriate variables in the file:
+프로그램을 사용하기 위해서 트위터 계정이 필요하고, 응용프로그램으로 파이썬 코드를 인증하고,
+키, 암호, 토큰과 토큰 암호를 설정해야 한다. 
+{\bf hidden.py} 파일을 편집하여 4개 문자열을 파일에 적절한 변수에 저장한다.
 
 \beforeverb
 \begin{verbatim}
@@ -494,12 +424,12 @@ appropriate variables in the file:
 \end{verbatim}
 \afterverb
 %
-The Twitter web service are accessed using a URL like this:
+
+트위터 웹서비스는 다음 URL을 사용하여 접근한다.
 
 \url{https://api.twitter.com/1.1/statuses/user_timeline.json}
 
-But once all of the security information has been added, the URL
-will look more like:
+하지만, 모든 비밀 정보가 추가되면, URL은 다음과 같이 보인다.
 
 \beforeverb
 \begin{verbatim}
@@ -511,21 +441,16 @@ https://api.twitter.com/1.1/statuses/user_timeline.json?count=2
 \end{verbatim}
 \afterverb
 %
-You can read the OAuth specification if you want to
-know more about the meaning of the various parameters that
-are added to meet the security requirements of OAuth.  
 
-For the programs we run with Twitter, we hide all the 
-complexity in the files {\bf oauth.py} and {\bf twurl.py}.
-We simply set the secrets in {\bf hidden.py} and then 
-send the desired URL to the {\bf twurl.augment()} 
-function and the library code adds all the necessary 
-parameters to the URL for us.
+OAuth 보안 요구사항을 충족하기 위해서 추가된 다양한 매개 변수의 의미를 좀더 자세히 알고자 한다면,
+OAuth 명세서를 읽어보기 바랍니다.
 
-This program ({\bf twitter1.py}) retrieves the timeline
-for a particular Twitter user and returns it to us in JSON
-format in a string.  We simply print the first 250 characters
-of the string:
+트위터로 실행한 프로그램에서 {\bf oauth.py}, {\bf twurl.py} 두개의 파일에 모든 복잡함을 감추었다.
+{\bf hidden.py}에 암호를 설정해서 URL을 {\bf twurl.augment()} 함수에 전송했고,
+라이브러리 코드는 URL에 필요한 매개 변수를 추가했다.
+
+{\bf twitter1.py} 프로그램은 특정 트위터 사용자의 타임라인을 가져와서 JSON 형식의 문자열로 반환한다.
+단순하게 문자열의 첫 250 문자만 출력한다.
 
 \beforeverb
 \begin{verbatim}
@@ -550,8 +475,9 @@ while True:
 \end{verbatim}
 \afterverb
 %
-When the program runs it produces the following output: 
- 
+
+프로그램을 실행하면 다음 결과물을 출력한다.
+
 \beforeverb
 \begin{verbatim}
 Enter Twitter Account:drchuck
@@ -576,19 +502,12 @@ Enter Twitter Account:
 \end{verbatim}
 \afterverb
 %
-Along with the returned timeline data, Twitter also returns
-metadata about the request in the HTTP response headers. 
-One header in particular, {\bf x-rate-limit-remaining} informs
-us how many more requests we can make before we will be shut 
-off for a short time period.  You can see that our remaining 
-retrievals drop by one each time we make a request to the 
-API.
 
-In the following example, we retrieve a user's Twitter friends
-and parse the returned JSON and extract some of the information
-about the friends.  We also dump the JSON after parsing and
-``pretty-print'' it with an indent of four characters to allow
-us to pore through the data when we want to extract more fields.
+타임라인 데이터와 함께 트위터는 또한 HTTP 응답 헤더에 요청사항에 대한 메타 데이터도 반환한다.
+특히 헤더에  {\bf x-rate-limit-remaining}은 잠시동안 서비스를 이용 못하게 되기 전에 얼마나 많은 요청을 할 수 있는지를 사용자에게 고지한다. API 요청을 매번 할 때마다 남은 숫자가 줄어드는 것을 확인할 수 있다.
+
+다음 예제애서, 사용자의 트위터 친구를 가져와서 JSON 파싱을 하고 친구에 대한 정보를 추출한다.
+파싱후에 JSON을 가져 와서, 좀더 많은 필드를 추출할 때 데이터를 자세히 살펴볼 수 있도록 도움이 되도록 문자 4개를 들여쓰기 ''예쁜 출력(pretty-print)''을 한다.
 
 \beforeverb
 \begin{verbatim}
@@ -619,13 +538,10 @@ while True:
 \end{verbatim}
 \afterverb
 %
-Since the JSON becomes a set of nested Python lists and dictionaries,
-we can use a combination of the index operation and for loops to 
-wander through the returned data structures with very little 
-Python code.
+JSON은 중첩된 파이썬 리스트와 딕셔너리이 때문에, 매우 적은양의 코드로 반환된 데이터 구조를 훑어보기 위해서 
+인덱스 연산자와 {\tt for} 루프를 조합할 수 있다.
 
-The output of the program looks as follows (some of the data items 
-are shortened to fit on the page):
+프로그램 결과는 다음과 같다. (페이지에 맞도록 몇몇 데이터 항목을 줄였다.)
 
 \beforeverb
 \begin{verbatim}
@@ -675,50 +591,43 @@ Enter Twitter Account:
 \end{verbatim}
 \afterverb
 %
-The last bit of the output is where we see the for loop reading the
-five most recent ``friends'' of the {\bf drchuck} Twitter account 
-and printing the most recent status for each friend. There is a 
-great deal more data available in the returned JSON.  Also if you look
-in the output of the program, you can see that the ``find the friends''
-of a particular account has a different rate limitation than 
-the number of timeline queries we are allowed to run per time period.
 
-These secure API keys allow Twitter to have solid confidence that they 
-know who is using their API and data and at what level.   The rate
-limiting approach allows us to do simple, personal data retrievals but
-does not allow us to build a product that pulls data from their API 
-millions of times per day.
+출력의 마지막은 {\bf drchuck} 트위터 계정의 가장 최근 5명의 친구를 {\tt for} 루프로 읽고
+친구의 가장 마지막 상태 정보를 출력한다. 반환된 JSON에는 이용가능한 더 많은 데이터가 있다.
+또한, 프로그램 출력을 보게되면, 특정 계정의 ``find the friends''이 일정 기간동안 실행 가능한 타임라인 질의 숫자와
+다른 제한량을 두고 있음을 볼 수 있다.
 
-\section{Glossary}
+이와 같은 안전한 API키는 누가 트위터 API를 사용하고 어느 정도 수준으로 트위터를 사용하는지에 대해서 
+트위트가 확고한 신뢰를 가질 수 있도록 한다. 사용량을 제한 하는 접근법은 간단하고 개인적인 데이터 검색을 
+할수 있게는 하지만, 하루에 수백만 API 호출로 데이터를 추출하는 제품을 개발하지는 못하게 제한하는 기능을 한다.
+
+\section{용어정의}
 
 \begin{description}
 
-\item[API:] Application Program Interface - A contract between
-applications that defines the patterns of interaction between 
-two application components.
+\item[API:] 응용 프로그램 인터페이스(Application Program Interface) - 
+두 응용 프로그램 컴포넌트 간에 상호작용하는 패턴을 정의하는 응용 프로그램 간의 계약.
 \index{API}
 
-\item[ElementTree:] A built-in Python library used to parse XML data.
+\item[ElementTree:] XML데이터를 파싱하는데 사용되는 파이썬 내장 라이브러리.
 \index{ElementTree}
 
-\item[JSON:] JavaScript Object Notation- A format that allows for 
-the markup of structured data based on the syntax of JavaScript
-Objects.
+\item[JSON:] JavaScript Object Notation- 자바스크립트 개체(JavaScript Objects) 구문을 기반으로
+구조화된 데이터의 마크업(markup)을 허용하는 형식.
 \index{JSON}
 \index{JavaScript Object Notation}
 
-\item[REST:] REpresentational State Transfer - A style of Web Services 
-that provide access to resources within an application using the HTTP
-protocol.
+\item[REST:] REpresentational State Transfer -
+HTTP 프로토콜을 사용하여 응용 프로그램 내부에 자원에 접근을 제공하는 일종의 웹서비스 스타일.
 \index{ElementTree}
 
-\item[SOA:] Service Oriented Architecture - when an application is 
-made of components connected across a network.
+\item[SOA:] 서비스 지향 아키텍처(Service Oriented Architecture) - 
+응용 프로그램이 네트워크에 연결된 컴포넌트로 구성될 때.
 \index{SOA}
 \index{Service Oriented Architecture}
 
-\item[XML:] eXtensible Markup Language - A format that allows for 
-the markup of structured data.
+\item[XML:] 확장 마크업 언어(eXtensible Markup Language) - 
+구조화된 데이터의 마크업을 허용하는 형식.
 \index{XML}
 \index{eXtensible Markup Language}
 
@@ -727,13 +636,10 @@ the markup of structured data.
 \section{Exercises}
 
 \begin{ex}
-Change either the 
-\url{www.py4inf.com/code/geojson.py} or
-\url{www.py4inf.com/code/geoxml.py} to print out the 
-two-character country code from the retrieved data.
-Add error checking so your program does not traceback
-if the country code is not there.  Once you have it 
-working, search for ``Atlantic Ocean'' and make sure
-it can handle locations that are not in any country.
+가져온 데이터에서 두 문자 국가 코드를 출력하도록 \url{www.py4inf.com/code/geojson.py} 혹은
+\url{www.py4inf.com/code/geoxml.py}을 수정하세요.
+오류 검사 기능을 추가하여 국가 코드가 없더라도 프로그램이 트레이스백(traceback)을 생성하지 않도록 하세요.
+프로그램이 정상 작동하면, ``Atlantic Ocean''을 검색하고 어느 국가에도 속하지 않는 지역도 다둘 수 있는지 확인하세요. 
+
 \end{ex}
 
