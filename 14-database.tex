@@ -27,72 +27,48 @@ SQLite는 응용프로그램 내부에서 데이터베이스 지원을 제공하
 
 
 \section{데이터베이스 개념}
-
-When you first look at a database it looks like a 
-spreadsheet with multiple sheets.   The primary data structures 
-in a database are:
-{\bf tables}, {\bf rows}, and {\bf columns}.  
+처음 데이터베이스를 볼때 드는 생각은 마치 엑셀같은 다중 시트를 지닌 스프레드쉬트(spreadsheet)같다.
+데이터베이스의 주요 데이터구조는 {\bf 테이블(tables)}, {\bf 행(rows)}, and {\bf 열(columns)}이다.  
 
 \beforefig
 \centerline{\includegraphics[height=1.50in]{figs2/relational.eps}}
 \afterfig
 
-In technical descriptions of relational databases the concepts of 
-table, row, and column are more formally referred
-to as {\bf relation}, {\bf tuple}, and {\bf attribute}, respectively.
-We will use the less formal terms in this chapter.
+관계형 데이터베이스의 기술적은 설명으로 테이블, 행, 열의 개념은 {\bf 관계(relation)}, {\bf 튜플(tuple)}, and {\bf 속성(attribute)} 각각 형식적으로 참조된다.
+이번장에서는 좀더 덜 형식 용어를 사용한다.
 
-\section{SQLite manager Firefox add-on}
-
-While this chapter will focus on using Python to work with data 
-in SQLite database files, many operations can be done more
-conveniently using a Firefox add-on called the {\bf SQLite
-Database Manager} which is freely available from:
+\section{파이어폭스 애드온 SQLite 매니저}
+SQLite 데이터베이스 파일에 데이터를 다루기 위해서 이번장에서 파이썬의 사용에 집중을 하지만, 다음 웹사이트에서 무료로 이용가능한
+{\bf SQLite 데이터베이스 매니저(SQLite Database Manager)}로 불리는 파이어폭스 애드온을 사용해서 좀더 쉽게 많은 연산을 수행한다.
 
 \url{https://addons.mozilla.org/en-us/firefox/addon/sqlite-manager/}
 
-Using the browser you can easily create tables, insert data, edit data, 
-or run simple SQL queries on the data in the database.
+브라우져를 사용해서 쉽게 테이블을 생성하고, 데이터를 삽입, 편집하고 데이터베이스의 데이터에 간단한 SQL 질의를 실행할 수 있다.
 
-In a sense, the database manager is similar to a text editor
-when working with text files.   When you want to do one or
-very few operations on a text file, you can just open it
-in a text editor and make the changes you want.   When you have 
-many changes that you need to do to a text file, often you 
-will write a simple Python program.  You will find the same 
-pattern when working with databases.  You will do simple
-operations in the database manager and more complex operations
-will be most conveniently done in Python.
+이러한 점에서 데이터베이스 매니저는 텍스트 파일을 작업할 때 사용하는 텍스트 편집기와 유사하다.
+텍스트 파일에 하나 혹은 몇개의 작업을 하고자 하면, 텍스트 편집기에 파일을 열어 원하는 수정을 하면 된다.
+텍스트 파일에 작업할 사항이 많은 경우는 종종 간단한 파이썬 프로그램을 작성한다. 
+데이터베이트로 작업할 때 동일한 패턴을 찾을 수 있다. 간단한 작업은 데이터베이스 매니저를 통해서 수행하고,
+좀더 복잡한 작업은 파이썬으로 수행하는 것이 가장 편리하다.
 
-\section{Creating a database table}
 
-Databases require more defined structure than Python lists 
-or dictionaries\footnote{SQLite actually does allow some 
-flexibility in the type of data stored in a column,
-but we will keep our data types strict in this chapter
-so the concepts apply equally to other database systems 
-such as MySQL.}.  
+\section{데이터베이스 테이블 생성하기}
 
-When we create a database {\bf table} we
-must tell the database in advance the names of each of the
-{\bf columns} in the table and the type of data which we are 
-planning to store in each {\bf column}.   When the database software
-knows the type of data in each column, it can choose the most 
-efficient way to store and lookup the data based on the type of
-data. 
+데이터베이스는 파이썬 리스트 혹은 딕셔너리보다 좀더 명확히 정의된 구조를 요구한다.\footnote{
+SQLite 실질적으로 열에 저장되는 데이터 형식에 좀더 많은 유연성을 부여하지만,
+이번 장에서는 데이터 형식을 엄격하게 유지해서 MySQL 같은 다른 데이터베이스 시스템에도 동일하게 개념이 적용되게 한다.}.  
 
-You can look at the various data types supported by SQLite
-at the following url:
+데이터베이스 {\bf 테이블(table)}을 생성할 때, 데이터베이스에게 테이블의 각 {\bf 열(column)}의 명칭과 각 {\bf 열(column)}에
+저장하려고 하는 테이터의 형식을 미리 알려줘야 한다.
+데이터베이스 소프트웨어가 각 열의 데이터 형식을 인식하게 되면, 데이터 형식에 따라 가장 효율적으로 데이터를 저장하고 찾아오는 방법을 선택할 수 있다.
+
+다음 url에서 SQLite에서 지원하는 다양한 데이터 형식을 볼 수 있다.
 
 \url{http://www.sqlite.org/datatypes.html}
 
-Defining structure for your data up front may seem inconvenient
-at the beginning, but the payoff is fast access to your data 
-even when the database contains a large amount of data.
+처음에는 사전에 데이터 구조를 정의하는 것이 불편하게 보이지만, 데이터베이스가 대량의 데이터를 포함하는 경우에도 데이터의 빠른 접근을 보장하는 잇점이 있다.
 
-The code to create a database file and a table 
-named {\tt Tracks} with two columns in the 
-database is as follows:
+데이터베이스 파일과 데이터베이스에 두개의 열을 가진 {\tt Tracks} 이름의 테이블을 생성하는 코드는 다음과 같다.
 
 \index{sqlite3 module}
 \index{module!sqlite3}
@@ -110,51 +86,37 @@ conn.close()
 \end{verbatim}
 \afterverb
 %
+
 \index{connect function}
 \index{function!connect}
 \index{cursor function}
 \index{function!cursor}
-The {\tt connect} operation makes a ``connection'' to the database 
-stored in the file {\tt music.sqlite3} in the current directory.   If
-the file does not exist, it will be created.  The reason this
-is called a ``connection'' is that sometimes the database is stored
-on a separate ``database server'' from the server on which we 
-are running our application.  In our simple examples 
-the database will just be a local file in the same directory
-as the Python code we are running.
 
-A {\bf cursor} is like a file handle that we can use to perform
-operations on the data stored in the database.  Calling 
-{\tt cursor()} is very similar conceptually to calling
-{\tt open()} when dealing with text files.
+{\tt connect} 연산은 현재 디렉토리의 {\tt music.sqlite3} 파일에 저장된 데이터베이스에 ''연결(connection)''한다.
+파일이 존재하지 않으면, 자동 생성이 된다. ''연결(connection)''이라고 부르는 이유는 때때로 데이터베이스가 응용프로그램이 실행되는 서버로부터
+분리된 ''데이터베이스 서버(database server)''에 저장되기 때문이다.
+여기 간단한 예제에서는 데이터베이스가 실행되는 파이썬 코드처럼 동일한 디렉토리에 로컬 파일이다.
+
+{\bf 커서(cursor)}는 파일을 다루는 파일핸들러처럼 데이터베이스에 저장된 파일에 연산을 수행하기 위해서 사용한다.
+{\tt cursor()}를 호출하는 것은 개념적으로 텍스트 파일을 다룰 때 {\tt open()}을 호출하는 것과 개념적으로 매우 유사하다.
 
 \beforefig
 \centerline{\includegraphics[height=1.50in]{figs2/cursor.eps}}
 \afterfig
 
-Once we have the cursor, we can begin to execute 
-commands on the contents of the database using the {\tt execute()}
-method.
+커서가 생성되면, {\tt execute()} 메쏘드를 사용하여 데이터베이스 콘텐츠에 명령어 실행을 할 수 있다.
 
-Database commands are expressed in a special language that has 
-been standardized across many different database vendors 
-to allow us to learn a single database language.   The database
-language is called {\bf Structured Query Language} or {\bf SQL}
-for short.
+데이터베이스 명령어는 특별한 언어로 표현되어 단 하나의 데이터베이스 언어를 학습하도록 서로 다른 많은 데이터베이스 업체사이에서 표준화되었다.
+데이터베이스 언어는 {\bf SQL(Structured Query Language 구조적 질의 언어)}로 불린다.
 
 \url{http://en.wikipedia.org/wiki/SQL}
 
-In our example, we are executing two SQL commands in our database.
-As a convention, we will show the SQL keywords in uppercase 
-and the parts of the command that we are adding (such as the
-table and column names) will be shown in lowercase.
+상기 예제에서, 데이터베이스에 두개의 SQL 명령어를 실행했다. 관습적으로 데이터베이스 키워드는 대문자로 테이블이나 열의 명칭처럼 사용자가 추가한
+명령어 부분은 소문자로 표기한다.
 
-The first SQL command removes the {\tt Tracks} table from the 
-database if it exists.  This pattern is simply to allow us to 
-run the same program to create the {\tt Tracks} table over 
-and over again without causing an error.  Note that the
-{\tt DROP TABLE} command deletes the table and all of its contents
-from the database (i.e. there is no ``undo'').
+첫 SQL 명령어는 만약 존재한다면 데이터베이스에서 {\tt Tracks} 테이블을 삭제한다.
+이런 형태의 패턴은 단순하게 오류 없이 반복적으로 {\tt Tracks} 테이블을 생성하도록 동일한 프로그램을 실행할 수 있게 한다.
+{\tt DROP TABLE} 명령어는 데이터베이스로부터 테이블 및 테이블 콘텐츠 전부를 삭제함을 주목하세요. (즉, ''실행취소(undo)''가 없다.)
 
 \beforeverb
 \begin{verbatim}
@@ -162,9 +124,8 @@ cur.execute('DROP TABLE IF EXISTS Tracks ')
 \end{verbatim}
 \afterverb
 %
-The second command creates a table named
-{\tt Tracks} with a text column named {\tt title}
-and an integer column named {\tt plays}.
+
+두번째 명령어는 {\tt title} 문자형 열과 {\tt plays} 정수형 열을 가진 {\tt Tracks}으로 명명된 테이블을 생성한다.
 
 \beforeverb
 \begin{verbatim}
@@ -172,18 +133,13 @@ cur.execute('CREATE TABLE Tracks (title TEXT, plays INTEGER)')
 \end{verbatim}
 \afterverb
 %
-Now that we have created a table named {\tt Tracks}, we can put some data
-into that table using the SQL {\tt INSERT} operation.   Again, we begin
-by making a connection to the database and obtaining the {\tt cursor}.
-We can then execute SQL commands using the cursor.
 
-The SQL {\tt INSERT} command indicates which table we are using 
-and then defines a new row by listing the fields we want to 
-include {\tt (title, plays) } followed by the {\tt VALUES} we want
-placed in the new row in the table.   We specify the values
-as question marks {\tt (?, ?)} to indicate that the actual 
-values are passed in as a tuple {\tt ( 'My Way', 15 ) } as the
-second parameter to the {\tt execute()} call.
+이제 {\tt Tracks}로 명명된 테이블을 생성했으니, SQL {\tt INSERT} 연산을 통해서 테이블에 데이터를 넣을 수 있다.
+다시 한번, 데이터베이스에 연결하여 {\tt 커서(cursor)}를 얻어서 작업을 시작한다. 그리고 나서 커서를 사용하여 SQL 명령어를 수행한다.
+
+SQL {\tt INSERT} 명령어는 어느 테이블을 사용하는지, {\tt (title, plays) }을 포함하는 필드를 통해서 신규 행을 정의하고 
+테이블의 신규 행에 {\tt VALUES}에 해당 데이터를 입력한다.
+실제 값이 {\tt execute()} 호출의 두번째 매개변수로 {\tt ( 'My Way', 15 ) } 튜플로 넘겨는 것을 표기하기 위해서 값을 물음표 {\tt (?, ?)}로 명기한다.
 
 \beforeverb
 \begin{verbatim}
@@ -210,26 +166,20 @@ cur.close()
 \end{verbatim}
 \afterverb
 %
-First we {\tt INSERT} two rows into our table and use {\tt commit()} 
-to force the data to be written to the database file.
+
+먼저 테이블에 두개의 열을 {\tt 삽입(INSERT)}하고 {\tt commit()}을 사용하여 데이터가 데이터베이스에 써지도록 했다.
 
 \beforefig
 \centerline{\includegraphics[height=1.00in]{figs2/tracks.eps}}
 \afterfig
 
-Then we use the {\tt SELECT} command
-to retrieve the rows we just inserted from the table.  
-On the 
-{\tt SELECT} command, we indicate which columns we would like {\tt (title, plays)}
-and indicate which table we want to retrieve the data from.  After we 
-execute the {\tt SELECT} statement, the cursor is something we can loop through
-in a {\tt for} statement.   For efficiency,
-the cursor does not read all of the data from the
-database when we execute the {\tt SELECT} statement.  
-Instead, the data is read on-demand
-as we loop through the rows in the {\tt for} statement.
+그리고 나서, {\tt SELECT} 명령어를 사용하여 테이블에 방금전에 삽입된 행을 불러왔다.
+{\tt SELECT} 명령어에 어느 열{\tt (title, plays)}을 가져오는지와 어느 테이블{\tt Tracks}에서 데이터를 가져올지를 나타낸다.
+{\tt SELECT} 명령문을 수행한 후에, 커서는 {\tt for}문의 반복을 수행하는 것과 같다.
+효율성을 위해서, 커서는 {\tt SELECT} 명령문을 수행할 때 데이터베이스에서 모든 데이터를 읽지 않는다. 
+대신에 데이터는 {\tt for}문의 행을 반복하듯이 요청시에만 읽어온다.
 
-The output of the program is as follows:
+프로그램 실행결과는 다음과 같다.
 
 \beforeverb
 \begin{verbatim}
@@ -240,22 +190,18 @@ Tracks:
 \afterverb
 %
 \index{Unicode}
-Our {\tt for} loop finds two rows, and each row is a Python tuple with the
-first value as the {\tt title} and the second value as the number of {\tt plays}.
-Do not be concerned that the title strings are shown starting with 
-{\tt u'}.  This is an indication that the strings are {\bf Unicode} strings
-that are capable of storing non-Latin character sets.
 
-At the very end of the program, we execute an SQL command to {\tt DELETE} 
-the rows we have just created so we can run the program over and over.
-The {\tt DELETE} command shows the use of a {\tt WHERE} clause that
-allows us to express a selection criterion so that we can ask the database
-to apply the command to only the rows that match the criterion.  In this example
-the criterion happens to apply to all the rows so we empty the table
-out so we can run the program repeatedly.  After the {\tt DELETE} is performed
-we also call {\tt commit()} to force the data to be removed from the database.
+{\tt for} 루프는 두개의 행을 읽어왔다. 각각의 행은 {\tt title}로 첫번째 값을,
+{\tt plays}로 두번째 값을 가진 파이썬 튜플이다. title 문자열이 'u'로 시작한다고 걱정하지 마라.
+해당 문자열은 라틴 문자가 아닌 다국어를 저장할 수 있는 {\bf 유니코드(Unicode)} 문자열을 나타내는 것이다.
 
-\section{Structured Query Language (SQL) summary}
+프로그램 마지막에 SQL 명령어를 실행서 방금전에 생성한 행을 모두 {\tt 삭제(DELETE)}했서
+프로그램을 다시금 실행할 수 있다. {\tt 삭제(DELETE)} 명령어는 {\tt WHERE} 문을 사용하여 선택 조건을 표기할 수 있다.
+따라서 명령문이 조건을 충족하는 행에만 데이터베이스에 적용된다.
+이번 예제에서 기준이 모든 행에 적용되어서 테이블에 아무 것도 없게 되어서 프로그램을 반복적으로 실행할 수 있다.
+{\tt 삭제(DELETE)}를 실행한 후에 {\tt commit()}을 호출하여 데이터가 데이터베이스에서 와전히 제거되게 했다.
+
+\section{SQL(Structured Query Language) 요약}
 
 So far, we have been using the Structured Query Language in our Python
 examples and have covered many of the basics of the SQL commands.
