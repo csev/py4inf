@@ -203,18 +203,14 @@ Tracks:
 
 \section{SQL(Structured Query Language) 요약}
 
-So far, we have been using the Structured Query Language in our Python
-examples and have covered many of the basics of the SQL commands.
-In this section, we look at the SQL language in particular
-and give an overview of SQL syntax.
+지금까지, 파이썬 예제에서 SQL(Structured Query Language)을 사용했고, SQL 명령어의 기본에 대해서 다루었다.
+이번 장에서는 SQL 언어를 보고 SQL 구문 개요를 살펴본다.
 
-Since there are so many different database vendors, the Structured Query
-Language (SQL) was standardized so we could communicate in a portable
-manner to database systems from multiple vendors.
+대단히 많은 데이터베이스 업체가 존재하기 때문에 SQL(Structured Query Language)은 표준화가 많이 진행되었고,
+여러 업체로부터 데이터베이스 시스템에 이식가능한 방식으로 의사소통이 가능하다.
 
-A relational database is made up of tables, rows, and columns.  The columns
-generally have a type such as text, numeric, or date data.  When we create
-a table, we indicate the names and types of the columns:
+관계형 데이터베이스는 테이블, 행과 열로 구성되어 있다. 행은 일반적으로 텍스트, 숫자, 혹은 날짜 형식의 데이터 형식이다.
+테이블을 생성할 때, 열의 명칭과 형식을 지정한다.
 
 \beforeverb
 \begin{verbatim}
@@ -222,7 +218,8 @@ CREATE TABLE Tracks (title TEXT, plays INTEGER)
 \end{verbatim}
 \afterverb
 %
-To insert a row into a table, we use the SQL {\tt INSERT} command:
+
+테이블에 행을 삽입하기 위해서 SQL {\tt INSERT} 명령어를 사용한다.
 
 \beforeverb
 \begin{verbatim}
@@ -230,16 +227,13 @@ INSERT INTO Tracks (title, plays) VALUES ('My Way', 15)
 \end{verbatim}
 \afterverb
 %
-The {\tt INSERT} statement specifies the table name, and then a list of
-the fields/columns that you would like to set in the new row, and then 
-the keyword {\tt VALUES} and then a list of corresponding values 
-for each of the fields.
 
-The SQL {\tt SELECT} command is used to retrieve rows and columns from a database.
-The {\tt SELECT} statement lets you specify which columns you would
-like to retrieve as well as a {\tt WHERE} clause to select which 
-rows you would like to see.  It also allows an optional 
-{\tt ORDER BY} clause to control the sorting of the returned rows.
+{\tt INSERT} 명령문은 테이블 이름을 명기하고 나서 새로운 행에 넣고 싶은 필드/행 리스트를 명시한다.
+그리고 나서 키워드 {\tt VALUES}와 각 필드에 해당 값을 넣는다.
+
+SQL {\tt SELECT} 명령어는 데이터베이스에서 행과 열을 가져오기 위해 사용된다.
+{\tt SELECT} 명령문은 가져오고자 하는 행과 {\tt WHERE}절을 사용하여 어느 행을 가져올지를 지정한다.
+선택사항으로 {\tt ORDER BY} 절을 이용하여 반환되는 행을 정렬할 수도 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -247,23 +241,18 @@ SELECT * FROM Tracks WHERE title = 'My Way'
 \end{verbatim}
 \afterverb
 %
-Using \verb"*" indicates that you want the database to return all of 
-the columns for each row that matches the {\tt WHERE} clause.  
 
-Note, unlike in Python, in a SQL {\tt WHERE} clause 
-we use a single equal sign 
-to indicate a test for equality rather than a double equal sign.
-Other logical operations allowed in a {\tt WHERE} clause include 
+\verb"*" 을 사용하여 {\tt WHERE} 절에 매칭되는 행의 모든 열을 데이터베이스에서 가져온다.
+
+주목할 점은 파이썬과 달리 SQL {\tt WHERE} 절은 등식을 시험하기 위해서 두개의 등치 기호 보다 하나의 등치 기호를 사용한다.
+{\tt WHERE}에서 인정되는 다른 논리 연산자는 
 \verb"<",
 \verb">",
 \verb"<=",
 \verb">=",
-\verb"!=",
-as well as {\tt AND} and {\tt OR} and parentheses
-to build your logical expressions.
+\verb"!=" 이고, 논리 표현식을 생성하는데 {\tt AND}와 {\tt OR}도 사용된다.
 
-You can request that the returned rows be sorted by one of 
-the fields as follows:
+다음과 같이 반환되는 열이 필드값 중에 하나에 따라 정렬할 수도 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -271,8 +260,9 @@ SELECT title,plays FROM Tracks ORDER BY title
 \end{verbatim}
 \afterverb
 %
-To remove a row, you need a {\tt WHERE} clause on an SQL {\tt DELETE}
-statement.  The {\tt WHERE} clause determines which rows are to be deleted:
+
+행을 제거하기 위해서, SQL {\tt DELETE} 명령문에 {\tt WHERE} 절이 필요하다.
+{\tt WHERE} 절이 어느 행이 삭제될지 결정한다.
 
 \beforeverb
 \begin{verbatim}
@@ -280,8 +270,8 @@ DELETE FROM Tracks WHERE title = 'My Way'
 \end{verbatim}
 \afterverb
 %
-It is possible to {\tt UPDATE} a column or columns within one or more rows
-in a table using the SQL {\tt UPDATE} statement as follows:
+
+다음과 같이 SQL {\tt UPDATE} 명령문을 사용하여 테이블의 하나 혹은 그 이상의 행의 열을 {\tt 갱신(UPDATE)}한다.
 
 \beforeverb
 \begin{verbatim}
@@ -289,56 +279,39 @@ UPDATE Tracks SET plays = 16 WHERE title = 'My Way'
 \end{verbatim}
 \afterverb
 %
-The {\tt UPDATE} statement specifies a table and 
-then a list of fields and values to change after the {\tt SET} 
-keyword and then an optional {\tt WHERE} clause to select
-the rows that are to be updated.  A single {\tt UPDATE} statement
-will change all of the rows that match the {\tt WHERE} clause, or if 
-a {\tt WHERE} clause is not specified, it performs the {\tt UPDATE}
-on all of the rows in the table.
 
-These four basic SQL commands (INSERT, SELECT, UPDATE, and DELETE) allow 
-the four basic operations needed to create and maintain data.
+{\tt UPDATE} 명령문은 테이블과 필드 리스트, 그리고 {\tt SET} 키워드 후에 바뀔 값을 명시한다.
+그리고 선택사항으로 {\tt WHERE}절로 갱신될 열을 지정한다. 
+단일 {\tt UPDATE} 명령문은 {\tt WHERE}절에 매칭되는 모든 행을 바꾼다. 만약 {\tt WHERE}절이 지정되지 않으면,
+테이블의 모든 행에 대해서 {\tt 갱신(UPDATE)}을 한다.
 
+4가지 기본 SQL 명령문(INSERT, SELECT, UPDATE, and DELETE)은 데이터를 생성하고 유지관리하는데 필요한 기본적인 4가지 작업을 가능케 한다.
 
-\section{Spidering Twitter using a database}
+\section{데이터베이스를 사용한 트위터 스파이더링(Spidering)}
 
-In this section, we will create a simple spidering program that will 
-go through Twitter accounts and build a database of them.
-\emph{Note: Be very careful when running this program.  You do not
-want to pull too much data or run the program for too long and
-end up having your Twitter access shut off.}
+이번장에서 트위커 계정을 통하고 계정 데이터베이스를 생성하는 간단한 스파이더링 프로그램을 작성합니다.
+\emph{주의: 프로그램을 실행할 때 매우 주의하세요. 여러분의 트위터 계정의 접속이 차단될 정도로 너무 많은 데이터를 가져오거나 
+장 시간 프로그램을 실행하지 마세요.}
 
-One of the problems of any kind of spidering program is that it 
-needs to be able to be stopped and restarted many times and 
-you do not want to lose the data that you have retrieved so far.
-You don't want to always restart your data retrieval at the
-very beginning so we want to store data as we retrieve it so our
-program can start back up and pick up where it left off.
+임의의 스파이더링 프로그램이 가지는 문제점 중의 하나는 중단되거나 여러번 재시작할 필요가 생겨서
+지금까지 가져온 데이터를 여러분은 잃고 싶지 않습니다.
+처음에 데이터 가져오기를 항상 다시 시작하고 싶지 않고,
+데이터를 가져오면 저장하길 원한다.
+그래서 프로그램이 저장을 시작할 수 있고, 중단한 곳에서 다시 가져오길 원합니다.
 
-We will start by retrieving one person's Twitter friends and their
-statuses, looping through the list of friends, and adding each 
-of the friends to a database to be retrieved in the future.  After
-we process one person's Twitter friends, we check in our database
-and retrieve one of the friends of the friend.  We do this over and
-over, picking an ``unvisited'' person, retrieving their friend list
-and adding friends we have not seen to our list for a future visit.
+한 사람의 트위터 친구와 상태 정보를 가져오는 것에서, 친구의 리스트에서 반복적으로 적용하고, 친구 각각을 향후에 가져올 수 있도록 데이터베이스에 추가하여 시작한다. 
+한 사람의 트위터 친구를 처리한 후에 테이터베이스를 확인하고 친구의 친구 한명을 가져온다. 이것을 반복하고, ''방문하지 않는(unvisited)'' 친구를 선택하고,
+친구의 리스트를 가져오고 향후 방문을 위해서 리스트에 보지 않은 친구로 추가한다.
 
-We also track how many times we have seen a particular friend in the
-database to get some sense of ``popularity''.
+''인기도(popularity)''를 측정하도록 데이터베이스에 특별한 친구를 얼마나 자주 봤는지를 기록한다.
 
-By storing our list of known accounts and whether 
-we have retrieved the account or not, 
-and how popular the account is in a database on the disk
-of the computer, we can stop and
-restart our program as many times as we like.
+알고 있는 계정 리스트르 저장함으로써, 혹은 계정을 가져왔는 혹은 그렇지 않은지, 그리고 계정이 컴퓨터 디스크의 데이터베이스에서 얼마나 인기있는지에 따라
+원하는 만큼 프로그램을 멈추거나 다시 시작할 수 있다.
 
 % TODO: Add a reference to the right spot
-This program is a bit complex. It is based on the code 
-from the exercise earlier in the book that uses
-the Twitter API.
+프로그램이 약간 복잡하다. 트위터 API를 사용한 책의 앞뽁 예제에서 가져온 코드에 기반한다.
 
-Here is the source code for our Twitter spidering application:
+다음은 트위터 스파이더링 응용프로그램의 소스코드다.
 
 \beforeverb
 \begin{verbatim}
@@ -402,6 +375,9 @@ cur.close()
 \end{verbatim}
 \afterverb
 %
+
+
+
 Our database is stored in the file {\tt spider.sqlite3} and it has one 
 table named {\tt Twitter} and each row in the {\tt Twitter} table
 has a column for the account name, whether we have retrieved the friends
@@ -631,30 +607,23 @@ Since the program's data is all stored on disk in a database,
 the spidering activity can be suspended and resumed as many times as you 
 like with no loss of data.
 
-\section{Basic data modeling}
+\section{데이터 모델링 기초}
 
-The real power of a relational database is when we make multiple tables
-and make links between those tables.   The act of deciding how to break
-up your application data into multiple tables and establishing the
-relationships between the two tables is called {\bf data modeling}.  The
-design document that shows the tables and their relationships 
-is called a {\bf data model}.
+관계형 데이터베이스의 진정한 힘은 다중 테이블과 테이블 사이의 관계를 생성할 때다.
+응용프로그램의 데이터를 쪼개서 다중 테이블과 두 테이블 사이의 관계를 설정하는 결정을 
+{\bf 데이터 모델링(data modeling)}이라고 한다. 테이블과 테이블 관계를 보여주는 설계 문서를 
+{\bf 데이터 모델(data model)}이라고 한다.
 
-Data modeling is a relatively sophisticated skill and we will only introduce
-the most basic concepts of relational data modeling in this section.  For more
-detail on data modeling you can start with:
+데이터 모델링은 상대적으로 고급 기술이여서 이번 장에서는 관계형 데이터 모델링의 가장 기본적인 개념만을 소개한다.
+좀더 데이터 모델링의 자세한 사항은 아래 링크에서 시작해볼 수 있다.
 
 \url{http://en.wikipedia.org/wiki/Relational_model}
 
-Let's say for our Twitter spider application, instead of just 
-counting a person's friends, we wanted to keep a list of 
-all of the incoming relationships so we could find a list of 
-everyone who is following a particular account.
+한 사람의 친구를 단순히 몇명인지 세는 대신에 트위터 스파이더 응용프로그램으로 모든 관계 리스트를 가지고서 특정한 계정에
+팔로잉하는 모든 사람을 찾을 수 있다.
 
-Since everyone will potentially have many accounts that follow
-them, we cannot simply add a single column to our {\tt Twitter} table. 
-So we create a new table that keeps track of pairs of friends.
-The following is a simple way of making such a table:
+모든 사람은 팔로잉하는 계정을 많이 가지고 있어서, {\tt 트위터(Twitter)} 테이블에 단순히 하나의 열만을 추가할 수는 없다.
+그래서 친구를 짝으로 추적할 수 있는 새로운 테이블을 생성한다. 다음은 그런 테이블을 생성하는 간단한 방식이다.
 
 \beforeverb
 \begin{verbatim}
@@ -662,8 +631,8 @@ CREATE TABLE Pals (from_friend TEXT, to_friend TEXT)
 \end{verbatim}
 \afterverb
 %
-Each time we encounter a person who {\tt drchuck} is following, we
-would insert a row of the form:
+
+{\tt drchuck}을 팔로잉하는 사람을 마주칠 때마다, 다음 형식의 행을 삽입한다.
 
 \beforeverb
 \begin{verbatim}
@@ -671,38 +640,23 @@ INSERT INTO Pals (from_friend,to_friend) VALUES ('drchuck', 'lhawthorn')
 \end{verbatim}
 \afterverb
 %
-As we are processing the 20 friends from the {\tt drchuck}
-Twitter feed, we will insert 20 records with ``drchuck''
-as the first parameter so we will end up duplicating the 
-string many times in the database.
 
-This duplication of string data violates the best practices 
-for {\bf database normalization} which basically states that
-we should never put the same string data in the database more than once.  
-If we need the data more than once, we create a 
-numeric {\bf key} for the data and reference the actual data 
-using this key.
+{\tt drchuck} 트위터 피드에서 20명의 친구를 처리하면서, ''drchuck''을 첫 매개변수로 가지는 20개 레코드를 삽입해서
+데이터베이스에 많이 중복되는 문자열을 가질 것이다.
 
-In practical terms, a string takes up a lot more 
-space than an integer on the disk
-and in the memory of our computer and takes more processor time
-to compare and sort.  If we only have a few hundred entries 
-the storage and processor time hardly matters.  But if we have 
-a million people in our database and a possibility of 100 million
-friend links, it is important to be able to scan data as quickly
-as possible.
+문자열 데이터를 중복하는 것은 {\bf 데이터베이스 정규화(database normalization)}의 가장 좋은 사례를 위반한다.
+데이터베이스 정규화는 결코 한번 이상 데이터베이스에 동일한 문자열을 놓지 않는다. 
+만약 한번 이상 데이터가 필요하다면, 데이터에 대한 숫자 {\bf 키(key)}를 생성하고, 키를 사용하여 실제 데이터를 참조한다.
 
-We will store our Twitter accounts in a table named {\tt People}
-instead of the {\tt Twitter} table used in the previous example.
-The {\tt People} table has an additional column 
-to store the numeric key associated with the 
-row for this Twitter user.   
-SQLite has a feature that automatically adds the key value
-for any row we insert into a table using a special type of 
-data column ({\tt INTEGER PRIMARY KEY}).
+실무에서, 문자열은 컴퓨터상의 주기억장치나 디스크상의 정수형 자료보다 훨씬 많은 공간을 차지하고 비교나 정렬에 더 많은 처리시간이 소요된다.
+수백개의 항목이 있다면, 저장소나 처리 시간은 큰 문제가 되지 않는다. 하지만, 데이터베이스에 수백만명의 사람 정보와 1억건 이상의 링크가 있다면,
+가능한 빨리 데이터를 스캔하는 것이 중요하다.
 
-We can create the {\tt People} table with this additional 
-{\tt id} column as follows:
+앞선 예제에서 사용된 {\tt Twitter} 테이블 대신에 {\tt People}로 명명된 테이블에 트위커 계정을 저장한다.
+{\tt People} 테이블은 트위터 사용자의 행과 관련된 숫자키를 저장할 수 있는 추가 열(column)이 있다.
+SQLite는 데이터 열의 특별 형식({\tt INTEGER PRIMARY KEY})을 이용하여 테이블에 삽입할 임의의 열에 대해서 자동적으로 키값을 추가하는 기능이 있다.
+
+다음과 같이 추가적인 {\tt id} 열을 가진 {\tt People} 테이블을 생성할 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -711,19 +665,14 @@ CREATE TABLE People
 \end{verbatim}
 \afterverb
 %
-Notice that we are no longer maintaining a friend count in each row
-of the {\tt People} table.
-When we select {\tt INTEGER PRIMARY KEY} as the type of our {\tt id} column,
-we are indicating that we would like SQLite to manage this column and 
-assign a unique numeric key to each row we insert automatically.
-We also add the keyword {\tt UNIQUE} to indicate that we will not 
-allow SQLite to insert two rows with the same value for {\tt name}.
 
-Now instead of creating the table {\tt Pals} above, we create
-a table called {\tt Follows} with two integer columns
-\verb"from_id" and \verb"to_id" and a constraint on the table that
-the \emph{combination} of \verb"from_id" and \verb"to_id" must be unique 
-in this table (i.e. we cannot insert duplicate rows) in our database.
+{\tt People} 테이블의 각 행에서 친구 숫자를 더 이상 유지하고 있지 않음을 주목하세요.
+{\tt id} 열의 형식으로 {\tt INTEGER PRIMARY KEY} 선택할 때, SQLite가 이 행을 맡아서 
+사용자가 삽입하는 각 항에 자동으로 유일한 숫자 키를 할당하도록 나타낸다.
+{\tt UNIQUE} 키워드를 추가해서 {\tt name}에 동일한 값을 가진 두 행이 SQLite가 삽입하지 못하도록 나타낸다.
+
+위에 {\tt Pals} 테이블을 생성하는 대신에 데이터베이스에 \verb"from_id", \verb"to_id" 두 정수 열을 지니고 
+\verb"from_id"과 \verb"to_id"의 \emph{조합}은 테이블에 유일하다는 제약사항을 가진 {\tt Follows} 테이블을 생성한다.(즉, 중복된 행을 삽입할 수 없다.)
 
 \beforeverb
 \begin{verbatim}
@@ -732,21 +681,17 @@ CREATE TABLE Follows
 \end{verbatim}
 \afterverb
 %
-When we add {\tt UNIQUE} clauses to our tables, we are communicating a set
-of rules that we are asking the database to enforce when we attempt to insert
-records.   We are creating these rules as a convenience in our programs as we
-will see in a moment.  The rules both keep us from making mistakes and make
-it simpler to write some of our code.
 
-In essence, in creating this {\tt Follows} table, we are modelling a 
-"relationship" where one person "follows" someone else
-and representing it with a pair of numbers indicating that (a) the people are
-connected and (b) the direction of the relationship.
+테이블에 {\tt UNIQUE}절을 추가할 때, 레코드를 삽입할 때 데이터베이스에서 지켜야하는 규칙의 집합을 의사소통하는 것이다.
+잠시 후에 보겠지만, 프로그램상에 편리하게 이러한 규칙을 생성한다.
+이 규칙은 실수를 방지하게 하고 코드를 작성을 간결하게 한다.
+
+본질적으로 {\tt Follows} 테이블을 생성할 때, ''관계(relationship)''를 모델링하여 한 사람이 다른 사람을 ''팔로우(follow)''하고
+이것을 (a) 사람이 연결되어 있고, (b) 관계을 방향성이 나타나도록 숫자 짝을 지어 표현한다.  
 
 \beforefig
 \centerline{\includegraphics[height=2.50in]{figs2/twitter.eps}}
 \afterfig
-
 
 \section{Programming with multiple tables}
 
