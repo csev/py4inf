@@ -1,67 +1,47 @@
 % The contents of this file is 
 % Copyright (c) 2009-  Charles R. Severance, All Righs Reserved
 
-\chapter{Visualizing data}
+\chapter{데이터 시각화}
 
-So far we have been learning the Python language and then 
-learning how to use Python, the network, and databases 
-to manipulate data.
+지금까지 파이썬 언어를 학습했고, 데이터를 다루기 위해서 파이썬, 네트워크, 그리고 데이터베이스를 어떻게 사용하는도 배웠다.
 
-In this chapter, we take a look at 
-three 
-complete applications that bring all of these things together
-to manage and visualize data.  You  might use these applications 
-as sample code to help get you started in solving a
-real-world problem.
+이번장에서는 데이터를 관리하고 시각화하기 위해서 이들 모두를 합친 완전한 세개의 응용프로그램을 살펴볼 것이다.
+실제 문제를 해결하는데 시작할 수 있는 샘플 코드로 응용프로그램을 사용할 수도 있다.
 
-Each of the applications is a ZIP file that you can download
-and extract onto your computer and execute.
+각 응용프로그램은 ZIP 파일로 압축되어서 다운로드 받아 여러분의 컴퓨터에 압축을 풀고 실행한다.
 
-\section{Building a Google map from geocoded data}
+\section{지리정보 데이터로 구글맵 생성하기}
 \index{Google!map}
 \index{Visualization!map}
 
-In this project, we are using the Google geocoding API
-to clean up some user-entered geographic locations of 
-university names and then placing the data on a Google
-map.  
+이번 프로젝트에서 구글 지오코딩 API를 사용해서 사용자가 입력한 대학교 이름의 지리 정보를 정리하고나서
+구글 지도에 데이터를 표시한다.
 
 \beforefig
 \centerline{\includegraphics[height=2.25in]{figs2/google-map.eps}}
 \afterfig
 
-To get started, download the application from:
+시작하기 위해서 다음 url에서 응용프로그램을 다운로드한다.
 
 \url{www.py4inf.com/code/geodata.zip}
 
-The first problem to solve is that the free Google geocoding
-API is rate limited to some number of requests per day.  So if you have
-a lot of data you might need to stop and restart the lookup
-process several times.  So we break the problem into two
-phases.  
+해결할 첫번째 문제는 무료 구글 지오코딩 API가 하루에 요청횟수에 제한이 있다는 것이다.
+그래서, 만약 많은 데이터가 있다면, 여러번 중지하고 다시 시작하는 프로세스가 필요하다.
+그래서, 문제를 두 단계로 나누었다.
 
 \index{cache}
-In the first phase we take our input ``survey'' data in the file
-{\bf where.data} and read it one line at a time, and retrieve the
-geocoded information from Google and store it 
-in a database {\bf geodata.sqlite}.
-Before we use the geocoding API for each user-entered location, 
-we simply check to see if we already have the data for that 
-particular line of input.  The database is functioning as a 
-local ``cache'' of our geocoding data to make sure we never ask 
-Google for the same data twice.
 
-You can re-start the process at any time by removing the file
-{\bf geodata.sqlite}.
+첫번째 단계에서, {\bf where.data} 파일에 ''설문(survey)'' 데이터를 받아서,
+한번에 한줄씩 읽고 구글에서 지리정보를 자져오고 {\bf geodata.sqlite} 데이터베이스에 저장한다.
+각 사용자가 입력한 위치에 대한 지오코딩 API를 사용하기 전에, 특정 입력 라인에 데이터가 있는지를 알기 위해서 간단하게 확인한다.
+데이터베이스는 지오 코딩 데이터의 로컬 ''캐쉬(cache)''처럼 동작해서 두번 동일한 데이터에 대해서는 구굴에 요청하지 않도록 한다.
 
-Run the {\bf geoload.py} program.   This program will read the input
-lines in {\bf where.data} and for each line check to see if it is already
-in the database and if we don't have the data for the location,
-call the geocoding API to retrieve the data and store it in 
-the database.
+{\bf geodata.sqlite} 파일을 제거함으로써 언제라도 프로세스를 다시 시작할 수 있다.
 
-Here is a sample run after there is already some data in the 
-database:
+{\bf geoload.py} 프로그램을 실행한다. {\bf where.data}에 입력 라인을 읽고, 각 라인에 대해서
+데이터베이스에 이미 존재하는지를 확인한다. 만약 위치에 대한 데이터가 없다면, 지오코딩 API를 호출해서 데이터를 가져오고 데이터베이스에 저장한다.
+
+데이터베이스에 약간의 데이터가 이미 존재한 후에 샘플로 실행한 결과가 다음에 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -87,24 +67,20 @@ Retrieved 1749 characters {    "results" : [
 \end{verbatim}
 \afterverb
 %
-The first five locations are already in the database and so they 
-are skipped.  The program scans to the point where it finds un-retrieved
-locations and starts retrieving them.
 
-The {\bf geoload.py} can be stopped at any time, and there is a counter 
-that you can use to limit the number of calls to the geocoding
-API for each run.  Given that the {\bf where.data} only has a few hundred
-data items, you should not run into the daily rate limit, but if you 
-had more data it might take several runs over several days to 
-get your database to have all of the geocoded data for your input.
+첫 5 지점은 이미 데이터베이스에 있으므로 건너뛴다. 프로그램은 가져오지 못한 위치 정보를 찾아 스캔하고
+정보를 가져온다.
 
-Once you have some data loaded into {\bf geodata.sqlite}, you can 
-visualize the data using the {\bf geodump.py} program.  This
-program reads the database and writes the file {\bf where.js}
-with the location, latitude, and longitude in the form of
-executable JavaScript code.   
+{\bf geoload.py}는 언제라도 멈출 수 있다. 매번 실행에 대해서
+지오코딩 API 호출의 횟수를 제한하기 위한 카운터가 있다.
+{\bf where.data}가 수백개의 데이터 항목만 있다면, 하루 사용량 한계에 부딪치지 않을 것이지만,
+만약 더 많은 데이터가 있다면, 입력데이터에 대한 모든 지리정보 데이터를 가진 데이터베이스를 만들기 위해서 
+몇일에 걸쳐서 여러번 실행할지도 모른다.
 
-A run of the {\bf geodump.py} program is as follows:
+데이터를 {\bf geodata.sqlite}에 적재하면, {\bf geodump.py} 프로그램을 사용하여 데이터를 시각화할 수 있다.
+프로그램이 데이터베이스를 일고 위치, 위도, 경도를 실행가능한 자바스크립 코드로 {\bf where.js}에 쓴다.
+
+{\bf geodump.py} 프로그램 실행결과는 다음과 같다.
 
 \beforeverb
 \begin{verbatim}
@@ -120,9 +96,10 @@ Open where.html to view the data in a browser
 \end{verbatim}
 \afterverb
 %
-The file {\bf where.html} consists of HTML and JavaScript to visualize 
-a Google map.  It reads the most recent data in {\bf where.js} to get 
-the data to be visualized.  Here is the format of the {\bf where.js} file:
+
+{\bf where.html} 파일은 HTML과 자바스크립트로 구성되어서 구글 맵을 시각화한다.
+{\bf where.js}에 가장 최신 데이터를 읽어서 시각화할 데이터로 사용한다.
+다음에 {\bf where.js} 파일 형식이 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -135,17 +112,15 @@ myData = [
 \end{verbatim}
 \afterverb
 %
-This is a JavaScript variable that contains a list of lists.  
-The syntax for JavaScript list constants is very similar to 
-Python so the syntax should be familiar to you.
 
-Simply open {\bf where.html} in a browser to see the locations.  You 
-can hover over each map pin to find the location that the 
-geocoding API returned for the user-entered input.  If you 
-cannot see any data when you open the {\bf where.html} file, you might 
-want to check the JavaScript or developer console for your browser.
+리스트의 리스트를 담고 있는 자바스크립트다. 자바스크립트 리스트 상수에 대한 구분은 파이썬과 매우 유사하여,
+구문이 여러분에게 매우 친숙할 것이다.
 
-\section{Visualizing networks and interconnections}
+위치를 보기 위해서 브라워저에 {\bf where.html}을 연다. 
+각 맵 핀을 여기저기 돌아다니면서 지오코딩 API가 사용자가 입력한 것에 대해서 반환한 위치를 찾는다.
+{\bf where.html} 파일을 열었을 때 어떤 데이터도 볼 수 없다면, 자바스크립트나 브라우저의 개발자 콘솔을 확인한다.
+
+\section{네트워크와 상호 연결 시각화}
 \index{Google!page rank}
 \index{Visualization!networks}
 \index{Visualization!page rank}
