@@ -376,32 +376,21 @@ cur.close()
 \afterverb
 %
 
+데이터베이스는  {\tt spider.sqlite3} 파일에 저장되어 있다. 
+{\tt Twitter}로 이름 붙은 테이블과 {\tt Twitter} 테이블의 각 행은 계정 이름,
+계정의 친구를 가져왔는지, 그리고 이 계정이 얼마나 많이 ''친구추가(friended)'' 되었는지로 구성되었다.
 
+프로그램의 메인 루프에서 트위터 계정 이름을 사용자가 입력하거나 프로그램을 나가기 위해서 ''끝내기(quit)''를 
+입력한다. 사용자가 트위터 계정을 입력하면, 친구 리스트와 상태정보도 가져온다. 
+만약 데이터베이스에 있지 않다면 데이터베이스에 친구로 추가한다.
+만약 친구가 이미 리스트에 존재한다면, 데이터베이싀 행에 {\tt friends} 필드에 추가한다.
 
-Our database is stored in the file {\tt spider.sqlite3} and it has one 
-table named {\tt Twitter} and each row in the {\tt Twitter} table
-has a column for the account name, whether we have retrieved the friends
-of this account, and how many times this account has been ``friended''.
+사용자가 엔터키를 누르면, 아직 가져오지 않은 다음 트위터 계정의 데이터베이스를 살펴보고,
+친구와 그 계정의 상태 정보를 가져오고, 데이터베이스에 추가하거나 갱신하고, {\tt friends count}를 증가한다.
 
-In the main loop of the program, we prompt the user for a Twitter
-account name or ``quit'' to exit the program.  
-If the user enters a Twitter account, we retrieve the 
-list of friends and statuses
-for that user and add each friend to the database if 
-not already in the database.  If the friend is already in the list, 
-we add one to the {\tt friends} field in the row in the database.
-
-If the user presses enter, we look in the database for the next 
-Twitter account that we have not yet retrieved and retrieve the
-friends and statuses for that account, add them to the database 
-or update them and increase their {\tt friends count}.
-
-Once we retrieve the list of friends and statuses, we loop 
-through all of the {\tt user} items in the returned JSON
-and retrieve the \verb"screen_name" for each user.  Then we use
-the {\tt SELECT } statement to see if we already have stored this
-particular \verb"screen_name" in the database and retrieve the
-friend count ({\tt friends}) if the record exists.
+친구 리스트와 상태정보를 가져왔으면 JSON 형식의 {\tt user} 항목을 반복을 돌려 각 사용자의 
+\verb"screen_name"을 가져온다. 그리고 나서 {\tt SELECT }문을 사용하여 데이터베이스에 
+\verb"screen_name"이 저장되었는지, 레코드가 존재하면 친구 숫자({\tt friends})를 확인한다.
 
 \beforeverb
 \begin{verbatim}
@@ -426,30 +415,25 @@ friend count ({\tt friends}) if the record exists.
 \end{verbatim}
 \afterverb
 %
-Once the cursor executes the {\tt SELECT} statement, 
-we must retrieve the rows.  We could do this with a {\tt for} 
-statement, but since we are only retrieving
-one row ({\tt LIMIT 1}), we can use the {\tt fetchone()} method to fetch the
-first (and only) row that is the result of the {\tt SELECT} operation.  
-Since {\tt fetchone()} returns the row as a {\bf tuple} (even though there is only
-one field), we take the first value from the tuple using {\tt [0]} to get the 
-current friend count into the variable {\tt count}.  
 
-If this retrieval is successful, we use the SQL {\tt UPDATE} statement with a 
-{\tt WHERE} clause to add one to the {\tt friends} column for the row that 
-matches the friend's account.  Notice that there are two placeholders (i.e.
-question marks) in the SQL, and the second parameter to the {\tt execute()} is
-a two-element tuple which holds the values to be substituted into the SQL
-in place of the question marks.
+커서가 {\tt SELECT}문을 수행하면 행을 가져온다. 
+{\tt for}문으로 동일한 작업을 할 수 있지만, 단지 하나의 행({\tt LIMIT 1})만을 가져오기 때문에,
+{\tt SELECT} 처리 결과의 첫번째만 가져오는 {\tt fetchone()} 메쏘드를 사용한다.
+{\tt fetchone()}은 행을 설사 하나의 필드만 있더라도 {\bf 튜플(tuple)}로 반환하기 때문에,
+ {\tt [0]}을 사용해서 튜플로부터 첫번째 값을 얻어 {\tt count} 변수에 현재 친구 숫자를 구한다.
 
-If the code in the {\tt try} block fails it is probably because no record
-matched the {\tt WHERE name = ?} clause on the SELECT statement.  So in the
-{\tt except} block, we use the SQL {\tt INSERT} statement to add the friend's
-\verb"screen_name" to the table with an indication that we have not yet 
-retrieved the \verb"screen_name" and setting the friend count to zero.
+정상적으로 데이터를 가져오면, SQL {\tt WHERE}절을 가진 {\tt UPDATE}문을 사용하여
+친구의 계정에 매칭되는 행에 대해서 {\tt friends} 열에 추가한다.
+SQL에 두 개의 자리표시기(placeholder, 물음표)가 있고, {\tt execute()}의 두 매개변수는 
+물음표 자리에 SQL 안으로 치환될 값을 가진 두 요소 튜플이다.
 
-So the first time the program runs and we enter a Twitter account, the program
-runs as follows:
+만약 {\tt try} 블록에서 코드가 작동하지 않는다면, 아마도 {\tt SELECT} 문의
+{\tt WHERE name = ?} 절에서 매칭되는 레코드가 없기 때문이다.
+그래서, {\tt except} 블록에서, SQL {\tt INSERT}문을 사용하여 
+\verb"screen_name"을 가져온 적이 없고 친구 숫자를 0으로 설정해서 
+친구의 \verb"screen_name"을 테이블에 추가한다. 
+
+처음 프로그램을 실행하고 트위터 계정을 입력하면, 프로그램이 다음과 같이 실행된다.
 
 \beforeverb
 \begin{verbatim}
@@ -460,14 +444,12 @@ Enter a Twitter account, or quit: quit
 \end{verbatim}
 \afterverb
 %
-Since this is the first time we have run the program, the database
-is empty and we create the database in the file {\tt spider.sqlite3} and
-add a table named {\tt Twitter} to the database.  Then we retrieve
-some friends and add them all to the database since the database is
-empty.
 
-At this point, we might want to write a simple database dumper
-to take a look at what is in our {\tt spider.sqlite3} file:
+프로그램을 실행한 처음이어서, 데이터베이스는 비여있고, 
+{\tt spider.sqlite3} 파일에 데이터베이스를 생성하고, {\tt Twitter} 테이블을 추가한다.
+그리고 나서 친구를 가져오고 데이터베이스가 비여있기 때문에 모든 친구를 추가한다.
+
+이 지점에서 {\tt spider.sqlite3} 파일에 무엇이 있는지를 살펴보기 위해서 간단한 데이터베이스 덤퍼(dumper)를 작성한다.
 
 \beforeverb
 \begin{verbatim}
@@ -485,12 +467,11 @@ cur.close()
 \end{verbatim}
 \afterverb
 %
-This program simply opens the database and selects all of the 
-columns of all of the rows in the table {\tt Twitter}, then 
-loops through the rows and prints out each row.
 
-If we run this program after the first execution of our Twitter
-spider above, its output will be as follows:
+상기 프로그램은 데이터베이스를 열고 {\tt Twitter} 테이블의 모든 행과 열을 선택하고 
+모든 행에 루프를 돌려 각 행을 출력한다.
+
+앞서 작성한 트위터 스파이더를 실행한 후에 이 프로그램을 실행하면, 출력 결과는 다음과 같다.
 
 \beforeverb
 \begin{verbatim}
@@ -504,15 +485,12 @@ spider above, its output will be as follows:
 \end{verbatim}
 \afterverb
 %
-We see one row for each \verb"screen_name", that we 
-have not retrieved the data for that \verb"screen_name" and 
-everyone in the database has one friend.
 
-Now our database reflects the retrieval of the friends of 
-our first Twitter account ({\bf drchuck}).  We can run the program
-again and tell it to retrieve the friends of the next 
-``unprocessed'' account by simply pressing enter instead of
-a Twitter account as follows:
+각 \verb"screen_name"에 대해 한 행만 있다. \verb"screen_name"의 데이터를 가져오지 않아서 데이터베이스의 모두는 한 명의 친구가 있다. 
+
+이제 데이터베이스는 트위터 계정 ({\bf drchuck})에서 친구를 가져온 것을 확인했다.
+프로그램을 반복적으로 실행해서 
+다음과 같이 트위터 계정 대신에 엔터키를 누름으로써 다음 ''처리되지 않은'' 계정의 친구를 가져오게 한다.
 
 \beforeverb
 \begin{verbatim}
@@ -526,8 +504,8 @@ Enter a Twitter account, or quit: quit
 \end{verbatim}
 \afterverb
 %
-Since we pressed enter (i.e. we did not specify a Twitter account),
-the following code is executed:
+
+엔터키를 누를 떄(즉, 트위터 계정을 명시하지 않았을 때), 다음 코드가 수행된다.
 
 \beforeverb
 \begin{verbatim}
@@ -541,14 +519,13 @@ the following code is executed:
 \end{verbatim}
 \afterverb
 %
-We use the SQL {\tt SELECT} statement to retrieve the name of the first 
-({\tt LIMIT 1}) user who still has their ``have we retrieved this user''
-value set to zero.  We also use the {\tt fetchone()[0]} pattern within 
-a try/except block to either extract a \verb"screen_name" from the retrieved
-data or put out an error message and loop back up.
 
-If we successfully retrieved an unprocessed \verb"screen_name", we retrieve
-their data as follows:
+SQL {\tt SELECT}문을 사용해서 첫 사용자({\tt LIMIT 1})의 이름을 가져온다.
+''사용자를 가져왔는가''의 값은 여전히 0으로 설정되어 있다.
+try/except 블록 내부에 {\tt fetchone()[0]} 패턴을 사용하여 가져온 데이터에서 \verb"screen_name"을 
+추출하던가 혹은 오류 메시지를 출력하고 다시 돌아간다.
+
+처리되지 않은 \verb"screen_name"을 성공적으로 가져오면, 다음과 같이 데이터를 읽어온다.
 
 \beforeverb
 \begin{verbatim}
@@ -562,15 +539,14 @@ their data as follows:
 \end{verbatim}
 \afterverb
 %
-Once we retrieve the data successfully, we use the {\tt UPDATE} statement 
-to set the {\tt retrieved} column to one to indicate that we have completed 
-the retrieval of the friends of this account.  This keeps us from re-retrieving
-the same data over and over and keeps us progressing forward through the network
-of Twitter friends.
 
-If we run the friend program and press enter twice to retrieve the next 
-unvisited friend's friends,
-then run the dumping program, it will give us the following output:
+데이터를 성공적으로 가져오면 {\tt UPDATE}문을 사용하여 
+이 계정의 친구 가져오기를 완료했는지 표기하기 위해서 {\tt retrieved} 열에 표시한다.
+이렇게 함으로써 반복적으로 동일한 데이터를 가져오지 않게 하고 트위터 친구 네트워크를 타고 
+앞으로 나갈 수 있게 한다.
+
+친구 프로그램을 실행하고 다음 방문하지 않은 친구의 친구 정보를 가져오기 위해서
+두번 엔터를 누르고, 결과값을 확인하는 프로그램을 실행하면, 다음 출력값을 얻게 된다.
 
 \beforeverb
 \begin{verbatim}
@@ -589,23 +565,17 @@ then run the dumping program, it will give us the following output:
 \end{verbatim}
 \afterverb
 %
-We can see that we have properly recorded that we have visited 
-{\tt lhawthorn} and {\tt opencontent}.  Also the accounts 
-{\tt cnxorg} and {\tt kthanos} already have two followers.
-Since we now have retrieved the friends of three people
-({\tt drchuck}, {\tt opencontent} and {\tt lhawthorn}) our table has 55 rows 
-of friends to retrieve.
 
-Each time we run the program and press enter, it will pick the next 
-unvisited account (e.g. the next account will be \verb"steve_coppin"),
-retrieve their friends, mark them as retrieved and for each of the 
-friends of \verb"steve_coppin", either add them to the end of the 
-database, or update their friend count if they are already in the
-database.
+{\tt lhawthorn}과 {\tt opencontent}을 방문한 이력이 잘 기록됨을 확인한다.
+{\tt cnxorg}과 {\tt kthanos} 계정은 이미 두 명의 팔로워(follower)가 있다.
+세명({\tt drchuck}, {\tt opencontent}, {\tt lhawthorn}) 친구를 가져와서, 테이블은 55 친구 행이 생겼다.
 
-Since the program's data is all stored on disk in a database, 
-the spidering activity can be suspended and resumed as many times as you 
-like with no loss of data.
+매번 프로그램을 실행하고 엔터키를 누를 때마다, 다음 방문하지 않은(예, 다음 계정은 \verb"steve_coppin") 계정을
+선택해서, 친구 목록을 가져오고, 가져온 것으로 표기하고, \verb"steve_coppin" 친구 각각을 데이터베이스 끝에
+추가하고 데이터베이스에 이미 추가되어 있으면 친구 숫자를 갱신한다.
+
+프로그램의 데이터가 모두 데이터베이스 디스크에 저장되어서, 스파이더링을 잠시 보류할 수 있고,
+데이터 손실 없이 원하는만큼 다시 시작할 수 있다.
 
 \section{데이터 모델링 기초}
 
@@ -693,11 +663,9 @@ CREATE TABLE Follows
 \centerline{\includegraphics[height=2.50in]{figs2/twitter.eps}}
 \afterfig
 
-\section{Programming with multiple tables}
-
-We will now re-do the Twitter spider program using two tables, the primary
-keys, and the key references as described above.  Here is the code for 
-the new version of the program:
+\section{다중 테이블을 가지고 프로그래밍}
+두개의 테이블, 주키(primary key)와 위에 설명된 참조 키를 사용하여 트위터 스파이더링 프로그램을 다시 작성한다.
+다음에 프로그램의 새로운 버젼 코드가 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -782,30 +750,26 @@ cur.close()
 \end{verbatim}
 \afterverb
 %
-This program is starting to get a bit complicated, but it illustrates
-the patterns that we need to use when we are
-using integer keys to link tables. The basic patterns are:
+
+프로그램이 다소 복잡해보입니다. 하지만, 테이블을 연결하기 위해서 정수형 키를 사용하는 패턴을 보여준다.
+기본적인 패턴은 다음과 같다.
 
 \begin{enumerate}
 
-\item Creating tables with primary keys and constraints.
+\item 주 키와 제약 사항을 가진 테이블을 생성한다.
 
-\item When we have a logical key for a person (i.e. account
-name) and we need the {\tt id} value for the person.
-Depending on whether or not the person is already
-in the {\tt People} table, we either need to: 
-(1) look up the person in the {\tt People} table and 
-retrieve the {\tt id} value for the person 
-or (2) add the person to the {\tt People} table and get the 
-{\tt id} value for the newly added row.
+\item 사람(즉, 계정 이름)에 대한 논리 키가 필요할 때 사람에 대한 {\tt id} 값이 필요하다.
+사람 정보가 이미 {\tt People} 테이블에 존재하는지에 따라,
+(1) {\tt People} 테이블의 사람을 찾아서 그 사람에 대한 {\tt id} 값을 가져오거나,
+(2) 사람을 {\tt People} 테이블에 추가하고 신규로 추가된 행의 {\tt id} 값을 가져온다.
 
-\item Insert the row that captures the ``follows'' relationship.
+\item ''팔로우(follow)'' 관계를 잡아내는 행을 추가한다.
 
 \end{enumerate}
 
-We will cover each of these in turn.
+이들 각각을 순서대로 다룰 것이다.
 
-\subsection{Constraints in database tables}
+\subsection{ 데이터베이스 테이블의 제약사항}
 
 As we design our table structures, we can tell the database system 
 that we would like it to enforce a few rules on us.   These rules
