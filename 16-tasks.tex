@@ -516,29 +516,21 @@ mbox-short.txt is 94626 bytes
 \index{shell}
 \index{pipe}
 
-
-
-Most operating systems provide a command-line interface,
-also known as a {\bf shell}.  Shells usually provide commands
-to navigate the file system and launch applications.  For
-example, in Unix, you can change directories with {\tt cd},
-display the contents of a directory with {\tt ls}, and launch
-a web browser by typing (for example) {\tt firefox}.
+대부분의 운영 시스템은 {\bf 쉘(shell)}로 알려진 명령어 기반 인터페이스를 지원한다.
+일반적으로 쉘은 명령어를 지원해서 파일 시스템을 다루거나 응용 프로그램을 실행한다.
+예를 들어, 유닉스에서 {\tt cd} 명령어로 디렉토리를 변경하고 {\tt ls} 명령어로 디렉토리의 콘텐츠를 보여주고,
+{\tt firefox}를 타이핍해서 웹브라우져를 실행한다.
 
 \index{ls (Unix command)}
 \index{Unix command!ls}
 
-Any program that you can launch from the shell can also be
-launched from Python using a {\bf pipe}.  A pipe is an object
-that represents a running process.
+쉘에서 실행시킬 수 있는 어떤 프로그램이나 {\bf 파이프(pipe)}를 사용하여 파이썬에서도 실행시킬 수 있다.
+파이프는 작동중인 프로세스를 표현하는 개체다.
 
-For example, the Unix command\footnote{When using pipes to talk 
-to operating system commands like {\tt ls}, it is important 
-for you to know which operating system you are using and only
-open pipes to commands that are supported on your operating system.}
-{\tt ls -l} normally displays the
-contents of the current directory (in long format).  You can
-launch {\tt ls} with {\tt os.popen}:
+예를 들어, 유닉스 명령어\footnote{ 파이프를 사용하여 {\tt ls} 같은 운영 시스템 명령어로 대화할 때,
+무슨 운영 시스템을 사용하는지 알고 운영 시스템에서 지원되는 명령어로 파이프를 열수 있다는 것이 중요하다.}
+{\tt ls -l}는 정상적으로 현재 디렉토리의 콘텐츠(긴 형식으로)를 보여준다.
+{\tt os.popen}를 가지고 {\tt ls} 를 실행시킬 수 있다.
 
 \index{popen function}
 \index{function!popen}
@@ -550,11 +542,10 @@ launch {\tt ls} with {\tt os.popen}:
 \end{verbatim}
 \afterverb
 %
-The argument is a string that contains a shell command.  The
-return value is a file pointer that behaves just like an open
-file.  You can read the output from the {\tt ls} process one
-line at a time with {\tt readline} or get the whole thing at
-once with {\tt read}:
+
+인수는 쉘 명령어를 포함하는 문자열이다. 반환 값은 파일 포인터로 열린 파일처럼 동작한다.
+{\tt readline}으로 한번에 한 라인씩 {\tt ls} 프로세스로부터 출력을 읽거나 
+{\tt read}로 한번에 전체를 가져올 수 있다.
 
 \index{readline method}
 \index{method!readline}
@@ -567,7 +558,8 @@ once with {\tt read}:
 \end{verbatim}
 \afterverb
 %
-When you are done, you close the pipe like a file:
+
+모두 완료되면, 파일처럼 파이프를 닫는다.
 
 \index{close method}
 \index{method!close}
@@ -580,120 +572,97 @@ None
 \end{verbatim}
 \afterverb
 %
-The return value is the final status of the {\tt ls} process;
-{\tt None} means that it ended normally (with no errors).
 
-\section{Glossary}
+반환되는 값은 {\tt ls} 프로세스의 최종 상태값이다. {\tt None}은 (오류 없이) 정상적으로 종료됨을 의미한다.
+
+\section{용어정의}
 
 \begin{description}
 
-\item[absolute path:] A string that describes where a file or
-directory is stored that starts at the ``top of the tree of directories''
-so that it can be used to access the file or directory, regardless
-of the current working directory.
+\item[절대경로(absolute path):]
+파일이나 디렉토리가 어디에 저장되어 있는지를 저장하는 문자열로 ''최상단의 디렉토리''에서 시작해서,
+현재 작업 디렉토리에 관계없이 파일이나 디렉토리를 접근하는데 사용할 수 있다.
 \index{path!absolute}
 
-\item[checksum:] See also {\bf hashing}.  The term ``checksum'' 
-comes from the need to verify if data was garbled as it was 
-sent across a network or written to a backup medium and then
-read back in.  When the data is written or sent, the sending system
-computes a checksum and also sends the checksum.  When the 
-data is read or received, the receiving system re-computes
-the checksum from the received data and compares it to the 
-received checksum.  If the checksums do not match, we must
-assume that the data was garbled as it was transferred.
+\item[체크썸(checksum):] {\bf 해싱(hashing)}을 참조하세요.
+''체크썸(checksum)''단어는 네트워크로 데이터가 보내지거나 백업 매체에 쓰여지고 다시 읽어올 때, 데이터가 왜곡되었는지를
+검증하는 필요에서 생겨났다.
+데이터가 쓰여지거나 보내질 때, 송신 시스템은 체크썸을 계산하고 또한 체크썸도 보낸다.
+데이터가 읽혀지거나 받았을 때, 수신 시스템을 수신된 데이터의 체크썸을 다시 계산하고 받은 체크썸과 비교한다.
+만약 체크썸이 매칭되지 않으면, 전송 시에 데이터가 왜곡된 것으로 판단해야 한다.
+
 \index{checksum}
 
-\item[command line argument:] Parameters on the command line after the Python file name.
+\item[명령 줄 인수(command line argument):]파이썬 파일 이름 뒤에 명령 줄에 매개 변수.
 
+\item[현재 작업 디렉토리(current working directory):]
+여러분이 ''있는'' 현재 디렉토리. 명령-줄 인터페이스에서 대부분의 시스템에 {\tt cd} 명령어를 사용하여
+작업 디렉토리를 변경할 수 있다. 경로 정보 없는 파일을 막 사용하여 파이썬에서 파일을 열게 되면,
+파일은 현재 작업 디렉토리에 있고 그곳에서 프로그램을 실행하고 있다.
 
-\item[current working directory:] The current directory that you 
-are ``in''.  You can change your working directory using the 
-{\tt cd} command on most systems in their command-line interfaces.
-When you open a file in Python using just the file name with no path 
-information the file must be in the current working directory
-where you are running the program.
 \index{directory!current}
 \index{directory!working}
 \index{directory!cwd}
 
-\item[hashing:] Reading through a potentially large amount of data
-and producing a unique checksum for the data.  The best hash functions
-produce very few ``collisions'' where you can give two different
-streams of data to the hash function and get back the same hash. 
-MD5, SHA1, and SHA256 are examples of commonly used hash functions.
+\item[해싱(hashing):] 
+가능한 큰 데이터를 읽고 그 데이터에 대해서 유일한 체크썸을 생성하는 것.
+최고의 해쉬 함수는 거의 ''충돌(collision)''을 만들지 않는다. 여기서 충돌은 
+서로 다른 두 데이터 스트림에 해쉬 함수를 줄 때 동일한 해쉬값을 돌려받는 것이다.
+MD5, SHA1, SHA256 는 가장 많이 사용되는 해쉬 함수의 사례다.
 \index{hashing}
 
-\item[pipe:] A pipe is a connection to a running program.  Using
-a pipe, you can write a program to send data to another program
-or receive data from that program.  A pipe is similar to a 
-{\bf socket} except that a pipe can only be used to 
-connect programs running on the same computer (i.e. not
-across a network).
+\item[파이프(pipe):]
+파이프는 실행하는 프로그램에 연결이다. 파이프를 사용해서, 데이터를 다른 프로그램에 보내거나 그 프로그램에서
+데이터를 받는 프로그램을 작성할 수 있다.
+파이프는 {\bf 소켓(socket)}과 매우 유사하다. 차이점은 파이프는 동일한 컴퓨터에서 실행되는 프로그램을 연결하는데만 사용된다는 것이다. 
+(즉, 네트워크를 통해서는 사용할 수 없다.)
 \index{pipe}
 
-\item[relative path:] A string that describes where a file or
-directory is stored relative to the current working 
-directory.
+\item[상대경로(relative path):]
+파일 혹은 디렉토리가 어디에 저장되었는지를 현재 작업 디렉토리에 상대적으로 표현하는 문자열.
 \index{path!relative}
 
-\item[shell:] A command-line interface to an operating system.
-Also called a ``terminal program'' in some systems. In this interface
-you type a command and parameters on a line and press ``enter''
-to execute the command.
+\item[쉘(shell):]
+운영 시스템에 명령줄 인터페이스. 다른 시스템에서는 또한 ''터미널 프로그램(terminal program)''이라고 부른다.
+이런 인터페이스에서 라인에 명령어와 매개 변수를 타입하고 명령을 실행하기 위해서 ''엔터(enter)''를 누른다.
 \index{shell}
 
-\item[walk:] A term we use to describe the notion of visiting
-the entire tree of directories, sub-directories, sub-sub-directories, 
-until we have visited the all of the directories.  We call this
-``walking the directory tree''.
+\item[워크(walk):]
+모든 디렉토리를 방문할 때까지 디렉토리, 하위 디렉토리, 하위의 하위 디렉토리 전체 트리를 방문하는 개념을 나타내기 위해서 사용된 용어.
+여기서 이것을 ''디렉토리 트리를 워크''한다고 부른다.
 \index{walk}
 
 \end{description}
 
 
-\section{Exercises}
+\section{연습문제}
 
 \begin{ex}
 \label{checksum}
 
 \index{MP3}
 
-In a large collection of MP3 files there may be more than one
-copy of the same song, stored in different directories or with
-different file names.  The goal of this exercise is to search for
-these duplicates.
+MP3 파일이 대규모로 수집되어 있은 곳에는 같은 노래의 복사본 하나 이상이 다른 디렉토리 혹은 다른 파일 이름으로 저장되어 있을 수 있다.
+이번 연습문제의 목표는 이런 중복 파일을 찾는 것이다.
 
 \begin{enumerate}
 
-\item Write a program that walks a directory and all of its
-sub-directories for all files with a given suffix (like {\tt .mp3})
-and lists pairs of files with that are the same size.
-Hint: Use a dictionary where the key of the dictionary is the size
-of the file from {\tt  os.path.getsize} and the value in the 
-dictionary is the path name concatenated with the file name.  
-As you encounter each file check to see if you already have a
-file that has the same size as the current file.  
-If so, you have a duplicate
-size file and print out the file size and the two files names 
-(one from the hash and the other file you are looking at).
+\item .mp3같은 확장자를 가진 파일을 모든 디렉토리와 하위 디렉토리를 검색해서 동일한 크기를 가진 파일짝을 목록으로 보여주는 프로그램을 작성하세요.
+힌트: 딕셔너리를 사용하세요. 딕셔너리의 키는 {\tt  os.path.getsize}에서 파일의 크기가 되고, 딕셔너리의 값(value)는
+파일 이름과 결합된 경로명이 된다. 파일을 매번 마주칠 때마다 현재 파일과 도일한 크기를 가진 파일이 이미 존재하는지를 검사한다.
+만약 그렇다면, 중복된 크기 파일이 있고 파일 크기와 두 파일 이름을 출력한다. (해쉬에서 한 파일, 찾고 있는 다른 파일)
+
 
 \index{duplicate}
 \index{MD5 algorithm}
 \index{algorithm!MD5}
 \index{checksum}
 
-\item Adapt the previous program to look for files that 
-have duplicate content using a hashing or {\bf checksum}
-algorithm.  For example,
-MD5 (Message-Digest algorithm 5) takes an arbitrarily-long
-``message'' and returns a 128-bit ``checksum.''  The probability
-is very small that two files with different contents will
-return the same checksum.
+\item {\bf 체크썸(checksum)} 알고리즘이나 해싱을 사용하여 중복 콘텐츠를 가진 파일을 찾는 이전의 프로그램을 개작하세요.
+예를 들어, MD5 (Message-Digest algorithm 5)는 임의적으로 긴 ''메시지''를 가지고 128비트 ''체크썸''을 반환한다.
+다른 콘텐츠를 가진 두 파일이 같은 체크썸을 반환할 확율은 매우 적다.
 
-You can read about MD5 at \url{wikipedia.org/wiki/Md5}.  The 
-following code snippet opens a file, reads it and computes
-its checksum.
+\url{wikipedia.org/wiki/Md5}에서 MD5에 대해서 더 배울 수 있다. 다음 코드 조각은 파일을 열고, 읽고, 체크썸을 계산한다.
 
 \beforeverb
 \begin{verbatim}
@@ -706,12 +675,10 @@ import hashlib
 \end{verbatim}
 \afterverb
 %
-You should create a dictionary where the checksum is the key 
-and the file name is the value.   When you compute a checksum
-and it is already in the dictionary as a key, you have two files with 
-duplicate content so print out the file in the dictionary
-and the file you just read.  Here is some sample output
-from a run in a folder of image files:
+
+딕셔너리를 생성해서 체크썸이 키고 파일 이름이 값(value)가 된다.
+체크섬을 계산하고 키로 이미 딕셔너리에 있게 되면, 중복 콘텐츠인 두 파일 있어서
+딕셔너리에 파일과 방금전에 읽은 파일을 출력한다. 사진 파일 폴더에서 실행한 샘플 출력물이 다음에 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -721,9 +688,8 @@ from a run in a folder of image files:
 \end{verbatim}
 \afterverb
 %
-Apparently I sometimes sent the same photo more than once 
-or made a copy of a photo from time to time without deleting
-the original.
+
+명백하게 때때로 같은 사진을 한번 이상 보내거나 원본을 삭제하지 않고 종종 사진 사본을 만든다.
 
 \end{enumerate}
 
