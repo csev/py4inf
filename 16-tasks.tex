@@ -423,9 +423,8 @@ Files: 1018
 
 \index{arguments}
 
-In earlier chapters, we had a number of programs that prompted
-for a file name using \verb"raw_input" and then read data 
-from the file and processed the data as follows:
+앞선 장에서 \verb"raw_input"을 사용하여 파일명을 사용자로부터 입력받고,
+파일에서 데이터를 읽어 다음과 같이 처리했다.
 
 \beforeverb
 \begin{verbatim}
@@ -436,10 +435,9 @@ text = handle.read()
 \end{verbatim}
 \afterverb
 %
-We can simplify this program a bit by taking the file name
-from the command line when we start Python.  Up to now,
-we simply run our Python programs and respond to the 
-prompts as follows:
+
+파이썬을 시작할 때, 명령 라인에서 파일 이름을 입력 받음으써 프로그램을 간략화 할 수 있다.
+지금까지 파이썬 프로그램을 단순하게 실행하고 다음과 같이 명령어 프롬프트에 응답했다.
 
 \beforeverb
 \begin{verbatim}
@@ -449,9 +447,10 @@ Enter file: mbox-short.txt
 \end{verbatim}
 \afterverb
 %
-We can place additional strings after the Python file and access
-those {\bf command line arguments} in our Python program.  Here is a simple program 
-that demonstrates reading arguments from the command line:
+
+파이썬 파일 다음에 추가 문자열을 배치하고 파이썬 프로그램에서 
+{\bf 명령 줄 인수(command line arguments)}에 접근한다.
+명령 줄에서 인수를 읽는 것을 시연하는 간단한 프로그램이 다음에 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -463,12 +462,10 @@ for arg in sys.argv:
 \end{verbatim}
 \afterverb
 %
-The contents of {\tt sys.argv} are a list of strings where the first string
-is the name of the Python program and the remaining strings are the arguments
-on the command line after the Python file.
+{\tt sys.argv}의 콘텐츠는 문자열 리스트로 첫 문자열은 파이썬 프로그램 이름,
+그리고 나머지 문자열은 파이썬 파일 다음의 명령 줄의 인수들이다.
 
-The following shows our program reading several command line arguments from the command
-line:
+다음은 명령 줄에서 명령 줄 인수 몇개를 읽어들이는 프로그램이다. 
 
 \beforeverb
 \begin{verbatim}
@@ -481,12 +478,12 @@ Argument: there
 \end{verbatim}
 \afterverb
 %
-There are three arguments are passed into our program as a three-element list.  
-The first element of the list is the file name (argtest.py) and the others are 
-the two command line arguments after the file name.
 
-We can rewrite our program to read the file, taking the file name 
-from the command line argument as follows:
+3 요소 리스트로 프로그램에 넘겨지는 인수가 3개 있다.
+리스트의 첫 요소는 파일 이름 (argtest.py) 그리고 나머지는 파일 이름 뒤에 2 명령 줄 인수다.
+
+파일을 읽어 오는 프로그램을 다시 작성할 수 있다. 다음과 같이 명령 줄 인수로 
+파일 명을 받는다. 
 
 \beforeverb
 \begin{verbatim}
@@ -499,9 +496,9 @@ print name, 'is', len(text), 'bytes'
 \end{verbatim}
 \afterverb
 %
-We take the second command line argument as the name of the file (skipping past
-the program name in the {\tt [0]} entry).  We open the file and read 
-the contents as follows:
+
+두번째 명령 줄 인수를 파일 이름으로 취한다. ( {\tt [0]} 항목 프로그램 이름은 생략한다.)
+파일을 열고 다음과 같이 콘텐츠를 읽는다.
 
 \beforeverb
 \begin{verbatim}
@@ -510,13 +507,16 @@ mbox-short.txt is 94626 bytes
 \end{verbatim}
 \afterverb
 %
-Using command line arguments as input can make it easier to reuse your Python programs 
-especially when you only need to input one or two strings.
 
-\section{Pipes}
+입력값으로 명령문 인수를 사용하는 것은 파이썬 프로그램을 재사용하기 쉽게 하고,
+특히 하나 혹은 두개의 문자열을 입력받을 때 유용한다.
+
+\section{파이프(Pipes)}
 
 \index{shell}
 \index{pipe}
+
+
 
 Most operating systems provide a command-line interface,
 also known as a {\bf shell}.  Shells usually provide commands
