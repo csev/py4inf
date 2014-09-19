@@ -1,0 +1,44 @@
+\indexentry{file name}{1}
+\indexentry{path}{1}
+\indexentry{directory}{1}
+\indexentry{folder}{1}
+\indexentry{os module}{1}
+\indexentry{module!os}{1}
+\indexentry{getcwd function}{1}
+\indexentry{function!getcwd}{1}
+\indexentry{working directory}{1}
+\indexentry{directory!working}{1}
+\indexentry{relative path}{1}
+\indexentry{path!relative}{1}
+\indexentry{absolute path}{1}
+\indexentry{path!absolute}{1}
+\indexentry{exists function}{2}
+\indexentry{function!exists}{2}
+\indexentry{arguments}{7}
+\indexentry{shell}{8}
+\indexentry{pipe}{8}
+\indexentry{ls (Unix command)}{8}
+\indexentry{Unix command!ls}{8}
+\indexentry{popen function}{8}
+\indexentry{function!popen}{8}
+\indexentry{readline method}{8}
+\indexentry{method!readline}{8}
+\indexentry{read method}{8}
+\indexentry{method!read}{8}
+\indexentry{close method}{9}
+\indexentry{method!close}{9}
+\indexentry{path!absolute}{9}
+\indexentry{checksum}{9}
+\indexentry{directory!current}{9}
+\indexentry{directory!working}{9}
+\indexentry{directory!cwd}{9}
+\indexentry{hashing}{9}
+\indexentry{pipe}{9}
+\indexentry{path!relative}{9}
+\indexentry{shell}{9}
+\indexentry{walk}{10}
+\indexentry{MP3}{10}
+\indexentry{duplicate}{10}
+\indexentry{MD5 algorithm}{10}
+\indexentry{algorithm!MD5}{10}
+\indexentry{checksum}{10}

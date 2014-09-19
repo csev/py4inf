@@ -1,29 +1,21 @@
 % The contents of this file is 
 % Copyright (c) 2009-  Charles R. Severance, All Righs Reserved
 
-\chapter{Automating common tasks on your computer}
+\chapter{컴퓨터의 일반적인 작업 자동화}
 
-We have been reading data from files, networks, services,
-and databases.   Python can also go through all of the 
-directories and folders on your computers and read those files
-as well.
+파일, 네트워크, 서비스, 그리고 데이터베이스에서 데이터를 읽어왔다.
+파이썬은 또한 여러분의 컴퓨터의 디렉토리와 폴더를 훑어서 파일도 읽어온다.
 
-In this chapter, we will write programs that scan 
-through your computer and 
-perform some operation on each file.  
-Files are organized into directories (also called ``folders'').
-Simple Python scripts
-can make short work of simple tasks that must be done to 
-hundreds or thousands of files
-spread across a directory tree or your entire computer.
+이번 장에서, 여러분의 로컬 컴퓨터를 스캔하고 각 파일에 대해서 연산을 수행하는 프로그램을 작성한다.
+파일은 디렉토리(또한 ''폴더''라고도 부른다.)에 정렬되어 보관된다. 간단한 파이썬 스크립트가 
+전체 로컬 컴퓨터나 디렉토리를 여기저기 뒤져야되는 수백 수천개 파일에 대한 단순한 작업을 짧게 수행한다. 
 
-To walk through all the directories and files in a tree we use 
-{\tt os.walk} and a {\tt for} loop.  This is similar to how 
-{\tt open} allows us to write a loop to read the contents of a file,
-{\tt socket} allows us to write a loop to read the contents of a network connection, and
-{\tt urllib} allows us to open a web document and loop through its contents.
+트리상의 디렉토리나 파일을 여기저기 돌아다니기 위해서 {\tt os.walk}과 {\tt for} 루프를 사용한다.
+{\tt open}이 파일의 콘텐츠를 읽는 루프를 작성하는 것과 비슷하게,
+{\tt socket}은 네트워크 연결된 콘텐츠를 읽는 루프를 작성하고,
+{\tt urllib}는 웹문서를 열어 콘텐츠를 루프를 통해서 읽어오게 한다. 
 
-\section{File names and paths}
+\section{파일 이름과 경로}
 \label{paths}
 
 \index{file name}
@@ -31,17 +23,14 @@ To walk through all the directories and files in a tree we use
 \index{directory}
 \index{folder}
 
-Every running program has a ``current directory,'' which is the
-default directory for most operations.  
-For example, when you open a file for reading, Python looks for it in the
-current directory.
+모든 실행 프로그램은 ''현재 디렉토리(current directory)''가 있고 대부분의 운영체제에 디폴트 디렉토리다.
+예를 들어 읽기 위해서 파일을 연다면, 파이썬은 현재 디렉토리에서 파일을 찾는다.
 
 \index{os module}
 \index{module!os}
 
-The {\tt os} module provides functions for working with files and
-directories ({\tt os} stands for ``operating system'').  {\tt os.getcwd}
-returns the name of the current directory:
+{\tt os} 모듈(os는 ''운영체제(operating system)''의 약자)은 파일과 디렉토리를 작업하는 함수를 제공한다.
+{\tt os.getcwd}은 현재 디렉토리의 이름을 반환한다.
 
 \index{getcwd function}
 \index{function!getcwd}
@@ -55,26 +44,24 @@ returns the name of the current directory:
 \end{verbatim}
 \afterverb
 %
-{\tt cwd} stands for {\bf current working directory}.  The result in
-this example is {\tt /Users/csev}, which is the home directory of a
-user named {\tt csev}.
+
+{\tt cwd} 는 {\bf current working directory}의 약자로 현재 작업 디렉토리다.
+예제의 결과는 {\tt /Users/csev}인데 {\tt csev} 사용자의 홈 디렉토리가 된다.
 
 \index{working directory}
 \index{directory!working}
 
-A string like {\tt cwd} that identifies a file is called a path.
-A {\bf relative path} starts from the current directory;
-an {\bf absolute path} starts from the topmost directory in the
-file system.
+파일을 식별하는 {\tt cwd} 같은 문자열을 경로(path)라고 부른다.
+{\bf 상대경로(relative path)}는 현재 디렉토리에서 시작하고,
+{\bf 절대경로(absolute path)}는 파일 시스템의 가장 최상단의 디렉토리에서 시작한다.
 
 \index{relative path}
 \index{path!relative}
 \index{absolute path}
 \index{path!absolute}
 
-The paths we have seen so far are simple file names, so they are
-relative to the current directory.  To find the absolute path to
-a file, you can use {\tt os.path.abspath}:
+지금까지 살펴본 경로는 간단한 파일 이름이여서, 현재 디렉토리에서 상대적이다.
+파일의 절대 경로를 알아내기 위해서 {\tt os.path.abspath}을 사용한다.
 
 \beforeverb
 \begin{verbatim}
@@ -83,8 +70,8 @@ a file, you can use {\tt os.path.abspath}:
 \end{verbatim}
 \afterverb
 %
-{\tt os.path.exists} checks
-whether a file or directory exists:
+
+{\tt os.path.exists}은 파일이나 디렉토리가 존재하는지 검사한다.
 
 \index{exists function}
 \index{function!exists}
@@ -96,7 +83,8 @@ True
 \end{verbatim}
 \afterverb
 %
-If it exists, {\tt os.path.isdir} checks whether it's a directory:
+
+만약 존재하면, {\tt os.path.isdir}이 디렉토리인지 검사한다.
 
 \beforeverb
 \begin{verbatim}
@@ -107,10 +95,10 @@ True
 \end{verbatim}
 \afterverb
 %
-Similarly, {\tt os.path.isfile} checks whether it's a file.
 
-{\tt os.listdir} returns a list of the files (and other directories)
-in the given directory:
+마찬가지로 {\tt os.path.isfile}은 파일인지를 검사한다.
+
+{\tt os.listdir}은 주어진 디렉토리에 파일 리스트(그리고 다른 디렉토리)를 반환한다.
 
 \beforeverb
 \begin{verbatim}
@@ -121,20 +109,16 @@ in the given directory:
 %
 
 
-\section{Example: Cleaning up a photo directory}
+\section{예제: 사진 디렉토리 정리하기}
 
-Some time ago, I built a bit of Flickr-like software that 
-received photos from my cell phone and stored those photos
-on my server.  I wrote this before Flickr existed and kept 
-using it after Flickr existed because
-I wanted to keep original copies of my images forever.
+얼마 전에 핸드폰에서 사진을 받아서 서버에 저장하는 플릭커(Flickr)와 유사한 소프트웨어를 개발했다.
+플릭커가 존재하기 전에 작성해고, 플맄커가 생긴 이후에도 계속해서 사용했다.
+왜냐하면 영원히 원본을 보관하고 싶어서다.
 
-I would also send a simple one-line text description in the MMS message
-or the subject line of the e-mail message.  I stored these messages
-in a text file in the same directory as the image file.   I came up 
-with a directory structure based on the month, year, day and time the 
-photo was taken.   The following would be an example of the naming for 
-one photo and its existing description:
+문자메시지로 한줄 텍스트 문자나 전자우편 주소의 제목줄도 보낼 수 있다. 
+사진 파일과 마찬가지로 텍스프 파일형식의 메시지를 동일한 디렉토리에 저자했다.
+사진을 찍은 월, 년, 일, 그리고 시간에 기초한 디렉토리 구조다.
+다음은 사진 한장과 설명 텍스트를 가진 예제다.
 
 \beforeverb
 \begin{verbatim}
@@ -143,15 +127,12 @@ one photo and its existing description:
 \end{verbatim}
 \afterverb
 %
-After seven years, I had a lot of photos and captions.  Over the years
-as I switched cell phones, sometimes my code to extract the caption from the message 
-would break and add a bunch of useless data on my server instead of a caption.  
 
-I wanted to go through these files and figure out which of the 
-text files were really captions and which were junk and then delete the bad
-files.  The first thing to do was to get a simple inventory of 
-how many text files I had in of the sub-folders
-using the following program:
+7년이 지난 후에, 정말 많은 사진과 짧은 설명문이 생겼다. 시간이 지남에 따라 핸드폰을 바꿈에 따라,
+메시지에서 짧은 설명문을 뽑아내는 코드가 잘 동작하지 않고 짧은 설명문 대신에 서버에 쓸모없는 데이터를 추가했다.
+
+파일을 훑어서 어느 텍스트 파일이 정말 짧은 설명문이고, 어는 것이 쓰레기인지 찾아서 잘못된 파일은 
+삭제하고 싶었다. 첫번째 할일은 다음 프로그램을 사용하여 폴더에 얼마나 많은 텍스트 파일이 있는지 목록을 얻는 것이다.
 
 \beforeverb
 \begin{verbatim}
@@ -168,32 +149,23 @@ Files: 1917
 \end{verbatim}
 \afterverb
 %
-The key bit of code that makes this possible is the {\tt os.walk}
-library in Python.  When we call {\tt os.walk} and give it a starting
-directory, it will ``walk'' through all of the directories 
-and sub-directories recursively.   The string ``.'' indicates
-to start in the current directory and walk downward.
-As it encounters each directory,
-we get three values in a tuple in the body of the {\tt for} loop.  
-The first value is the current
-directory name, the second value is the list of sub-directories 
-in the current directory, and the third value is a list of files
-in the current directory.
 
-We do not have to explicitly look into each of the sub-directories
-because we can count on {\tt os.walk} to visit every 
-folder eventually.  But we do want to look at each file, so 
-we write a simple {\tt for} loop to examine each of the files 
-in the current directory.   We check each file to see if 
-it ends with ``.txt'' and then count the number of 
-files through the whole directory tree that end with the
-suffix ``.txt''.
+이것을 가능하게 하는 가장 중요한 코드는 파이썬 {\tt os.walk} 라이브러리다.
+{\tt os.walk}을 호출하고 시작 디렉토리를 주면, 재귀적으로 모든 디렉토리와 하위 디렉토리를 훑는다.
+''.'' 문자열은 현재 디렉토리에서 시작해서 하위 디렉토리로 훑는 것을 표시한다.
+매번 디렉토리에 도착하면, {\tt for} 문 본문의 튜플에서 3개의 값을 얻는다.
+첫번째 값은 현재 디렉토리 이름, 두번째 값은 현재 디렉토리의 하위 디렉토리 리스트, 그리고 세번째 값은
+현재 디렉토리 파일 리스트다.
 
-Once we have a sense of how many files end with ``.txt'', the next
-thing to do is try to automatically
-determine in Python which files are bad and which files
-are good.   So we write a simple program to print out the
-files and the size of each file:
+명시적으로 하위 디렉토리 각각을 살펴보지 않는다. 왜냐하면
+{\tt os.walk}가 자동으로 모든 폴더를 방문할 것이기 때문이다.
+하지만, 각 파일을 살펴보고 싶기 때문에, 간단한 {\tt for} 루프를 작성해서 현재 디렉토리에 
+파일 각각을 조사한다. ''.txt''로 끝나는 파일이 있는지 확인한다.
+접미사 ''.txt''로 끝나는 전체 디렉토리 트리를 훑어서 파일의 숫자를 카운트한다.
+
+얼마나 많은 파일이 ''.txt'' 확장자로 끝나는지 감을 잡았으면, 다음 일은 자동적으로
+어느 파일이 정상이고, 어느 파일이 문제가 있는지를 파이썬에서 결정하는 것이다.
+간단한 프로그램을 작성해서 파일과 파일의 크기를 출력한다.
 
 \beforeverb
 \begin{verbatim}
@@ -207,24 +179,17 @@ for (dirname, dirs, files) in os.walk('.'):
 \end{verbatim}
 \afterverb
 %
-Now instead of just counting the files, we create 
-a file name by concatenating the directory name with
-the name of the file within the directory using
-{\tt os.path.join}.   It is important to use 
-{\tt os.path.join} instead of string concatenation 
-because on Windows we use a backslash
-(\verb"\") to construct file paths and on Linux
-or Apple we use a forward slash (\verb"/") 
-to construct file paths.  The {\tt os.path.join}
-knows these differences and knows what system
-we are running on and it does the proper concatenation
-depending on the system.  So the same Python code
-runs on either Windows or Unix-style systems.
 
-Once we have the full file name with directory
-path, we use the {\tt os.path.getsize} utility
-to get the size and print it out, producing the 
-following output:
+파일을 단순히 카운트하는 대신에 {\tt os.path.join}을 사용하여 디렉토리 안에서 
+디렉토리 이름과 파일 이름을 합쳐서 파일 이름을 생성한다.
+문자열 합치기 대신에 {\tt os.path.join}을 사용하는 것이 중요한데 왜냐하면
+파일 경로를 나타내기 위해서 윈도우에서는 파일 경로를 생성하기 위해서 역슬래쉬(\verb"\")를 사용하고,
+리눅스나 애플에서는 슬래쉬 (\verb"/")를 사용하기 때문이다.
+{\tt os.path.join}은 이러한 차이를 알고 어느 운영체제에서 동작하는지 알고 시스템에 따라
+적절한 합치기 작업을 수행한다. 그래서 동일한 파이썬 코드가 윈도우나 유닉스계열 시스템에도 실행된다.
+
+디렉토리 경로를 가진 전체 파일 이름을 갖게 되면, {\tt os.path.getsize} 유틸리티를 사용해서
+크기를 얻고 출력해서 다음 결과값을 만들어 낸다.
 
 \beforeverb
 \begin{verbatim}
@@ -244,12 +209,11 @@ python txtsize.py
 \end{verbatim}
 \afterverb
 %
-Scanning the output, we notice that some files are pretty short and 
-a lot of the files are pretty large and the same size (2578 and 2565). 
-When we take a look at a few of these larger files by hand, 
-it looks like the large 
-files are nothing but a generic bit of identical HTML that came 
-in from mail sent to my system from my T-Mobile phone:
+
+
+출력값을 스캔하면, 몇몇 파일은 매우 짧고, 다른 많은 파일은 매우 큰데 동일한 크기(2578, 2565)임을 볼 수 있다.
+수작업으로 몇개의 큰 파일을 살펴보면, 
+T-Mobile 핸드폰에서 보내지는 전자우편에 함께 오는 일반적인 동일한 HTML을 가진 것임을 알 수 있다.  
 
 \beforeverb
 \begin{verbatim}
@@ -260,16 +224,13 @@ in from mail sent to my system from my T-Mobile phone:
 \end{verbatim}
 \afterverb
 %
-Skimming through the file, it looks like there is no good information
-in these files so we can probably delete them.
 
-But before we delete the files, we will write a program to look for files
-that are more than one line long and show the contents of the file.
-We will not bother showing ourselves those files that are exactly
-2578 or 2565 characters long since we know that these files have no useful
-information.
+파일을 대충 살펴보면, 파일에 그다지 유용한 정보가 없으므로, 삭제한다.
 
-So we write the following program:
+하지만, 파일을 삭제하기 전에, 한 줄이 이상인 파일을 찾고 내용을 출력하는 프로그램을 작성한다.
+2578 혹은 2565 문자길이를 가진 파일을 보여주지는 않는다. 왜냐하면, 파일에 더 이상 유용한 정보가 없음을 알기 때문이다.
+
+그래서 다음과 같이 프로그램을 작성한다.
 
 \beforeverb
 \begin{verbatim}
@@ -293,16 +254,14 @@ for (dirname, dirs, files) in os.walk('.'):
 \end{verbatim}
 \afterverb
 %
-We use a {\tt continue} to skip files with the two 
-``bad sizes'', then open the rest of the files
-and read the lines of the file into a Python list
-and if the file has more than one line we print
-out how many lines are in the file and print out
-the first three lines.
 
-It looks like filtering out those two bad file sizes, and assuming
-that all one-line files are correct, we are down to some pretty clean
-data:
+{\tt continue}를 사용하여 두 ''잘못된 크기'' 파일을 건너뛰고, 
+나머지 파일을 열고, 파이썬 리스트에 파일 라인을 읽는다.
+만약 파일이 하나 이상의 라인이면, 파일에 얼마나 많은 라인이 있는지 출력하고,
+첫 세줄을 출력한다.
+
+두개의 잘못된 파일 크기를 제외하고, 모든 한줄짜리 파일이 정상적이라고 가정하고나면
+깨끗하게 정리된 파일을 생성된다.
 
 \beforeverb
 \begin{verbatim}
@@ -320,12 +279,9 @@ python txtcheck.py
 \end{verbatim}
 \afterverb
 %
-But there is one more annoying pattern of files: 
-there are some three-line files that consist of
-two blank lines followed by a line that says
-``Sent from my iPhone'' that have slipped 
-into my data.   So we make the following change
-to the program to deal with these files as well.
+
+하지만, 한가지 더 성가신 패턴의 파일이 있다. 두 공백 라인과 ``Sent from my iPhone''으로 구성된 3줄짜리 파일이다.
+프로그램을 다음과 같이 변경하여 이러한 파일도 처리하게 한다.
 
 \beforeverb
 \begin{verbatim}
@@ -340,11 +296,10 @@ to the program to deal with these files as well.
 \end{verbatim}
 \afterverb
 %
-We simply check if we have a three-line file, and if the third 
-line starts with the specified text, we skip it.
 
-Now when we run the program, we only see four remaining 
-multi-line files and all of those files look pretty reasonable:
+단순하게 3줄짜리 파일이 있는지 검사하고 만약 지정된 텍스트로 세번째 라인이 시작한다면, 건너뛴다.
+
+이제 프로그램을 실행하면, 단지 4개의 다중 라인 파일만을 보게되고 모든 파일이 잘 처리된 것으로 보인다.
 
 \beforeverb
 \begin{verbatim}
@@ -360,16 +315,13 @@ python txtcheck2.py
 \end{verbatim}
 \afterverb
 %
-If you look at the overall pattern of this program,
-we have successively refined how we accept or reject
-files and once we found a pattern that was ``bad'' we used
-{\tt continue} to skip the bad files so we could refine
-our code to find more file patterns that were bad.
 
-Now we are getting ready to delete the files, so 
-we are going to flip the logic and instead of printing out 
-the remaining good files, we will print out the ``bad''
-files that we are about to delete.
+프로그램의 전반적인 패턴을 살펴보면, 연속적으로 파일을 어떻게 승인할지와 거절할지를 정교화했고,
+''잘못된'' 패턴을 발견하면 {\tt continue}를 사용해서 잘못된 파일을 건너뛰게 했다.
+그래서 잘못된 더 맣은 파일 패턴을 발견하도록 코드를 정교화했다.
+
+이제 파일을 삭제할 준비가 되었다. 로직을 바꿔서, 나머지 올바른 파일을 출력하는 대신에,
+삭제할 ''잘못된'' 파일만을 출력한다.
 
 \beforeverb
 \begin{verbatim}
@@ -394,9 +346,9 @@ for (dirname, dirs, files) in os.walk('.'):
 \end{verbatim}
 \afterverb
 %
-We can now see a list of candidate files that we are about
-to delete and why these files are up for deleting.
-The program produces the following output:
+
+이제 삭제할 대상 목록과 왜 이 파일이 삭제 대상으로 나왔는지를 볼 수 있다.
+프로그램은 다음 출력을 생성한다.
 
 \beforeverb
 \begin{verbatim}
@@ -411,12 +363,11 @@ iPhone: ./2007/09/19-09-07_124857_01.txt
 \end{verbatim}
 \afterverb
 %
-We can spot-check these files to make sure that we did not inadvertently
-end up introducing a bug in our program or perhaps our logic 
-caught some files we did not want to catch.
 
-Once we are satisfied that this is the list of files we want to delete,
-we make the following change to the program:
+무작위로 파일을 검사해서 프로그램에 버그가 우연하게 들어가 있는지 혹은 원치 않는 파일이 
+작성한 프로그램 로직에 끌려들어 갔는지 확인할 수 있다.
+
+결과값에 만족하고, 다음이 삭제할 파일 목록임으로, 프로그램에 다음과 같은 변경을 한다.
 
 \beforeverb
 \begin{verbatim}
@@ -432,9 +383,8 @@ we make the following change to the program:
 \end{verbatim}
 \afterverb
 %
-In this version of the program, we will both print the file out 
-and remove the bad files
-using {\tt os.remove}.
+
+이번 버젼의 프로그램에서 파일을 출력하고 {\tt os.remove}을 사용하여 잘못된 파일을 삭제한다.
 
 \beforeverb
 \begin{verbatim}
@@ -445,11 +395,11 @@ T-Mobile: ./2005/01/02-01-05_1858001.txt
 \end{verbatim}
 \afterverb
 %
-Just for fun, run the program a second time and it will produce no output
-since the bad files are already gone.
 
-If we re-run {\tt txtcount.py} we can see that we have removed
-899 bad files:
+재미로, 프로그램을 두번 실행하게 되면 모든 잘못된 파일이 삭제되어서 출력값이 없다.
+
+{\tt txtcount.py}을 다시 실행하면, 899 잘못된 파일이 삭제되었음을 알 수 있다.
+
 \beforeverb
 \begin{verbatim}
 python txtcount.py 
@@ -457,24 +407,19 @@ Files: 1018
 \end{verbatim}
 \afterverb
 %
-In this section, we have followed a sequence where we use Python 
-to first look through directories and files seeking
-patterns.  We slowly use Python to help determine what we 
-want to do to clean up our directories.  Once we
-figure out which files are good and which files are 
-not useful, we use Python to delete the files and 
-perform the cleanup.
 
-The problem you may need to solve can either be quite simple 
-and might only depend on looking at the names of files,
-or perhaps you need to read every single file and
-look for patterns within the files.  Sometimes 
-you will need to read all the files and make a change 
-to some of the files.  All of these are pretty 
-straightforward once you understand how {\tt os.walk}
-and the other {\tt os} utilities can be used.
+이번 장에서 일련의 절차를 따라서 파이썬을 사용하여 디렉토리와 파일을 검색하는 패턴을 살펴봤다.
+천천히 파이썬을 사용해서 디렉토리를 정리하기 위해서 무엇을 할지를 결정했다.
+어느 파일이 좋고 어느 파일이 유용하지 않는지 파악한 후에 파이썬을 사용해서 파일을 삭제하고 
+파일 정리를 수행했다.
 
-\section{Command line arguments}
+해결하려고 하는 문제가 무척 간단하여 파일의 이름만을 살펴보는 것에 달려 있을 수 있다. 
+혹은 모든 파일을 읽고 파일 내부에 패턴을 찾을 필요가 있다.
+때때로, 모든 파일을 일고, 파일의 일부에 변경이 필요할지도 모른다. 
+{\tt os.walk}와 다른 {\tt os} 유틸리티가 어떻게 사용되는지 이해하기만 하면 이 모든 것은 매우 명확한다.
+
+
+\section{명령 줄 인수}
 
 \index{arguments}
 
