@@ -1,39 +1,31 @@
 % The contents of this file is 
 % Copyright (c) 2009-  Charles R. Severance, All Righs Reserved
 
-\chapter{Python Programming on Windows}
+\chapter{윈도우 상에서 파이썬 프로그래밍}
 
-In this appendix, we walk through a series of steps
-so you can run Python on Windows.  There are many different 
-approaches you can take, and this is just one
-approach to keep things simple.
+이번 부록에서 일련의 단계를 거쳐서 윈도우상에서 파이썬을 실행한다.
 
-First, you need to install a programmer editor.  You
-do not want to use Notepad or Microsoft Word to edit
-Python programs.  Programs must be in "flat-text" files
-and so you need an editor that is good at
-editing text files.
+파이썬 프로그램을 편집하고 실행하는데취할 수 있는 서로 다른 많은 접근방법이 있다. 이것은 간단한 접근 방법중의 하나다.
 
-Our recommended editor for Windows is NotePad++ which
-can be downloaded and installed from:
+먼저, 프로그래머 편집기를 설치할 필요가 있다.
+Notepad나 윈도우 워드를 가지고 파이썬 프로그램을 편집할 필요는 없다.
+프로그램은 ''일반 텍스트(flat-text)'' 파일이여서 텍스트 파일을 편집하는데 좋은 에디터만 필요하다.
+
+윈도우 시스템에 추천하고 싶은 편집기는 다음에서 다운받아 설치할 수 있는 Notepad++다.
 
 \url{http://sourceforge.net/projects/notepad-plus/files/}
 
-Then download a recent version of Python 2 from the
-\url{www.python.org} web site.
+\url{www.python.org} 웹사이트에서 파이썬 2를 다운로드한다.
 
 \url{http://www.python.org/download/releases/2.7.5/}
 
-Once you have installed Python, you should have a new
-folder on your computer like {\tt C:{\textbackslash}Python27}.
+파이썬을 설치하면, 컴퓨터에 {\tt C:{\textbackslash}Python27} 같은 새로운 폴더가 생긴다.
 
-To create a Python program, run NotePad++ from the Start Menu
-and save the file with a suffix of ``.py''.  For this
-exercise, put a folder on your Desktop named 
-{\tt py4inf}.  It is best to keep your folder names short
-and not to have any spaces in your folder or file name.
+파이썬 프로그램을 생성하기 위해서 시작 메뉴에서 NotePad++를 실행하고 확장자가 ''.py''인 파일로 저장한다.
+연습으로 {\tt py4inf} 이름의 폴더를 바탕화면에 생성한다.
+폴더명을 짧게 하고 폴더명과 파일명에 어떤 공백도 넣지 않는 것이 좋다.
 
-Lets make our first Python program be:
+첫 파이썬 프로그램을 다음과 같이 작성한다.
 
 \beforeverb
 \begin{verbatim}
@@ -41,30 +33,23 @@ print 'Hello Chuck'
 \end{verbatim}
 \afterverb
 %
-Except that you should change it to be your name.  Lets
-save the file into {\tt Desktop{\textbackslash}py4inf{\textbackslash}prog1.py}.
 
-The run the command line.  Different versions of Windows
-do this differently:
+여러분의 이름으로 바꾸는 것을 제외하고, 파일을 {\tt 바탕화면{\textbackslash}py4inf{\textbackslash}prog1.py}에 저장한다.
+
+명령-줄(command line) 실행은 윈도우 버젼마다 다른다.
 
 \begin{itemize}
-\item Windows Vista and Windows-7: Press {\bf Start}
-and then in the command search window enter the word
-{\tt command} and press enter.
+\item 윈도우 비스타, 윈도우 7: {\bf 시작(Start)}을 누루고, 명령어 실행 윈도우에서 단어 {\tt command}를 입력하고 엔터를 친다.
 
-\item Windows-XP: Press {\bf Start}, then {\bf Run}, and 
-then enter {\tt cmd} in the dialog box and press {\bf OK}.
+\item 윈도우-XP: {\bf 시작(Start)}을 누루고,{\bf 실행(Run)}을 누루고, 대화창에서 단어 {\tt cmd}를 입력하고 {\bf 확인(OK)}을 누른다.
 \end{itemize}
 
-You will find yourself in a text window with a prompt that
-tells you what folder you are currently ``in''.  
+지금 어느 폴더에 있는지를 말해주는 프롬프트 텍스트 윈도우에서 현재 위치를 확인할 수 있다.
 
 Windows Vista and Windows-7: {\tt C:{\textbackslash}Users{\textbackslash}csev}\\
 Windows XP: {\tt C:{\textbackslash}Documents and Settings{\textbackslash}csev}
 
-This is your ``home directory''.  Now we need to move into 
-the folder where you have saved your Python program using
-the following commands:
+이것이 ''홈 디렉토리''다. 이제 다음 명령어를 사용해서 작성한 파이썬 프로그램을 저장한 폴더로 이동한다.
 
 \beforeverb
 \begin{verbatim}
@@ -73,7 +58,8 @@ C:\Users\csev\Desktop> cd py4inf
 \end{verbatim}
 \afterverb
 %
-Then type 
+
+그리고 다음을 타이핑한다.
 
 \beforeverb
 \begin{verbatim}
@@ -81,11 +67,10 @@ C:\Users\csev\Desktop\py4inf> dir
 \end{verbatim}
 \afterverb
 %
-To list your files.  You should see the {\tt prog1.py} when 
-you type the {\tt dir} command.
 
-To run your program, simply type the name of your file at the 
-command prompt and press enter.
+작성한 파일 목록을 보기 위해서 {\tt dir} 명령어를 타이핑 할때, {\tt prog1.py}이 보여야 한다.
+
+프로그램을 실행하기 위해서, 단순히 명령 프롬프트에서 파일 이름을 타이핑하고 엔터를 친다.
 
 \beforeverb
 \begin{verbatim}
@@ -95,20 +80,16 @@ C:\Users\csev\Desktop\py4inf>
 \end{verbatim}
 \afterverb
 %
-You can edit the file in NotePad++, save it and then switch back
-to the command line and execute the program again by typing
-the file name again at the command line prompt.
 
-If you get confused in the command line window - just close it
-and start a new one.
+NotePad++에서 파일을 편집하고, 저장하고, 명령줄로 돌아온다.
+다시 명령줄 프롬프트에서 파일명을 타이핑해서 프로그램을 실행한다.
 
-Hint: You can also press the ``up-arrow'' in the command line to 
-scroll back and run a previously entered command again.
+만약 명령줄 윈도우에서 혼동이 생기면, 단순하게 닫고 새로 시작한다.
 
-You should also look in the preferences for NotePad++ and set it 
-to expand tab characters to be four spaces.  It will save you lots
-of effort looking for indentation errors.
+힌트: 스크롤 백해서 이전에 입력한 명령을 다시 실행하기 위해서 ''위쪽 화살표''를 명령줄에서 누른다.
 
-You can also find further information on editing and running 
-Python programs at \url{www.py4inf.com}.
+NotePad++에서 환경설정 선호(preference)를 살펴보고 탭 문자가 공백 4개로 되도록 설정한다.
+이 단순한 설정이 들여쓰기 오류를 찾는 수고를 많이 경감시켜 준다.
+
+\url{www.py4inf.com}에서 파이썬 프로그램을 편집하고 실행하는 좀더 많은 정보를 얻을 수 있다.
 
