@@ -1,53 +1,21 @@
 % The contents of this file is 
 % Copyright (c) 2009-  Charles R. Severance, All Righs Reserved
 
-\chapter{Why should you learn to write programs?}
+\chapter{왜 프로그래밍을 배워야 하는가?}
 
-Writing programs (or programming) is a very creative 
-and rewarding activity.  You can write programs for 
-many reasons ranging from making your living to solving
-a difficult data analysis problem to having fun to helping
-someone else solve a problem.  This book assumes that 
-\emph{everyone} needs to know how to program and that once 
-you know how to program, you will figure out what you want 
-to do with your newfound skills.  
+컴퓨터 프로그램을 만드는 행위(프로그래밍)는 매우 창의적이며 향후 뿌린 것 이상으로 얻을 것이 많다. 프로그램을 만드는 이유는 어려운 자료분석의 문제를 해결하려는 것에서부터 다른사람의 문제를 해결해주는 재미를 느끼는 것까지 다양한 이유가 있다. 이 책에서 모든 사람이 어떻게 프로그램을 만드는지를 알고, 프로그램을 만드는지를 알게되면, 새로 습득한 프로그래밍 기술로 원하는 것을 해결할 수 있는 것을 배우게 된다.
 
-We are surrounded in our daily lives with computers ranging 
-from laptops to cell phones.  We can think of these computers
-as our ``personal assistants'' who can take care of many things
-on our behalf.  The hardware in our current-day computers 
-is essentially built to continuously ask us the question, 
-``What would you like me to do next?''.
+우리의 일상은 노트북부터 핸드폰까지 다양한 컴퓨터에 둘러싸여 있다. 이러한 컴퓨터가 개인비서로 우리를 위해서 많은 일을 대신해 준다고 생각한다. 일상생활에서 접하는 컴퓨터 하드웨어는 우리에게 "다음에 무엇을 하면 좋겠습니까?" 라는 질문을 지속적으로 물어보게 만들어 졌다.
 
+
+ 
 \beforefig
 \centerline{\includegraphics[height=1.00in]{figs2/pda.eps}}
 \afterfig
 
-Programmers add an operating system and a set of applications
-to the hardware and we end up with a Personal Digital
-Assistant that is quite helpful and capable of helping
-many different things.
+프로그래머는 운영체제와 하드웨어에 응용 프로그램을 만들었고, 결국 많은 것들을 도와주는 PDA(Persoanl Digital Assistant)로 진화했다. 컴퓨터는 빠르며, 큰 저장소를 가지고 있어 우리가 컴퓨터에게 "다음꺼 실행해(do next)를 컴퓨터가 이해할 수 있는 말로 지시를 하게되면 우리에게 매우 유용할 수 있다.
 
-Our computers are fast and have vast amounts of memory and 
-could be very helpful to us if we only knew the language to
-speak to explain to the computer what we would like it to 
-``do next''.  If we knew this language we could tell the 
-computer to do tasks on our behalf that were repetitive.  
-Interestingly, the kinds of things computers can do best
-are often the kinds of things that we humans find boring
-and mind-numbing.
-
-For example, look at the first three paragraphs of this
-chapter and tell me the most commonly used word and how
-many times the word is used.  While you were able to read
-and understand the words in a few seconds, counting them
-is almost painful because it is not the kind of problem 
-that human minds are designed to solve.  For a computer
-the opposite is true, reading and understanding text 
-from a piece of paper is hard for a computer to do 
-but counting the words and telling you how many times
-the most used word was used is very easy for the
-computer:
+예를 들어, 다음의 세 문단을 보고 가장 많이 나오는 문단의 단어를 찾아보고 얼마나 나오는지를 알려주세요라고 컴퓨터에게 시킬 수 있다. 사람이 몇초만에 단어를 읽고 이해할 수는 있지만, 그 단어가 몇번 나오는지를 세는 것은 매우 고생스렁운 과정이다. 왜냐하면 사람은 지루하고 반복되는 일의 문제를 해결하는데 적합하지 않기 때문이다. 컴퓨터는 정반대이다. 논문이나 책에서 텍스트를 읽고 이해하는 것은 컴퓨터에게 어렵다. 하지만 단어를 세고 가장 많이 사용되는 단어를 말해주는 것은 컴퓨터에게는 무척이나 쉽다.
 
 \beforeverb
 \begin{verbatim}
@@ -57,198 +25,95 @@ to 16
 \end{verbatim}
 \afterverb
 %
-Our ``personal information analysis assistant'' quickly 
-told us that the word ``to'' was used sixteen times in the
-first three paragraphs of this chapter.
+우리의 개인 정보분석 비서는 "to"라는 단어가 가장 많이 사용되었고 16번 나왔다고 바로 답을 준다.
 
-This very fact that computers are good at things 
-that humans are not is why you need to become
-skilled at talking ``computer language''.  Once you learn
-this new language, you can delegate mundane tasks
-to your partner (the computer), leaving more time 
-for you to do the 
-things that you are uniquely suited for.  You bring 
-creativity, intuition, and inventiveness to this
-partnership.  
+사람이 잘하지 못하는 점을 컴퓨터가 잘할 수 있다는 사실을 이해하면 왜 컴퓨터 언어로 컴퓨터와 대화해야 하는지를 알 수 있다. 컴퓨터와 대화할 수 있는 언어(Python)를 배우게되면 지루하고 반복되는 일을 컴퓨터가 처리하게 하면 더 많은 시간을 창의적이고, 직관적이며, 창조적인 시간을 컴퓨터와 함께 할 수 있다. 
 
-\section{Creativity and motivation}
+\section{창의성과 동기}
+이책은 직업 프로그래머를 위해서 저작된 것은 아니지만, 직업적으로 프로그램을 만드는 작업은 개인적으로나 경제적인면에서 꽤 매력적인 일이다. 특히, 유용하며, 심미적이고, 똑똑한 프로그램을 다른 사람이 사용할 수 있도록 만드는 것은 매우 창의적인 일이다. 컴퓨터는 다양한 그룹의 프로그래머들이 사용자의 관심과 시선을 빼았기 위해서 경쟁적으로 다양한 프로그램을 가지고 있다. 이렇게 개발된 프로그램은 사용자가 원하는 바를 충족시키고 훌륭한 사용자 경험을 주려고 노력한다. 이러한 상황에서 사용자가 소프트웨어를 고르게 될 때 고객의 선택에 대해서 프로그래머는 직접적으로 보상을 받게된다.
 
-While this book is not intended for professional programmers, professional
-programming can be a very rewarding job both financially and personally.
-Building useful, elegant, and clever programs for others to use is a very
-creative activity.  Your computer or Personal Digital Assistant (PDA) 
-usually contains many different programs from many different groups of 
-programmers, each competing for your attention and interest.  They try 
-their best to meet your needs and give you a great user experience in the
-process.   In some situations, when you choose a piece of software, the 
-programmers are directly compensated because of your choice.
-
-If we think of programs as the creative output of groups of programmers,
-perhaps the following figure is a more sensible version of our PDA:
+만약 프로그램을 프로그래머 집단의 창의적인 결과물로 바라본다면, 아마도 다음의 그림이 PDA 컴퓨터에 의미가 있을 듯 하다.
 
 \beforefig
 \centerline{\includegraphics[height=1.00in]{figs2/pda2.eps}}
 \afterfig
 
-For now, our primary motivation is not to make money or please end-users, but
-instead for us to be more productive in handling the data and 
-information that we will encounter in our lives.
-When you first start, you will be both the programmer and end-user of
-your programs.  As you gain skill as a programmer and
-programming feels more creative to you, your thoughts may turn
-toward developing programs for others.
+우선은 프로그래을 만드는 주된 동기가 사업을 위한다던가 사용자를 기쁘게 한다기 보다는 일상생활에서 맞닥드리는 자료와 정보를 잘 다뤄 좀더 생산적으로 우리의 삶을 만드는데 초점을 잡아보자. 프로그램을 만들기 시작할 때 여러분 모두는 프로그래머이면서 동시에 자신이 만든 프로그램의 사용자가 된다. 프로그래머로서 기술을 습득하고 프로그래밍 자체로 창의적으로 느껴진다면, 여러분은 다른 사람을 위해 프로그램을 개발하게 준비가 된 것이다.
 
-\section{Computer hardware architecture}
+\section{컴퓨터 하드웨어 아키텍처}
 \index{hardware}
 \index{hardware!architecture}
 
-Before we start learning the language we 
-speak to give instructions to computers to 
-develop software, we need to learn a small amount about 
-how computers are built.  If you were to take
-apart your computer or cell phone and look deep
-inside, you would find the following parts:
+소프트웨어 개발을 위해 컴퓨터에 지시 명령어를 전달하기 위한 컴퓨터 언어를 배우기 전에, 컴퓨터가 어떻게 구성되어 있는지 이해할 필요가 있다. 컴퓨터 혹은 핸드폰을 분해해서 안쪽을 살펴보면, 다음의 주요 부품을 발견할 수 있다.
 
 \beforefig
 \centerline{\includegraphics[height=2.50in]{figs2/arch.eps}}
 \afterfig
 
-The high-level definitions of these parts are as follows:
+주요 부품을 살펴보자.
 
 \begin{itemize}
 
-\item The {\bf Central Processing Unit} (or CPU) is 
-that part of the computer that is built to be obsessed 
-with ``what is next?''.  If your computer is rated
-at 3.0 Gigahertz, it means that the CPU will ask ``What next?''
-three billion times per second.  You are going to have to 
-learn how to talk fast to keep up with the CPU.
+\item {\bf 중앙처리장치(Central Processing Unit, CPU): 다음은 무엇을 할까요? ("What is next?")} 명령어를 처리하는 주요 부분이다. 컴퓨터가 3.0 GHz라면 초당 명령어(다음은 무엇을 할까요? What is next?)를 삼백만번 처리할 수 있다고 계속 물을 수 있다. CPU의 처리속도를 따라서 컴퓨터와 빠르게 대화하는 것을 배울 것이다.
 
-\item The {\bf Main Memory} is used to store information
-that the CPU needs in a hurry.  The main memory is nearly as 
-fast as the CPU.  But the information stored in the main
-memory vanishes when the computer is turned off.
+\item {\bf 주 기억장치(Main Memory):} 주기억장치는 중앙처리장치(CPU)가 급하게 명령어를 처리하기 위해 필요로 하는 정보를 저장하는 용도로 사용된다. 주 기억장치는 중앙처리장치만큼이나 빠르다. 그러나 주기억장치에 저장된 정보는 컴퓨터가 꺼지면 자동으로 지워진다.
 
-\item The {\bf Secondary Memory} is also used to store
-information, but it is much slower than the main memory.
-The advantage of the secondary memory is that it can
-store information even when there is no power to the
-computer.  Examples of secondary memory are disk drives
-or flash memory (typically found in USB sticks and portable
-music players).
+\item[보조 기억장치] 보조 기억장치는 정보를 저장하기 위해 사용되지만, 주기억장치보다 속도가 느리다. 
+전기가 나갔을 때도 정보를 기억하는 것이 장점이다. 휴대용 USB 기억장치나 이동 MP3 플레이어에 사용되는 USB의 플래쉬 메모리나 디스크 드라이브가 여기에 속한다.
+ 
+\item {\bf 입출력장치(Input Output Devices):} 간단하게 화면, 키보드, 마우스, 마이크, 스피커, 터치패드가 포함된다. 컴퓨터와 사람이 상호작용하는 방식이다.
 
-\item The {\bf Input and Output Devices} are simply our
-screen, keyboard, mouse, microphone, speaker, touchpad, etc.  
-They are all of the ways we interact with the computer.
-
-\item These days, most computers also have a
-{\bf Network Connection} to retrieve information over a network.
-We can think of the network as a very slow place to store and
-retrieve data that might not always be ``up''.  So in a sense,
-the network is a slower and at times unreliable form of
-{\bf Secondary Memory}
+\item {\bf 네트워크(Network):} 요즘 거의 모든 컴퓨터는 네트워크로 정보를 주고 받는 네트쿼크 커넥션(Network Connection) 하드웨어를 가지고 있다. 네트워크는 정보를 저장하는 느린 저장소로 혹은 때때로 원하는 정보를 가져오지 못하는 것으로 보조 기억장치(Secondary memory)로 생각할 수 있다.
 
 \end{itemize}
+ 
 
-While most of the detail of how these components work is best left 
-to computer builders, it helps to have some terminology
-so we can talk about these different parts as we write our programs.
+어떻게 이러한 주요 부품들이 작동하는지에 대한 자세한 사항은 컴퓨터를 만드는 사람에게 달려있지만, 프로그램을 만들때 컴퓨터 주요부품에 대해서 언급되어 컴퓨터 전문용어를 습득하고 이해하는 것은 도움이 된다.
 
-As a programmer, your job is to use and orchestrate 
-each of these resources to solve the problem that you need solving
-and analyze the data you need.  As a programmer you will 
-mostly be ``talking'' to the CPU and telling it what to 
-do next.  Sometimes you will tell the CPU to use the main memory,
-secondary memory, network, or the input/output devices.
+프로그래머로서 여러분들은 사용자가 원하는 자료를 분석하고 문제를 풀 수 있는 컴퓨터 자원들을 사용하고 오케스트레이션하는 것이다.
+
 
 \beforefig
 \centerline{\includegraphics[height=2.50in]{figs2/arch2.eps}}
 \afterfig
 
-You need to be the person who answers the CPU's ``What next?'' 
-question.  But it would be very uncomfortable to shrink you 
-down to 5mm tall and insert you into the computer just so you 
-could issue a command three billion times per second.  So instead,
-you must write down your instructions in advance.
-We call these stored instructions a {\bf program} and the act 
-of writing these instructions down and getting the instructions to 
-be correct {\bf programming}.
+프로그래머로 중앙처리장치(CPU)와 대화하며 "다음은 무엇을 수행하세요"라고 지시할 것이다. 때때로 중앙처리장치(CPU)에게 주 기억장치, 보조 기억장치, 네트워크, 입출력 장치를 사용하라고 지시할 것이다.
 
-\section{Understanding programming}
+프로그래머는 컴퓨터의 "다음은 무엇을 수행할까요"에 대한 답을 하는 사람이기도 하다. 하지만, 컴퓨터에 답하기 위해서 5mm 크기로 컴퓨터에 프로그래머를 집어넣고 초당 30억개의 명령어로 답을 하는 것은 매우 불편할 것이다. 그래서, 미리 컴퓨터에게 수행할 명령문을 써놔야한다. 이렇게 미리 작성된 명령문의 집합을 {\bf 프로그램(Program)}이라고 하며, 명령어 집합을 작성하고 명령어 집합이 올바르게 작성될 수 있도록 하는 행위를 {\bf 프로그래밍(Programming)}이라고 부른다.
 
-In the rest of this book, we will try to turn you into a person
-who is skilled in the art of programming.  In the end you will be a 
-{\bf programmer} --- perhaps not a professional programmer but 
-at least you will have the skills to look at a data/information
-analysis problem and develop a program to solve the problem.
+
+
+\section{프로그래밍 이해하기}
+
+책의 나머지 장을 통해서 책을 읽고 있는 당신을 프로그래밍의 장인으로 인도할 것입니다. 종국에는 책을 읽고 있는 여러분은 {\bf 프로그래머}가 될 것입니다. 아마도 전문적인 프로그러머는 아닐지라도 적어도 자료/정보 분석 문제를 보고 그 문제를 풀수 있는 기술을 가지게는 될 것입니다.
 
 \index{problem solving}
 
-In a sense, you need two skills to be a programmer:
+이런 점에서 프로그래머가 되려면 두가지 기술이 필요로 합니다.
 
 \begin{itemize}
 
-\item First you need to know the programming language (Python) -
-you need to know the vocabulary and the grammar.  You need to be able 
-to spell the words in this new language properly and how to construct 
-well-formed ``sentences'' in this new languages.
+\item 첫째, 파이썬같은 프로그래밍 언어 - 어휘와 문법을 알 필요가 있습니다. 단어를 새로운 언어에 맞추어 쓸 수 있어야 하며 새로운 언어를 잘 표현된 문장으로 구성하는지를 알아야 합니다.
 
-\item Second you need to ``tell a story''.  In writing a story,
-you combine words and sentences to convey an idea to the reader. 
-There is a skill and art in constructing the story and skill in
-story writing is improved by doing some writing and getting some
-feedback.  In programming, our program is the ``story'' and the 
-problem you are trying to solve is the ``idea''.
+\item 둘째, 스토리(Story)를 말 할 수 있어야 합니다. 스토리를 만들때, 독자에게 우리의 아이디어(idea)를 전달하기 위해서 단어와 문장을 조합합니다. 스토리를 만들 때 기술과 예술적인 면이 있으며, 기술과 예술적인 면은 여러번 쓰기 연습을 통하고 피트백을 받으므로써 향상됩니다. 프로그래밍에서, 우리가 만든 프로그램은 스토리이고, 풀려고 하는 문제는 "아이디어"에 해당합니다.
 
 \end{itemize}
 
-Once you learn one programming language such as Python, you will 
-find it much easier to learn a second programming language such
-as JavaScript or C++.  The new programming language has very different 
-vocabulary and grammar but once you learn problem solving skills, 
-they will be the same across all programming languages.
+파이썬과 같은 프로그래밍 언어를 배우게 되면, 자바스크립트나 C++ 같은 두번째 언어를 배우는 것은 무척이나 쉽습니다. 새로운 프로그래밍 언어는 매우 다른 어휘와 문법을 가지지만, 문제푸는 기술을 배우기만 하면, 모든 프로그래밍 언어에서로 동일하게 접근할 수 있습니다.
 
-You will learn the ``vocabulary'' and ``sentences'' of Python pretty quickly.
-It will take longer for you to be able to write a coherent program
-to solve a brand new problem.  We teach programming much like we teach
-writing.  We start reading and explaining programs and then we write 
-simple programs and then write increasingly complex programs over time.
-At some point you ``get your muse'' and see the patterns on your own
-and can see more naturally how to take a problem and 
-write a program that solves that problem.  And once you get 
-to that point, programming becomes a very pleasant and creative process.  
+파이썬의 어휘와 문단은 금방 배웁니다. 새로운 종류의 문제를 풀기위해 논리적인 프로그램을 짜는 것은 오래 걸립니다. 여러분은 작문을 배우듯이 프로그래밍을 배우게 될 것입니다. 프로그래밍을 읽고 설명하는 것으로 시작해서 간단한 프로그램을 작성하고, 점차적으로 복잡한 프로그램을 작성하게될 것입니다. 어느 순간에 명상에 잠기게 되고, 문제해결과 프로그램의 패턴을 보게되고, 좀더 자연스럽게 어떻게 문제를 받아들여 그 문제를 해결할 수 있는 프로그램을 작성하게 될 것입니다. 그리고, 그 순간에 도착하게 되면, 프로그래밍은 매우 즐겁고 창의적인 과정이 될 것입니다.
 
-We start with the vocabulary and structure of Python programs.  Be patient
-as the simple examples remind you of when you started reading for the first
-time. 
+파이썬 프로그램의 어휘와 구조로 시작을 합니다. 간단한 예제가 언제 처음으로 프로그램을 읽기 시작했는지를 일깨워 주니 인내심을 가지세요.
 
-\section{Words and sentences}
+\section{단어와 문장}
 \index{programming language}
 \index{language!programming}
 
-Unlike human languages, the Python vocabulary is actually pretty small.
-We call this ``vocabulary'' the ``reserved words''.  These are words that
-have very special meaning to Python.  When Python sees these words in 
-a Python program, they have one and only one meaning to Python.  Later
-as you write programs you will make your own words that have meaning to 
-you called {\bf variables}.   You will have great latitude in choosing
-your names for your variables, but you cannot use any of Python's 
-reserved words as a name for a variable.
+사람의 언어와 달리, 파이썬의 어휘는 실질적으로 매우 적다. 어휘를 예약어(researved words)로 부른다. 이들 단어는 파이썬에 매우 특별한 의미를 가진다. 파이썬 프로그램에서 파이썬이 이들 단어를 보게되면, 이들 단어는 파이썬에게 단 하나의 유일한 의미를 지니게 된다. 후에 여러분들이 프로그램을 작성할 때 여러분들이 만든 자신만의 단어를 작성하게 되는데 이를 {\bf 변수(Variable)}라고 합니다. 여러분의 변수의 이름을 지을 때 폭넓은 자유를 가질 수 있지만, 변수의 이름으로 파이썬의 예약어를 사용할 수는 없습니다.
 
-In a sense, when we train a dog, we would use special words like,
-``sit'', ``stay'', and ``fetch''.  Also when you talk to a dog and
-don't use any of the reserved words, they just look at you with a 
-quizzical look on their faces until you say a reserved word.  
-For example, if you say, 
-``I wish more people would walk to improve their overall health.'', 
-what most dogs likely hear is,
-``blah blah blah {\bf walk} blah blah blah blah.''
-That is because ``walk'' is a reserved word in dog language.  Many
-might suggest that the language between humans and cats has no
-reserved words\footnote{\url{http://xkcd.com/231/}}.
+이런 점에서 강아지를 훈련시킬 때 "앉아", "기달려", 가져와 같은 특별한 어휘를 사용합니다. 강아지에게 이런 특별한 예약어를 사용하지 않을 때, 강아지는 주인이 특별한 어휘를 사용하지 않을 때 주인을 물끄러미 쳐다보기만 합니다. 예를 들어, "여러분이 더 많은 사람들이 건강을 전반적으로 향상하는 방향으로 가자 원한다"고 말하면, 강아지가 든는 것은 ''뭐라 뭐라 뭐라 {\bf walk} 뭐라'' 이렇게 들릴 것이다. 왜냐하면 "가자"가 강아지의 언어에는 예약어\footnote{\url{http://xkcd.com/231/}}이기 때문이다. 이러한 사실은 개와 사람사이에는 예약어가 없다는 것을 의미할지도 모른다.
 
-The reserved words in the language where humans talk to 
-Python incudes the following:
+사람이 파이썬에게 말을 하는 예약어는 다음과 같은 것이 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -262,14 +127,9 @@ def       for       lambda    try
 \end{verbatim}
 \afterverb
 %
-That is it, and unlike a dog, Python is already completely trained.
-When you say ``try'', Python will try every time you say it without
-fail.
+강아지의 사례와는다르게 파이썬은 이미 완벽하게 훈련이 되어 있다. 여러분이 "try" 라고 말하면, 파이썬은 여러분이 매번 "try" 라고 말할 때마다 실패 없이 시도를 할 것이다.
 
-We will learn these reserved words and how they are used in good time,
-but for now we will focus on the Python equivalent of ``speak'' (in 
-human to dog language).  The nice thing about telling Python to speak
-is that we can even tell it what to say by giving it a message in quotes:
+이러한 예약어를 배울 것이고 어떻게 잘 사용되는지도 함께 배울것이지만, 지금은 파이썬에 말하는 것에 집중할 것이다. 파이썬에게 말하는 것 중 좋은 것은 다음과 같은 메세지를 던지는 것으로도 파이썬에 말을 할 수 있다는 것이다.
 
 \beforeverb
 \begin{verbatim}
@@ -277,25 +137,14 @@ print 'Hello world!'
 \end{verbatim}
 \afterverb
 
-And we have even written our first syntactically correct Python sentence.
-Our sentence starts with the reserved word {\bf print} followed
-by a string of text of our choosing enclosed in single quotes.
+이 간단한 문장이 파이썬의 구문(Syntax)론적으로 완벽하다. 위 문장은 예약어 'print'로 시작해서 출력하고자 하는 문자열을 작은 따옴표로 감싸안아 올바르게 파이썬에게 전달했다.
 
-\section{Conversing with Python}
+\section{파이썬과 대화하기}
 
-Now that we have a word and a simple sentence that we know in Python,
-we need to know how to start a conversation with Python to test 
-our new language skills.
+파이썬으로 우리가 알고 있는 단어를 가지고 간단한 문장을 만들었고, 새로운 언어 기술을 시험하기 위해서 파이썬과 대화를 어떻게 하는지 알 필요가 있다.
 
-Before you can converse with Python, you must first install the Python
-software on your computer and learn how to start Python on your 
-computer.  That is too much detail for this chapter so I suggest
-that you consult \url{www.pythonlearn.com} where I have detailed
-instructions and screencasts of setting up and starting Python 
-on Macintosh and Windows systems.  At some point, you will be in 
-a terminal or command window and you will type {\bf python} and 
-the Python interpreter will start executing in interactive mode
-and appear somewhat as follows:
+파이썬과 대화를 시작하기 전에, 파이썬 소프트웨어를 컴퓨터에 설치하고 컴퓨터에서 파이썬을 어떻게 실행하는지를 배워야 한다. 이번장에서 다루기에는 너무 구체적이고 자세한 사항이기 때문에 \url{www.pythonlearn.com}을 참조하는 것을 권고한다. 자세한 설치 방법과 화면을 캡쳐하여 윈도우와 매킨토쉬 시스템 및 실행하는 방법을 설명하였다. 설치가 마무리되고 터미널이나 명령어 실행창에서 {\bf python}을 치게되면 파이썬 인터프리터가 인터랙티브 모드로 실행을 시작하고 다음과 같은 것이 화면에 뿌려진다.
+
 \index{interactive mode}
 
 \beforeverb
@@ -307,15 +156,9 @@ Type "help", "copyright", "credits" or "license" for more information.
 \end{verbatim}
 \afterverb
 %
-The {\tt >>>} prompt is the Python interpreter's way of asking you, ``What
-do you want me to do next?''.  Python is ready to have a conversation with
-you.  All you have to know is how to speak the Python language and you 
-can have a conversation.
+{\tt >>>} 프롬프트는 파이썬 인터프리터가 여러분에게 요청하는 방식이다. "다음에 파이썬이 무엇을 실행하기를 원합니까?" 파이썬은 여러분과 대화를 나눌 준비가 되었다. 이제 남은 것은 파이썬 언어로 어떻게 말하는 지를 여러분이 아는 것이고 여러분은 대화를 할 수 있다.
 
-Lets say for example that you did not know even the simplest Python language
-words or sentences. You might want to use the standard line that astronauts 
-use when they land on a far away planet and try to speak with the inhabitants
-of the planet:
+예를들어 여러분이 가장 간단한 파이썬 언어의 단어나 문장 조차도 알수가 없다고 가정해 봅시다. 우주 비행사가 저 멀리 떨어진 행성에 착륙할 때 사용하는 간단한 말을 사용하여 행성의 거주민에게 대화를 시도한다고 생각해 봅시다.
 
 \beforeverb
 \begin{verbatim}
@@ -328,12 +171,9 @@ SyntaxError: invalid syntax
 \end{verbatim}
 \afterverb
 %
-This is not going so well.  Unless you think of something quickly,
-the inhabitants of the planet are likely to stab you with their spears, 
-put you on a spit, roast you over a fire, and eat you for dinner.
+잘 되는것 같지 않습니다. 뭔가 빨리 다른 생각을 하지 않는다면, 행성의 거주민은 창으로 찔르고, 기름에 잘 발라 불위에서 바베큐를 만들어 저녁으로 먹을 듯 합니다.
 
-Luckily you brought a copy of this book on your travels and you thumb to
-this very page and try again:
+운 좋게도 기나긴 우주 여행중 이책의 복사본을 가지고 와서 다음과 같이 빠르게 친다고 생각해봅시다.
 
 \beforeverb
 \begin{verbatim}
@@ -342,8 +182,8 @@ Hello world!
 \end{verbatim}
 \afterverb
 %
-This is looking much better so you try to communicate some
-more:
+
+훨씬 좋아보기고, 좀더 커뮤니케이션을 이어갈 수 있을 것으로 보입니다.
 
 \beforeverb
 \begin{verbatim}
@@ -362,28 +202,14 @@ SyntaxError: EOL while scanning string literal
 \end{verbatim}
 \afterverb
 %
-The conversation was going so well for a while and then you
-made the tiniest mistake using the Python language and Python 
-brought the spears back out.
 
-At this point, you should also realize that while Python 
-is amazingly complex and powerful and very picky about 
-the syntax you use to communicate with it, Python is {\em 
-not} intelligent.  You are having a conversation with 
-yourself but using proper syntax.
+이번 대화는 잠시동안 잘 진행되다가 여러분이 파이썬 언어로 말하다가 정말 사소한 실수를 저질러 파이썬이 오류를 뱉어낸다.
 
-In a sense when you use a program written by someone else
-the conversation is between you and those other
-programmers with Python acting as an intermediary.  Python
-is a way for the creators of programs to express how the 
-conversation is supposed to proceed.  And
-in just a few more chapters, you will be one of those
-programmers using Python to talk to the users of your program.
+이번에 파이썬이 놀랍도록 복잡하고 강력하고 파이썬과 의사소통을 할때 사용하는 신택스(syntax)가 매우 까다롭다는 것은 알 수 있었다. 파이썬은 다른말로 똑똑(Intelligent)하지는 않다. 지금까지 여러분은 자신과 대화를 저절한 신택스(syntax)를 가지고 대화를 했습니다.
 
-Before we leave our first conversation with the Python 
-interpreter, you should probably know the proper way
-to say ``good-bye'' when interacting with the inhabitants
-of Planet Python:
+여러분이 다른사람이 작성한 프로그램을 사용한다는 것은 여러분과 파이썬을 사용하는 다른 프로그래머가 파이썬을 중간 매개체로 대화를 하는 것으로 볼 수 있습니다. 파이썬은 프로그램을 만든 저작자가 어떻게 대화가 진행되어져야 하는지를 표현하는 방식입니다. 다음 몇 장에 걸쳐서 여러분은 파이썬을 이용하여 여러분의 프로그램을 이용하는 다른 많은 프로그래머 중의 한명이 될 것입니다.
+
+파이썬 인터프리터와 대화하는 첫 장을 끝내기 전에, 파이썬 행성의 거주자에게 "안녕히 계세요"를 말하는 적절한 방법을 알아야 한다.
 
 \beforeverb
 \begin{verbatim}
@@ -402,30 +228,16 @@ SyntaxError: invalid syntax
 \end{verbatim}
 \afterverb
 %
-You will notice that the error is different for the first two
-incorrect attempts.   The second error is different because 
-{\bf if} is a reserved word and Python saw the reserved word
-and thought we were trying to say something but got the syntax
-of the sentence wrong.
+위 처음 두개의 시도는 다른 오류 메세지를 출력한다. 두번째 오류는 다른데 이유는 {\bf if}가 예약어이기 때문에 파이썬은 이 예약어를 보고 뭔가 다른 것을 말한다고 생각하지만, 잠시 후 문장의 신택스가 잘못됐다고 판정하고 오류를 뱉어낸다.
 
-The proper way to say ``good-bye'' to Python is to enter 
-{\bf quit()} at the interactive chevron {\tt >>>} prompt.
-It would have probably taken you quite a while to guess that 
-one so having a book handy probably will turn out 
-to be helpful.
+파이썬에게 "안녕히 계세요"를 말하는 올바른 방식은 인터렉티브 {\tt >>>} 프롬프트에서 {\bf quit()}를 입력하는 것이다.
 
-\section{Terminology: interpreter and compiler}
 
-Python is a {\bf high-level} language intended to be relatively
-straightforward for humans to read and write and for computers
-to read and process.  Other high-level languages include: Java, C++,
-PHP, Ruby, Basic, Perl, JavaScript, and many more.  The actual hardware
-inside the Central Processing Unit (CPU) does not understand any
-of these high level languages.
 
-The CPU understands a language we call {\bf machine-language}.  Machine
-language is very simple and frankly very tiresome to write because it 
-is represented all in zeros and ones:
+\section{전문용어: 인터프리터와 컴파일러}
+파이썬은 사람이 읽고 쓸수 있고 컴퓨터도 읽고 쓸 수 있도록 고안된 {\bf 하이레벨(High-level)} 언어이다. 다른 하이레벨 언어는 자바, C++, PHP, 루비, 베이직, 펄, 자바스크립트 등 다수가 있다. 중앙처리장치(CPU)내에서 실제 하드웨어 수준에서 이런 하이레벨 언어를 이해하지 못한다.
+
+중앙처리장치는 우리가 {\bf 기계어(machine-language)}로 부르는 언어만 이해한다. 기계어는 매우 간단하고 솔직히 작성하기에는 매우 지루하다. 왜냐하면 모두 0과 1로만 표현되기 때문이다.
 
 \beforeverb
 \begin{verbatim}
@@ -435,33 +247,16 @@ is represented all in zeros and ones:
 \end{verbatim}
 \afterverb
 %
-Machine language seems quite simple on the surface given that there 
-are only zeros and ones, but its syntax is even more complex
-and far more intricate than Python.  So very few programmers ever write
-machine language.  Instead we build various translators to allow
-programmers to write in high level languages like Python or JavaScript
-and these translators convert the programs to machine language for actual
-execution by the CPU.
+0과 1로만 되어 있기 때문에 기계어가 간단해 보이지만, 시택스는 복잡하고 파이썬보다 훨씬 어렵다. 그래서 매우 소수의 프로그래머만이 기계어를 쓸수 있다. 대신에 파이썬과 자바스크립트 같은 하이레벨 언어로 프로그래머가 작성할 수 있도록 다양한 번역기(translator)를 만들었다. 이들 번역기는 프로그램을 중앙처리장치에 의해서 실제 실행이 가능한 기계어로 변환하여 준다.
 
-Since machine language is tied to the computer hardware, machine language
-is not {\bf portable} across different types of hardware.  Programs written in 
-high-level languages can be moved between different computers by using a 
-different interpreter on the new machine or re-compiling the code to create
-a machine language version of the program for the new machine.
+기계어는 컴퓨터하드웨어에 묶여있기 때문에 기계어는 다른 형식의 하드웨어에 {\bf 이식(portable)}이 되지 않는다. 하이레벨 언어로 작성된 프로그램은 새로운 하드웨어위에 다른 인터프리터를 이용하여 옮겨 실행이 가능하고 다른 하드웨어에 사용할 수 있도록 프로그램을 다시 컴파일하여 사용할 수 있다.
 
-These programming language translators fall into two general categories:
-(1) interpreters and (2) compilers.
+프로그래밍 언어의 번역기는 두가지 범주가 있다. 
+(1) 인터프리터 (2) 컴파일러
 
-An {\bf interpreter} reads the source code of the program as written by the
-programmer, parses the source code, and interprets the instructions on-the-fly.
-Python is an interpreter and when we are running Python interactively, 
-we can type a line of Python (a sentence) and Python processes it immediately
-and is ready for us to type another line of Python.   
+{\bf 인터프리터}는 프로그래머에 의해서 쓰여진 소스코드를 읽고, 소스코드를 파싱하고, 즉석에서 명령어를 해석한다. 파이썬은 인터프리터다. 파이썬을 인터렉트브 모드로 실행할때, 파이썬 명령문을 쓰면, 파이썬이 즉성에서 처리하고, 다른 파이썬 명령어를 여러분으로부터 기다린다.
 
-Some of the lines of Python tell Python that you want it to remember some 
-value for later.   We need to pick a name for that value to be remembered and
-we can use that symbolic name to retrieve the value later.  We use the 
-term {\bf variable} to refer to the labels we use to refer to this stored data.
+파이썬 명령어는 파이썬이 나중에 사용될 값을 기억하기를 바란다. 적당한 이름을 잡아서 그 값을 기억시키고, 나중에 그 이름을 호출하여 값을 사용할 수 있다. 이러한 목적으로 값을 저장하는 것을 {\bf 변수(variable)}라고 한다.
 
 \beforeverb
 \begin{verbatim}
@@ -475,30 +270,15 @@ term {\bf variable} to refer to the labels we use to refer to this stored data.
 \end{verbatim}
 \afterverb
 %
-In this example, we ask Python to remember the value six and use the label {\bf x}
-so we can retrieve the value later.   We verify that Python has actually remembered
-the value using {\bf print}. Then we ask Python to retrieve {\bf x} and multiply
-it by seven and put the newly-computed value in {\bf y}.  Then we ask Python to print out
-the value currently in {\bf y}.
+이 예제에서 파이썬이 x라는 라벨을 사용하여 6이라는 값을 저장하기를 바라고 나중에 사용코저 한다. {\bf print} 예약어를 사용하여 파이썬이 잘 기억하고 있는지를 검증한다. 그리고 {\bf x}를 반환하여 7을 곱하고 새로운 변수 {\bf y}에 값을 집어 넣는다. 그리고 {\bf y}에 현재 무엇이 저장되어 있는지 출력하라고 파이썬에게 요청한다.
 
-Even though we are typing these commands into Python one line at a time, Python
-is treating them as an ordered sequence of statements with later statements able
-to retrieve data created in earlier statements.   We are writing our first 
-simple paragraph with four sentences in a logical and meaningful order.
+파이썬에 한줄 한줄 명령어를 쳐 넣고 있지만, 파이썬은 앞쪽에 명령문에서 생성된 자료가 나중의 실행 명령문에서 사용될 수 있도록 정렬된 명령문으로 처리한다. 방금전 논리적이고 의미있는 순서로 4줄의 명령문을 가진 한 단락을 작성한 것이다.
 
-It is the nature of an {\bf interpreter} to be able to have an interactive conversation
-as shown above.  A {\bf compiler} needs to be handed the entire program in a file, and then 
-it runs a process to translate the high level source code into machine language
-and then the compiler puts the resulting machine language into a file for later
-execution.
+위에서 본것처럼 파이썬과 대화를 주고받을 수 있는 것이 {\bf 인터프리터}의 본질이다. {\bf 컴파일러}는 완전한 프로그램을 하나의 파일에 담겨지고, 하이레벨 소스코드가 기계어로 번역되고, 컴파일러가 나중에 실행되도록 기계어를 파일에 담아놓는다.
 
-If you have a Windows system, often these executable machine language programs have a
-suffix of ``.exe'' or ``.dll'' which stand for ``executable'' and ``dynamically loadable
-library'' respectively.  In Linux and Macintosh there is no suffix that uniquely marks
-a file as executable.
+윈도우를 사용한다면, 실행가능한 기계어 프로그램의 확장자가 ".exe"(executable), 혹은 ".dll"(dynamically loadable library)임을 확인할 수 있다. 리눅스와 매키토쉬에서는 실행화일을 의미하는 확장자는 없다.
 
-If you were to open an executable file in a text editor, it would look 
-completely crazy and be unreadable:
+텍스트 편집기에서 실행파일을 열게되면 다음과 같은 읽을 수 없는 좀 괴상한 출력을 화면상에서 확인할 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -539,21 +319,15 @@ That is more than you really need to know to be a Python programmer, but
 sometimes it pays to answer those little nagging questions right at 
 the beginning.
 
-\section{Writing a program}
+\section{프로그램 작성하기}
 
-Typing commands into the Python interpreter is a great way to experiment 
-with Python's features, but it is not recommended for solving more complex problems.
+파이썬 인터프리터에 명령어를 치는 것은 파이썬의 주요기능을 알아볼 수 있는 좋은 방법이지만 좀더 복잡한 문제를 해결하기 위해서는 권해드리지는 않습니다.
 
-When we want to write a program, 
-we use a text editor to write the Python instructions into a file,
-which is called a {\bf script}.  By
-convention, Python scripts have names that end with {\tt .py}.
+프로그램을 작성할 때 {\bf 스크립트(script)}로 불리는 파일에 명령어 집합을 작성하기 위해서 텍스트 편집기를 주로 사용합니다. 파이썬 스크립트는 {\tt .py}라는 확장자를 가집니다.
 
 \index{script}
 
-To execute the script, you have to tell the Python interpreter 
-the name of the file.  In a Unix or Windows command window, 
-you would type {\tt python hello.py} as follows:
+스크립트를 실행하기 위해서 파이썬 인터프리터에게 파일의 이름을 말해줍니다. 유니스나 윈도우 명령창에서 {\tt python hello.py}를 치게 되면 다음과 같은 결과를 얻게 됩니다.
 
 \beforeverb
 \begin{verbatim}
@@ -565,40 +339,21 @@ csev$
 \end{verbatim}
 \afterverb
 %
-The ``csev\$'' is the operating system prompt, and the ``cat hello.py'' is 
-showing us that the file ``hello.py'' has a one line Python program to print
-a string.
+''csev\$''은 운영시스템의 명령어 프롬프트이고, ''cat hello.py''는 문자열을 출력하라는 한줄의 파이썬 프로그램을 표시하라는 명령어입니다.
 
-We call the Python interpreter and tell it to read its source code from
-the file ``hello.py'' instead of prompting us for lines of Python code
-interactively.
+인터랙트브 모드로 파이썬 코드를 보여달라는 방식 대신에 파이썬 인터프리터를 호출하고 ''hello.py'' 파일에서 소스코드를 읽으라고 말하는 것입니다.
 
-You will notice that there was no need to have {\bf quit()} at the end of
-the Python program in the file.   When Python is reading your source code
-from a file, it knows to stop when it reaches the end of the file.
+이 새로운 방식은 파이썬 프로그램을 끝내기 위해 {\bf quit()}를 사용할 필요가 없는 것이 좋은 점입니다. 파이썬이 파일에서 소스코드를 읽을 때, 파일 끝까지 읽게되면 파이썬은 자동으로 끝낼 줄을 알고 있습니다.
 
-\section{What is a program?}
+\section{프로그램이란 무엇인가?}
 
-The definition of a {\bf program} at its most basic is a sequence
-of Python statements that have been crafted to do something.
-Even our simple {\bf hello.py} script is a program.  It is a one-line
-program and is not particularly useful, but in the strictest definition,
-it is a Python program.
+{\bf 프로그램(Program)}의 가장 기본적인 정의는 어떠한 일을 할 수 있도록 조작된 일련의 파이썬 명령문의 집합이다. 가장 간단한 {\bf hello.py} 스크립트도 프로그램이다. 한줄의 프로그램으로 특별히 유익하고 쓸모가 있는 것은 아니지만 엄격한 의미에서 파이썬 프로그램이 맞다.
 
-It might be easiest to understand what a program is by thinking about a problem 
-that a program might be built to solve, and then looking at a program
-that would solve that problem.
+프로그램을 이해하는 가장 쉬운 방법은 프로그램이 어떠한 문제를 풀려고 만들어졌는지 문제를 먼저 생각하는 것이다. 그리고 그 문제를 풀려고 작성된 프로그램을 살펴보는 것이다.
 
-Lets say you are doing Social Computing research on Facebook posts and 
-you are interested in the most frequently used word in a series of posts.
-You could print out the stream of facebook posts and pore over the text
-looking for the most common word, but that would take a long time and be very 
-mistake prone.  You would be smart to write a Python program to handle the
-task quickly and accurately so you can spend the weekend doing something 
-fun.
+예를 들어 여러분이 페이스북의 일련의 게시된 글에 가장 자주 사용된 단어에 관심을 가지고 소셜 컴퓨팅 연구를 한다고 생각해 봅시다. 페이스북에 게시된 글들을 출력하고 가장 흔한 단어를 찾으로 열심히 들여다 볼 것이지만 매우 오래걸리고 실수하기 쉽습니다. 하지만 파이썬 프로그램을 이용하면, 빨리 정확하게 작업을 할 수 있는 파이썬 프로그램을 작성해서 주말에 뭔가 재미있는 일로 보낼 수 있습니다.
 
-For example look at the following text about a clown and a car.  Look at the 
-text and figure out the most common word and how many times it occurs.
+예를 들어 다음의 자동차(car)와 광대(clown)를 보고, 가장 많이 나오는 단어는 무엇이며 몇번 나왔는지 세어보세요.
 
 \beforeverb
 \begin{verbatim}
@@ -607,14 +362,10 @@ and the tent fell down on the clown and the car
 \end{verbatim}
 \afterverb
 %
-Then imagine that you are doing this task looking at millions of lines of 
-text.  Frankly it would be quicker for you to learn Python and write a 
-Python program to count the words than it would be to manually 
-scan the words.
 
-The even better news is that I already came up with a simple program to 
-find the most common word in a text file.  I wrote it,
-tested it, and now I am giving it to you to use so you can save some time.
+그리고, 몇백만줄의 텍스트를 보고서 동일한 일을 한다고 상상해 보세요. 솔직히 수작업으로 단어를 세는 것보다 파이썬을 배워 프로그램을 배우는 것이 훨씬 빠를 것입니다.
+
+더 좋은 소식은 이미 텍스트 파일에서 가장 자주 나오는 단어를 찾아내는 간단한 프로그램을 제시했고, 작성했고, 시험까지 했다. 이걸 가지고 여러분들은 바로 사용을 할 수 있기 때문에 수고를 덜 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -638,81 +389,43 @@ print bigword, bigcount
 \end{verbatim}
 \afterverb
 %
-You don't even need to know Python to use this program.  You will need to get through 
-Chapter 10 of this book to fully understand the awesome Python techniques that were
-used to make the program.  You are the end user, you simply use the program and marvel
-at its cleverness and how it saved you so much manual effort.
-You simply type the code 
-into a file called {\bf words.py} and run it or you download the source 
-code from \url{http://www.pythonlearn.com/code/} and run it.
+이 프로그램을 사용하려고 파이썬을 알 필요도 없다. 10장에 걸쳐서 멋진 파이썬 프로그램을 만드는 방법을 배우게 될 것입니다. 지금 여러분은 사용자로 단순히 프로그램을 사용하지만 이 프로그램이 얼마나 많은 수작업을 줄일 수 있는지 보여주고 있다. 코드를 작성하고 {\bf words.py}로 저장하여 실행을 하거나, \url{http://www.pythonlearn.com/code/}에서 소스코드를 다운로드 받아 실행하면 된다.
 
 \index{program}
-This is a good example of how Python and the Python language are acting as an intermediary
-between you (the end-user) and me (the programmer).  Python is a way for us to exchange useful
-instruction sequences (i.e. programs) in a common language that can be used by anyone who 
-installs Python on their computer.  So neither of us are talking {\em to Python},
-instead we are communicating with each other {\em through} Python.
+파이썬과 파이썬 언어가 중간의 중개자로서 여러분(사용자)과 저자(프로그래머)사이에서 중개자의 역할을 훌륭히 하고 있는 것을 보여주고 있습니다. 파이썬이 설치된 컴퓨터에서 누구나 사용할 수 있는 공통의 언어로 유용한 명령 순서(즉, 프로그램)를 주고받는지 보여준다. 그래서 {\em 파이썬과} 직접의사소통하지 않고 {\em 파이썬을 통해서} 서로 의사소통할 수 있다.
 
-\section{The building blocks of programs}
+\section{프로그램 구성요소}
 
-In the next few chapters, we will learn more about the vocabulary, sentence structure,
-paragraph structure, and story structure of Python.  We will learn about the powerful
-capabilities of Python and how to compose those capabilities together to create useful
-programs.
+다음의 몇장에 걸쳐서 파이썬 어휘, 문장구조, 문단구조에 대해서 배울 것이다. 파이썬의 강력한 점에 대해서 배울 것이고, 유용한 프로그램을 작성하기 위해서 파이썬의 역량을 조합하는 법을 배울 것이다.
 
-There are some low-level conceptual patterns that we use to construct programs.  These
-constructs are not just for Python programs, they are part of every programming language
-from machine language up to the high-level languages.
+프로그램을 작성하기 위해서 사용하는 로우레벨(low-level) 패턴이 몇가지 있다. 파이썬을 위해서 만들어졌다기 보다는 기계어부터 하이레벨 언어에 이르기까지 모든 언어에 공통된 사항이다.
 
 \begin{description}
 
-\item[input:] Get data from the ``outside world''.  This might be 
-reading data from a file, or even some kind of sensor like 
-a microphone or GPS.  In our initial programs, our input will come from the user
-typing data on the keyboard.
+\item[입력:] 컴퓨터 바깥세계에서 데이터를 가져온다. 파일로부터 데이터를 읽을 수도 있고, 마이크나 GPS 같은 센서에서 데이터를 입력받을 수도 있다. 위 프로그램에서 사용자의 키보드로 데이터를 입력받아 입력값으로 사용된 사례이다.
 
-\item[output:] Display the results of the program on a screen
-or store them in a file or perhaps write them to a device like a
-speaker to play music or speak text.
+\item[출력:] 화면에 프로그램의 결과값을 보여주거나 파일에 저장한다. 혹은 음악을 연주하거나 텍스트를 읽도록 스피커 같은 장치에 데이터를 보낸다.
 
-\item[sequential execution:] Perform statements one after
-another in the order they are encountered in the script.
+\item[순차 실행:] 스크립트에 작성된 순서에 맞추어 한줄 한줄 실행된다.
 
-\item[conditional execution:] Check for certain conditions and
-execute or skip a sequence of statements.
+\item[조건 실행:] 조건을 확인하고 명령문을 실행하거나 건너뛴다.
 
-\item[repeated execution:] Perform some set of statements 
-repeatedly, usually with
-some variation.
+\item[반복 실행:] 반복적으로 명령문을 실행한다. 대체로 반복 실행시 변화를 수반한다.
 
-\item[reuse:] Write a set of instructions once and give them a name
-and then reuse those instructions as needed throughout your program.
+\item[재사용:] 명령어를 한번 작성하고 이름을 주어 저장하고 프로그램의 필요에 따라 이름을 불러 몇차례 다시 사용한다.
 
 \end{description}
 
-It sounds almost too simple to be true and of course it is never
-so simple.  It is like saying that walking is simply
-``putting one foot in front of the other''.  The ``art'' 
-of writing a program is composing and weaving these
-basic elements together many times over to produce something
-that is useful to its users.
+너무나 간단하게 들리지만, 전혀 간단하지는 않다. 걸음거리를 간단히 ''한 다리를 다를 다리 앞에 놓으세요'' 라고 말하는 것 같다. 프로그램을 짜는 ''예술''은 이러한 기본 요소를 조합하고 엮어 사용자에게 유용한 무언가를 만드는 것이다.
 
-The word counting program above directly uses all of 
-these patterns except for one.
+단어를 세는 프로그램은 위 프로그램의 기본요소를 하나만 빼고 모두 사용하여 작성되었다.
 
-\section{What could possibly go wrong?}
 
-As we saw in our earliest conversations with Python, we must
-communicate very precisely when we write Python code.  The smallest
-deviation or mistake will cause Python to give up looking at your
-program.
+\section{프로그램이 잘못되면?}
 
-Beginning programmers often take the fact that Python leaves no
-room for errors as evidence that Python is mean, hateful and cruel.
-While Python seems to like everyone else, Python knows them 
-personally and holds a grudge against them.  Because of this grudge,
-Python takes our perfectly written programs and rejects them as 
-``unfit'' just to torment us.
+파이썬과 처음에 대화를 할때, 파이썬 코드를 명확하게 작성하여 의사소통을 해야한다. 작은 차이 혹은 실수는 파이썬이 여러분이 작성한 프로그램을 보다가 포기하게 만듭니다.
+
+초보 파이썬 프로그래머는 파이썬이 오류에 대해서는 인정사정볼 것 없다고 생각합니다. 파이썬이 모든 사람을 좋아하는 것 같지만, 파이썬은 사적으로 사람들을 알고 있고, 뒤끝이 있습니다. 이러한 사실로 인해서 파이썬은 완벽하게 작성된 프로그램만을 가지게 되고 ''잘못 작성되었어요''라고 뱉어내고 여러분에게 고통을 줍니다.
 
 \beforeverb
 \begin{verbatim}
@@ -740,207 +453,131 @@ SyntaxError: invalid syntax
 \end{verbatim}
 \afterverb
 %
-There is little to be gained by arguing with Python.  It is a tool,
-it has no emotion and it is happy and ready to serve you whenever you
-need it.  Its error messages sound harsh, but they are just Python's
-call for help.  It has looked at what you typed, and it simply cannot
-understand what you have entered.
 
-Python is much more like a dog, loving you unconditionally, having a few
-key words that it understands, looking you with a sweet look on its
-face ({\tt >>>}) and waiting for you to say something it understands.
-When Python says ``SyntaxError: invalid syntax'', it is simply wagging
-its tail and saying, ``You seemed to say something but I just don't
-understand what you meant, but please keep talking to me ({\tt >>>}).''
+파이썬과 다퉈봐야 얻을 것은 없어요. 파이썬은 도구고 감정이 없습니다. 여러분이 필요로 할 때마다 여러분에게 봉사하고 기쁨을 주기 위해서 존재할 뿐입니다. 오류 메세지가 심하게 들릴지는 모르지만 단지 파이썬이 도와달라고 하는 요청일 뿐입니다. 여러분이 입력한 것을 쭉 읽어보고 여러분이 입력한 것을 이해할 수 없다고만 말할 뿐입니다.
 
-As your programs become increasingly sophisticated, you will encounter three 
-general types of errors:
+파이썬은 어떤면에서 강아지와 닮았습니다. 맹목적으로 여러분을 사랑하고, 강아지가 이해하는 몇몇 단어만 이해하며, 웃는 표정({\tt >>>} 명령 프롬프트)으로 여러분이 무언가를 말하기만을 기다립니다. 파이썬이 ''SyntaxError: invalid syntax''을 뱉어낼 때, 꼬리를 흔들면서 ''뭔가 말씀하시는 것 같은데요... 주인님 말씀을 이해하지 못하겠어요, 다시 말씀해 주세요 ({\tt >>>})'' 말하는 것과 같다.
+
+여러분이 작성하는 프로그램이 점점 유용해지고 복잡해짐에 따라 3가지 유형의 오류를 마주치게 된다.
 
 \begin{description}
 
-\item[Syntax errors:] These are the first errors you will make and the easiest
-to fix.  A syntax error means that you have violated the ``grammar'' rules of Python.
-Python does its best to point right at the line and character where 
-it noticed it was confused.  The only tricky bit of syntax errors is that sometimes
-the mistake that needs fixing is actually earlier in the program than where Python
-{\em noticed} it was confused.  So the line and character that Python indicates in 
-a syntax error may just be a starting point for your investigation.
+\item[구문 오류(Syntax Error):]첫번째 마주치는 오류로 고치기 가장 쉽습니다. 구문 오류는 파이썬의 문법에 맞지 않는다는 것을 의미합니다. 파이썬은 구문오류가 발생한 줄을 찾아 정확한 위치를 알려줍니다. 하지만, 파이썬이 제시하는 오류가 그 이전 프로그램 부문에서 발생했을 수도 있기 때문에 파이썬이 알려주는 곳 뿐만 아니라 그 앞쪽도 살펴볼 필요가 있다. 따라서 파이썬이 제시하는 구문 오류의 경우 오류가 난 곳은 오류를 고치기 위한 시작점으로 의미가 있다.
 
-\item[Logic errors:] A logic error is when your program has good syntax but there is a mistake 
-in the order of the statements or perhaps a mistake in how the statements relate to one another.
-A good example of a logic error might be, ``take a drink from your water bottle, put it 
-in your backpack, walk to the library, and then put the top back on the bottle.''
+\item[논리 오류(Logic Error):] 논리 오류는 프로그램의 구문은 완벽하지만 명령문의 실행에 혹은 다른 명령어부분과 관련된 부문에서 실수가 있는 것이다. 논리 오류의 예를 들어보자. ''물병에서 한모금 마시고, 가방에 넣고, 도서관으로 걸어가서, 물병을 닫는다''
 
-\item[Semantic errors:] A semantic error is when your description of the steps to take 
-is syntactically perfect and in the right order, but there is simply a mistake in 
-the program.  The program is perfectly correct but it does not do what
-you {\em intended} for it to do. A simple example would
-be if you were giving a person directions to a restaurant and said, ``... when you reach
-the intersection with the gas station, turn left and go one mile and the restaurant
-is a red building on your left.''.  Your friend is very late and calls you to tell you that
-they are on a farm and walking around behind a barn, with no sign of a restaurant.  
-Then you say ``did you turn left or right at the gas station?'' and 
-they say, ``I followed your directions perfectly, I have 
-them written down, it says turn left and go one mile at the gas station.''.  Then you say,
-``I am very sorry, because while my instructions were syntactically correct, they 
-sadly contained a small but undetected semantic error.''. 
+\item[시맨틱 오류(Semantic Error):] 시맨틱 오류는 구문론적으로 완벽하고 올바른 순서로 프로그램의 명령문이 작성되었지만 프로그램에 오류가 숨어있다. 프로그램은 완벽하게 작동하지만 여러분이 의도한 바를 수행하지는 못합니다. 간단한 예로 여러분이 식당으로 가는 방향을 알려주고 있습니다. '' ... 주유소 사거리에 도착했을 때, 왼쪽으로 돌아 1.6km 쭉 가면 왼쪽편에 빨간색 빌딩에 식당이 있습니다.'' 친구가 매우 늦어 전화로 지금 농장에 있고 헛간으로 걸어가고 있는데 식당을 발견할 수 없다고 전화를 합니다. 그러면 여러분은 ''주유소 왼쪽 혹은 오른쪽을 돈거야'' 말하면, 그 친구는 ''말한대로 완벽하게 따라서 했고, 말한대로 적기까지 했는데, 왼쪽으로 돌아 1.6km에 주요소가 있다고 했어'', 그러면 여러분은 ''미안해, 내가 가지고 있는 건 구문론적으로는 완벽한데, 사소한 시맨틱 오류가 있네!'' 라고 말할 것이다.
 
 \end{description}
 
-Again in all three types of errors, Python is merely trying its hardest to 
-do exactly what you have asked.
+위 세 종류의 오류에 대해서 파이썬은 여러분이 요청한 것을 충실히 수행하기 위해서 최선을 다합니다.
 
-\section{The learning journey}
+\section{학습으로의 여정}
 
-As you progress through the rest of the book, don't be afraid if the concepts 
-don't seem to fit together well the first time.  When you were learning to speak, 
-it was not a problem  for your first few years that you just made cute gurgling noises.
-And it was OK if it took six months for you to move from simple vocabulary to 
-simple sentences and took 5-6 more years to move from sentences to paragraphs, and a
-few more years to be able to write an interesting complete short story on your own.
+여러분이 책을 읽으면서 개념들이 처음에 잘 와 닿지 않는다고 기죽을 필요는 없어요. 여럽누이 말하는 것을 배울 때, 처음 몇년동안 웅얼거리는 것은 문제가 아닙니다. 간단한 어휘에서 간단한 문장으로 옮겨가고, 문장에서 문단으로 옮겨가는데 6개월이 걸려도 괜찮습니다. 흥미로운 완벽한 짧은 스토리를 자신의 언어로 작성하는데 몇 년이 걸립니다.
 
-We want you to learn Python much more rapidly, so we teach it all at the same time
-over the next few chapters.  
-But it is like learning a new language that takes time to absorb and understand
-before it feels natural.
-That leads to some confusion as we visit and revisit
-topics to try to get you to see the big picture while we are defining the tiny
-fragments that make up the big picture.  While the book is written linearly and
-if you are taking a course, it will progress in a linear fashion, don't hesitate
-to be very non-linear in how you approach the material.  Look forwards and backwards
-and read with a light touch.  By skimming more advanced material without 
-fully understanding the details, you can get a better understanding of the ``why?'' 
-of programming.  By reviewing previous material and even re-doing earlier 
-exercises, you will realize that you actually learned a lot of material even 
-if the material you are currently staring at seems a bit impenetrable.
+여러분이 파이썬을 빨리 배울수 있도록 다음의 몇장에 걸쳐서 정보를 제공해 드릴 것입니다. 새로운 언어를 습득하는 것과 같아서 자연스럽게 느껴지기까지 흡수하고 이해하기까지 시간이 걸립니다. 큰 그림(Big Picture)을 이루는 작은 조각을 정의하면서 여러분을 큰 그림을 볼 수 있도록 여러 주제를 찾고, 또 찾으면서 혼란이 생길 수 있다. 이책이 순차 선형적으로 쓰여져서 본 과정을 선형적으로 배워갈 수도 있지만, 비선형적으로 본 교재를 활용하는 것도 괜찮다. 가볍게 앞쪽과 뒷쪽을 넘나들며 책을 읽을 수도 있다. 구체적이고 세세한 점을 완벽하게 이해하지 않고 고급 과정을 가볍게 읽으면서 프로그래밍의 ''왜(Why)''에 대해서 더 잘 이해할 수도 있다. 앞에서 배운것을 다시 리뷰하고 앞의 연습문제를 다시 하면서 처음에 난공불락이라 여겼던 어려운 주제도 더잘 배우고 이해할 수 있다는 것을 알게될 것이다.
 
-Usually when you are learning your first programming language, there are a few
-wonderful ``Ah-Hah!'' moments where you can look up from pounding away at some rock
-with a hammer and chisel and step away and see that you are indeed building 
-a beautiful sculpture.
+대체적으로 처음 프로그래밍 언어를 배울 때 망치로 돌을 내리치고, 끌로 깎아내고 하면서 아름다운 조각품을 만들면서 겪게되는 몇 번의 '' 유레카, 아 하~~'' 순간이 있다.
 
-If something seems particularly hard, there is usually no value in staying up all 
-night and staring at it.   Take a break, take a nap, have a snack, explain what you 
-are having a problem with to someone (or perhaps your dog), and then come back to it with
-fresh eyes.  I assure you that once you learn the programming concepts in the book
-you will look back and see that it was all really easy and elegant and it simply 
-took you a bit of time to absorb it.
+만약 어떤 것이 특별히 힘들다면, 밤새도록 앉아서 지켜보고 노력하는 것은 별로 의미가 없다. 잠시 쉬고, 낮잠을 자고, 간식을 먹고 다른사람이나 강아지에게 문제를 설명하고 자문을 구한 후에 깨끗한 정신과 눈으로 돌아와서 다시 시도해보라. 단언컨데 이책의 프로그래밍 개념을 배우자마자 정말 쉽고 멋지다는 것을 돌이켜 보면 알게될 것이다. 프로그래밍 언어는 정말 배울 가치가 있다.
 
-\section{Glossary}
+\section{용어사전}
 
 \begin{description}
 
-\item[bug:]  An error in a program.
+\item[버그(bug):]  프로그램 오류
 \index{bug}
 
-\item[central processing unit:] The heart of any computer.  It is what
-runs the software that we write; also called ``CPU'' or ``the processor''.
+\item[중앙처리장치(central processing unit, CPU):] 컴퓨터의 심장, 여러분이 작성한 프로그램을 실행하는 장치, "CPU" 혹은 프로세서라고 불립니다.
 \index{central processing unit}
 \index{CPU}
 
-\item[compile:]  To translate a program written in a high-level language
-into a low-level language all at once, in preparation for later
-execution.
+\item[컴파일러(compile):]  하이레벨 언어로 작성된 프로그램을 로우레벨 언어로 즉시 혹은 나중에 사용하도록 번역하는 번역기
 \index{compile}
 
-\item[high-level language:]  A programming language like Python that
-is designed to be easy for humans to read and write.
+\item[하이레벨 언어(high-level language):]  사람이 읽고 쓰기 쉽게 설계된 파이썬과 같은 프로그래밍 언어
 \index{high-level language}
 
-\item[interactive mode:] A way of using the Python interpreter by
-typing commands and expressions at the prompt.
+\item[인터랙티브 모드(interactive mode):] 프롬프트에서 명령어나 표현식을 입력함으로써 파이썬 인터프리터를 사용하는 방식
 \index{interactive mode}
 
-\item[interpret:]  To execute a program in a high-level language
-by translating it one line at a time.
+\item[인터프리트(interpret):] 하이레벨 언어의 프로그램을 한번에 한줄씩 번형해서 실행하는 것
 \index{interpret}
 
-\item[low-level language:]  A programming language that is designed
-to be easy for a computer to execute; also called ``machine code'' or
-``assembly language.''
+\item[로우레벨 언어(low-level language):] 컴퓨터가 실행하기 쉽게 설계된 프로그래밍 언어, ''기계어 코드'', ''어셈블리 언어''로 불린다.
 \index{low-level language}
 
-\item[machine code:]  The lowest level language for software which 
-is the language that is directly executed by the central processing unit 
-(CPU).
+\item[기계어 코드(machine code):] 중앙처리장치에 의해서 바로 실행될수 있는 가장 낮은 수준의 언어로된 소프트웨어
 \index{machine code}
 
-\item[main memory:] Stores programs and data.  Main memory loses 
-its information when the power is turned off.
+\item[주메모리(main memory):] 프로그램과 데이터를 저장한다. 전기가 나가게 되면 주메모리에 저장된 정보는 사라진다.
 \index{main memory}
 
-\item[parse:]  To examine a program and analyze the syntactic structure.
+\item[파싱(parse):]  프로그램을 검사하고 구문론적 구조를 분석하는 것
 \index{parse}
 
-\item[portability:]  A property of a program that can run on more
-than one kind of computer.
+\item[이식(portability):] 하나 이상의 컴퓨터에서 실행될 수 있는 프로그램의 특성
 \index{portability}
 
-\item[print statement:]  An instruction that causes the Python
-interpreter to display a value on the screen.
+\item[출력문(print statement):] 파이썬 인터프리터가 화면에 값을 출력할 수 있게 만드는 명령문
 \index{print statement}
 \index{statement!print}
 
-\item[problem solving:]  The process of formulating a problem, finding
-a solution, and expressing the solution.
+\item[문제해결(problem solving:)] 문제를 만들고, 답을 찾고, 답을 표현하는 과정
 \index{problem solving}
 
-\item[program:] A set of instructions that specifies a computation.
+\item[프로그램(program:)] 컴퓨테이션(Computation)을 명세하는 명령어의 집합
 \index{program}
 
-\item[prompt:] When a program displays a message and pauses for the 
-user to type some input to the program.
+\item[프롬프트(prompt):] 프로그램이 메세지를 출력하고 사용자가 프로그램에 입력하도록 기다릴 때.
 \index{prompt}
 
-\item[secondary memory:] Stores programs and data and retains its 
-information even when the power is turned off.  Generally slower 
-than main memory.  Examples of secondary memory include disk 
-drives and flash memory in USB sticks.
+\item[보조 기억장치] 전기가 나갔을 때도 정보를 기억하고 프로그램을 저장하는 저장소. 일반적으로 주메모리보다 속도가 느리다. USB의 플래쉬 메모리나 디스크 드라이브가 여기에 속한다.
 \index{secondary memory}
 
-\item[semantics:]  The meaning of a program.
+\item[시맨틱(semantics):]  프로그램의 의미
 \index{semantics}
 
-\item[semantic error:]   An error in a program that makes it do something
-other than what the programmer intended.
+\item[시맨틱 오류(semantic error):]  프로그래머가 의도한 것과 다른 행동을 하는 프로그램의 오류
 \index{semantic error}
 
-\item[source code:]  A program in a high-level language.
+\item[소스코드(source code):]  하이레벨 언어로 기술된 프로그램
 \index{source code}
 
 \end{description}
 
-\section{Exercises}
+\section{연습문}
 
 
 \begin{ex}
-What is the function of the secondary memory in a computer?
+컴퓨터 보조기억장치의 기능은 무엇입니까?
 
-a) Execute all of the computation and logic of the program\\
-b) Retrieve web pages over the Internet\\
-c) Store information for the long term - even beyond a power cycle\\
-d) Take input from the user 
+a) 모든 연산과 프로그램의 로직을 수행한다.\\
+b) 인터넷의 웹페이지를 불러온다.\\
+c) 파워가 없을 때도 장시간 정보를 저장한다.\\
+d) 사용자로부터 입력정보를 받는다.
 \end{ex}
 
 \begin{ex}
-What is a program?
+프로그램은 무엇입니까?
 \end{ex}
 
 \begin{ex}
-What is the difference between a compiler and an interpreter?
+컴파일러와 인터프리터의 차이점을 설명하세요.
 \end{ex}
 
 \begin{ex}
-Which of the following contains "machine code"?
+기계어 코드는 다음중 어는 것입니까?
 
-a) The Python interpreter\\
-b) The keyboard\\
-c) Python source file\\
-d) A word processing document
+a) 파이썬 인터프리터\\
+b) 키보드\\
+c) 파이썬 소스코드 파일\\
+d) 워드 프로세싱 문서
 \end{ex}
 
 \begin{ex}
-What is wrong with the following code:
+ 다음 코드에서 잘못된 점을 설명하세요.
 
 \beforeverb
 \begin{verbatim}
@@ -956,8 +593,7 @@ SyntaxError: invalid syntax
 \end{ex}
 
 \begin{ex}
-Where in the computer is a variable such as "X" stored 
-after the following Python line finishes?
+다음의 파이썬 프로그램이 실행된 후에 변수 "X"는 어디에 저장됩니까?
 
 \beforeverb
 \begin{verbatim}
@@ -965,15 +601,15 @@ x = 123
 \end{verbatim}
 \afterverb
 %
-a) Central processing unit\\
-b) Main Memory\\
-c) Secondary Memory\\
-d) Input Devices\\
-e) Output Devices
+a) 중앙처리장치\\
+b) 주메모리\\
+c) 보조메모리\\
+d) 입력장치\\
+e) 출력장치
 \end{ex}
 
 \begin{ex}
-What will the following program print out:
+다음 프로그램에서 출력되는 것은 무엇입니까?
 
 \beforeverb
 \begin{verbatim}
@@ -986,18 +622,18 @@ print x
 a) 43\\
 b) 44\\
 c) x + 1\\
-d) Error because x = x + 1 is not possible mathematically
+d) 오류, 왜냐하면 x = x + 1 은 수학적으로 불가능하다.
 \end{ex}
 
 \begin{ex}
-Explain each of the following using an example of a human capability: 
-(1) Central processing unit, (2) Main Memory, (3) Secondary Memory, 
-(4) Input Device, and
-(5) Output Device.
-For example, "What is the human equivalent to a Central Processing Unit"? 
+사람의 어느 능력부위에 해당하는지 예로하여 다음을 설명하세요.
+(1) 중앙처리장치, (2) 주메모리, (3) 보조메모리, 
+(4) 입력장치
+(5) 출력장치
+중앙처리장치에 상응하는 사람의 몸 부위는 어디입니까? 
 \end{ex}
 
 \begin{ex}
-How do you fix a "Syntax Error"?
+구문오류("Syntax Error")는 어떻게 고칩니까?
 \end{ex}
 

@@ -1,19 +1,17 @@
 % LaTeX source for ``Python for Informatics: Exploring Information''
 % Copyright (c)  2010-  Charles R. Severance, All Rights Reserved
 
-\chapter{Strings}
+\chapter{문자열}
 \label{strings}
 
 
-\section{A string is a sequence}
+\section{문자열은 순열이다.}
 \index{sequence}
 \index{character}
 \index{bracket operator}
 \index{operator!bracket}
 
-A string is a {\bf sequence} of characters.  
-You can access the characters one at a time with the
-bracket operator:
+문자열은 문자의 순열이다. 대괄호 연산자로 한번에 하나씩 문자에 접근할 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -23,14 +21,11 @@ bracket operator:
 \afterverb
 %
 \index{index}
-The second statement extracts the character at index position 1 from the 
-{\tt fruit} variable and assigns it to {\tt letter} variable.  
 
-The expression in brackets is called an {\bf index}.  
-The index indicates which character in the sequence you
-want (hence the name).
+두 번째 명령문은 변수 {\tt fruit}에서 1번 위치의 문자를 추출하여 변수 {\tt letter}에 할당한다.
+대괄호의 표현식을 {\bf 인덱스(index)}라고 부른다. 인덱스는 순열의 무슨 문자를 사용자가 원하는지 표시한다.
 
-But you might not get what you expect:
+하지만, 여려분이 기대한 것을 얻지 못합니다.
 
 \beforeverb
 \begin{verbatim}
@@ -39,9 +34,9 @@ a
 \end{verbatim}
 \afterverb
 %
-For most people, the first letter of \verb"'banana'" is {\tt b}, not
-{\tt a}.  But in Python, the index is an offset from the
-beginning of the string, and the offset of the first letter is zero.
+
+대부분의 사람에게 \verb"'banana'"의 첫 분자는 {\tt a}가 아니라 {\tt b}입니다.
+하지만, 파이썬에서 인텍스는 문자열의 처음부터 값이 시작됩니다. 첫 글자의 시작 값(오프셋, offset)은 0입니다.
 
 \beforeverb
 \begin{verbatim}
@@ -51,9 +46,8 @@ b
 \end{verbatim}
 \afterverb
 %
-So {\tt b} is the 0th letter (``zero-eth'') of \verb"'banana'", {\tt a}
-is the 1th letter (``one-eth''), and {\tt n} is the 2th (``two-eth'')
-letter.
+
+{\tt b}가 \verb"'banana'"의 0번째 문자가 되고 {\tt a}가 첫번째, {\tt n}이 두번째 문자가 됩니다.
 
 \beforefig
 \centerline{\includegraphics[height=0.50in]{figs2/string.eps}}
@@ -62,9 +56,8 @@ letter.
 \index{index!starting at zero}
 \index{zero, index starting at}
 
-You can use any expression, including variables and operators, as an
-index, but the value of the index has to be an integer.  Otherwise you
-get:
+인덱스로 문자와 연산자를 포함하는 어떤 표현식도 사용가능지만, 인덱스의 값은 정수여야 합니다.
+정수가 아닌 경우 다음과 같은 결과를 얻게 됩니다.
 
 \index{index}
 \index{exception!TypeError}
@@ -78,13 +71,12 @@ TypeError: string indices must be integers
 \afterverb
 %
 
-\section{Getting the length of a string using {\tt len}}
+\section{{\tt len}함수를 사용하여 문자열의 길이 구하기}
 
 \index{len function}
 \index{function!len}
 
-{\tt len} is a built-in function that returns the number of characters
-in a string:
+{\tt len}은 문자열의 문자 갯수를 반환하는 내장함수다.
 
 \beforeverb
 \begin{verbatim}
@@ -94,8 +86,8 @@ in a string:
 \end{verbatim}
 \afterverb
 %
-To get the last letter of a string, you might be tempted to try something
-like this:
+
+문자열의 가장 마지막 문자를 얻기 위해서, 아래와 같이 시도하려고 할 것입니다.
 
 \index{exception!IndexError}
 \index{IndexError}
@@ -108,10 +100,11 @@ IndexError: string index out of range
 \end{verbatim}
 \afterverb
 %
-The reason for the {\tt IndexError} is that there is no letter in {\tt
-'banana'} with the index 6.  Since we started counting at zero, the
-six letters are numbered 0 to 5.  To get the last character, you have
-to subtract 1 from {\tt length}:
+
+{\tt IndexError}의 이유는 {\tt 'banana'}에 6번 인텍스의 문자가 없기 때문입니다.
+0에서부터 시작했기 때문에 6개의 문자는 0~5로 번호가 매겨졌습니다. 마지막 문자를 얻기 위해서 
+{\tt length}에서 1을 빼야 합니다.
+
 
 \beforeverb
 \begin{verbatim}
@@ -121,15 +114,16 @@ a
 \end{verbatim}
 \afterverb
 %
-Alternatively, you can use negative indices, which count backward from
-the end of the string.  The expression {\tt fruit[-1]} yields the last
-letter, {\tt fruit[-2]} yields the second to last, and so on.
+
+대안으로 문자의 끝에서 역으로 수를 세는 음의 인텍스를 사용할 수 있습니다. 
+
+{\tt fruit[-1]}는 마지막 문자를 {\tt fruit[-2]}는 끝에서 두 번째 등등 활용할 수 있습니다.
 
 \index{index!negative}
 \index{negative index}
 
 
-\section{Traversal through a string with a loop}
+\section{루프를 사용한 문자열 운행법}
 \label{for}
 
 \index{traversal}
@@ -139,11 +133,9 @@ letter, {\tt fruit[-2]} yields the second to last, and so on.
 \index{statement!for}
 \index{traversal}
 
-A lot of computations involve processing a string one character at a
-time.  Often they start at the beginning, select each character in
-turn, do something to it, and continue until the end.  This pattern of
-processing is called a {\bf traversal}.  One way to write a traversal
-is with a {\tt while} loop:
+많은 연산의 경우 문자열을 한번에 한 문자씩 처리하는 합니다. 종종 처음에서 시작해서, 차례로 각 문자를 선택하고,
+선택된 문자에 임의의 연산을 수행하고, 끝까지 계속합니다. 이런 처리 패턴을 {\bf 운행법(traversal)}라고 합니다.
+운행법을 작성하는 한 방법은 {\tt while} 루프입니다.
 
 \beforeverb
 \begin{verbatim}
@@ -155,20 +147,16 @@ while index < len(fruit):
 \end{verbatim}
 \afterverb
 %
-This loop traverses the string and displays each letter on a line by
-itself.  The loop condition is {\tt index < len(fruit)}, so
-when {\tt index} is equal to the length of the string, the
-condition is false, and the body of the loop is not executed.  The
-last character accessed is the one with the index {\tt len(fruit)-1},
-which is the last character in the string.
+{\tt while} 루프가 문자열을 운행하여 문자열을 한줄에 한자씩 화면에 출력합니다.
+루프 조건이 {\tt index < len(fruit)}이여서, {\tt index}가 문자열의 길와 같을 때,
+조건은 거짓이 되고, 루프의 몸통 부문은 실행이 되지 않습니다. 
+파이썬이 접근한 마지막 문자는 문자열의 마지막 문자인 {\tt len(fruit)-1} 인텍스의 문자입니다.
 
 \begin{ex}
-Write a {\tt while} loop that starts at the last character in the string
-and works its way backwards to the first character in the string, 
-printing each letter on a separate line, except backwards.
+문자열의 마지막 문자에서 시작해서,문자열의 처음으로 역진행하면서 한줄에 한자씩 화면에 출력하는 {\tt while} 루프를 작성하세요.
 \end{ex}
 
-Another way to write a traversal is with a {\tt for} loop:
+운행법을 작성하는 다른 방법은 {\tt for} 루프입니다.
 
 \beforeverb
 \begin{verbatim}
@@ -177,12 +165,10 @@ for char in fruit:
 \end{verbatim}
 \afterverb
 %
-Each time through the loop, the next character in the string is assigned
-to the variable {\tt char}.  The loop continues until no characters are
-left.
 
+루프를 매번 반복할 때, 문자열의 다음 문자가 변수 {\tt char}에 할당됩니다. 루프는 더 이상 남겨진 문자가 없을 때까지 계속 실행됩니다.
 
-\section{String slices}
+\section{문자열 조각}
 \label{slice}
 
 \index{slice operator}
@@ -191,8 +177,7 @@ left.
 \index{string!slice}
 \index{slice!string}
 
-A segment of a string is called a {\bf slice}.  Selecting a slice is
-similar to selecting a character:
+문자열의 일부분을 {\bf 문자열 조각(slice)}이라고 합니다. 문자열 조각을 선택하는 것은 문자를 선택하는 것과 유사합니다.
 
 \beforeverb
 \begin{verbatim}
@@ -204,13 +189,10 @@ Python
 \end{verbatim}
 \afterverb
 %
-The operator {\tt [n:m]} returns the part of the string from the 
-``n-eth'' character to the ``m-eth'' character, including the first but
-excluding the last.  
+{\tt [n:m]} 연산자는 n번째 문자부터 m번째 문자까지의 문자열 - 첫 번째는 포함하지만 마지막은 제외 - 부분을 반환합니다.
 
-If you omit the first index (before the colon), the slice starts at
-the beginning of the string.  If you omit the second index, the slice
-goes to the end of the string:
+콜론 앞의 첫 인텍스를 생략하면, 문자열 조각은 문자열의 처음부터 시작합니다.
+두 번째 인텍스를 생략하면, 문자열 조각은 문자열의 끝까지 갑니다. 
 
 \beforeverb
 \begin{verbatim}
@@ -222,8 +204,8 @@ goes to the end of the string:
 \end{verbatim}
 \afterverb
 %
-If the first index is greater than or equal to the second the result
-is an {\bf empty string}, represented by two quotation marks:
+
+만약 첫번째 인텍스가 두번째보다 크거나 같은 경우 결과는 두 인용부호로 표현되는 {\bf 빈 문자열(empty string)}이 됩니다.
 
 \index{quotation mark}
 
@@ -235,12 +217,11 @@ is an {\bf empty string}, represented by two quotation marks:
 \end{verbatim}
 \afterverb
 %
-An empty string contains no characters and has length 0, but other
-than that, it is the same as any other string.
+
+빈 문자열은 어떠한 문자도 포함하고 있지 않아서 길이가 0 이지만, 이외에 다른 문자열과 동일합니다.
 
 \begin{ex}
-Given that {\tt fruit} is a string, what does
-{\tt fruit[:]} mean?
+{\tt fruit}이 문자열로 주어졌을 때, {\tt fruit[:]}의 의미는 무엇인가요?
 
 \index{copy!slice}
 \index{slice!copy}
@@ -249,14 +230,13 @@ Given that {\tt fruit} is a string, what does
 \end{ex}
 
 
-\section{Strings are immutable}
+\section{문자열은 불변이다.}
 \index{mutability}
 \index{immutability}
 \index{string!immutable}
 
-It is tempting to use the {\tt []} operator on the left side of an
-assignment, with the intention of changing a character in a string.
-For example:
+문자열의 문자를 변경하려는 의도로 할당문의 왼쪽편에 {\tt []} 연산자를 사용하고 싶은 유혹이 있을 것입니다.
+예를 들어 다음과 같습니다.
 
 \index{TypeError}
 \index{exception!TypeError}
@@ -269,20 +249,18 @@ TypeError: object does not support item assignment
 \end{verbatim}
 \afterverb
 %
-The ``object'' in this case is the string and the ``item'' is
-the character you tried to assign.  For now, an {\bf object} is
-the same thing as a value, but we will refine that definition
-later.  An {\bf item} is one of the values in a sequence.
+
+이 경우 ''개체''는 문자열이고, 할당하고자 하는 문자는 ''항목''이다. 지금 당장은
+{\bf 개체}는 값과 같은 것이지만, 후에 좀더 정의를 상세화할 것입니다.
+{\bf 항목}은 순열의 값중의 하나입니다.
 
 \index{object}
 \index{item assignment}
 \index{assignment!item}
 \index{immutability}
 
-The reason for the error is that
-strings are {\bf immutable}, which means you can't change an
-existing string.  The best you can do is create a new string
-that is a variation on the original:
+오류의 이유는 문자열이 {\bf 불변(immutable)}이기 때문입니다. 따라서 존재하는 문자열을 바꿀 수 없다는 의미입니다.
+최선은 원래 문자열에 변화를 준 새로운 문자열을 생성하는 것입니다.
 
 \beforeverb
 \begin{verbatim}
@@ -293,13 +271,11 @@ Jello, world!
 \end{verbatim}
 \afterverb
 %
-This example concatenates a new first letter onto
-a slice of {\tt greeting}.  It has no effect on
-the original string.
+새로운 첫 문자에 {\tt greeting} 문자열 조각을 연결해서, 원래 문자열에는 어떤한 영향도 주지 않는 새로운 문자열을 만들었습니다.
 
 \index{concatenation}
 
-\section{Looping and counting}
+\section{루프 돌기(looping)와 세기(counting)}
 \label{counter}
 
 \index{counter}
@@ -307,8 +283,7 @@ the original string.
 \index{looping and counting}
 \index{looping!with strings}
 
-The following program counts the number of times the letter {\tt a}
-appears in a string:
+다음 프로그램은 문자열에 문자 {\tt a}가 나타나는 횟수를 셉니다.
 
 \beforeverb
 \begin{verbatim}
@@ -321,21 +296,19 @@ print count
 \end{verbatim}
 \afterverb
 %
-This program demonstrates another pattern of computation called a {\bf
-counter}.  The variable {\tt count} is initialized to 0 and then
-incremented each time an {\tt a} is found.
-When the loop exits, {\tt count}
-contains the result---the total number of {\tt a}'s.
+
+상기 프로그램은 {\bf 카운터(counter)}라고 부르는 또다른 연산 패턴을 보여줍니다. 
+변수 {\tt count}는 0으로 초기화 되고, 매번 {\tt a}를 찾을 때마나 증가합니다.
+루프를 빠져나갔을 때, {\tt count}는 결과 값, {\tt a}가 나타난 총 횟수를 담고 있습니다.
 
 \begin{ex}
 \index{encapsulation}
 
-Encapsulate this code in a function named {\tt
-count}, and generalize it so that it accepts the string and the
-letter as arguments.
+상기 코드를 캡슐화(encapsulation)하여 문자열과 문자를 인수로 받는 {\tt count}라는 함수를 작성해서 일반화하세요.
+
 \end{ex}
 
-\section{The {\tt in} operator}
+\section{{\tt in} 연산자}
 \label{inboth}
 
 \index{in operator}
@@ -343,8 +316,7 @@ letter as arguments.
 \index{boolean operator}
 \index{operator!boolean}
 
-The word {\tt in} is a boolean operator that takes two strings and
-returns {\tt True} if the first appears as a substring in the second:
+연산자 {\tt in}은 불 연산자로 두개의 문자열을 받아, 첫 번째 문자열이 두 번째 문자열의 일부이면 {\tt 참(True)}을 반환한다.
 
 \beforeverb
 \begin{verbatim}
@@ -356,12 +328,12 @@ False
 \afterverb
 %
 
-\section{String comparison}
+\section{문자열 비교}
 
 \index{string!comparison}
 \index{comparison!string}
 
-The comparison operators work on strings.  To see if two strings are equal:
+비교 연산자도 문자열에서 동작합니다. 두 문자열이 같은지를 살펴봅시다.
 
 \beforeverb
 \begin{verbatim}
@@ -370,8 +342,8 @@ if word == 'banana':
 \end{verbatim}
 \afterverb
 %
-Other comparison operations are useful for putting words in alphabetical
-order:
+
+다른 비교 연산자는 단어를 알파벳 순으로 정렬하는데 유용하다.
 
 \beforeverb
 \begin{verbatim}
@@ -384,9 +356,9 @@ else:
 \end{verbatim}
 \afterverb
 %
-Python does not handle uppercase and lowercase letters the same way
-that people do.  All the uppercase letters come before all the
-lowercase letters, so:
+
+파이썬은 사람과 동일하는 방식으로 대문자와 소문자를 다루지 않습니다.
+모든 대문자는 소문자 앞에 위치합니다.
 
 \beforeverb
 \begin{verbatim}
@@ -394,22 +366,17 @@ Your word, Pineapple, comes before banana.
 \end{verbatim}
 \afterverb
 %
-A common way to address this problem is to convert strings to a
-standard format, such as all lowercase, before performing the
-comparison.  Keep that in mind in case you have to defend yourself
-against a man armed with a Pineapple.
+
+이러한 문제를 다루는 일반적인 방식은 비교연산을 수행하기 전에 문자열을 표준 포맷으로 예를 들어 모두 소문자, 변환하는 것입니다.
+''Pineapple''로 무장한 사람들로부터 여러분을 보호하는 경우를 명심하세요.
 
 
-\section{{\tt string} methods}
+\section{{\tt string} 메쏘드}
+문자열은 파이썬 {\bf 개체(objects)}의 한 예이다. 개체는 데이터(실제 문자열 자체)와 {\bf 메쏘드(methods)}를 담고 있다.
+메쏘드는 개체내부에 내장되고 개체의 어떤 {\bf 인스턴스(instance)}에도 사용될 수 있는 효과적인 함수다.
 
-Strings are an example of Python {\bf objects}.  An object contains
-both data (the actual string itself) as well as {\bf methods}, which
-are effectively functions which that are built into the object and 
-are available to any {\bf instance} of the object.
-
-Python has a function called {\tt dir} that lists the methods available
-for an object.  The {\tt type} function shows the type of an object 
-and the {\tt dir} function shows the available methods.
+파이썬은 개체에 대해서 이용가능한 메쏘드를 보여주는 {\tt dir} 함수가 있다.
+{\tt type} 함수는 개체의 형(type)을 보여주고, {\tt dir}은 개체의 사용될 수 있는 메쏘드를 보여준다.
 
 \beforeverb
 \begin{verbatim}
@@ -438,26 +405,18 @@ capitalize(...)
 \afterverb
 %
 
-While the {\tt dir} function lists the methods, and you 
-can use {\tt help} to get some simple documentation on a method, 
-a better source of documentation for string methods would be
-\url{docs.python.org/library/string.html}.
+{\tt dir} 함수가 메쏘드를 보여주고, 메쏘드에 대한 간단한 문서를 {\tt help}를 사용할 수 있지만,
+문자열 메쏘드에 대한 좀더 좋은 문서 정보는 \url{docs.python.org/library/string.html}에서 찾을 수 있다.
 
-Calling a {\bf method} is similar to calling a function---it 
-takes arguments and
-returns a value---but the syntax is different.  We call a method
-by appending the method name to the variable name using the period 
-as a delimiter.
+인수를 받고 값을 반환한다는 점에서 {\bf 메쏘드(method)}를 호출하는 것은 함수를 호출하는 것과 유사하지만, 구문은 다르다.
+구분자로 점을 사용해서 변수명에 메쏘드명을 붙여 메쏘드를 호출한다.
 
-For example, the
-method {\tt upper} takes a string and returns a new string with
-all uppercase letters:
+예를 들어, {\tt upper} 메쏘드는 문자열을 받아 모두 대문자로 변경된 새로운 문자열을 반환한다.
 
 \index{method}
 \index{string!method}
 
-Instead of the function syntax {\tt upper(word)}, it uses
-the method syntax {\tt word.upper()}.
+함수 구문 {\tt upper(word)} 대신에, {\tt word.upper()} 메쏘드 구문을 사용한다.
 
 \index{dot notation}
 
@@ -470,20 +429,17 @@ BANANA
 \end{verbatim}
 \afterverb
 %
-This form of dot notation specifies the name of the method, {\tt
-upper}, and the name of the string to apply the method to, {\tt
-word}.  The empty parentheses indicate that this method takes no
-argument.
+
+이런 형태의 점 표기법은 메쏘드 이름({\tt upper})과 메쏘드가 적용되는 문자열 이름({\tt word})을 명세한다.
+빈 괄호는 메쏘드가 인수를 갖지 않는 것을 나타낸다.
 
 \index{parentheses!empty}
 
-A method call is called an {\bf invocation}; in this case, we would
-say that we are invoking {\tt upper} on the {\tt word}.
+메쏘드를 부르는 것을 {\bf 호출(invocation)}이라고 부른다. 상기의 경우, {\tt word}에 {\tt upper} 메쏘드를 호출한다고 말한다.
 
 \index{invocation}
 
-For example, there is a string method named {\tt find} that
-searches for the position of one string within another:
+예를 들어, 문자열안에 한 문자의 위치를 찾는 {\tt find}라는 문자열 메쏘드가 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -494,10 +450,10 @@ searches for the position of one string within another:
 \end{verbatim}
 \afterverb
 %
-In this example, we invoke {\tt find} on {\tt word} and pass
-the letter we are looking for as a parameter.
 
-The {\tt find} method can find substrings, not just characters:
+상기 예제에서, {\tt word} 문자열의 {\tt find} 메쏘드를 호출하여 매개 변수로 찾고 있는 문자를 넘긴다.
+
+{\tt find} 메쏘드는 문자뿐만 아니라 부분 문자열도 찾을 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -506,7 +462,8 @@ The {\tt find} method can find substrings, not just characters:
 \end{verbatim}
 \afterverb
 %
-It can take as a second argument the index where it should start:
+
+검색 시작 위치를 지정하는 두 번째 인텍스를 인수로 갖을 수도 있다.
 
 \index{optional argument}
 \index{argument!optional}
@@ -518,8 +475,8 @@ It can take as a second argument the index where it should start:
 \end{verbatim}
 \afterverb
 %
-One common task is to remove white space (spaces, tabs, or newlines) from
-the beginning and end of a string using the {\tt strip} method:
+
+한가지 자주 있는 적업은 {\tt strip} 메쏘드를 사용해서 문자열의 시작과 끝의 공백(공백 여러개, 탭, 새줄)을 제거하는 것이다.
 
 \beforeverb
 \begin{verbatim}
@@ -529,7 +486,8 @@ the beginning and end of a string using the {\tt strip} method:
 \end{verbatim}
 \afterverb
 %
-Some methods such as {\bf startswith} return boolean values.
+
+{\bf startswith} 메쏘드는 참, 거짓 같은 불 값을 반환한다.
 
 \beforeverb
 \begin{verbatim}
@@ -541,9 +499,9 @@ False
 \end{verbatim}
 \afterverb
 %
-You will note that {\tt startswith} requires case to match so sometimes
-we take a line and map it all to lowercase before we do any checking
-using the {\tt lower} method.
+
+{\bf startswith}가 대소문자를 구별하는 것을 요구하기 때문에 {\tt lower} 메쏘드를 사용해서 임의의 검증을 수행하기 전에, 
+한 줄을 입력받아 모두 소문자로 변환하는 것이 필요하다.
 
 \beforeverb
 \begin{verbatim}
@@ -557,30 +515,25 @@ True
 \end{verbatim}
 \afterverb
 %
-In the last example, the method {\tt lower} is called
-and then we use {\tt startswith}
-to check to see if the resulting lowercase string
-starts with the letter ``p''.  As long as we are careful
-with the order, we can make multiple method calls in a
-single expression.
+
+마지막 예제에서 결과 문자열이 문자 ''p''로 시작하는지를 검증하기 위해서, 
+{\tt lower} 메쏘드가 호출되고 나서 바로 {\tt startswith} 메쏘드를 사용한다.
+순서만 주의깊게 다룬다면, 한줄에 여러개의 메쏘드를 호출할 수 있다.
 
 \begin{ex}
 \index{count method}
 \index{method!count}
 
-There is a string method called {\tt count} that is similar
-to the function in the previous exercise.  Read the documentation
-of this method at
-\url{docs.python.org/library/string.html}
-and write an invocation that counts the number of times the 
-letter a  occurs
-in \verb"'banana'".
+앞선 예제와 유사한 함수인 {\tt count}로 불리는 문자열 메쏘드가 있다.
+\url{docs.python.org/library/string.html}에서 {\tt count} 메쏘드에 대한 문서를 읽고,
+문자열 \verb"'banana'"의 문자가 몇 개인지 세는 메쏘드 호출 프로그램을 작성하세요.
+
 \end{ex}
 
-\section{Parsing strings}
+\section{문자열 파싱(Parsing)}
 
-Often, we want to look into a string and find a substring.  For example
-if we were presented a series of lines formatted as follows:
+종종, 문자열을 들여다 보고 부속 문자열(substring)을 찾고 싶다. 예를 들어,
+아래와 같은 형식으로 구성된 일련의 자료 라인이 주어졌다고 가정하면,
 
 \beforeverb
 \begin{alltt}
@@ -588,14 +541,11 @@ From stephen.marquard@{\bf uct.ac.za} Sat Jan  5 09:14:16 2008
 \end{alltt}
 \afterverb
 
-And we wanted to pull out only the second half of the address (i.e.
-{\tt uct.ac.za}) from each line.  We can do this by using the {\tt find}
-method and string slicing.   
+각 라인의 뒤쪽 전자우편 주소({\tt uct.ac.za})만 뽑아내고 싶을 것이다.
+{\tt find} 메쏘드와 문자열 조각(string sliceing)을 사용해서 작업을 수행할 수 있다.
 
-First, we will find the position of the at-sign in the string.  Then we will
-find the position of the first space \emph{after} the at-sign.  And then we
-will use string slicing to extract the portion of the string which we 
-are looking for.
+우선, 문자열에서 골뱅이(@, at-sign) 기호의 위치를 찾는다. 그리고 
+골뱅이 기호 \emph{뒤} 첫 공백 위치를 찾는다. 그리고 나서 찾고자 하는 부속 문자열을 뽑아내기 위해서 문자열 조각을 사용한다.
 
 \beforeverb
 \begin{verbatim}
@@ -613,38 +563,28 @@ uct.ac.za
 \end{verbatim}
 \afterverb
 %
-We use a version of the {\tt find} method which allows us to specify
-a position in the string where we want {\tt find} to start looking.
-When we slice, we extract the characters 
-from ``one beyond the at-sign through up to \emph{but not including} the 
-space character''.  
 
-The documentation for the {\tt find} method is available at
-\url{docs.python.org/library/string.html}.
+{\tt find} 메쏘드를 사용해서 찾고자 하는 문자열의 시작 위치를 명세한다. 
+문자열 조각낼(slicing) 때, 골뱅기 기호 뒤부터 빈 공백을 \emph{포함하지 않는} 위치까지 문자열을 뽑아낸다.  
 
-\section{Format operator}
+{\tt find} 메쏘드에 대한 문서는 \url{docs.python.org/library/string.html}에서 참조 가능하다.
+
+\section{형식 연산자}
 
 \index{format operator}
 \index{operator!format}
 
-The {\bf format operator}, {\tt \%}
-allows us to construct strings, replacing parts of the strings
-with the data stored in variables.
-When applied to integers, {\tt \%} is the modulus operator.  But
-when the first operand is a string, {\tt \%} is the format operator.
+{\bf 형식 연산자(format operator)}, {\tt \%}는 문자열의 일부를 변수에 저장된 값으로 바꿔 문자열을 구성한다.
+정수에 포맷 연산자가 적용될 때, {\tt \%}는 나머지 연산가 된다. 하지만 첫 피연산자가 문자열이면,  {\tt \%}은 포맷 연산자가 된다.
 
 \index{format string}
 
-The first operand is the {\bf format string}, which contains
-one or more {\bf format sequences} that
-specify how
-the second operand is formatted.  The result is a string.
+첫 피연산자는 {\bf 형식 문자열 format string}로 두번째 피 연산자가 어떤 형식으로 표현되는지를 명세하는 하나 혹은 그 이상의 
+{\bf 형식 열 format sequence}을 담고 있다. 결과값은 문자열이다.
 
 \index{format sequence}
 
-For example, the format sequence \verb"'%d'" means that
-the second operand should be formatted as an
-integer ({\tt d} stands for ``decimal''):
+예를 들어, 형식 열 \verb"'%d'"의 의미는 두번째 피연산자가 정수 형식으로 표현됨을 뜻한다. ({\tt d}는 ``decimal''를 나타낸다.)
 
 \beforeverb
 \begin{verbatim}
@@ -654,11 +594,10 @@ integer ({\tt d} stands for ``decimal''):
 \end{verbatim}
 \afterverb
 %
-The result is the string \verb"'42'", which is not to be confused
-with the integer value {\tt 42}.
 
-A format sequence can appear anywhere in the string,
-so you can embed a value in a sentence:
+결과는 \verb"'42'" 문자열로 정수 {\tt 42}와 혼동하면 안 된다.
+
+형식 열은 문자열 어디에서도 나타날 수 있어서 문장 중간에 값을 임베드(embed)할 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -668,14 +607,12 @@ so you can embed a value in a sentence:
 \end{verbatim}
 \afterverb
 %
-If there is more than one format sequence in the string,
-the second argument has to be a tuple.  Each format sequence is
-matched with an element of the tuple, in order.
 
-The following example uses \verb"'%d'" to format an integer,
-\verb"'%g'" to format
-a floating-point number (don't ask why), and \verb"'%s'" to format
-a string:
+만약 문자열의 형식 열이 하나 이상이라면, 두번째 인수는 튜플(tuple)이 된다.
+형식 열 각각은 튜플의 요소와 순서대로 일치된다.
+
+다음 예제는 정수 형식을 표현하기 위해서 \verb"'%d'", 부동 소수점 형식을 표현하기 위해서 \verb"'%g'",
+문자열 형식을 표현하기 위해서 \verb"'%s'"을 사용한 것을 보여준다. 여기서 왜 부동 소수점 형식이  \verb"'%f'"대신에 \verb"'%g'"인지는 질문하지 말아주세요.
 
 \beforeverb
 \begin{verbatim}
@@ -684,9 +621,8 @@ a string:
 \end{verbatim}
 \afterverb
 %
-The number of elements in the tuple has to match the number
-of format sequences in the string.  Also, the types of the
-elements have to match the format sequences:
+
+튜플 요소 숫자는 문자열의 형식 열의 숫자와 일치해야 하고, 요소의 형도 형식 열과 일치해야 한다.
 
 \index{exception!TypeError}
 \index{TypeError}
@@ -700,12 +636,11 @@ TypeError: illegal argument type for built-in operation
 \end{verbatim}
 \afterverb
 %
-In the first example, there aren't enough elements; in the
-second, the element is the wrong type.
 
-The format operator is powerful, but it can be difficult to use.  You
-can read more about it at
-\url{docs.python.org/lib/typesseq-strings.html}.
+첫 예제는 충분한 요소 개수가 않돼고, 두 번째 예제는 형식이 맞지 않는다.
+
+형식 연산자는 강력하지만, 사용하기가 여럽다. 더 많은 정보는 
+\url{docs.python.org/lib/typesseq-strings.html}에서 찾을 수 있다.
 
 % You can specify the number of digits as part of the format sequence.
 % For example, the sequence \verb"'%8.2f'"
@@ -723,16 +658,13 @@ can read more about it at
 % digits after the decimal point.  
 
 
-\section{Debugging}
+\section{디버깅}
 \index{debugging}
 
-A skill that you should cultivate as you program is always
-asking yourself, ``What could go wrong here?'' or alternatively,
-``What crazy thing might our user do to crash our (seemingly) 
-perfect program?''.
+프로그램을 작성하면서 배양해야 하는 기술은 항상 자신에게 질문을 하는 것이다.
+''여기서 무엇이 잘못 될 수 있을까?'' 혹은 ''사용자가 내가 작성한 완벽한 프로그램을 망가뜨리기 위해 무슨 엄청난 일을 할 것인가?"
 
-For example, look at the program which we used to demonstrate
-the {\tt while} loop in the chapter on iteration:
+예를 들어 앞장의 반복 {\tt while} 루프를 시연하기 위해 사용한 프로그램을 살펴봅시다.
 
 \beforeverb
 \begin{verbatim}
@@ -748,7 +680,8 @@ print 'Done!'
 \end{verbatim}
 \afterverb
 %
-Look what happens when the user enters an empty line of input:
+
+사용자가 입력값으로 빈 공백 줄을 입력하게 될때 무엇이 발생하는지 살펴봅시다.
 
 \beforeverb
 \begin{verbatim}
@@ -764,13 +697,10 @@ Traceback (most recent call last):
 \end{verbatim}
 \afterverb
 %
-The code works fine until it is presented an empty line.  Then
-there is no zeroth character so we get a traceback.  There are two
-solutions to this to make line three ``safe'' even if the line is 
-empty.
+빈 공백줄이 입력될 때까지 코드는 잘 작동합니다. 
+0번째 문자가 없어서 트레이스백(traceback)이 발생한다. 입력줄이 비여있을 때, 코드 3번째 줄을 ''안전''하게 만드는 두가지 방법이 있다.
 
-One possibility is to simply use the {\tt startswith} method
-which returns {\tt False} if the string is empty.
+{\tt startswith} 메쏘드를 사용해서 빈 문자열이면  {\tt 거짓(False)}을 반환한다.
 
 \beforeverb
 \begin{verbatim}
@@ -780,9 +710,8 @@ which returns {\tt False} if the string is empty.
 %
 \index{guardian pattern}
 \index{pattern!guardian}
-Another way to safely write the {\tt if} statement using the {\bf guardian}
-pattern and make sure the second logical expression is evaluated 
-only where there is at least one character in the string.:
+
+{\bf 가디언 패턴(guardian pattern)}을 사용한 {\tt if}문으로 문자열에 적어도 하나의 문자가 있는 경우만 두번째 논리 표현식이 평가되도록 하는 코드를 작성한다.
 
 \beforeverb
 \begin{verbatim}
@@ -791,81 +720,69 @@ only where there is at least one character in the string.:
 \afterverb
 %
 
-\section{Glossary}
+\section{용어정의}
 
 \begin{description}
 
-\item[counter:] A variable used to count something, usually initialized
-to zero and then incremented.
+\item[카운터(counter):] 무언가를 세기 위해서 사용되는 변수로 일반적으로 0으로 초기화 되고 증가한다.
 \index{counter}
 
-\item[empty string:] A string with no characters and length 0, represented
-by two quotation marks.
+\item[빈 문자열(empty string):] 두 인용부호로 표현되는 어떤 문자도 없고 길이가 0인 문자열.
 \index{empty string}
 
-\item[format operator:] An operator, {\tt \%}, that takes a format
-string and a tuple and generates a string that includes
-the elements of the tuple formatted as specified by the format string.
+\item[형식 연산자(format operator):] 
+형식 문자열과 튜플을 받아, 형식 문자열에 지정된 형식으로 튜플 요소를 포함하는 문자열을 생성하는 연산자, {\tt \%}.
 \index{format operator}
 \index{operator!format}
 
-\item[format sequence:] A sequence of characters in a format string,
-like {\tt \%d}, that specifies how a value should be formatted.
+\item[행식 열(format sequence):] 
+{\tt \%d}처럼 어떻게 값이 형식적으로 표현되어야 하는지를 명세하는 ''형식 문자열''의 문자의 열. 
 \index{format sequence}
 
-\item[format string:] A string, used with the format operator, that
-contains format sequences.
+\item[형식 문자열(format string):] 형식 열을 포함하는 형식 연산자와 함께 사용되는 문자열.
 \index{format string}
 
-\item[flag:] A boolean variable used to indicate whether a condition
-is true.
+\item[플래그(flag):] 조건이 참인지를 표기위해 사용하는 불 변수(boolean variable)
 \index{flag}
 
-\item[invocation:] A statement that calls a method.
+\item[호출(invocation):] 메쏘드를 호출하는 명령문.
 \index{invocation}
 
-\item[immutable:] The property of a sequence whose items cannot
-be assigned.
+\item[불변(immutable):] 열의 항목에 할당할 수 없는 특성.
 \index{immutability}
 
-\item[index:] An integer value used to select an item in
-a sequence, such as a character in a string.
+\item[인덱스(index):] 문자열의 문자처럼 열의 항목을 선택하기 위해 사용되는 정수 값.
 \index{index}
 
-\item[item:] One of the values in a sequence.
+\item[항목(item):] 열에 있는 값의 하나.
 \index{item}
 
-\item[method:] A function that is associated with an object and called
-using dot notation.
+\item[메쏘드(method):] 개체와 연관되어 점 표기법을 사용하여 호출되는 함수.
 \index{method}
 
-\item[object:] Something a variable can refer to.  For now,
-you can use ``object'' and ``value'' interchangeably.
+\item[개체(object):] 변수가 참조하는 무엇. 지금에서는 ''개체''와 ''값''을 구별없이 사용한다.
 \index{object}
 
-\item[search:] A pattern of traversal that stops
-when it finds what it is looking for.
+\item[검색(search):] 찾고자 하는 것을 찾았을 때 멈추는 운행법 패턴.
 \index{search pattern}
 \index{pattern!search}
 
-\item[sequence:] An ordered set; that is, a set of
-values where each value is identified by an integer index.
+\item[열(sequence):] 정돈된 세트. 즉, 정수 인텍드로 각각의 값이 확인되는 값의 집합.
 \index{sequence}
 
-\item[slice:] A part of a string specified by a range of indices.
+\item[조각(slice):] 인텍스의 범위로 지정된 문자열 부분.
 \index{slice}
 
-\item[traverse:] To iterate through the items in a sequence,
-performing a similar operation on each.
+\item[운행법(traverse):] 열의 항목을 반복적으로 훑기, 각각에 대해서는 동일한 연산을 수행.
 \index{traversal}
 
 \end{description}
 
 
-\section{Exercises}
+\section{연습문제}
 
 \begin{ex}
-Take the following Python code that stores a string:`
+아래 문자열을 파이썬 코드를 작성하세요.
 
 \beforeverb
 \begin{alltt}
@@ -873,10 +790,8 @@ str = 'X-DSPAM-Confidence: {\bf 0.8475}'
 \end{alltt}
 \afterverb
 
-Use {\tt find} and string slicing to extract the portion
-of the string after the colon character and then use the 
-{\tt float} function to convert the extracted string 
-into a floating point number.
+{\tt find} 메쏘드와 문자열 조각내기를 사용하여 콜론(:) 문자 뒤의 문자열을 뽑아내고 
+{\tt float} 함수를 사용하여 뽑아낸 문자열을 부동 소수점 숫자로 변환하세요.
 
 \end{ex}
 
@@ -885,16 +800,13 @@ into a floating point number.
 \index{string method}
 \index{method!string}
 
-Read the documentation of the string methods at
-\url{docs.python.org/lib/string-methods.html}.  You
-might want to experiment with some of them to make sure
-you understand how they work.  {\tt strip} and
-{\tt replace} are particularly useful.
+\url{https://docs.python.org/2.7/library/stdtypes.html#string-methods}에서 문자열 메쏘드 문서를 읽어보세요.
+어떻게 동작하는가를 이해도를 확인하기 위해서 몇개를 골라 실험을 해보세요.
+{\tt strip}과 {\tt replace}가 특히 유용합니다.
 
-The documentation uses a syntax that might be confusing.
-For example, in \verb"find(sub[, start[, end]])", the brackets
-indicate optional arguments.  So {\tt sub} is required, but
-{\tt start} is optional, and if you include {\tt start},
-then {\tt end} is optional.
+문서는 
+문서는 좀 혼동스러울 수 있는 구문을 사용합니다.
+예를 들어, \verb"find(sub[, start[, end]])"의 꺾쇠기호는 선택(옵션) 인수를 나타냅니다.
+그래서, {\tt sub}은 필수지만, {\tt start}은 선택 사항이고, 만약 {\tt start}가 인수로 포함된다면, {\tt end}는 선택이 된다.  
 \end{ex}
 

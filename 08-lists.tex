@@ -1,24 +1,22 @@
 % LaTeX source for ``Python for Informatics: Exploring Information''
 % Copyright (c)  2010-  Charles R. Severance, All Rights Reserved
 
-\chapter{Lists}
+\chapter{리스트}
 
 \index{list}
 \index{type!list}
 
 
-\section{A list is a sequence}
+\section{리스트는 열이다.}
 
-Like a string, a {\bf list} is a sequence of values.  In a string, the
-values are characters; in a list, they can be any type.  The values in
-list are called {\bf elements} or sometimes {\bf items}.
+문자열처럼, {\bf 리스트(list)}는 일련의 값이다. 문자열에서, 값은 문자지만, 리스트에서는 임의의 형(type)이 될 수 있다.
+리스트의 값은 {\bf 요소(elements)}나 때때로 {\bf 항목(items)}으로 불린다.
 
 \index{element}
 \index{sequence}
 \index{item}
 
-There are several ways to create a new list; the simplest is to
-enclose the elements in square brackets (\verb"[" and \verb"]"):
+신규 리스틀 생성하는 방법은 여러가지다. 가장 간단한 방법은 꺾쇠 괄호(\verb"[" 와 \verb"]")로 요소를 감싸는 것이다.
 
 \beforeverb
 \begin{verbatim}
@@ -27,10 +25,8 @@ enclose the elements in square brackets (\verb"[" and \verb"]"):
 \end{verbatim}
 \afterverb
 %
-The first example is a list of four integers.  The second is a list of
-three strings.  The elements of a list don't have to be the same type.
-The following list contains a string, a float, an integer, and
-(lo!) another list:
+첫번째 예제는 네 개의 정수 리스트다. 드번째 예제는 3개의 문자열 리스트다.
+문자열의 요소는 같은 형(type)일 필요는 없다. 다음의 리스트는 문자열, 부동 소수점 숫자, 정수, (아!) 또 다른 리스트를 담고 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -38,19 +34,18 @@ The following list contains a string, a float, an integer, and
 \end{verbatim}
 \afterverb
 %
-A list within another list is {\bf nested}.
+
+또 다른 리스트 내부에 리스트는 {\bf 중첩(nested)}되어 있다.
 
 \index{nested list}
 \index{list!nested}
 
-A list that contains no elements is
-called an empty list; you can create one with empty
-brackets, \verb"[]".
+어떤 요소도 담고 있지 않는 리스트는 빈 리스트(empty list)라고 부르고, 빈 꺾쇠 괄호(''[]'')로 생성할 수 있다.
 
 \index{empty list}
 \index{list!empty}
 
-As you might expect, you can assign list values to variables:
+예상했듯이, 리스트 값을 변수에 할당할 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -65,7 +60,7 @@ As you might expect, you can assign list values to variables:
 
 \index{assignment}
 
-\section{Lists are mutable}
+\section{리스트는 변경가능하다.}
 
 \index{list!element}
 \index{access}
@@ -73,10 +68,8 @@ As you might expect, you can assign list values to variables:
 \index{bracket operator}
 \index{operator!bracket}
 
-The syntax for accessing the elements of a list is the same as for
-accessing the characters of a string---the bracket operator.  The
-expression inside the brackets specifies the index.  Remember that the
-indices start at 0:
+리스트의 요소에 접근하는 구문은 문자열의 문자에 접근하는 것과 동일한 꺾쇠 괄호 연산자다.
+꺽쐬 괄호 내부의 표현식은 인덱스를 명세한다. 인덱스는 0 에서부터 시작한다.
 
 \beforeverb
 \begin{verbatim}
@@ -85,10 +78,9 @@ Cheddar
 \end{verbatim}
 \afterverb
 %
-Unlike strings, lists are mutable because you can change the order 
-of items in a list or reassign an item in a list.  
-When the bracket operator appears on the left side of an assignment, 
-it identifies the element of the list that will be assigned.
+
+문자열과 달리, 리스트의 항목의 순서를 바꾸거나, 리스트에 새로운 항목을 재할당할 수 있기 때문에 리스트는 변경가능하다.
+꺾쇠 괄호 연산자가 할당문의 왼쪽편에 나타날 때, 새로 할당될 리스트의 요소를 나타낸다.
 
 \index{mutability}
 
@@ -101,45 +93,41 @@ it identifies the element of the list that will be assigned.
 \end{verbatim}
 \afterverb
 %
-The one-eth element of {\tt numbers}, which
-used to be 123, is now 5.
+
+리스트 {\tt numbers}의 1번째 요소는 123 값을 가지고 있으나, 이제는 5 값을 가진다.
 
 \index{index!starting at zero}
 \index{zero, index starting at}
 
-You can think of a list as a relationship between indices and
-elements.  This relationship is called a {\bf mapping}; each index
-``maps to'' one of the elements.  
+리스트를 인텍스와 요소의 관계로 생각할 수 있다. 이 관계를 {\bf 매핑(mapping)}이라고 부른다. 각각의 인덱스는 요소중의 하나에 대응(''maps to'')된다.
 
 \index{item assignment}
 \index{assignment!item}
 
-List indices work the same way as string indices:
+리스트 인덱스는 문자열 인덱스와 같은 방식으로 동작한다.
 
 \begin{itemize}
 
-\item Any integer expression can be used as an index.
+\item 임의의 정수 표현식은 인덱스로 사용될 수 있다.
 
-\item If you try to read or write an element that does not exist, you
-get an {\tt IndexError}.
+\item 존재하지 않는 요소를 읽거나 쓰려고 하면, {\tt IndexError}가 발생한다.
 
 \index{exception!IndexError}
 \index{IndexError}
 
-\item If an index has a negative value, it counts backward from the
-end of the list.
+\item 인덱스가 음의 값이면, 리스트의 끝에서부터 역으로 센다.
 
 \end{itemize}
 
 \index{list!index}
-
 
 \index{list!membership}
 \index{membership!list}
 \index{in operator}
 \index{operator!in}
 
-The {\tt in} operator also works on lists.
+
+{\tt in} 연산자도 또한 리스트에서 동작한다.
 
 \beforeverb
 \begin{verbatim}
@@ -152,15 +140,15 @@ False
 \afterverb
 
 
-\section{Traversing a list}
+\section{리스트 운행법}
 \index{list!traversal}
 \index{traversal!list}
 \index{for loop}
 \index{loop!for}
 \index{statement!for}
 
-The most common way to traverse the elements of a list is
-with a {\tt for} loop.  The syntax is the same as for strings:
+리스트의 요소를 운행하는 가장 흔한 방법은 {\tt for}문을 사용하는 것이다.
+구문은 문자열에서 사용한 것과 동일하다.
 
 \beforeverb
 \begin{verbatim}
@@ -169,10 +157,9 @@ for cheese in cheeses:
 \end{verbatim}
 \afterverb
 %
-This works well if you only need to read the elements of the
-list.  But if you want to write or update the elements, you
-need the indices.  A common way to do that is to combine
-the functions {\tt range} and {\tt len}:
+
+리스트의 요소를 읽기만 한다면 이것만으로 잘 동작한다. 하지만, 리스트의 요소를 쓰거나, 갱신하는 경우,
+인텍스가 필요하다. 리스트의 요소를 쓰거나 갱신하는 흔한 방법은 {\tt range}와 {\tt len} 함수를 조합하는 것이다.
 
 \index{looping!with indices}
 \index{index!looping with}
@@ -184,18 +171,15 @@ for i in range(len(numbers)):
 \end{verbatim}
 \afterverb
 %
-This loop traverses the list and updates each element.  {\tt len}
-returns the number of elements in the list.  {\tt range} returns
-a list of indices from 0 to $n-1$, where $n$ is the length of
-the list.  Each time through the loop {\tt i} gets the index
-of the next element.  The assignment statement in the body uses
-{\tt i} to read the old value of the element and to assign the
-new value.
+
+상기 루프는 리스트를 운행하고 각 요소를 갱신한다. {\tt len}함수는 리스트의 요소의 갯수를 반환한다.
+{\tt range} 함수는 0 에서 $n-1$ 까지 리스트 인텍스를 반환한다. 여기서, $n$은 리스트의 길이다.
+매번 루프가 반복될 때마다, {\tt i}는 다음 요소의 인덱스를 얻는다. 몸통 부문의 할당문은 {\tt i}를 사용해서 요소의 옛값을 일고 새값을 할당한다.
 
 \index{item update}
 \index{update!item}
 
-A {\tt for} loop over an empty list never executes the body:
+빈 리스트의 {\tt for}문은 결코 몸통부분을 실행하지 않는다.
 
 \beforeverb
 \begin{verbatim}
@@ -204,9 +188,8 @@ for x in empty:
 \end{verbatim}
 \afterverb
 %
-Although a list can contain another list, the nested
-list still counts as a single element.  The length of this list is
-four:
+
+리스트가 또 다른 리스트를 담을 수 있지만, 중첩된 리스트는 여전히 하나의 요소로 센다. 다음 리스트의 길이는 4이다.
 
 \index{nested list}
 \index{list!nested}
@@ -217,12 +200,10 @@ four:
 \end{verbatim}
 \afterverb
 
-
-
-\section{List operations}
+\section{리스트 연산자}
 \index{list!operation}
 
-The {\tt +} operator concatenates lists:
+{\tt +} 연산자는 리스트를 결합한다.
 
 \index{concatenation!list}
 \index{list!concatenation}
@@ -237,7 +218,7 @@ The {\tt +} operator concatenates lists:
 \end{verbatim}
 \afterverb
 %
-Similarly, the {\tt *} operator repeats a list a given number of times:
+유사하게 {\tt *} 연산자는 주어진 횟수 만큼 리스트를 반복한다.
 
 \index{repetition!list}
 \index{list!repetition}
@@ -251,11 +232,10 @@ Similarly, the {\tt *} operator repeats a list a given number of times:
 \end{verbatim}
 \afterverb
 %
-The first example repeats {\tt [0]} four times.  The second example
-repeats the list {\tt [1, 2, 3]} three times.
 
+첫 예제는 {\tt [0]}을 4회 반복한다. 두 번째 예제는 {\tt [1, 2, 3]} 리스트를 3회 반복한다.
 
-\section{List slices}
+\section{리스트 쪼개기(List slices)}
 
 \index{slice operator}
 \index{operator!slice}
@@ -263,7 +243,7 @@ repeats the list {\tt [1, 2, 3]} three times.
 \index{list!slice}
 \index{slice!list}
 
-The slice operator also works on lists:
+쪼개는 연산자는 리스트에도 동작한다.
 
 \beforeverb
 \begin{verbatim}
@@ -277,9 +257,8 @@ The slice operator also works on lists:
 \end{verbatim}
 \afterverb
 %
-If you omit the first index, the slice starts at the beginning.
-If you omit the second, the slice goes to the end.  So if you
-omit both, the slice is a copy of the whole list.
+첫 번째 인덱스를 생략하면, 쪼개기는 처음부터 시작한다. 두 번째 인덱스를 생략하면, 쪼개기는 끝까지 간다.
+그래서 양쪽의 인덱스를 생략하면, 쪼개기는 전체 리스트를 복사한다.
 
 \index{list!copy}
 \index{slice!copy}
@@ -292,14 +271,12 @@ omit both, the slice is a copy of the whole list.
 \end{verbatim}
 \afterverb
 %
-Since lists are mutable, it is often useful to make a copy
-before performing operations that fold, spindle or mutilate
-lists.
+
+리스트는 변경이 가능하기 때문에 리스트를 접고, 돌리고, 훼손하는 연ㅅ나을 수행하기 전에 사본을 만드는 것이 유용하다.
 
 \index{mutability}
 
-A slice operator on the left side of an assignment
-can update multiple elements:
+할당문의 왼편의 쪼개기 연산자는 복수의 요소를 갱신할 수 있다.
 
 \index{slice!update}
 \index{update!slice}
@@ -314,13 +291,12 @@ can update multiple elements:
 \afterverb
 %
 
-\section{List methods}
+\section{리스트 메쏘드}
 
 \index{list!method}
 \index{method, list}
 
-Python provides methods that operate on lists.  For example,
-{\tt append} adds a new element to the end of a list:
+파이썬은 리스트에 연산하는 메쏘드를 제공한다. 예를 들어, {\tt append} 메쏘드는 리스트 끝에 신규 요소를 추가한다.
 
 \index{append method}
 \index{method!append}
@@ -334,8 +310,7 @@ Python provides methods that operate on lists.  For example,
 \end{verbatim}
 \afterverb
 %
-{\tt extend} takes a list as an argument and appends all of
-the elements:
+{\tt extend} 메쏘드는 인수로 리스트를 받아 모든 요소를 리스트에 추가한다.
 
 \index{extend method}
 \index{method!extend}
@@ -350,9 +325,10 @@ the elements:
 \end{verbatim}
 \afterverb
 %
-This example leaves {\tt t2} unmodified.
 
-{\tt sort} arranges the elements of the list from low to high:
+상기 예제는 {\tt t2} 리스트를 변경없이 놓아둔다.
+
+{\tt sort} 메쏘드는 낮음에서 높음으로 리스트의 요소를 정렬한다.
 
 \index{sort method}
 \index{method!sort}
@@ -366,23 +342,21 @@ This example leaves {\tt t2} unmodified.
 \end{verbatim}
 \afterverb
 %
-Most list methods are void; they modify the list and return {\tt None}.
-If you accidentally write {\tt t = t.sort()}, you will be disappointed
-with the result.
+
+대부분의 리스트 메쏘드는 보이드(void)여서, 리스트를 변경하고 {\tt None}을 반환한다.
+우연히 {\tt t = t.sort()} 이렇게 작성한다면, 결과에 실망할 것이다.
 
 \index{void method}
 \index{method!void}
 \index{None special value}
 \index{special value!None}
 
-\section{Deleting elements}
+\section{요소 삭제}
 
 \index{element deletion}
 \index{deletion, element of list}
 
-There are several ways to delete elements from a list.  If you
-know the index of the element you want, you can use
-{\tt pop}:
+리스트에서 요소를 삭제하는 몇 가지 방법이 있다. 리스트 요소 인덱스를 알고 있다면, {\tt pop} 메쏘드를 사용한다.
 
 \index{pop method}
 \index{method!pop}
@@ -398,12 +372,11 @@ b
 \end{verbatim}
 \afterverb
 %
-{\tt pop} modifies the list and returns the element that was removed.
-If you don't provide an index, it deletes and returns the
-last element.
 
-If you don't need the removed value, you can use the {\tt del}
-operator:
+{\tt pop} 메쏘드는 리스트를 변경하여  제거된 요소를 반환한다.
+인덱스를 주지 않으면, 마지막 요소를 지우고 반환한다.
+
+요소에서 제거된 값이 필요없다면, {\tt del} 연산자를 사용할 수 있다.
 
 \index{del operator}
 \index{operator!del}
@@ -418,8 +391,7 @@ operator:
 \afterverb
 %
 
-If you know the element you want to remove (but not the index), you
-can use {\tt remove}:
+인덱스가 아닌 제거할 요소를 알고 있다면, {\tt remove} 메쏘드를 사용할 수 있다.
 
 \index{remove method}
 \index{method!remove}
@@ -433,13 +405,13 @@ can use {\tt remove}:
 \end{verbatim}
 \afterverb
 %
-The return value from {\tt remove} is {\tt None}.
+
+{\tt remove} 메쏘드의 반환값은 {\tt None}이다.
 
 \index{None special value}
 \index{special value!None}
 
-To remove more than one element, you can use {\tt del} with
-a slice index:
+하나 이상의 요소를 제거하기 위해서, 쪼개기 인덱스(slice index)와 {\tt del}을 사용한다.
 
 \beforeverb
 \begin{verbatim}
@@ -450,14 +422,12 @@ a slice index:
 \end{verbatim}
 \afterverb
 %
-As usual, the slice selects all the elements up to, but not
-including, the second index.
 
-\section{Lists and functions}
+마찬가지로, 쪼개기는 두 번째 인덱스를 포함하지 않는 두 번째 인덱스까지의 모든 요소를 선택한다.
 
-There are a number of built-in functions that can be used on lists
-that allow you to quickly look through a list without
-writing your own loops:
+\section{리스트와 함수}
+
+루프를 작성하지 않고 리스트를 빠를게 살펴볼 수 있도록 리스트에 적용할 수 있는 많은 내장함수가 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -475,14 +445,13 @@ writing your own loops:
 \end{verbatim}
 \afterverb
 %
-The {\tt sum()} function only works when the list elements are numbers.
-The other functions ({\tt max()}, {\tt len()}, etc.) work with lists of
-strings and other types that can be comparable.
 
-We could rewrite an earlier program that computed the average of 
-a list of numbers entered by the user using a list.
+리스트 요소가 숫자일 때, {\tt sum()} 함수는 동작한다. {\tt max()}, {\tt len()}, 등등의 함수는 문자열 리스트나,
+ 비교가능한 다른 형(type)의 리스트에 사용할 수 있다.
 
-First, the program to compute an average without a list:
+리스트를 사용해서, 사용자가 입력한 숫자 목록의 평균을 계산하는 앞서 작성한 프로그램을 다시 작성할 수 있다.
+
+우선 리스트 없이 평균을 계산하는 프로그램:
 
 \beforeverb
 \begin{verbatim}
@@ -500,13 +469,10 @@ print 'Average:', average
 \end{verbatim}
 \afterverb
 %
-In this program, we have {\tt count} and {\tt sum} variables to 
-keep the number and running total of the user's numbers as 
-we repeatedly prompt the user for a number.
+이 프로그램에서, {\tt count} 와 {\tt sum} 변수를 사용해서 반복적으로 사용자가 숫자를 입력하면 값을 저장하고, 
+지금까지 사용자가 입력한 누적 합계를 계산하는 것이다.
 
-We could simply remember each number as the user entered it 
-and use built-in functions to compute the sum and count at
-the end.
+단순하게, 사용자가 입력한 각 숫자를 기억하고 내장함수를 사용해서 프로그램 마지막에 합계와 갯수를 계산한다.
 
 \beforeverb
 \begin{verbatim}
@@ -522,22 +488,18 @@ print 'Average:', average
 \end{verbatim}
 \afterverb
 %
-We make an empty list before the loop starts, and then each time we have 
-a number, we append it to the list.  At the end of
-the program, we simply compute the sum of the numbers in the 
-list and divide it by the count of the numbers in the
-list to come up with the average.
 
-\section{Lists and strings}
+루프가 시작되기 전에 빈 리스트를 생성하고, 매번 숫자를 입력할 때, 숫자를 리스트에 추가한다.
+프로그램 마지막에 간단하게 리스트의 합계를 계산하고, 평균을 출력하기 위해서 입력한 숫자 개수로 나누었다.
+
+\section{리스트와 문자열}
 
 \index{list}
 \index{string}
 \index{sequence}
 
-A string is a sequence of characters and a list is a sequence
-of values, but a list of characters is not the same as a
-string.  To convert from a string to a list of characters,
-you can use {\tt list}:
+문자열은 일련의 문자이고, 리스트는 일련의 값이다. 하지만 리스트의 문자는 문자열과 같지는 않다. 문자열에서 리스트의 문자로 변환하기 위해서, 
+{\tt list}를 사용한다.
 
 \index{list!function}
 \index{function!list}
@@ -551,13 +513,11 @@ you can use {\tt list}:
 \end{verbatim}
 \afterverb
 %
-Because {\tt list} is the name of a built-in function, you should
-avoid using it as a variable name.  I also avoid {\tt l} because
-it looks too much like {\tt 1}.  So that's why I use {\tt t}.
 
-The {\tt list} function breaks a string into individual letters.  If
-you want to break a string into words, you can use the {\tt split}
-method:
+{\tt list}는 내장함수의 이름이기 때문에, 변수명으로 사용하는 것을 피해야 한다.
+{\tt l}의 사용을 {\tt 1} 처럼 보이기 때문에 피한다. 그래서, {\tt t}를 사용하였다.
+
+{\tt list} 함수는 문자열을 각각의 문자로 쪼갠다. 문자열을 단어로 쪼개려면, {\tt split} 메쏘드를 사용할 수 있다.
 
 \index{split method}
 \index{method!split}
@@ -573,15 +533,10 @@ the
 \end{verbatim}
 \afterverb
 %
-Once you have used {\tt split} to break the string into 
-a list of tokens, you can use the index operator (square
-bracket) to look at a particular word in the list.
+{\tt split} 메쏘드를 사용해서 문자열을 리스트의 토큰으로 쪼개기만 하면, 인덱스 연산자('[]')를 사용하여 리스트의 특정한 단어를 볼 수 있다.
 
-You can call {\tt split} with 
-an optional argument called a {\bf delimiter} specifies which
-characters to use as word boundaries.
-The following example
-uses a hyphen as a delimiter:
+{\bf 구분자(delimiter)}가 단어의 경계로 어느 문자를 사용할지를 지정하는데, {\tt split} 메쏘드를 호출할 때 두 번째 선택 인수로 사용할 수 있다.
+다음 예제는 구분자로 하이픈('-')을 사용한다.
 
 \index{optional argument}
 \index{argument!optional}
@@ -596,11 +551,9 @@ uses a hyphen as a delimiter:
 \end{verbatim}
 \afterverb
 %
-{\tt join} is the inverse of {\tt split}.  It
-takes a list of strings and
-concatenates the elements.  {\tt join} is a string method,
-so you have to invoke it on the delimiter and pass the
-list as a parameter:
+
+{\tt join} 메쏘드는 {\tt split} 메쏘드의 역이다. 문자열 리스트를 받아 리스트 요소를 결합한다.
+{\tt join}은 문자열 메쏘드여서, 구분자를 호출하여 매개 변수로 넘길 수 있다.
 
 \index{join method}
 \index{method!join}
@@ -615,23 +568,19 @@ list as a parameter:
 \end{verbatim}
 \afterverb
 %
-In this case the delimiter is a space character, so
-{\tt join} puts a space between words.  To concatenate
-strings without spaces, you can use the empty string,
-\verb"''", as a delimiter. 
+
+상기의 경우, 구분자가 공백 문자여서 {\tt join} 메쏘드는 단어 사이에 공백을 넣는다.
+공백없이 문자열을 결합하기 위해서, 구분자로 빈 문자열 \verb"''"을 사용한다.
 
 \index{empty string}
 \index{string!empty}
 
 
-\section{Parsing lines}
+\section{라인을 파싱하기}
 
-Usually when we are reading a file 
-we want to do something to the lines other than just 
-printing the whole line.  Often we want to find the ``interesting
-lines'' and then {\bf parse} the line to find some interesting
-\emph{part} of the line.  What if we wanted to print out the day of the 
-week from those lines that start with ``From ''.
+파일을 읽을 때 통상, 단지 전체 라인을 출력하는 것 말고 뭔가 다른 것을 하고자 한다.
+종종 ''흥미로운 라인을'' 찾아서 라인을 파싱하여 흥미로운 \emph{ 부분(parse)}을 찾고자 한다.
+``From ''으로 시작하는 라인에서 요일을 찾고자 하면 어떨까?
 
 \beforeverb
 \begin{alltt}
@@ -639,11 +588,8 @@ From stephen.marquard@uct.ac.za {\bf Sat} Jan  5 09:14:16 2008
 \end{alltt}
 \afterverb
 
-The {\tt split} method is very effective when faced with this 
-kind of problem.
-We can write a small program that looks for lines where the 
-line starts with ``From '' and then {\tt split} those lines 
-and then print out the third word in the line:
+{\tt split} 메쏘드는 이런 종류의 문제에 직면했을 때, 매우 효과적이다.
+''From ''으로 시작하는 라인을 찾고 {\tt split} 메쏘드로 파싱하고 라인의 흥미로운 부분을 출력하는 작은 프로그램을 작성할 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -656,13 +602,11 @@ for line in fhand:
 \end{verbatim}
 \afterverb
 %
-We also use the contracted form of the {\tt if}
-statement where we put the {\tt continue } on the
-same line as the {\tt if}.  This contracted form
-of the {\tt if} functions the same as if the
-{\tt continue} were on the next line and indented.
 
-The program produces the following output:
+{\tt if} 문의 축약 형태로 {\tt continue }문을 {\tt if}문과 동일한 라인에 놓았다.
+{\tt if} 문의 축약 형태는 {\tt continue }문을 다음 라인에 들여쓰기를 한 것과 동일하다.
+
+프로그램은 다음을 출력한다.
 
 \beforeverb
 \begin{verbatim}
@@ -674,16 +618,15 @@ Fri
 \end{verbatim}
 \afterverb
 %
-Later, we will learn increasingly sophisticated techniques for
-picking the lines to work on and how we pull those lines apart
-to find the exact bit of information we are looking for.
 
-\section{Objects and values}
+나중에, 작업할 라인을 선택하고, 탐색하는 정확한 비트(bit) 수준의 정보를 찾아 내기 위해서 어떻게 해당 라인에서 뽑아내는 정교한 기술에 대해서 배울 것이다.
+
+\section{개체와 값(value)}
 
 \index{object}
 \index{value}
 
-If we execute these assignment statements:
+아래 할당문을 실행한다.
 
 \beforeverb
 \begin{verbatim}
@@ -692,10 +635,10 @@ b = 'banana'
 \end{verbatim}
 \afterverb
 %
-We know that {\tt a} and {\tt b} both refer to a
-string, but we don't
-know whether they refer to the \emph{same} string.
-There are two possible states:
+
+{\tt a} 와 {\tt b} 모두 문자열을 참조하지만, 두 변수가 \emph{동일한} 문자열을 참조하는지 알 수 없다.
+
+두 가지 가능한 상태가 있다.
 
 \index{aliasing}
 
@@ -703,15 +646,12 @@ There are two possible states:
 \centerline{\includegraphics{figs2/list1.eps}}
 \afterfig
 
-In one case, {\tt a} and {\tt b} refer to two different objects that
-have the same value.  In the second case, they refer to the same
-object.
+한 가지 경우는 {\tt a} 와 {\tt b}가 같은 값을 가지는 다른 두 개체를 참조하는 것이다. 두번째 경우는 같은 개체를 참조하는 것이다.
 
 \index{is operator}
 \index{operator!is}
 
-To check whether two variables refer to the same object, you can
-use the {\tt is} operator.
+두 변수가 동일한 개체를 참조하는지를 확인하기 위해서, {\tt is} 연산자가 사용된다.
 
 \beforeverb
 \begin{verbatim}
@@ -722,10 +662,10 @@ True
 \end{verbatim}
 \afterverb
 %
-In this example, Python only created one string object,
-and both {\tt a} and {\tt b} refer to it.
 
-But when you create two lists, you get two objects:
+이 경우, 파이썬은 하나의 문자열 개체를 생성하고 {\tt a} 와 {\tt b} 모두 동일한 개체를 참조한다.
+
+하지만, 두개의 리스트를 생성할 때, 두 개의 개체를 얻게된다.
 
 \beforeverb
 \begin{verbatim}
@@ -737,32 +677,27 @@ False
 \afterverb
 %
 
-In this case we would say that the two lists are {\bf equivalent},
-because they have the same elements, but not {\bf identical}, because
-they are not the same object.  If two objects are identical, they are
-also equivalent, but if they are equivalent, they are not necessarily
-identical.
+상기의 경우, 두개의 리스트는 동등하다고 말할 수 있다. 왜냐하면 동일한 요소를 가지고 있기 때문이다.
+하지만, 같은 개체는 아니기 때문에 동일하지는 않다. 두개의 개체가 동일하다면, 두 개체는 또한 등등하다.
+하지만, 동등하다고 해서 반듯이 동일하지는 않다.
 
 \index{equivalence}
 \index{identity}
 
-Until now, we have been using ``object'' and ``value''
-interchangeably, but it is more precise to say that an object has a
-value.  If you execute {\tt a = [1,2,3]}, {\tt a} refers to a list
-object whose value is a particular sequence of elements.  If another
-list has the same elements, we would say it has the same value.
+지금까지 ''개체''와 ''값(value)''를 구분없이 사용했지만, 개체가 값을 가진다라고 말하는 것이는 좀더 정확하다.
+{\tt a = [1,2,3]} 을 실행하면, {\tt a} 는 리스트 개체로 특별한 일련의 요소값을 가진다. 만약 또 다른 리스트가 동일한 요소를 가진다면,
+그 리스트느 같은 값을 가진다고 말한다.
 
 \index{object}
 \index{value}
 
 
-\section{Aliasing}
+\section{에일리어싱(Aliasing)}
 
 \index{aliasing}
 \index{reference!aliasing}
 
-If {\tt a} refers to an object and you assign {\tt b = a},
-then both variables refer to the same object:
+{\tt a}가 개체를 참조하고, {\tt b = a} 할당하다면, 두 변수는 동일한 개체를 참조한다.
 
 \beforeverb
 \begin{verbatim}
@@ -774,20 +709,15 @@ True
 \afterverb
 %
 
-The association of a variable with an object is called a {\bf
-reference}.  In this example, there are two references to the same
-object.
+개체 변수의 연관을 {\bf 참조(reference)}라고 한다. 상기의 경우 동일한 개체를 두 개의 참조가 있다.
 
 \index{reference}
 
-An object with more than one reference has more
-than one name, so we say that the object is {\bf aliased}.
+하나 이상의 참조를 가진 개체는 한개 이상의 이름을 가져서 개체가 {\bf 에일리어스(aliased)} 되었다고 한다.
 
 \index{mutability}
 
-If the aliased object is mutable, 
-changes made with one alias affect
-the other:
+만약 에일리어스된 개체가 변경 가능하면, 변화의 여파는 다른 개체에도 파급된다.
 
 \beforeverb
 \begin{verbatim}
@@ -797,14 +727,12 @@ the other:
 \end{verbatim}
 \afterverb
 %
-Although this behavior can be useful, it is error-prone.  In general,
-it is safer to avoid aliasing when you are working with mutable
-objects.
+
+이런 행동이 유용하기도 하지만, 오류를 발생하기도 쉽다. 일반적으로, 변경가능한 개체(mutable object)로 작업할 때 에일리어싱을 피하는 것이 안전하다.
 
 \index{immutability}
 
-For immutable objects like strings, aliasing is not as much of a
-problem.  In this example:
+문자열 같은 변경 불가능한 개체에 에일리어싱은 그다지 문제가 되지 않는다. 
 
 \beforeverb
 \begin{verbatim}
@@ -813,11 +741,9 @@ b = 'banana'
 \end{verbatim}
 \afterverb
 %
-It almost never makes a difference whether {\tt a} and {\tt b} refer
-to the same string or not.
+상기 예제에서, {\tt a} 와 {\tt b}가 동일한 문자열을 참조하든 참조하지 않든 거의 차이가 없다.
 
-
-\section{List arguments}
+\section{리스트 인수}
 
 \index{list!as argument}
 \index{argument}
@@ -825,10 +751,8 @@ to the same string or not.
 \index{reference}
 \index{parameter}
 
-When you pass a list to a function, the function gets a reference
-to the list.
-If the function modifies a list parameter, the caller sees the change.
-For example, \verb"delete_head" removes the first element from a list:
+리스트를 함수에 인수로 전달할 때, 함수는 리스트의 참조를 얻는다. 만약 함수가 리스트 매개 변수를 변경한다면, 호출자는 변화를 보게된다.
+예를 들어, \verb"delete_head"는 리스트로부터 첫 요소를 제거한다.
 
 \beforeverb
 \begin{verbatim}
@@ -837,7 +761,8 @@ def delete_head(t):
 \end{verbatim}
 \afterverb
 %
-Here's how it is used:
+
+여기 어떻게 \verb"delete_head" 함수가 사용된 예제가 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -848,13 +773,11 @@ Here's how it is used:
 \end{verbatim}
 \afterverb
 %
-The parameter {\tt t} and the variable {\tt letters} are
-aliases for the same object.  
 
-It is important to distinguish between operations that
-modify lists and operations that create new lists.  For
-example, the {\tt append} method modifies a list, but the
-{\tt +} operator creates a new list:
+매개 변수 {\tt t}와 변수 {\tt letters}는 동일한 개체에 대한 에일리어스(aliases)다.
+
+리스트를 변경하는 연산자와 신규 리스트를 생성하는 연산자를 구별하는 것은 중요하다.
+예를 들어, {\tt append} 메쏘드는 리스트를 변경하지만, {\tt +} 연산자는 신규 리스트를 생성한다.
 
 \index{append method}
 \index{method!append}
@@ -878,28 +801,22 @@ False
 \end{verbatim}
 \afterverb
 
-This difference is important when you write functions that
-are supposed to modify lists.  For example, this function
-\emph{does not} delete the head of a list:
+리스트를 변경하는 함수를 작성할 때, 이 차이는 매우 중요하다.
+예를 들어, 다음의 함수는 리스트의 처음(head)을 삭제하지 않는다.
 
 \beforeverb
 \begin{verbatim}
 def bad_delete_head(t):
-    t = t[1:]              # WRONG!
+    t = t[1:]              # 틀림(WRONG)!
 \end{verbatim}
 \afterverb
 
-The slice operator creates a new list and the assignment
-makes {\tt t} refer to it, but none of that has any effect
-on the list that was passed as an argument.
+슬라이스 연산자는 새로운 리스트를 생성하지만, 인수로 전달된 리스트에는 어떠한 영향도 주지 못한다.
 
 \index{slice operator}
 \index{operator!slice}
 
-An alternative is to write a function that creates and
-returns a new list.  For
-example, {\tt tail} returns all but the first
-element of a list:
+대안은 신규 리스트를 생성하고 반환하는 함수를 작성하는 것이다. 예를 들어, {\tt tail}은 리스트의 첫 요소를 제외하고 모든 요소를 반환한다.
 
 \beforeverb
 \begin{verbatim}
@@ -908,8 +825,8 @@ def tail(t):
 \end{verbatim}
 \afterverb
 %
-This function leaves the original list unmodified.
-Here's how it is used:
+
+상기 함수는 원 리시트를 변경하지는 않는다. 여기 어떻게 사용되었는지 예시가 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -923,30 +840,23 @@ Here's how it is used:
 
 \begin{ex}
 
-Write a function called {\tt chop} that takes a list and modifies
-it, removing the first and last elements, and returns {\tt None}.
+리스트를 인수로 받아 리스트를 변경하여, 첫번째 요소와 마지막 요소를 제거하고 {\tt None}을 반환하는 {\tt chop} 함수를 작성하게요.
 
-Then write a function called {\tt middle} that takes a list and
-returns a new list that contains all but the first and last
-elements.
+그리고 나서, 리스트를 인수로 받아 처음과 마지막 요소를 제외한 나머지 요소를 새로운 리스트로 반환하는 {\tt middle} 함수를 작성하세요.
 
 \end{ex}
 
 
-\section{Debugging}
+\section{디버깅}
 \index{debugging}
 
-Careless use of lists (and other mutable objects)
-can lead to long hours of debugging.  Here are some common
-pitfalls and ways to avoid them:
+부주의한 리스트의 사용이나 다른 변경가능한 재체를 사용하는 경우 오랜 시간의 디버깅으로 이끌 수 있다. 몇몇 일반적인 함정과 회피하는 방법을 소개한다.
 
 \begin{enumerate}
 
-\item Don't forget that most list methods modify the argument and
-  return {\tt None}.  This is the opposite of the string methods,
-  which return a new string and leave the original alone.
+\item 대부분의 리스트 메쏘드는 인수를 변경하고, {\tt None}을 반환한다. 이는 새로운 문자열을 반환하고 원 문자열은 그대로 두는 문자열과 정반대다.
 
-If you are used to writing string code like this:
+다음과 같이 문자열 코드를 쓰는데 익숙해져 있다면,
 
 \beforeverb
 \begin{verbatim}
@@ -954,39 +864,31 @@ word = word.strip()
 \end{verbatim}
 \afterverb
 
-It is tempting to write list code like this:
+다음과 같이 리스트 코드를 작성하고 싶은 유혹이 있을 것이다.
 
 \beforeverb
 \begin{verbatim}
-t = t.sort()           # WRONG!
+t = t.sort()           # 틀림(WRONG)!
 \end{verbatim}
 \afterverb
 
 \index{sort method}
 \index{method!sort}
 
-Because {\tt sort} returns {\tt None}, the
-next operation you perform with {\tt t} is likely to fail.
+{\tt sort} 메쏘드는 {\tt None}을 반환하기 때문에, 리스트 {\tt t}에 수행한 다음 연산은 수행되지 않는다.
 
-Before using list methods and operators, you should read the
-documentation carefully and then test them in interactive mode.  The
-methods and operators that lists share with other sequences (like
-strings) are documented at
-\url{docs.python.org/lib/typesseq.html}.  The
-methods and operators that only apply to mutable sequences
-are documented at \url{docs.python.org/lib/typesseq-mutable.html}.
+리스트를 사용한 메쏘드와 연산자를 사용하기 전에, 문서를 주의깊게 읽고, 인터랙티브 모드에서 시험하는 것을 권한다.
+리스트가 문자열과 같은 다른 열과 공유하는 메쏘드와 연산자는 \url{docs.python.org/lib/typesseq.html} 에 문서화되어 있다.
+변경가능한 열에만 적용되는 메쏘드와 연산자는 \url{docs.python.org/lib/typesseq-mutable.html}에 문서화되어 있다.
 
 
-\item Pick an idiom and stick with it.
+
+\item 관용구를 선택하고 고수하라.
 \index{idiom}
 
-Part of the problem with lists is that there are too many
-ways to do things.  For example, to remove an element from
-a list, you can use {\tt pop}, {\tt remove}, {\tt del},
-or even a slice assignment.
-
-To add an element, you can use the {\tt append} method or
-the {\tt +} operator.  But don't forget that these are right: 
+리스트와 관련된 문제의 일부는 리스트를 가지고 할 수 있는 것이 너무 많다는 것이다.
+예를 들어, 리스트에서 요소를 제거하기 위해서, {\tt pop}, {\tt remove}, {\tt del}, 혹은 쪼개기 할당(slice assignment)도 사용할 수 있다.
+요소를 추가하기 위해서 {\tt append} 메쏘드나 {\tt +} 연산자를 사용할 수 있다. 하지만 다음이 맞다는 것을 잊지 마세요.
 
 \beforeverb
 \begin{verbatim}
@@ -995,31 +897,28 @@ t = t + [x]
 \end{verbatim}
 \afterverb
 
+하지만, 다음은 잘못됐다.
+
 And these are wrong:
 
 \beforeverb
 \begin{verbatim}
-t.append([x])          # WRONG!
-t = t.append(x)        # WRONG!
-t + [x]                # WRONG!
-t = t + x              # WRONG!
+t.append([x])          # 틀림(WRONG)!
+t = t.append(x)        # 틀림(WRONG)!
+t + [x]                # 틀림(WRONG)!
+t = t + x              # 틀림(WRONG)!
 \end{verbatim}
 \afterverb
 
-Try out each of these examples in interactive mode to make sure
-you understand what they do.  Notice that only the last
-one causes a runtime error; the other three are legal, but they
-do the wrong thing.
+인터랙티브 모드에서 각각을 연습해 보해서 제대로 이해하고 있는지 확인해 보세요.
+마지막 두개만이 실행 오류를 하고, 다른 세가지는 모두 작동하지만, 잘못된 것을 수행함을 주목하세요.
 
-
-\item Make copies to avoid aliasing.
+\item 에일리어싱을 피하기 위해서 사본 만들기.
 
 \index{aliasing!copying to avoid}
 \index{copy!to avoid aliasing}
 
-If you want to use a method like {\tt sort} that modifies
-the argument, but you need to keep the original list as
-well, you can make a copy.
+인수를 변경하는 {\tt sort}같은 메쏘드를 사용하지만, 원 리스트도 보관하길 원한다면, 사본을 만들 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -1028,21 +927,15 @@ t.sort()
 \end{verbatim}
 \afterverb
 
-In this example you could also use the built-in function {\tt sorted},
-which returns a new, sorted list and leaves the original alone.
-But in that case you should avoid using {\tt sorted} as a variable
-name!
+상기 예제에 원 리스트는 그대로 둔 상태로 새로 정렬된 리스트를 반환하는 내장함수 {\tt sorted}를 사용할 수 있다.
+하지만 이 경우에는, 변수명으로 {\tt sorted}를 사용하는 것을 피해야 한다.
 
-\item Lists, {\tt split}, and files
 
-When we read and parse files, there are many opportunities
-to encounter input that can crash our program so it is a good 
-idea to revisit the {\bf guardian} pattern when it comes
-writing programs that read through a file 
-and look for a ``needle in the haystack''.
+\item 리스트, {\tt split}, 파일
 
-Let's revisit our program that is looking for the day of the
-week on the from lines of our file:
+파일을 읽고 파싱할 때, 프로그램을 중단할 수 있는 입력값을 마주칠 수 있는 수많은 기회가 있다.
+그래서 파일을 훑어 ''건초더미에서 바늘''을 찾는 프로그램을 작성할 때, {\bf 가디언 패턴(guardian pattern)}을 다시 살펴보는 것은 좋은 생각이다.
+파일의 라인에서 요일을 찾는 프로그램을 다시 살펴보자.
 
 \beforeverb
 \begin{alltt}
@@ -1050,11 +943,8 @@ From stephen.marquard@uct.ac.za {\bf Sat} Jan  5 09:14:16 2008
 \end{alltt}
 \afterverb
 
-Since we are breaking this line into words, we could dispense
-with the use of {\tt startswith} and simply look at the 
-first word of the line to determine if we are interested
-in the line at all.  We can use {\tt continue} to skip lines
-that don't have ``From'' as the first word as follows:
+각 라인을 단어로 나누었기 때문에, {\tt startswith}를 사용하지 않고, 라인에 관심있는 단어가 있는지 살펴보기 위해서 단순히 각 라인의 첫 단어를 살펴본다.
+다음과 같이 ''From''이 없는 라인을 건너 뛰기 위해서 {\tt continue} 문을 사용한다.
 
 \beforeverb
 \begin{verbatim}
@@ -1066,9 +956,9 @@ for line in fhand:
 \end{verbatim}
 \afterverb
 %
-This looks much simpler and we don't even need to do the 
-{\tt rstrip} to remove the newline at the end of the file.
-But is it better?
+
+프로그램이 훨씬 간단하고, 파일 끝의 새줄(newline)을 제거하기 위해서 {\tt rstrip}을 사용할 필요도 없다.
+하지만, 더 좋아졌는가?
 
 \beforeverb
 \begin{verbatim}
@@ -1081,24 +971,16 @@ IndexError: list index out of range
 \end{verbatim}
 \afterverb
 %
-It kind of works and we see the day from the first line
-(Sat) but then the program fails with a traceback error.
-What went wrong?  What messed-up data caused our elegant, 
-clever and very Pythonic program to fail?
 
-You could stare at it for a long time and puzzle through
-it or ask someone for help, but the quicker and smarter
-approach is to add a {\tt print} statement.  The best place
-to add the print statement is right before the line where
-the program failed and print out the data that seems to be causing
-the failure.
+작동하는 것 같지만, 첫줄에 Sat 를 출력하고 나서 트레이스백 오류(traceback error)로 프로그램이 정상 동작에 실패한다.
+무엇이 잘못되었는가? 어딘가 엉망이 된 데이터가 우아하고, 총명하며, 매우 파이썬스러운 프로그램을 망가뜨린건가?
 
-Now this approach may generate a lot of lines of output but at 
-least you will immediately have some clue as to the 
-problem at hand.  So we add a print of the variable
-{\tt words} right before line five.  We even 
-add a prefix ``Debug:'' to the line so we can keep
-our regular output separate from our debug output.
+오랜 동안 프로그램을 응시하고 머리를 짜내거나, 다른 사람에게 도움을 요청할 수 있지만, 빠르고 현명한 접근법은 {\tt print}문을 추가하는 것이다.
+{\tt print}문을 넣는 가장 좋은 장소는 프로그램이 동작하지 않는 라인 앞이 적절하고, 프로그램 실패를 야기하는 데이터를 출력한다.
+
+이 접근법은 많은 라인을 출력하지만, 최소한 프로그램에 손에 잡히는 단서를 최소한 준다. 
+그래서 {\tt words}를 출력하는 출력문을 5번째 라인 앞에 추가한다. ''Debug:''를 접두어로 라인에 추가하여, 
+정상적인 출력과 디버그 출력과 구분한다.
 
 \beforeverb
 \begin{verbatim}
@@ -1110,9 +992,9 @@ for line in fhand:
 \end{verbatim}
 \afterverb
 %
-When we run the program, a lot of output scrolls off the screen
-but at the end, we see our debug output and the traceback so 
-we know what happened just before the traceback.
+
+프로그램을 실행할 때, 많은 출력결과가 스크롤되어 화면 위로 지나간다. 
+마지막에 디버그 결과물과 트레이스백(traceback)을 보고 트레이스백 바로 앞에서 무엇이 생겼는지를 알 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -1126,10 +1008,9 @@ IndexError: list index out of range
 \end{verbatim}
 \afterverb
 %
-Each debug line is printing the list of words which we get
-when we {\tt split} the line into words.  When the program fails
-the list of words is empty \verb"[]".  If we open the file in a text editor
-and look at the file, at that point it looks as follows:
+
+각 디버그 라인은 라인을 {\tt split} 쪼개서 단어로 만들 때 얻는 리스트 단어를 출력한다.
+프로그램이 실패할 때, 리스트의 단어는 비었다 '[]'. 텍스트 편집기로 파일을 열어 살펴보면 그 지점은 다음과 같다.
 
 \beforeverb
 \begin{verbatim}
@@ -1142,16 +1023,13 @@ Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772
 \end{verbatim}
 \afterverb
 %
-The error occurs when our program encounters a blank line! Of course there
-are ``zero words'' on a blank line.  Why didn't we think of that 
-when we were writing the code.  When the code looks for the first
-word (\verb"word[0]") to check to see if it matches ``From'', 
-we get an ``index out of range'' error.
 
-This of course is the perfect place to add some {\bf guardian} code 
-to avoid checking the first word if the first word is not there.
-There are many ways to protect this code, we will choose to 
-check the number of words we have before we look at the first word:
+프로그램이 빈 라인을 만났을 때, 오류가 발생한다. 물론, 빈 라인은 '0' 단어 (''zero words'')다.
+프로그램을 작성할 때, 왜 그것을 생각하지 못했을까?
+첫 단어(\verb"word[0]")가 ''From''과 일치하는지를 코드가 살펴볼 때, ``index out of range''가 발생한다.
+
+물론, 첫 단어가 없다면 첫 단어 점검을 회피하는 {\bf 가디언 코드(guardian code)}를 넣기 최적의 장소이기는 하다.
+코드를 보호하는 방법은 많다. 첫 단어를 살펴보기 전에 단어의 갯수를 확인하는 방법을 여기서는 택한다.
 
 \beforeverb
 \begin{verbatim}
@@ -1166,33 +1044,32 @@ for line in fhand:
 \end{verbatim}
 \afterverb
 %
-First we commented out the debug print statement instead of removing it 
-in case our modification fails and we need to debug again.  Then we added
-a guardian statement that checks to see if we have zero words, and if so, 
-we use {\tt continue} to skip to the next line in the file.
 
-We can think of the two {\tt continue} statements as helping us refine
-the set of lines which are ``interesting'' to us and which we want 
-to process some more.  A line which has no words is ``uninteresting'' to 
-us so we skip to the next line.  A line which does not have ``From''
-as its first word is uninteresting to us so we skip it.
+변경한 코드가 실패해서 다시 디버그할 필요가 있는 경우를 대비해서, {\tt print}문을 제거하는 대신에
+{\tt print}문을 주석 처리한다.
 
-The program as modified runs successfully so perhaps it is correct.  Our
-guardian statement does make sure that the {\tt words[0]} will never fail, 
-but perhaps it is not enough.  When we are programming, we must always be 
-thinking, ``What might go wrong?''.
+단어가 '0'인지를 살펴보고 만약에 '0'이면 파일의 다음 라인으로 건너뛰도록 {\tt continue}문을 사용하는 {\bf 가디언 문(guardian statement)}을 추가한다.
+
+두 개의 {\tt continue}문이 ''흥미롭고'' 데이터를 처리할 라인의 집합에 좀더 정제하도록 돕는 것으로 생각할 수 있다.
+
+단어가 없는 라인은 ''흥미없어서'' 다음 라인으로 건너뛴다. 첫 단어에 ''From''이 없는 라인도 ''흥미없어서'' 건너뛴다.
+
+변경된 프로그램은 성공적으로 실행되어서, 아마도 올바를게 작성된 것으로 보인다. 
+{\bf 가디언 문(guardian statement)}이 {\tt words[0]}의 정상작동할 것이라는 것을 확인해 주지만, 충분하지 않을 수도 있다.
+프로그램을 작성할 때, ''무엇이 잘못 될 수 있을까?''를 항상 생각해야만 한다.
+
 
 \begin{ex}
-Figure out which line of the above program is still not properly guarded.
-See if you can construct a text file which causes the program to fail
-and then modify the program so that the line is properly guarded and 
-test it to make sure it handles your new text file.
+상기 프로그램의 어느 라인이 적절하게 보호되지 않은지를 생각해 보세요.
+프로그램이 실패하도록 텍스트 파일을 구성할 수 있는지 살펴보세요.
+그리고 나서, 라인이 적절하게 보호되고 프로그램을 변경하세요.
+그리고, 새로운 텍스트 파일을 잘 다룰 수 있도록 시험을 하세요.
+
 \end{ex}
 
 \begin{ex}
-Rewrite the guardian code in the above example without two
-{\tt if} statements.  Instead use a compound logical expression using the
-{\tt and} logical operator with a single {\tt if} statement.
+두 {\tt if}문 없도록 상기 예제의 {\tt 가디언 코드(guardian code)}를 다시 작성하세요.
+대신에 단일 {\tt if}문과 {\tt and} 논리 연산자를 사용하는 복합 논리 표현식을 사용하세요.
 \end{ex}
 
 
@@ -1200,66 +1077,60 @@ Rewrite the guardian code in the above example without two
 
 
 
-\section{Glossary}
+\section{용어정의}
 
 \begin{description}
 
-\item[aliasing:] A circumstance where two or more variables refer to the same
-object.
+\item[에일리어싱(aliasing):] 하나 혹은 그 이상의 변수가 동일한 개체를 참조하는 상황.
 \index{aliasing}
 
-\item[delimiter:] A character or string used to indicate where a
-string should be split.
+\item[구분자(delimiter):] 문자열이 어디서 쪼개져야할지를 표기하기 위해서 사용되는 문자나 문자열.
 \index{delimiter}
 
-\item[element:] One of the values in a list (or other sequence),
-also called items.
+\item[요소(element):] 리스트나 혹은 다른 열의 값의 하나로 항목(item)이라고도 한다.
 \index{element}
 
-\item[equivalent:] Having the same value.
+\item[동등한(equivalent):] 같은 값을 가짐.
 \index{equivalent}
 
-\item[index:] An integer value that indicates an element in a list.
+\item[인덱스(index):] 리스트의 요소를 지칭하는 정수 값.
 \index{index}
 
-\item[identical:] Being the same object (which implies equivalence).
+\item[동일한(identical):] 동등을 함축하는 같은 개체임.
 \index{identical}
 
-\item[list:] A sequence of values.
+\item[리스트(list):] 일련의 값.
 \index{list}
 
-\item[list traversal:] The sequential accessing of each element in a list.
+\item[리스트 운행법(list traversal):] 리스트의 각 요소를 순차적으로 접근함.
 \index{list!traversal}
 
-\item[nested list:] A list that is an element of another list.
+\item[중첩 리스트(nested list):] 또 다른 리스트의 요소인 리스트.
 \index{nested list}
 
-\item[object:] Something a variable can refer to.  An object
-has a type and a value.
+\item[개체(object):] 변수가 참조할 수 있는 무엇. 개체는 형(type)과 값(value)을 가진다.
 \index{object}
 
-\item[reference:] The association between a variable and its value.
+\item[참조(reference):] 변수와 값의 연관.
 \index{reference}
 
 \end{description}
 
 
-\section{Exercises}
+\section{연습문제}
 
 \begin{ex}
-Download a copy of the file from 
-\url{www.py4inf.com/code/romeo.txt}
+
+
+\url{www.py4inf.com/code/romeo.txt}에서 파일 사본을 다운로드 받으세요.
 \index{Romeo and Juliet}
 
-Write a program to open the file {\tt romeo.txt} and read it
-line by line.  For each line, split the line into  a list of 
-words using the {\tt split} function.
+{\tt romeo.txt} 파일을 열어, 한 줄씩 읽어들이는 프로그램을 작성하세요.
+각 라인마다 {\tt split} 함수를 사용하여 라인을 단어 리스트로 쪼개세요.
 
-For each word, check to see if the word is already in a list.  
-If the word is not in the list, add it to the list.  
+각 단어마다, 단어가 이미 리스트에 존재하는지를 확인하세요. 만약 단어가 리스트웨 없다면, 리스트에 새 단어로 추가하세요.
 
-When the program completes, sort and print the resulting words
-in alphabetical order.
+프로그램이 완료되면, 알파벳 순으로 결과 단어를 정렬하고 출력하세요.
 
 \begin{verbatim}
 Enter file: romeo.txt
@@ -1272,18 +1143,18 @@ Enter file: romeo.txt
 \end{ex}
 
 \begin{ex}
-Write a program to read through the mail box data and when you find 
-line that starts with ``From'', you will split the line into 
-words using the {\tt split} function. We are interested in 
-who sent the message which is the second word on the From line.
+
+우편함 데이터를 읽어 들이는 프로그램을 작성하세요.
+''From''으로 시작하는 라인을 발견했을 때, {\tt split} 함수를 사용하여 라인을 단어로 쪼게세요.
+''From'' 라인의 두번째 단어, 누가 메시지를 보냈는지에 관심이 있다.
+
 
 {\tt From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008 }
 
-You will parse the From line and print out the second word for 
-each From line and then you will also count the number of 
-From (not From:) lines and print out a count at the end.
+''From'' 라인을 파싱하여 각 ''From''라인의 두번째 단어를 출력한다.
+그리고 나서, ''From:''이 아닌 ''From''라인의 갯수를 세고, 끝에 갯수를 출력한다.
 
-This is a good sample output with a few lines removed:
+여기 몇 줄을 삭제한 좋은 출력 예시가 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -1306,13 +1177,9 @@ There were 27 lines in the file with From as the first word
 \end{ex}
 
 \begin{ex}
-Rewrite the program that prompts the user for a list of 
-numbers and prints out the maximum and minimum of the
-numbers at the end when the user enters ``done''.  Write
-the program to store the numbers the user enters in a list
-and use the {\tt max()} and {\tt min()} functions to 
-compute the maximum and minimum numbers after the 
-loop completes.
+
+사용자가 숫자 리스트를 입력하고, 입력한 숫자 중에 최대값과 최소값을 출력하고 사용자가 ''done''을 입력할 때 끝나는 프로그램을 다시 작성하세요.
+사용자가 입력한 숫자를 리스트에 저장하고, {\tt max()} 과 {\tt min()}함수를 사용하여 루프가 끝나면, 최대값과 최소값을 출력하는 프로그램을 작성하세요.
 
 \beforeverb
 \begin{verbatim}

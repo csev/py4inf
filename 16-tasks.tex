@@ -1,29 +1,21 @@
 % The contents of this file is 
 % Copyright (c) 2009-  Charles R. Severance, All Righs Reserved
 
-\chapter{Automating common tasks on your computer}
+\chapter{컴퓨터의 일반적인 작업 자동화}
 
-We have been reading data from files, networks, services,
-and databases.   Python can also go through all of the 
-directories and folders on your computers and read those files
-as well.
+파일, 네트워크, 서비스, 그리고 데이터베이스에서 데이터를 읽어왔다.
+파이썬은 또한 여러분의 컴퓨터의 디렉토리와 폴더를 훑어서 파일도 읽어온다.
 
-In this chapter, we will write programs that scan 
-through your computer and 
-perform some operation on each file.  
-Files are organized into directories (also called ``folders'').
-Simple Python scripts
-can make short work of simple tasks that must be done to 
-hundreds or thousands of files
-spread across a directory tree or your entire computer.
+이번 장에서, 여러분의 로컬 컴퓨터를 스캔하고 각 파일에 대해서 연산을 수행하는 프로그램을 작성한다.
+파일은 디렉토리(또한 ''폴더''라고도 부른다.)에 정렬되어 보관된다. 간단한 파이썬 스크립트가 
+전체 로컬 컴퓨터나 디렉토리를 여기저기 뒤져야되는 수백 수천개 파일에 대한 단순한 작업을 짧게 수행한다. 
 
-To walk through all the directories and files in a tree we use 
-{\tt os.walk} and a {\tt for} loop.  This is similar to how 
-{\tt open} allows us to write a loop to read the contents of a file,
-{\tt socket} allows us to write a loop to read the contents of a network connection, and
-{\tt urllib} allows us to open a web document and loop through its contents.
+트리상의 디렉토리나 파일을 여기저기 돌아다니기 위해서 {\tt os.walk}과 {\tt for} 루프를 사용한다.
+{\tt open}이 파일의 콘텐츠를 읽는 루프를 작성하는 것과 비슷하게,
+{\tt socket}은 네트워크 연결된 콘텐츠를 읽는 루프를 작성하고,
+{\tt urllib}는 웹문서를 열어 콘텐츠를 루프를 통해서 읽어오게 한다. 
 
-\section{File names and paths}
+\section{파일 이름과 경로}
 \label{paths}
 
 \index{file name}
@@ -31,17 +23,14 @@ To walk through all the directories and files in a tree we use
 \index{directory}
 \index{folder}
 
-Every running program has a ``current directory,'' which is the
-default directory for most operations.  
-For example, when you open a file for reading, Python looks for it in the
-current directory.
+모든 실행 프로그램은 ''현재 디렉토리(current directory)''가 있고 대부분의 운영체제에 디폴트 디렉토리다.
+예를 들어 읽기 위해서 파일을 연다면, 파이썬은 현재 디렉토리에서 파일을 찾는다.
 
 \index{os module}
 \index{module!os}
 
-The {\tt os} module provides functions for working with files and
-directories ({\tt os} stands for ``operating system'').  {\tt os.getcwd}
-returns the name of the current directory:
+{\tt os} 모듈(os는 ''운영체제(operating system)''의 약자)은 파일과 디렉토리를 작업하는 함수를 제공한다.
+{\tt os.getcwd}은 현재 디렉토리의 이름을 반환한다.
 
 \index{getcwd function}
 \index{function!getcwd}
@@ -55,26 +44,24 @@ returns the name of the current directory:
 \end{verbatim}
 \afterverb
 %
-{\tt cwd} stands for {\bf current working directory}.  The result in
-this example is {\tt /Users/csev}, which is the home directory of a
-user named {\tt csev}.
+
+{\tt cwd} 는 {\bf current working directory}의 약자로 현재 작업 디렉토리다.
+예제의 결과는 {\tt /Users/csev}인데 {\tt csev} 사용자의 홈 디렉토리가 된다.
 
 \index{working directory}
 \index{directory!working}
 
-A string like {\tt cwd} that identifies a file is called a path.
-A {\bf relative path} starts from the current directory;
-an {\bf absolute path} starts from the topmost directory in the
-file system.
+파일을 식별하는 {\tt cwd} 같은 문자열을 경로(path)라고 부른다.
+{\bf 상대경로(relative path)}는 현재 디렉토리에서 시작하고,
+{\bf 절대경로(absolute path)}는 파일 시스템의 가장 최상단의 디렉토리에서 시작한다.
 
 \index{relative path}
 \index{path!relative}
 \index{absolute path}
 \index{path!absolute}
 
-The paths we have seen so far are simple file names, so they are
-relative to the current directory.  To find the absolute path to
-a file, you can use {\tt os.path.abspath}:
+지금까지 살펴본 경로는 간단한 파일 이름이여서, 현재 디렉토리에서 상대적이다.
+파일의 절대 경로를 알아내기 위해서 {\tt os.path.abspath}을 사용한다.
 
 \beforeverb
 \begin{verbatim}
@@ -83,8 +70,8 @@ a file, you can use {\tt os.path.abspath}:
 \end{verbatim}
 \afterverb
 %
-{\tt os.path.exists} checks
-whether a file or directory exists:
+
+{\tt os.path.exists}은 파일이나 디렉토리가 존재하는지 검사한다.
 
 \index{exists function}
 \index{function!exists}
@@ -96,7 +83,8 @@ True
 \end{verbatim}
 \afterverb
 %
-If it exists, {\tt os.path.isdir} checks whether it's a directory:
+
+만약 존재하면, {\tt os.path.isdir}이 디렉토리인지 검사한다.
 
 \beforeverb
 \begin{verbatim}
@@ -107,10 +95,10 @@ True
 \end{verbatim}
 \afterverb
 %
-Similarly, {\tt os.path.isfile} checks whether it's a file.
 
-{\tt os.listdir} returns a list of the files (and other directories)
-in the given directory:
+마찬가지로 {\tt os.path.isfile}은 파일인지를 검사한다.
+
+{\tt os.listdir}은 주어진 디렉토리에 파일 리스트(그리고 다른 디렉토리)를 반환한다.
 
 \beforeverb
 \begin{verbatim}
@@ -121,20 +109,16 @@ in the given directory:
 %
 
 
-\section{Example: Cleaning up a photo directory}
+\section{예제: 사진 디렉토리 정리하기}
 
-Some time ago, I built a bit of Flickr-like software that 
-received photos from my cell phone and stored those photos
-on my server.  I wrote this before Flickr existed and kept 
-using it after Flickr existed because
-I wanted to keep original copies of my images forever.
+얼마 전에 핸드폰에서 사진을 받아서 서버에 저장하는 플릭커(Flickr)와 유사한 소프트웨어를 개발했다.
+플릭커가 존재하기 전에 작성해고, 플맄커가 생긴 이후에도 계속해서 사용했다.
+왜냐하면 영원히 원본을 보관하고 싶어서다.
 
-I would also send a simple one-line text description in the MMS message
-or the subject line of the e-mail message.  I stored these messages
-in a text file in the same directory as the image file.   I came up 
-with a directory structure based on the month, year, day and time the 
-photo was taken.   The following would be an example of the naming for 
-one photo and its existing description:
+문자메시지로 한줄 텍스트 문자나 전자우편 주소의 제목줄도 보낼 수 있다. 
+사진 파일과 마찬가지로 텍스프 파일형식의 메시지를 동일한 디렉토리에 저자했다.
+사진을 찍은 월, 년, 일, 그리고 시간에 기초한 디렉토리 구조다.
+다음은 사진 한장과 설명 텍스트를 가진 예제다.
 
 \beforeverb
 \begin{verbatim}
@@ -143,15 +127,12 @@ one photo and its existing description:
 \end{verbatim}
 \afterverb
 %
-After seven years, I had a lot of photos and captions.  Over the years
-as I switched cell phones, sometimes my code to extract the caption from the message 
-would break and add a bunch of useless data on my server instead of a caption.  
 
-I wanted to go through these files and figure out which of the 
-text files were really captions and which were junk and then delete the bad
-files.  The first thing to do was to get a simple inventory of 
-how many text files I had in of the sub-folders
-using the following program:
+7년이 지난 후에, 정말 많은 사진과 짧은 설명문이 생겼다. 시간이 지남에 따라 핸드폰을 바꿈에 따라,
+메시지에서 짧은 설명문을 뽑아내는 코드가 잘 동작하지 않고 짧은 설명문 대신에 서버에 쓸모없는 데이터를 추가했다.
+
+파일을 훑어서 어느 텍스트 파일이 정말 짧은 설명문이고, 어는 것이 쓰레기인지 찾아서 잘못된 파일은 
+삭제하고 싶었다. 첫번째 할일은 다음 프로그램을 사용하여 폴더에 얼마나 많은 텍스트 파일이 있는지 목록을 얻는 것이다.
 
 \beforeverb
 \begin{verbatim}
@@ -168,32 +149,23 @@ Files: 1917
 \end{verbatim}
 \afterverb
 %
-The key bit of code that makes this possible is the {\tt os.walk}
-library in Python.  When we call {\tt os.walk} and give it a starting
-directory, it will ``walk'' through all of the directories 
-and sub-directories recursively.   The string ``.'' indicates
-to start in the current directory and walk downward.
-As it encounters each directory,
-we get three values in a tuple in the body of the {\tt for} loop.  
-The first value is the current
-directory name, the second value is the list of sub-directories 
-in the current directory, and the third value is a list of files
-in the current directory.
 
-We do not have to explicitly look into each of the sub-directories
-because we can count on {\tt os.walk} to visit every 
-folder eventually.  But we do want to look at each file, so 
-we write a simple {\tt for} loop to examine each of the files 
-in the current directory.   We check each file to see if 
-it ends with ``.txt'' and then count the number of 
-files through the whole directory tree that end with the
-suffix ``.txt''.
+이것을 가능하게 하는 가장 중요한 코드는 파이썬 {\tt os.walk} 라이브러리다.
+{\tt os.walk}을 호출하고 시작 디렉토리를 주면, 재귀적으로 모든 디렉토리와 하위 디렉토리를 훑는다.
+''.'' 문자열은 현재 디렉토리에서 시작해서 하위 디렉토리로 훑는 것을 표시한다.
+매번 디렉토리에 도착하면, {\tt for} 문 본문의 튜플에서 3개의 값을 얻는다.
+첫번째 값은 현재 디렉토리 이름, 두번째 값은 현재 디렉토리의 하위 디렉토리 리스트, 그리고 세번째 값은
+현재 디렉토리 파일 리스트다.
 
-Once we have a sense of how many files end with ``.txt'', the next
-thing to do is try to automatically
-determine in Python which files are bad and which files
-are good.   So we write a simple program to print out the
-files and the size of each file:
+명시적으로 하위 디렉토리 각각을 살펴보지 않는다. 왜냐하면
+{\tt os.walk}가 자동으로 모든 폴더를 방문할 것이기 때문이다.
+하지만, 각 파일을 살펴보고 싶기 때문에, 간단한 {\tt for} 루프를 작성해서 현재 디렉토리에 
+파일 각각을 조사한다. ''.txt''로 끝나는 파일이 있는지 확인한다.
+접미사 ''.txt''로 끝나는 전체 디렉토리 트리를 훑어서 파일의 숫자를 카운트한다.
+
+얼마나 많은 파일이 ''.txt'' 확장자로 끝나는지 감을 잡았으면, 다음 일은 자동적으로
+어느 파일이 정상이고, 어느 파일이 문제가 있는지를 파이썬에서 결정하는 것이다.
+간단한 프로그램을 작성해서 파일과 파일의 크기를 출력한다.
 
 \beforeverb
 \begin{verbatim}
@@ -207,24 +179,17 @@ for (dirname, dirs, files) in os.walk('.'):
 \end{verbatim}
 \afterverb
 %
-Now instead of just counting the files, we create 
-a file name by concatenating the directory name with
-the name of the file within the directory using
-{\tt os.path.join}.   It is important to use 
-{\tt os.path.join} instead of string concatenation 
-because on Windows we use a backslash
-(\verb"\") to construct file paths and on Linux
-or Apple we use a forward slash (\verb"/") 
-to construct file paths.  The {\tt os.path.join}
-knows these differences and knows what system
-we are running on and it does the proper concatenation
-depending on the system.  So the same Python code
-runs on either Windows or Unix-style systems.
 
-Once we have the full file name with directory
-path, we use the {\tt os.path.getsize} utility
-to get the size and print it out, producing the 
-following output:
+파일을 단순히 카운트하는 대신에 {\tt os.path.join}을 사용하여 디렉토리 안에서 
+디렉토리 이름과 파일 이름을 합쳐서 파일 이름을 생성한다.
+문자열 합치기 대신에 {\tt os.path.join}을 사용하는 것이 중요한데 왜냐하면
+파일 경로를 나타내기 위해서 윈도우에서는 파일 경로를 생성하기 위해서 역슬래쉬(\verb"\")를 사용하고,
+리눅스나 애플에서는 슬래쉬 (\verb"/")를 사용하기 때문이다.
+{\tt os.path.join}은 이러한 차이를 알고 어느 운영체제에서 동작하는지 알고 시스템에 따라
+적절한 합치기 작업을 수행한다. 그래서 동일한 파이썬 코드가 윈도우나 유닉스계열 시스템에도 실행된다.
+
+디렉토리 경로를 가진 전체 파일 이름을 갖게 되면, {\tt os.path.getsize} 유틸리티를 사용해서
+크기를 얻고 출력해서 다음 결과값을 만들어 낸다.
 
 \beforeverb
 \begin{verbatim}
@@ -244,12 +209,11 @@ python txtsize.py
 \end{verbatim}
 \afterverb
 %
-Scanning the output, we notice that some files are pretty short and 
-a lot of the files are pretty large and the same size (2578 and 2565). 
-When we take a look at a few of these larger files by hand, 
-it looks like the large 
-files are nothing but a generic bit of identical HTML that came 
-in from mail sent to my system from my T-Mobile phone:
+
+
+출력값을 스캔하면, 몇몇 파일은 매우 짧고, 다른 많은 파일은 매우 큰데 동일한 크기(2578, 2565)임을 볼 수 있다.
+수작업으로 몇개의 큰 파일을 살펴보면, 
+T-Mobile 핸드폰에서 보내지는 전자우편에 함께 오는 일반적인 동일한 HTML을 가진 것임을 알 수 있다.  
 
 \beforeverb
 \begin{verbatim}
@@ -260,16 +224,13 @@ in from mail sent to my system from my T-Mobile phone:
 \end{verbatim}
 \afterverb
 %
-Skimming through the file, it looks like there is no good information
-in these files so we can probably delete them.
 
-But before we delete the files, we will write a program to look for files
-that are more than one line long and show the contents of the file.
-We will not bother showing ourselves those files that are exactly
-2578 or 2565 characters long since we know that these files have no useful
-information.
+파일을 대충 살펴보면, 파일에 그다지 유용한 정보가 없으므로, 삭제한다.
 
-So we write the following program:
+하지만, 파일을 삭제하기 전에, 한 줄이 이상인 파일을 찾고 내용을 출력하는 프로그램을 작성한다.
+2578 혹은 2565 문자길이를 가진 파일을 보여주지는 않는다. 왜냐하면, 파일에 더 이상 유용한 정보가 없음을 알기 때문이다.
+
+그래서 다음과 같이 프로그램을 작성한다.
 
 \beforeverb
 \begin{verbatim}
@@ -293,16 +254,14 @@ for (dirname, dirs, files) in os.walk('.'):
 \end{verbatim}
 \afterverb
 %
-We use a {\tt continue} to skip files with the two 
-``bad sizes'', then open the rest of the files
-and read the lines of the file into a Python list
-and if the file has more than one line we print
-out how many lines are in the file and print out
-the first three lines.
 
-It looks like filtering out those two bad file sizes, and assuming
-that all one-line files are correct, we are down to some pretty clean
-data:
+{\tt continue}를 사용하여 두 ''잘못된 크기'' 파일을 건너뛰고, 
+나머지 파일을 열고, 파이썬 리스트에 파일 라인을 읽는다.
+만약 파일이 하나 이상의 라인이면, 파일에 얼마나 많은 라인이 있는지 출력하고,
+첫 세줄을 출력한다.
+
+두개의 잘못된 파일 크기를 제외하고, 모든 한줄짜리 파일이 정상적이라고 가정하고나면
+깨끗하게 정리된 파일을 생성된다.
 
 \beforeverb
 \begin{verbatim}
@@ -320,12 +279,9 @@ python txtcheck.py
 \end{verbatim}
 \afterverb
 %
-But there is one more annoying pattern of files: 
-there are some three-line files that consist of
-two blank lines followed by a line that says
-``Sent from my iPhone'' that have slipped 
-into my data.   So we make the following change
-to the program to deal with these files as well.
+
+하지만, 한가지 더 성가신 패턴의 파일이 있다. 두 공백 라인과 ``Sent from my iPhone''으로 구성된 3줄짜리 파일이다.
+프로그램을 다음과 같이 변경하여 이러한 파일도 처리하게 한다.
 
 \beforeverb
 \begin{verbatim}
@@ -340,11 +296,10 @@ to the program to deal with these files as well.
 \end{verbatim}
 \afterverb
 %
-We simply check if we have a three-line file, and if the third 
-line starts with the specified text, we skip it.
 
-Now when we run the program, we only see four remaining 
-multi-line files and all of those files look pretty reasonable:
+단순하게 3줄짜리 파일이 있는지 검사하고 만약 지정된 텍스트로 세번째 라인이 시작한다면, 건너뛴다.
+
+이제 프로그램을 실행하면, 단지 4개의 다중 라인 파일만을 보게되고 모든 파일이 잘 처리된 것으로 보인다.
 
 \beforeverb
 \begin{verbatim}
@@ -360,16 +315,13 @@ python txtcheck2.py
 \end{verbatim}
 \afterverb
 %
-If you look at the overall pattern of this program,
-we have successively refined how we accept or reject
-files and once we found a pattern that was ``bad'' we used
-{\tt continue} to skip the bad files so we could refine
-our code to find more file patterns that were bad.
 
-Now we are getting ready to delete the files, so 
-we are going to flip the logic and instead of printing out 
-the remaining good files, we will print out the ``bad''
-files that we are about to delete.
+프로그램의 전반적인 패턴을 살펴보면, 연속적으로 파일을 어떻게 승인할지와 거절할지를 정교화했고,
+''잘못된'' 패턴을 발견하면 {\tt continue}를 사용해서 잘못된 파일을 건너뛰게 했다.
+그래서 잘못된 더 맣은 파일 패턴을 발견하도록 코드를 정교화했다.
+
+이제 파일을 삭제할 준비가 되었다. 로직을 바꿔서, 나머지 올바른 파일을 출력하는 대신에,
+삭제할 ''잘못된'' 파일만을 출력한다.
 
 \beforeverb
 \begin{verbatim}
@@ -394,9 +346,9 @@ for (dirname, dirs, files) in os.walk('.'):
 \end{verbatim}
 \afterverb
 %
-We can now see a list of candidate files that we are about
-to delete and why these files are up for deleting.
-The program produces the following output:
+
+이제 삭제할 대상 목록과 왜 이 파일이 삭제 대상으로 나왔는지를 볼 수 있다.
+프로그램은 다음 출력을 생성한다.
 
 \beforeverb
 \begin{verbatim}
@@ -411,12 +363,11 @@ iPhone: ./2007/09/19-09-07_124857_01.txt
 \end{verbatim}
 \afterverb
 %
-We can spot-check these files to make sure that we did not inadvertently
-end up introducing a bug in our program or perhaps our logic 
-caught some files we did not want to catch.
 
-Once we are satisfied that this is the list of files we want to delete,
-we make the following change to the program:
+무작위로 파일을 검사해서 프로그램에 버그가 우연하게 들어가 있는지 혹은 원치 않는 파일이 
+작성한 프로그램 로직에 끌려들어 갔는지 확인할 수 있다.
+
+결과값에 만족하고, 다음이 삭제할 파일 목록임으로, 프로그램에 다음과 같은 변경을 한다.
 
 \beforeverb
 \begin{verbatim}
@@ -432,9 +383,8 @@ we make the following change to the program:
 \end{verbatim}
 \afterverb
 %
-In this version of the program, we will both print the file out 
-and remove the bad files
-using {\tt os.remove}.
+
+이번 버젼의 프로그램에서 파일을 출력하고 {\tt os.remove}을 사용하여 잘못된 파일을 삭제한다.
 
 \beforeverb
 \begin{verbatim}
@@ -445,11 +395,11 @@ T-Mobile: ./2005/01/02-01-05_1858001.txt
 \end{verbatim}
 \afterverb
 %
-Just for fun, run the program a second time and it will produce no output
-since the bad files are already gone.
 
-If we re-run {\tt txtcount.py} we can see that we have removed
-899 bad files:
+재미로, 프로그램을 두번 실행하게 되면 모든 잘못된 파일이 삭제되어서 출력값이 없다.
+
+{\tt txtcount.py}을 다시 실행하면, 899 잘못된 파일이 삭제되었음을 알 수 있다.
+
 \beforeverb
 \begin{verbatim}
 python txtcount.py 
@@ -457,30 +407,24 @@ Files: 1018
 \end{verbatim}
 \afterverb
 %
-In this section, we have followed a sequence where we use Python 
-to first look through directories and files seeking
-patterns.  We slowly use Python to help determine what we 
-want to do to clean up our directories.  Once we
-figure out which files are good and which files are 
-not useful, we use Python to delete the files and 
-perform the cleanup.
 
-The problem you may need to solve can either be quite simple 
-and might only depend on looking at the names of files,
-or perhaps you need to read every single file and
-look for patterns within the files.  Sometimes 
-you will need to read all the files and make a change 
-to some of the files.  All of these are pretty 
-straightforward once you understand how {\tt os.walk}
-and the other {\tt os} utilities can be used.
+이번 장에서 일련의 절차를 따라서 파이썬을 사용하여 디렉토리와 파일을 검색하는 패턴을 살펴봤다.
+천천히 파이썬을 사용해서 디렉토리를 정리하기 위해서 무엇을 할지를 결정했다.
+어느 파일이 좋고 어느 파일이 유용하지 않는지 파악한 후에 파이썬을 사용해서 파일을 삭제하고 
+파일 정리를 수행했다.
 
-\section{Command line arguments}
+해결하려고 하는 문제가 무척 간단하여 파일의 이름만을 살펴보는 것에 달려 있을 수 있다. 
+혹은 모든 파일을 읽고 파일 내부에 패턴을 찾을 필요가 있다.
+때때로, 모든 파일을 일고, 파일의 일부에 변경이 필요할지도 모른다. 
+{\tt os.walk}와 다른 {\tt os} 유틸리티가 어떻게 사용되는지 이해하기만 하면 이 모든 것은 매우 명확한다.
+
+
+\section{명령 줄 인수}
 
 \index{arguments}
 
-In earlier chapters, we had a number of programs that prompted
-for a file name using \verb"raw_input" and then read data 
-from the file and processed the data as follows:
+앞선 장에서 \verb"raw_input"을 사용하여 파일명을 사용자로부터 입력받고,
+파일에서 데이터를 읽어 다음과 같이 처리했다.
 
 \beforeverb
 \begin{verbatim}
@@ -491,10 +435,9 @@ text = handle.read()
 \end{verbatim}
 \afterverb
 %
-We can simplify this program a bit by taking the file name
-from the command line when we start Python.  Up to now,
-we simply run our Python programs and respond to the 
-prompts as follows:
+
+파이썬을 시작할 때, 명령 라인에서 파일 이름을 입력 받음으써 프로그램을 간략화 할 수 있다.
+지금까지 파이썬 프로그램을 단순하게 실행하고 다음과 같이 명령어 프롬프트에 응답했다.
 
 \beforeverb
 \begin{verbatim}
@@ -504,9 +447,10 @@ Enter file: mbox-short.txt
 \end{verbatim}
 \afterverb
 %
-We can place additional strings after the Python file and access
-those {\bf command line arguments} in our Python program.  Here is a simple program 
-that demonstrates reading arguments from the command line:
+
+파이썬 파일 다음에 추가 문자열을 배치하고 파이썬 프로그램에서 
+{\bf 명령 줄 인수(command line arguments)}에 접근한다.
+명령 줄에서 인수를 읽는 것을 시연하는 간단한 프로그램이 다음에 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -518,12 +462,10 @@ for arg in sys.argv:
 \end{verbatim}
 \afterverb
 %
-The contents of {\tt sys.argv} are a list of strings where the first string
-is the name of the Python program and the remaining strings are the arguments
-on the command line after the Python file.
+{\tt sys.argv}의 콘텐츠는 문자열 리스트로 첫 문자열은 파이썬 프로그램 이름,
+그리고 나머지 문자열은 파이썬 파일 다음의 명령 줄의 인수들이다.
 
-The following shows our program reading several command line arguments from the command
-line:
+다음은 명령 줄에서 명령 줄 인수 몇개를 읽어들이는 프로그램이다. 
 
 \beforeverb
 \begin{verbatim}
@@ -536,12 +478,12 @@ Argument: there
 \end{verbatim}
 \afterverb
 %
-There are three arguments are passed into our program as a three-element list.  
-The first element of the list is the file name (argtest.py) and the others are 
-the two command line arguments after the file name.
 
-We can rewrite our program to read the file, taking the file name 
-from the command line argument as follows:
+3 요소 리스트로 프로그램에 넘겨지는 인수가 3개 있다.
+리스트의 첫 요소는 파일 이름 (argtest.py) 그리고 나머지는 파일 이름 뒤에 2 명령 줄 인수다.
+
+파일을 읽어 오는 프로그램을 다시 작성할 수 있다. 다음과 같이 명령 줄 인수로 
+파일 명을 받는다. 
 
 \beforeverb
 \begin{verbatim}
@@ -554,9 +496,9 @@ print name, 'is', len(text), 'bytes'
 \end{verbatim}
 \afterverb
 %
-We take the second command line argument as the name of the file (skipping past
-the program name in the {\tt [0]} entry).  We open the file and read 
-the contents as follows:
+
+두번째 명령 줄 인수를 파일 이름으로 취한다. ( {\tt [0]} 항목 프로그램 이름은 생략한다.)
+파일을 열고 다음과 같이 콘텐츠를 읽는다.
 
 \beforeverb
 \begin{verbatim}
@@ -565,35 +507,30 @@ mbox-short.txt is 94626 bytes
 \end{verbatim}
 \afterverb
 %
-Using command line arguments as input can make it easier to reuse your Python programs 
-especially when you only need to input one or two strings.
 
-\section{Pipes}
+입력값으로 명령문 인수를 사용하는 것은 파이썬 프로그램을 재사용하기 쉽게 하고,
+특히 하나 혹은 두개의 문자열을 입력받을 때 유용한다.
+
+\section{파이프(Pipes)}
 
 \index{shell}
 \index{pipe}
 
-Most operating systems provide a command-line interface,
-also known as a {\bf shell}.  Shells usually provide commands
-to navigate the file system and launch applications.  For
-example, in Unix, you can change directories with {\tt cd},
-display the contents of a directory with {\tt ls}, and launch
-a web browser by typing (for example) {\tt firefox}.
+대부분의 운영 시스템은 {\bf 쉘(shell)}로 알려진 명령어 기반 인터페이스를 지원한다.
+일반적으로 쉘은 명령어를 지원해서 파일 시스템을 다루거나 응용 프로그램을 실행한다.
+예를 들어, 유닉스에서 {\tt cd} 명령어로 디렉토리를 변경하고 {\tt ls} 명령어로 디렉토리의 콘텐츠를 보여주고,
+{\tt firefox}를 타이핍해서 웹브라우져를 실행한다.
 
 \index{ls (Unix command)}
 \index{Unix command!ls}
 
-Any program that you can launch from the shell can also be
-launched from Python using a {\bf pipe}.  A pipe is an object
-that represents a running process.
+쉘에서 실행시킬 수 있는 어떤 프로그램이나 {\bf 파이프(pipe)}를 사용하여 파이썬에서도 실행시킬 수 있다.
+파이프는 작동중인 프로세스를 표현하는 개체다.
 
-For example, the Unix command\footnote{When using pipes to talk 
-to operating system commands like {\tt ls}, it is important 
-for you to know which operating system you are using and only
-open pipes to commands that are supported on your operating system.}
-{\tt ls -l} normally displays the
-contents of the current directory (in long format).  You can
-launch {\tt ls} with {\tt os.popen}:
+예를 들어, 유닉스 명령어\footnote{ 파이프를 사용하여 {\tt ls} 같은 운영 시스템 명령어로 대화할 때,
+무슨 운영 시스템을 사용하는지 알고 운영 시스템에서 지원되는 명령어로 파이프를 열수 있다는 것이 중요하다.}
+{\tt ls -l}는 정상적으로 현재 디렉토리의 콘텐츠(긴 형식으로)를 보여준다.
+{\tt os.popen}를 가지고 {\tt ls} 를 실행시킬 수 있다.
 
 \index{popen function}
 \index{function!popen}
@@ -605,11 +542,10 @@ launch {\tt ls} with {\tt os.popen}:
 \end{verbatim}
 \afterverb
 %
-The argument is a string that contains a shell command.  The
-return value is a file pointer that behaves just like an open
-file.  You can read the output from the {\tt ls} process one
-line at a time with {\tt readline} or get the whole thing at
-once with {\tt read}:
+
+인수는 쉘 명령어를 포함하는 문자열이다. 반환 값은 파일 포인터로 열린 파일처럼 동작한다.
+{\tt readline}으로 한번에 한 라인씩 {\tt ls} 프로세스로부터 출력을 읽거나 
+{\tt read}로 한번에 전체를 가져올 수 있다.
 
 \index{readline method}
 \index{method!readline}
@@ -622,7 +558,8 @@ once with {\tt read}:
 \end{verbatim}
 \afterverb
 %
-When you are done, you close the pipe like a file:
+
+모두 완료되면, 파일처럼 파이프를 닫는다.
 
 \index{close method}
 \index{method!close}
@@ -635,120 +572,97 @@ None
 \end{verbatim}
 \afterverb
 %
-The return value is the final status of the {\tt ls} process;
-{\tt None} means that it ended normally (with no errors).
 
-\section{Glossary}
+반환되는 값은 {\tt ls} 프로세스의 최종 상태값이다. {\tt None}은 (오류 없이) 정상적으로 종료됨을 의미한다.
+
+\section{용어정의}
 
 \begin{description}
 
-\item[absolute path:] A string that describes where a file or
-directory is stored that starts at the ``top of the tree of directories''
-so that it can be used to access the file or directory, regardless
-of the current working directory.
+\item[절대경로(absolute path):]
+파일이나 디렉토리가 어디에 저장되어 있는지를 저장하는 문자열로 ''최상단의 디렉토리''에서 시작해서,
+현재 작업 디렉토리에 관계없이 파일이나 디렉토리를 접근하는데 사용할 수 있다.
 \index{path!absolute}
 
-\item[checksum:] See also {\bf hashing}.  The term ``checksum'' 
-comes from the need to verify if data was garbled as it was 
-sent across a network or written to a backup medium and then
-read back in.  When the data is written or sent, the sending system
-computes a checksum and also sends the checksum.  When the 
-data is read or received, the receiving system re-computes
-the checksum from the received data and compares it to the 
-received checksum.  If the checksums do not match, we must
-assume that the data was garbled as it was transferred.
+\item[체크썸(checksum):] {\bf 해싱(hashing)}을 참조하세요.
+''체크썸(checksum)''단어는 네트워크로 데이터가 보내지거나 백업 매체에 쓰여지고 다시 읽어올 때, 데이터가 왜곡되었는지를
+검증하는 필요에서 생겨났다.
+데이터가 쓰여지거나 보내질 때, 송신 시스템은 체크썸을 계산하고 또한 체크썸도 보낸다.
+데이터가 읽혀지거나 받았을 때, 수신 시스템을 수신된 데이터의 체크썸을 다시 계산하고 받은 체크썸과 비교한다.
+만약 체크썸이 매칭되지 않으면, 전송 시에 데이터가 왜곡된 것으로 판단해야 한다.
+
 \index{checksum}
 
-\item[command line argument:] Parameters on the command line after the Python file name.
+\item[명령 줄 인수(command line argument):]파이썬 파일 이름 뒤에 명령 줄에 매개 변수.
 
+\item[현재 작업 디렉토리(current working directory):]
+여러분이 ''있는'' 현재 디렉토리. 명령-줄 인터페이스에서 대부분의 시스템에 {\tt cd} 명령어를 사용하여
+작업 디렉토리를 변경할 수 있다. 경로 정보 없는 파일을 막 사용하여 파이썬에서 파일을 열게 되면,
+파일은 현재 작업 디렉토리에 있고 그곳에서 프로그램을 실행하고 있다.
 
-\item[current working directory:] The current directory that you 
-are ``in''.  You can change your working directory using the 
-{\tt cd} command on most systems in their command-line interfaces.
-When you open a file in Python using just the file name with no path 
-information the file must be in the current working directory
-where you are running the program.
 \index{directory!current}
 \index{directory!working}
 \index{directory!cwd}
 
-\item[hashing:] Reading through a potentially large amount of data
-and producing a unique checksum for the data.  The best hash functions
-produce very few ``collisions'' where you can give two different
-streams of data to the hash function and get back the same hash. 
-MD5, SHA1, and SHA256 are examples of commonly used hash functions.
+\item[해싱(hashing):] 
+가능한 큰 데이터를 읽고 그 데이터에 대해서 유일한 체크썸을 생성하는 것.
+최고의 해쉬 함수는 거의 ''충돌(collision)''을 만들지 않는다. 여기서 충돌은 
+서로 다른 두 데이터 스트림에 해쉬 함수를 줄 때 동일한 해쉬값을 돌려받는 것이다.
+MD5, SHA1, SHA256 는 가장 많이 사용되는 해쉬 함수의 사례다.
 \index{hashing}
 
-\item[pipe:] A pipe is a connection to a running program.  Using
-a pipe, you can write a program to send data to another program
-or receive data from that program.  A pipe is similar to a 
-{\bf socket} except that a pipe can only be used to 
-connect programs running on the same computer (i.e. not
-across a network).
+\item[파이프(pipe):]
+파이프는 실행하는 프로그램에 연결이다. 파이프를 사용해서, 데이터를 다른 프로그램에 보내거나 그 프로그램에서
+데이터를 받는 프로그램을 작성할 수 있다.
+파이프는 {\bf 소켓(socket)}과 매우 유사하다. 차이점은 파이프는 동일한 컴퓨터에서 실행되는 프로그램을 연결하는데만 사용된다는 것이다. 
+(즉, 네트워크를 통해서는 사용할 수 없다.)
 \index{pipe}
 
-\item[relative path:] A string that describes where a file or
-directory is stored relative to the current working 
-directory.
+\item[상대경로(relative path):]
+파일 혹은 디렉토리가 어디에 저장되었는지를 현재 작업 디렉토리에 상대적으로 표현하는 문자열.
 \index{path!relative}
 
-\item[shell:] A command-line interface to an operating system.
-Also called a ``terminal program'' in some systems. In this interface
-you type a command and parameters on a line and press ``enter''
-to execute the command.
+\item[쉘(shell):]
+운영 시스템에 명령줄 인터페이스. 다른 시스템에서는 또한 ''터미널 프로그램(terminal program)''이라고 부른다.
+이런 인터페이스에서 라인에 명령어와 매개 변수를 타입하고 명령을 실행하기 위해서 ''엔터(enter)''를 누른다.
 \index{shell}
 
-\item[walk:] A term we use to describe the notion of visiting
-the entire tree of directories, sub-directories, sub-sub-directories, 
-until we have visited the all of the directories.  We call this
-``walking the directory tree''.
+\item[워크(walk):]
+모든 디렉토리를 방문할 때까지 디렉토리, 하위 디렉토리, 하위의 하위 디렉토리 전체 트리를 방문하는 개념을 나타내기 위해서 사용된 용어.
+여기서 이것을 ''디렉토리 트리를 워크''한다고 부른다.
 \index{walk}
 
 \end{description}
 
 
-\section{Exercises}
+\section{연습문제}
 
 \begin{ex}
 \label{checksum}
 
 \index{MP3}
 
-In a large collection of MP3 files there may be more than one
-copy of the same song, stored in different directories or with
-different file names.  The goal of this exercise is to search for
-these duplicates.
+MP3 파일이 대규모로 수집되어 있은 곳에는 같은 노래의 복사본 하나 이상이 다른 디렉토리 혹은 다른 파일 이름으로 저장되어 있을 수 있다.
+이번 연습문제의 목표는 이런 중복 파일을 찾는 것이다.
 
 \begin{enumerate}
 
-\item Write a program that walks a directory and all of its
-sub-directories for all files with a given suffix (like {\tt .mp3})
-and lists pairs of files with that are the same size.
-Hint: Use a dictionary where the key of the dictionary is the size
-of the file from {\tt  os.path.getsize} and the value in the 
-dictionary is the path name concatenated with the file name.  
-As you encounter each file check to see if you already have a
-file that has the same size as the current file.  
-If so, you have a duplicate
-size file and print out the file size and the two files names 
-(one from the hash and the other file you are looking at).
+\item .mp3같은 확장자를 가진 파일을 모든 디렉토리와 하위 디렉토리를 검색해서 동일한 크기를 가진 파일짝을 목록으로 보여주는 프로그램을 작성하세요.
+힌트: 딕셔너리를 사용하세요. 딕셔너리의 키는 {\tt  os.path.getsize}에서 파일의 크기가 되고, 딕셔너리의 값(value)는
+파일 이름과 결합된 경로명이 된다. 파일을 매번 마주칠 때마다 현재 파일과 도일한 크기를 가진 파일이 이미 존재하는지를 검사한다.
+만약 그렇다면, 중복된 크기 파일이 있고 파일 크기와 두 파일 이름을 출력한다. (해쉬에서 한 파일, 찾고 있는 다른 파일)
+
 
 \index{duplicate}
 \index{MD5 algorithm}
 \index{algorithm!MD5}
 \index{checksum}
 
-\item Adapt the previous program to look for files that 
-have duplicate content using a hashing or {\bf checksum}
-algorithm.  For example,
-MD5 (Message-Digest algorithm 5) takes an arbitrarily-long
-``message'' and returns a 128-bit ``checksum.''  The probability
-is very small that two files with different contents will
-return the same checksum.
+\item {\bf 체크썸(checksum)} 알고리즘이나 해싱을 사용하여 중복 콘텐츠를 가진 파일을 찾는 이전의 프로그램을 개작하세요.
+예를 들어, MD5 (Message-Digest algorithm 5)는 임의적으로 긴 ''메시지''를 가지고 128비트 ''체크썸''을 반환한다.
+다른 콘텐츠를 가진 두 파일이 같은 체크썸을 반환할 확율은 매우 적다.
 
-You can read about MD5 at \url{wikipedia.org/wiki/Md5}.  The 
-following code snippet opens a file, reads it and computes
-its checksum.
+\url{wikipedia.org/wiki/Md5}에서 MD5에 대해서 더 배울 수 있다. 다음 코드 조각은 파일을 열고, 읽고, 체크썸을 계산한다.
 
 \beforeverb
 \begin{verbatim}
@@ -761,12 +675,10 @@ import hashlib
 \end{verbatim}
 \afterverb
 %
-You should create a dictionary where the checksum is the key 
-and the file name is the value.   When you compute a checksum
-and it is already in the dictionary as a key, you have two files with 
-duplicate content so print out the file in the dictionary
-and the file you just read.  Here is some sample output
-from a run in a folder of image files:
+
+딕셔너리를 생성해서 체크썸이 키고 파일 이름이 값(value)가 된다.
+체크섬을 계산하고 키로 이미 딕셔너리에 있게 되면, 중복 콘텐츠인 두 파일 있어서
+딕셔너리에 파일과 방금전에 읽은 파일을 출력한다. 사진 파일 폴더에서 실행한 샘플 출력물이 다음에 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -776,9 +688,8 @@ from a run in a folder of image files:
 \end{verbatim}
 \afterverb
 %
-Apparently I sometimes sent the same photo more than once 
-or made a copy of a photo from time to time without deleting
-the original.
+
+명백하게 때때로 같은 사진을 한번 이상 보내거나 원본을 삭제하지 않고 종종 사진 사본을 만든다.
 
 \end{enumerate}
 

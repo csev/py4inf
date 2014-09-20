@@ -1,18 +1,16 @@
 % LaTeX source for ``Python for Informatics: Exploring Information''
 % Copyright (c)  2010-  Charles R. Severance, All Rights Reserved
 
-\chapter{Iteration}
+\chapter{반복(Iteration)}
 \index{iteration}
 
-\section{Updating variables}
+\section{변수 갱신}
 \label{update}
 
 \index{update}
 \index{variable!updating}
 
-A common pattern in assignment statements is an assignment statement
-that updates a variable - 
-where the new value of the variable depends on the old.
+할당문의 일반적인 패턴은 변수를 갱신하는 할당문이다. 변수의 새로운 값은 예전 값에 의존하게 된다.
 
 \beforeverb
 \begin{verbatim}
@@ -20,12 +18,10 @@ x = x+1
 \end{verbatim}
 \afterverb
 %
-This means ``get the current value of {\tt x}, add one, and then
-update {\tt x} with the new value.''
 
-If you try to update a variable that doesn't exist, you get an
-error, because Python evaluates the right side before it assigns
-a value to {\tt x}:
+상기 예제는 ``현재의 값 {\tt x}에 1을 더해서 {\tt x}를 새로운 값으로 갱신한다.''
+
+존재하지 않는 변수를 갱신하려면, 오류가 발생한다. 왜냐하면 {\tt x}에 값을 할당하기 전에 오른쪽을 파이썬이 평가해야 하기 때문이다.
 
 \beforeverb
 \begin{verbatim}
@@ -34,8 +30,8 @@ NameError: name 'x' is not defined
 \end{verbatim}
 \afterverb
 %
-Before you can update a variable, you have to {\bf initialize}
-it, usually with a simple assignment:
+
+변수를 갱신하기 전에 간단한 변수 할당으로 통상 {\bf 초기화(initialize)}한다.
 
 \index{initialization (before update)}
 
@@ -46,27 +42,21 @@ it, usually with a simple assignment:
 \end{verbatim}
 \afterverb
 %
-Updating a variable by adding 1 is called an {\bf increment};
-subtracting 1 is called a {\bf decrement}.
+1을 더해서 변수를 갱신하는 것을 {\bf 증가(increment)}라고 하고 1을 빼서 변수를 갱신하는 것을 {\bf 감소(decrement)}라고 한다.
 
 \index{increment}
 \index{decrement}
 
-\section{The {\tt while} statement}
+\section{{\tt while}문}
 
 \index{statement!while}
 \index{while loop}
 \index{loop!while}
 \index{iteration}
+반복적인 작업을 자동화하기 위해서 종종 컴퓨터를 사용한다. 동일하거나 비슷한 작업을 오류 없이 반복하는 것은 컴퓨터가 사람보다 잘하는 것이다.
+반복이 흔한 일이어서, 파이썬은 반복 작업을 쉽게 하도록 몇가지 언어적인 기능을 제공합니다.
 
-Computers are often used to automate repetitive tasks.  Repeating
-identical or similar tasks without making errors is something that
-computers do well and people do poorly.
-Because iteration is so common, Python provides several
-language features to make it easier.  
-
-One form of iteration in Python is the {\tt while} statement.  Here is 
-a simple program that counts down from five and then says ``Blastoff!''.
+파이썬에서 반복의 한 형태가 {\tt while}문입니다. 5에서부터 거꾸로 세어서 마지막에 ``Blastoff!''를 출력하는 간단한 프로그램이 있습니다.
 
 \beforeverb
 \begin{verbatim}
@@ -78,75 +68,57 @@ print 'Blastoff!'
 \end{verbatim}
 \afterverb
 %
-You can almost read the {\tt while} statement as if it were English.
-It means, ``While {\tt n} is greater than 0,
-display the value of {\tt n} and then reduce the value of
-{\tt n} by 1.  When you get to 0, exit the while statement and
-display the word {\tt Blastoff!}''
+
+마치 영어를 읽듯이 {\tt while}을 읽어 내려갈 수 있습니다. 
+{\tt n}이 0보다 큰 동안에 {\tt n}의 값을 출력하고 {\tt n}값을 1만큼 줄입니다. 0에 도달했을 때,
+{\tt while}문을 빠져나가 {\tt Blastoff!}''를 화면에 출력합니다.
 
 \index{flow of execution}
 
-More formally, here is the flow of execution for a {\tt while} statement:
+좀더 형식적으로 정리하면, {\tt while}문의 실행 흐름이 다음에 있습니다.
 
 \begin{enumerate}
 
-\item Evaluate the condition, yielding {\tt True} or {\tt False}.
+\item {\tt 참(True)} 혹은 {\tt 거짓(False)}를 산출하는 조건을 평가한다.
 
-\item If the condition is false, exit the {\tt while} statement
-and continue execution at the next statement.
+\item 만약 조건이 거짓이면, {\tt while}문을 빠져나가 다음 명령문을 계속 실행한다.
 
-\item If the condition is true, execute the
-body and then go back to step 1.
+\item 만약 조건이 참이면, 몸통 부문의 명령은을 실행하고 다시 처음 1번 단계로 돌아간다.
 
 \end{enumerate}
 
-This type of flow is called a {\bf loop} because the third step
-loops back around to the top.  Each time we execute the body of 
-the loop, we call it an {\bf iteration}.  For the above loop, we 
-would say, ``It had five iterations'' which means that the body of
-the loop was executed five times.
+3번째 단계에서 처음으로 다시 돌아가는 반복을 하기 때문에 이런 종류의 흐름을 {\bf 루프(loop)}이라고 한다.
+매번 루프의 몸통부문을 실행할 때마다, 이것을 {\bf 반복(iteration)}이라고 한다. 상기 루프에 대해서 ``5번 반복했다고 말한다.'' 
+즉, 루프의 몸통부문이 5번 수행되었다.
 
 \index{condition}
 \index{loop}
 \index{body}
 
-The body of the loop should change the value of one or more variables
-so that eventually the condition becomes false and the loop
-terminates.  
-We call the variable that changes each time the loop
-executes and controls when the loop finishes the 
-{\bf iteration variable}.
-If there is no iteration variable, the loop will repeat forever, 
-resulting in an {\bf infinite loop}.  
+루프의 몸통부문은 필히 하나 혹은 그 이상의 변수값을 바꾸어서 결국 조건식이 거짓이 되어 루프가 종류가 되게 만들어야 한다.
+매번 루프가 실행될 때마다 변경되고 루프가 끝나는 것을 관리하는 변수를 {\bf 반복 변수(iteration variable)}라고 한다.
 
-\section{Infinite loops}
+만약 반복 변수가 없다면, 루프는 영원히 돌 것이고, 결국 {\bf 무한 루프(infinite loop)}에 빠질 것이다.
 
-An endless source of amusement for 
-programmers is the observation that the directions on shampoo,
-``Lather, rinse, repeat,'' are an infinite loop because 
-there is no {\bf iteration variable} telling you how many times
-to execute the loop.
+\section{무한 루프}
+
+프로그래머에게 무한한 즐거움의 원천은 아마도 "거품내고, 헹구고, 반복" 적혀있는 샴프 사용법 문구가 무한루프라는 것을 알아차리는 것입니다.
+왜냐하면, 루프를 얼마나 많이 실행해야 하는지 말해주는 {\bf 반복 변수(iteration variable)}가 없기서 무한 반복하기 때문입니다.
 
 \index{infinite loop}
 \index{loop!infinite}
 
-In the case of {\tt countdown}, we can prove that the loop
-terminates because we know that the value of {\tt n} is finite, and we
-can see that the value of {\tt n} gets smaller each time through the
-loop, so eventually we have to get to 0.  Other times a loop is obviously
-infinite because it has no iteration variable at all.
+숫자를 꺼꾸로 세는 ({\tt countdown}) 예제는 루프가 끝나는 것을 증명할 수 있다.
+왜냐하면 {\tt n}값이 유한하고, {\tt n}이 매번 루프를 돌 때마다 작아져서 결구 0에 도달할 것이기 때문이다. 
+다른 경우 반복 변수가 전혀 없기 때문에 루프가 명백하게 무한으로 돈다.
 
-\section{``Infinite loops'' and {\tt break}}
+\section{무한 반복과 {\tt break}}
 \index{break statement}
 \index{statement!break}
+종종 몸통 부문을 절반 진행할 때까지 루프를 종료해야하는 시점인지 확신을 못합니다.
+이런 경우 의도적으로 무한 루프를 작성하고 {\tt break} 문을 사용하여 루프를 빠져나옵니다.
 
-Sometimes you don't know it's time to end a loop until you get half
-way through the body.  In that case you can write an infinite loop on purpose
-and then use the {\tt break} statement to jump out of the loop.
-
-This loop is obviously an {\bf infinite loop} because the logical 
-expression on the
-{\tt while} statement is simply the logical constant {\tt True}:
+{\tt while}문 논리 표현식이 단순히 논리 상수 {\tt 참(True)}으로 되어 있어 이 루프는 명백하게 {\bf 무한 루프(infinite loop)}이다.
 
 \beforeverb
 \begin{verbatim}
@@ -158,20 +130,15 @@ print 'Done!'
 \end{verbatim}
 \afterverb
 %
-If you make the mistake and run this code, you will learn quickly how
-to stop a runaway Python process on your system or find where the power-off
-button is on your computer.  
-This program will 
-run forever or until your battery runs out 
-because the logical expression at the top of the loop 
-is always true by virtue of the fact that the expression is the 
-constant value {\tt True}.
 
-While this is a dysfunctional infinite loop, we can still use this pattern
-to build useful loops as long as we carefully add code to the 
-body of the loop to explicitly exit the loop using {\tt break} 
-when we have reached 
-the exit condition.
+실수하여 상기 프로그램을 실행한다면, 폭주하는 파이썬 프로세스를 어떻게 멈추는지 빨리 배우거나, 컴퓨터의 전원 버튼이 어디에 있는지 찾아야 할 것입니다.
+
+연산식의 상수 값이 {\tt 참(True)}이라는 사실로 루프 상단의 논리 연산식이 항상 참값이여서 프로그램을 영원히 혹은 배터리가 모두 소진될 때까지 실행될 것이다.
+
+이것이 역기능 무한 루프는 사실이지만, 유용한 루프를 작성하기 위해 이 패턴을 여전히 이용할 것입니다. 단, 루프 몸통 부문에 {\tt break}문을 사용하여 
+루프를 빠져나가는 조건에 도달했을 때, 루프를 명시적으로 빠져나갈 수 있도록 주의깊게 코드를 추가해야 합니다.
+
+예를 들어, 사용자가 {\tt done}을 치기 전까지 사용자로부터 입력밧을 받기 원하다고 가정해서 프로그램 코드를 아래와 같이 작성합니다.
 
 For example, suppose you want to take input from the user until they
 type {\tt done}.  You could write:
@@ -187,13 +154,11 @@ print 'Done!'
 \end{verbatim}
 \afterverb
 %
-The loop condition is {\tt True}, which is always true, so the
-loop runs repeatedly until it hits the break statement.
+루프 조건이 항상 {\tt 참(True)}이여서 사용자가 {\tt break}문이 호출될 때까지 루프는 반복적으로 실행됩니다.
 
-Each time through, it prompts the user with an angle bracket.
-If the user types {\tt done}, the {\tt break} statement exits
-the loop.  Otherwise the program echoes whatever the user types
-and goes back to the top of the loop.  Here's a sample run:
+매번 프로그램이 꺾쇠 괄호로 사용자에게 명령문을 치도록 재촉합니다. 사용자가 {\tt done}을 타이핑하면, 
+{\tt break}문이 실행되어 루프를 빠져나오게 됩니다. 그렇지 않은 경우 프로그램은 사용자가 무엇을 입력하든 메아리처럼 입력한 그대로 출력하고
+다시 루프 처음으로 되돌아 갑니다. 여기 예제로 실행한 결과가 있습니다.
 
 \beforeverb
 \begin{verbatim}
@@ -206,25 +171,20 @@ Done!
 \end{verbatim}
 \afterverb
 %
-This way of writing {\tt while} loops is common because you
-can check the condition anywhere in the loop (not just at the
-top) and you can express the stop condition affirmatively
-(``stop when this happens'') rather than negatively (``keep going
-until that happens.'').
 
-\section{Finishing iterations with {\tt continue}}
+{\tt while} 루프를 이와 같은 방식으로 작성하는 것은 흔한데 프로그램 상단에서 뿐만 아니라
+루프 어디에서나 조건을 확인할 수 있고 피동적으로 ''이벤트가 발생할 때까지 계속 실행" 대신에, 적극적으로 ''이벤트가 생겼을 때 중지''로 멈춤 조건을 표현할 수 있다.
+
+
+\section{{\tt continue}로 반복 종료}
 \index{continue statement}
 \index{statement!continue}
 
-Sometimes you are in an iteration of a loop and want to finish the
-current iteration and immediately jump to the next iteration.
-In that case you can use the {\tt continue}
-statement to skip to the next iteration without finishing the
-body of the loop for the current iteration.
+때때로 루프 반복 중간에 현재 반복을 끝내고, 다음 반복으로 즉시 점프하고 싶을 때가 있습니다.
+현재 반복의 루프 몸통 부분을 끝내지 않고 다음 반복으로 건너뛰기 위해서 {\tt continue}문을 사용합니다.
 
-Here is an example of a loop that copies its input until the user
-types ``done'', but treats lines that start with the hash character
-as lines not to be printed (kind of like Python comments).
+사용자가 ''done''을 입력할 때까지 입력값을 그대로 출력하는 루프 예제가 있다. 하지만 파이썬 주석문처럼
+해쉬(\verb"#")로 시작하는 줄을 출력되지 않는 줄로 다루고 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -239,7 +199,8 @@ print 'Done!'
 \end{verbatim}
 \afterverb
 %
-Here is a sample run of this new program with {\tt continue} added.
+
+{\tt continue}문이 추가된 신규 프로그램을 실행한 예제가 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -253,28 +214,22 @@ Done!
 \end{verbatim}
 \afterverb
 %
-All the lines are printed except the one that starts with the hash
-sign because when the {\tt continue} is executed, it ends 
-the current iteration and jumps
-back to the {\tt while} statement to start the next iteration, thus 
-skipping the {\tt print} statement.
 
-\section{Definite loops using {\tt for} }
+해쉬(\verb"#")로 시작하는 줄을 제외하고 모든 줄을 출력한다. 왜냐하면, {\tt continue}문이 실행될 때,
+현재 반복을 종료하고 {\tt while}문의 처음으로 돌아가서 다음 반복을 실행해서 {\tt print}문을 건너뛴다.
+
+
+\section{{\tt for}문을 사용한 명확한 루프 }
 \index{for statement}
 \index{statement!for}
 
-Sometimes we want to loop through a {\bf set} of things such 
-as a list of words, the lines in a file or a list of numbers.
-When we have a list of things to loop through, we can
-construct a \emph{definite} loop using a {\tt for} statement.
-We call the {\tt while} statement an \emph{indefinite} loop
-because it simply loops until some condition becomes {\tt False} 
-whereas the {\tt for} loop is looping through a known
-set of items so it runs through as many iterations as there
-are items in the set.
+때때로, 단어 리스트나, 파일의 줄, 숫자 리스트 같은 사물의 집합에 대해 루프를 돌릴 때가 있다.
+루프를 돌릴 사물 리스트가 있을 때, {\tt for}문을 사용해서 \emph{명확한 루프(definite loop)}를 구성한다.
 
-The syntax of a {\tt for} loop is similar to the {\tt while} loop
-in that there is a {\tt for} statement and a loop body:
+{\tt while}문을 \emph{불명확한 루프(indefinite loop)}라고 하는데, 왜냐하면 어떤 조건이 {\tt 거짓(False)}가 될 때까지 
+단지 루프를 돌기 때문이다. 하지만,  {\tt for}루프는 알고 있는 항목의 집합만큼 루프를 돌게되어서 집합에 항목이 있는 만큼만 실행이 된다.
+
+{\tt for}루프의 구문은 {\tt while}루프의 구문과 비슷하다. {\tt for}문이 있고, 루프 몸통 부문으로 구성된다.
 
 \beforeverb
 \begin{verbatim}
@@ -285,12 +240,9 @@ print 'Done!'
 \end{verbatim}
 \afterverb
 %
-In Python terms, 
-the variable {\tt friends} is a list\footnote{We will 
-examine lists in more detail in a later chapter} 
-of three strings and the {\tt for}
-loop goes through the list and executes the body once
-for each of the three strings in the list resulting in this output:
+
+파이썬 용어로, 변수 {\tt friends}는 3개의 문자열을 가지는 리스트고 {\tt for} 루프는 리스트를 하나씩 하나씩 찾아서 3개의 문자열 각각에 대해 몸통 부문을 실행하여 
+다음의 결과를 얻게된다.
 
 \beforeverb
 \begin{verbatim}
@@ -302,50 +254,41 @@ Done!
 \afterverb
 %
 
-Translating this {\tt for} loop to English is not as direct as the 
-{\tt while}, but if you think of friends as a {\bf set},
-it goes like this: ``Run the statements in the body of the 
-for loop once for each friend \emph{in} the set named friends.''.
+{\tt for} 루프를 영어로 번역하는 것은 {\tt while}문을 번역하는 것과 같이 직접적이지는 않다. 하지만, 만약 {\tt friends}를 {\bf 집합(set)}으로 생각한다면 다음과 같다.
+{\tt friends}라고 명명된 집한에서 각 {\tt friend}에 대해서 한번씩 {\tt for} 루프의 몸통 부문의 명령문을 실행하세요.
 
-Looking at the {\tt for} loop, {\bf for} and {\bf in} are reserved
-Python keywords, and {\tt friend} and {\tt friends} are variables.
+{\tt for} 루프를 살펴보면, {\bf for}와 {\bf in}은 파이썬 키워드로 예약어이고 {\tt friend}와 {\tt friends}는 변수이다.
 
 {\tt {\bf for} friend {\bf in} friends{\bf :}\\
 \verb"    "{\bf print} 'Happy New Year', friend }
 
-In particular, {\tt friend} is the {\bf iteration variable} for 
-the for loop.  The variable {\tt friend} changes for each iteration of
-the loop and controls when the {\tt for} loop completes.  The 
-{\bf iteration variable} steps successively through the 
-three strings stored in the {\tt friends} variable.
+특히, {\tt friend}는 {\tt for} 루프의 {\bf 반복 변수(iteration variable)}입니다. 
+{\tt friend} 변수는 루프의 각 반복에 대해서 변하게 되고, 언제 {\tt for} 루프가 끝나는지 통제합니다.
+{\bf 반복 변수}는 {\tt friend} 변수에 저장된 3개의 문자열을 순차적으로 지나간다.
 
 
-\section{Loop patterns}
 
-Often we use a for or while loop to go through a list of items
-or the contents of a file and we are looking for something such as
-the largest or smallest value of the data we scan through.
+\section{루프 패턴}
 
-These loops are generally constructed by:
+종종 {\tt for}와 {\tt while}문을 사용하여, 항목의 리스트, 파일 콘텐츠를 훑어 자료의 가장 큰 값이나 작은 값 같은 것을 찾습니다.
+
+{\tt for}나 {\tt while} 루프는 일반적으로 다음과 같이 구축됩니다.
 
 \begin{itemize}
 
-\item Initializing one or more variables before the loop starts.
+\item 루프가 시작하기 전에 하나 혹은 그 이상의 변수를 초기화
 
-\item Performing some computation on each item in the loop body, 
-possibly changing the variables in the body of the loop.
+\item 루프 몸통에서 각 항목에 대해 연산을 수행하고, 루프 몸통의 변수 상태를 변경
 
-\item Looking at the resulting variables when the loop completes.
+\item 루프가 완료되면 결과 변수의 상태 확인
 
 \end{itemize}
 
-We will use a list of numbers to demonstrate the concepts and construction
-of these loop patterns.  
+루프 패턴의 개념과 작성을 시연하기 위해서 숫자 리스트를 사용할 것입니다.
 
-\subsection{Counting and summing loops}
+\subsection{계산과 합산 루프}
 
-For example, to count the number of items
-in a list, we would write the following {\tt for} loop:
+예를 들어, 리스트의 항목의 숫자를 계산하기 위해서 다음 {\tt for} 루프를 작성합니다.
 
 \beforeverb
 \begin{verbatim}
@@ -356,23 +299,18 @@ print 'Count: ', count
 \end{verbatim}
 \afterverb
 %
-We set the variable {\tt count} to zero before the loop starts,
-then we write a {\tt for} loop to run through the list of numbers.
-Our {\bf iteration} variable is named {\tt itervar} and while we do
-not use {\tt itervar} in the loop, it does control the loop and cause
-the loop body to be executed once for each of the values in the list.
 
-In the body of the loop, we add one to the current value of {\tt count}
-for each of the values in the list.  While the loop is executing, the 
-value of {\tt count} is the number of values we have seen ``so far''.
+루프가 시작하기 전에 변수 {\tt count}를 0으로 놓고, 숫자 목록을 실행하기 위해 {\tt for} 루프를 작성합니다.
+{\bf 반복(iteration)} 변수는 {\tt itervar}라고 하고, {\tt itervar}은 루프에서 사용되지 않지만,
+{\tt itervar}는 루프를 통제하고 루프 몸통 부문이 목록의 각 값에 대해서 한번 실행되게 합니다.
 
-Once the loop completes, the value of {\tt count} is the total number
-of items.   The total number ``falls in our lap'' at the end of the 
-loop.  We construct the loop so that we have what we want when the loop
-finishes.
+루프 몸통부문에 목록의 각 값에 대해서 변수 {\tt count} 값에 1을 더합니다.
+루프가 실행될 때, {\tt count} 값은 지금까지 살펴본 목록 값의 횟수가 됩니다.
 
-Another similar loop that computes the total of a set of numbers
-is as follows:
+루프가 종료되면, {\tt count} 값은 총 목록 숫자가 됩니다. 총 숫자는 루프 끝에 얻어졌다.
+루프를 구성해서, 루프가 끝났을 때 원하는 바를 얻었다.
+
+숫자의 총계를 계산하는 또다른 비슷한 루프는 다음과 같다.
 
 \beforeverb
 \begin{verbatim}
@@ -383,37 +321,28 @@ print 'Total: ', total
 \end{verbatim}
 \afterverb
 %
-In this loop we \emph{do} use the {\bf iteration variable}.
-Instead of simply adding one to the {\tt count} as in the previous loop, 
-we add the actual number (3, 41, 12, etc.) to the running 
-total during each loop iteration.
-If you think about the variable {\tt total}, it contains the 
-``running total of the values so far''.  So before the loop
-starts {\tt total} is zero because we have not yet seen any values,
-during the loop {\tt total} is the running total, and at the end of 
-the loop {\tt total} is the overall total of all the values 
-in the list.
 
-As the loop executes, {\tt total} accumulates the sum of the
-elements; a variable used this way is sometimes called an
-{\bf accumulator}.
+이 루프에서, {\bf 반복 변수(iteration variable)}가 사용되었다. 앞선 루프에서처럼 변수 {\tt count}에 1을 단순히 더하는 대신에,
+실제 숫자 (3, 41, 12, 등)를 각 루프 반복을 수행하는 동안 작업중인 합계에 더하게 하였다. 
+변수 {\tt total}을 생각해보면, {\tt total}은 지금까지 값의 총계다. 루프가 시작하기 전에 {\tt total}은 어떤 값도 살펴본 적이 없어서
+0이다. 루프가 도는 중간에는 {\tt total}은 작업중인 총계가 된다. 루프의 마지막 단계에서 {\tt total}은 항목의 모든 값의 총계가 된다.
+
+루프가 실행됨에 따라, {\tt total}은 각 요소의 합계로 누적한다. 이 방식으로 사용되는 변수를 {\bf 누산기(accumulator)}라고 한다.
+
 \index{accumulator!sum}
 
-Neither the counting loop nor the summing loop are particularly 
-useful in practice because there are built-in functions 
-{\tt len()} and {\tt sum()} that compute the number of 
-items in a list and the total of the items in the list
-respectively.
+계산 루프나 합산 루프나 특히 실무에서는 유용하지는 않다. 왜냐하면 리스트에서 항목의 개수와 총계를 계산하는 
+{\tt len()}과 {\tt sum()}가 각각 내장 함수로 있기 때문이다.
 
-\subsection{Maximum and minimum loops}
+\subsection{최대값과 최소값 루프}
 
 \index{loop!maximum}
 \index{loop!minimum}
 \index{None special value}
 \index{special value!None}
 \label{maximumloop}
-To find the largest value in a list or sequence, we construct the
-following loop:
+
+리스트나 순서에서 가장 큰 값을 찾기 위해서, 다음과 같이 루프를 작성합니다.
 
 \beforeverb
 \begin{verbatim}
@@ -427,7 +356,7 @@ print 'Largest:', largest
 \end{verbatim}
 \afterverb
 %
-When the program executes, the output is as follows:
+프로그램을 실행하면, 출력은 다음과 같다.
 
 \beforeverb
 \begin{verbatim}
@@ -442,34 +371,21 @@ Largest: 74
 \end{verbatim}
 \afterverb
 %
-The variable {\tt largest} is best thought of as 
-the ``largest value we have seen so far''.
-Before the loop, we set {\tt largest} to the constant {\tt None}.  
-{\tt None} is a special constant value which we can 
-store in a variable to mark 
-the variable as ``empty''.  
 
-Before the loop starts, the largest value we have seen so far 
-is {\tt None} since we have not yet seen any values.  While the 
-loop is executing, if {\tt largest} is {\tt None} then we take
-the first value we see as the largest so far.   You can see in 
-the first iteration when the value of {\tt itervar} is 3,
-since {\tt largest} is {\tt None}, we immediately set 
-{\tt largest} to be 3.
+변수 {\tt largest}는 ''지금까지 본 가장 큰 수"로 생각할 수 있다.
+루프 시작 앞에 {\tt largest} 값이 상수 {\tt None}이다.
+{\tt None}은 ''빈'' 변수를 표기하기 위해서 변수에 저장하는 특별한 상수 값이다.
 
-After the first iteration, {\tt largest} is no longer {\tt None},
-so the second part of the compound logical expression that checks
-{\tt itervar > largest} triggers only when we see a value that is
-larger than the ``largest so far''.  When we see a new ``even larger''
-value we take that new value for {\tt largest}.  You can see in the 
-program output that {\tt largest} progresses from 3 to 41 to 74.
+루프 시작 전에 지금까지 본 가장 큰수는 {\tt None}이다. 왜냐하면 아직 어떤 값도 보지 않았기 때문이다.
+루프가 실행되는 동안에, {\tt largest} 값이 {\tt None}이면, 첫 번째 본 값이 지금까지 본 가장 큰 값이 된다.
+첫번째 반복에서 {\tt itervar}는 3이 되는데 {\tt largest} 값이 {\tt None}이여서 즉시, {\tt largest}값을 3으로 놓는다.
 
-At the end of the loop, we have scanned all of the values and
-the variable {\tt largest} now does contain the largest value
-in the list.
+첫번째 반복 후에 {\tt largest}는 더 이상 {\tt None}이 아니어서, ''지금까지 본'' 값 보다 더 큰 값을 찾게 될 때 작동하는  복합 논리 표현식의 두 번째 {\tt itervar > largest}인지를 확인하는 부분이 작동된다. ''더 큰'' 값을 찾게 되면 변수 {\tt largest}에 새로운 값으로 대체한다.
+{\tt largest}가 3에서 41, 41에서 74로 변경되어 출력되는 것을 확인할 수 있다.
 
-To compute the smallest number, the code is very similar with one
-small change:
+루프의 끝에서 모든 값을 훑어서 변수 {\tt largest}는 리스트의 가장 큰 값을 담고 있다.
+
+최소값을 계산하기 위해서는 코드가 매우 유사하지만 작은 변화가 필요하다.
 
 \beforeverb
 \begin{verbatim}
@@ -483,16 +399,13 @@ print 'Smallest:', smallest
 \end{verbatim}
 \afterverb
 %
-Again, {\tt smallest} is the ``smallest so far'' before, during, and after the 
-loop executes.  When the loop has completed, {\tt smallest} contains the
-minimum value in the list.
 
-Again as in counting and summing, the built-in functions 
-{\tt max()} and {\tt min()} make writing these exact loops
-unnecessary.
+변수 {\tt smallest}는 루프 실행 전에, 중에, 완료 후에 ''지금까지 본 가장 작은" 값이 된다.
+루프실행이 완료되면, {\tt smallest}는 리스트의 최소 값을 담게 된다.
 
-The following is a simple version of the Python built-in
-{\tt min()} function:
+계산과 합산에서와 마찬가지로 파이썬 내장함수 {\tt max()}와 {\tt min()}이 이렇게 루프문을 작성하는 것을 불필요하게 만든다.
+
+다음은 파이썬 내장 {\tt min()} 함수의 간략 버전이다.
 
 \beforeverb
 \begin{verbatim}
@@ -505,76 +418,57 @@ def min(values):
 \end{verbatim}
 \afterverb
 %
-In the function version of the smallest code, we removed all of the 
-{\tt print} statements so as to be equivalent to the {\tt min} 
-function which is already built-in to Python.
 
-\section{Debugging}
+최소 코드 함수 버전에서 파이썬에 이미 내장된 {\tt min} 함수와 동등하게 만들기 위해서 모든 {\tt print}문을 삭제했다.
 
-As you start writing bigger programs, you might find yourself
-spending more time debugging.  More code means more chances to
-make an error and more places for bugs to hide.
+\section{디버깅}
+
+좀더 큰 프로그램을 작성함에 따라, 좀더 많은 시간을 디버깅에 보내는 자신을 발견할 것이다.
+좀더 많은 코드는 버그가 숨을 수 있는 좀더 많은 장소와 좀더 많은 오류가 발생할 기회가 있다는 것을 의미한다.
 
 \index{debugging!by bisection}
 \index{bisection, debugging by}
 
-One way to cut your debugging time is ``debugging by bisection.''
-For example, if there are 100 lines in your program and you
-check them one at a time, it would take 100 steps.
+디버깅 시간을 줄이는 한 방법은 '' 양분에 의한 디버깅(debugging by bisection)'' 기법이다.
+예를 들어, 프로그램에 100 줄이 있고 한번에 하나씩 확인한다면, 100번의 단계가 필요하다.
 
-Instead, try to break the problem in half.  Look at the middle
-of the program, or near it, for an intermediate value you
-can check.  Add a {\tt print} statement (or something else
-that has a verifiable effect) and run the program.
+대신에 프로그램을 반으로 나눕니다. 프로그램의 정확히 중간이나, 중간부분에서 중간값을 확인합니다.
+{\tt print}문이나, 검증 효과를 갖는 상응하는 대용물을 넣고 프로그램을 실행합니다. 
 
-If the mid-point check is incorrect, the problem must be in the
-first half of the program.  If it is correct, the problem is
-in the second half.
+중간지점확인이 부정확하면 문제는 양분한 프로그램의 앞부분에 있음에 틀임없다. 만약 정확하다면, 문제는 프로그램 뒷부분에 있다.
 
-Every time you perform a check like this, you halve the number
-of lines you have to search.  After six steps (which is much
-less than 100), you would be down to one or two lines of code,
-at least in theory.
+이와 같은 방식으로 확인을 수행하게 되면, 검토해야하는 코드의 줄수를 절반으로 계속 줄일 수 있다.
+100번의 단계가 걸리는 것에 비해 6번의 단계 후에 이론적으로 1 혹은 2 줄의 코드로 범위를 좁힐 수 있다.
 
-In practice it is not always clear what
-the ``middle of the program'' is and not always possible to
-check it.  It doesn't make sense to count lines and find the
-exact midpoint.  Instead, think about places
-in the program where there might be errors and places where it
-is easy to put a check.  Then choose a spot where you
-think the chances are about the same that the bug is before
-or after the check.
+실무에서, ''프로그램의 중간''이 무엇인지는 명확하지 않고, 확인하는 것도 가능하지 않다. 프로그램 코드 줄을 세서 정확히 가운데를 찾는 것은 의미가 없다.
+대신에 프로그램 오류가 생길 수 있는 곳과 오류를 확인하기 쉬운 장소를 생각하세요. 버그가 확인 지점 앞뒤로 있을 것과 동일하게 생각하는 곳을 중간지점으로 고르세요.
 
-\section{Glossary}
+\section{용어정의}
 
 \begin{description}
 
-\item[accumulator:] A variable used in a loop to add up or
-accumulate a result.
+\item[누산기(accumulator):] 더하거나 결과를 누적하기 위해 루프에서 사용되는 변수
 \index{accumulator}
 
-\item[counter:] A variable used in a loop to count the number
-of times something happened.  We initialize a counter to 
-zero and then increment the counter each time we want to
-``count'' something.
+\item[카운터(counter):] 루프에서 어떤 것이 일어나는 횟수를 기록하는데 사용되는 변수.
+카운터를 0으로 초기화하고, 어떤 것의 ''횟수''를 셀 때 카운터를 증가시킨다.
 \index{counter}
 
-\item[decrement:] An update that decreases the value of a variable.
+\item[감소(decrement):] 변수의 값을 감소하여 갱신
 \index{decrement}
 
-\item[initialize:] An assignment that gives an initial value to
-a variable that will be updated.
-
-\item[increment:] An update that increases the value of a variable
+\item[초기화(initialize):]
+갱신될 변수의 값을 초기 값으로 할당
+\item[증가(increment):] 변수 값을 증가시켜 갱신 (통상 1씩)
 (often by one).
 \index{increment}
 
-\item[infinite loop:] A loop in which the terminating condition is
-never satisfied or for which there is no termination condition.
+\item[무한 루프(infinite loop):]
+종료 조건이 결코 만족되지 않거나 종료 조건이 없는 루프
 \index{infinite loop}
 
-\item[iteration:] Repeated execution of a set of statements using
-either a recursive function call or a loop.
+\item[반복(iteration):]
+재귀함수 호출이나 루프를 사용하여 명령문을 반복 실행
 \index{iteration}
 
 \end{description}
@@ -583,12 +477,10 @@ either a recursive function call or a loop.
 \section{Exercises}
 
 \begin{ex}
-Write a program which repeatedly reads numbers until the user
-enters ``done''.
-Once ``done'' is entered, print out the total, count, and average
-of the numbers.  If the user enters anything other than a number, 
-detect their mistake using {\tt try} and {\tt except} and 
-print an error message and skip to the next number.
+사용자가 ``done''을 입력할 때까지 반복적으로 숫자를 읽는 프로그램을 작성하세요.
+``done''이 입력되면, 총계, 갯수, 평균을 출력하세요.
+만약 숫자가 아닌 다른 것을 입력하게되면, {\tt try}와 {\tt except}를 사용하여 사용자 실수를 탐지해서
+오류 메시지를 출력하고 다음 숫자로 건너 뛰게 하세요.
 
 \begin{verbatim}
 Enter a number: 4
@@ -602,8 +494,8 @@ Enter a number: done
 \end{ex}
 
 \begin{ex}
-Write another program that prompts for a list of numbers as above
-and at the end prints out both the maximum and minimum of the numbers instead of the average.
+
+위에서처럼 숫자 목록을 사용자로부터 입력받는 프로그램을 자성하세요. 평균값 대신에 숫자 목록의 최대값과 최소값을 출력하세요.
 \end{ex}
 
 

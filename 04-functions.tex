@@ -1,18 +1,16 @@
 % LaTeX source for ``Python for Informatics: Exploring Information''
 % Copyright (c)  2010-  Charles R. Severance, All Rights Reserved
 
-\chapter{Functions}
+\chapter{함수}
 \label{funcchap}
 
-\section{Function calls}
+\section{함수 호출}
 \label{functionchap}
 \index{function call}
 
-In the context of programming, a {\bf function} is a named sequence of
-statements that performs a computation.  When you define a function,
-you specify the name and the sequence of statements.  Later, you can
-``call'' the function by name.  
-We have already seen one example of a {\bf function call}:
+프로그래밍 문맥에서, {\bf 함수(function)}는 연산을 수행하는 일련의 명명된 명령문이다. 
+함수를 정의할 때, 이름과 일련의 명령문을 명시한다. 후에, 함수를 이름으로 ''호출(call)''할 수 있다.
+이미 {\bf 함수 호출(function call)}의 예제를 살펴 보았다.  
 
 \beforeverb
 \begin{verbatim}
@@ -21,29 +19,22 @@ We have already seen one example of a {\bf function call}:
 \end{verbatim}
 \afterverb
 %
-The name of the function is {\tt type}.  The expression in parentheses
-is called the {\bf argument} of the function.  The argument is 
-a value or variable that we are passing into the function as input 
-to the function.  
-The result, for the {\tt type} function, is the type of the argument.
+함수명은 {\tt type}이다. 괄호안의 표현식을 함수의 {\bf 인수(argument)}라고 한다. 
+인수는 함수의 입력값으로 함수 내부로 전달되는 값이나 변수이다. 앞의 {\tt type} 함수의 결과값은 인수의 형(type)이다.
 
 \index{parentheses!argument in}
 
-It is common to say that a function ``takes'' an argument and ``returns''
-a result.  The result is called the {\bf return value}.
+통상 함수가 인수를 받아 결과를 돌려준다고 한다. 결과를 {\bf 결과값(return value)}이라고 부른다.
 
 \index{argument}
 \index{return value}
 
-\section{Built-in functions}
+\section{내장(Built-in) 함수}
 
-Python provides a number of important built-in functions that
-we can use without needing to provide the function definition.
-The creators of Python wrote a set of functions 
-to solve common problems and included them in Python for us to use.
+파이썬에는 함수를 정의할 필요없이 사용할 수 있는 많은 중요 내장함수가 있다.
+파이썬을 처음 만든 사람이 공통의 문제를 해결할 수 있는 함수를 작성해서 여러분이 사용할 수 있도록 파이썬에 포함을 했습니다.
 
-The {\tt max} and {\tt min} functions give us the largest and 
-smallest values in a list, respectively:
+{\tt max}와 {\tt min} 함수는 리스트의 최소값과 최대값을 각기 계산해서 여러분에게 보여줍니다.
 
 \beforeverb
 \begin{verbatim}
@@ -55,15 +46,11 @@ smallest values in a list, respectively:
 \end{verbatim}
 \afterverb
 %
-The {\tt max} function tells us the ``largest character'' in the 
-string (which turns out to be the letter ``w'') and the {\tt min}
-function shows us the smallest character which turns out to be a 
-space.
+{\tt max} 함수는 문자열의 "가장 큰 문자", 상기 예제에서는 ''w'', 
+{\tt min}함수는 최소 문자를, 상기 예제에서는 공백, 출력합니다.
 
-Another very common built-in function is the {\tt len} function
-which tells us how many items are in its argument. If the argument
-to {\tt len} is a string, it returns the number of characters 
-in the string.
+또 다른 매우 자주 사용되는 내장 함수는 얼마나 많은 항목이 있는지 출력하는 {\tt len}함수가 있습니다.
+만약 {\tt len} 함수의 인수가 문자열이면 문자열의 문자 갯수를 반환합니다.
 
 \beforeverb
 \begin{verbatim}
@@ -73,13 +60,13 @@ in the string.
 \end{verbatim}
 \afterverb
 %
-These functions are not limited to looking at strings, they can operate
-on any set of values as we will see in later chapters.
 
-You should treat the names of built-in functions as reserved words (i.e.
-avoid using ``max'' as a variable name).
+이들 함수는 문자열에만 한정된 것이 아니라, 뒷장에서 보듯이 다양하게 다양한 자료형에 사용될 수 있습니다.
 
-\section{Type conversion functions}
+내장함수의 이름은 사전에 점유된 예약어로 다뤄야 하고, 예를 들어 ''max''를 변수명으로 사용을 피해야 합니다.
+
+
+\section{형 변환 함수}
 \index{conversion!type}
 \index{type conversion}
 
@@ -91,9 +78,8 @@ avoid using ``max'' as a variable name).
 % they are on the list of ``built-in functions'' so I am
 % willing to call them functions.
 
-Python also provides built-in functions that convert values
-from one type to another.  The {\tt int} function takes any value and
-converts it to an integer, if it can, or complains otherwise:
+파이썬은 A형(type)에서 B형(type)으로 값을 변환하는 내장 함수를 제공합니다.
+{\tt int}함수는 임의의 값을 입력 받아 변환이 가능하면 정수형으로 변환하고, 그렇지 않으면 불평을 합니다.
 
 \index{int function}
 \index{function!int}
@@ -107,8 +93,8 @@ ValueError: invalid literal for int(): Hello
 \end{verbatim}
 \afterverb
 %
-{\tt int} can convert floating-point values to integers, but it
-doesn't round off; it chops off the fraction part:
+
+{\tt int}는 부동 소수점 값을 정수로 변환할 수 있지만 소수점 이하를 절사합니다.
 
 \beforeverb
 \begin{verbatim}
@@ -119,8 +105,8 @@ doesn't round off; it chops off the fraction part:
 \end{verbatim}
 \afterverb
 %
-{\tt float} converts integers and strings to floating-point
-numbers:
+
+{\tt float}는 정수와 문자열을 부동 소수점으로 변환합니다.
 
 \index{float function}
 \index{function!float}
@@ -134,7 +120,8 @@ numbers:
 \end{verbatim}
 \afterverb
 %
-Finally, {\tt str} converts its argument to a string:
+
+마지막으로, {\tt str}은 인수를 문자열로 변환합니다.
 
 \index{str function}
 \index{function!str}
@@ -149,41 +136,28 @@ Finally, {\tt str} converts its argument to a string:
 \afterverb
 %
 
-\section{Random numbers}
+\section{난수(Random numbers)}
 
 \index{random number}
 \index{number, random}
 \index{deterministic}
 \index{pseudorandom}
 
-Given the same inputs, most computer programs generate the same
-outputs every time, so they are said to be {\bf deterministic}.
-Determinism is usually a good thing, since we expect the same
-calculation to yield the same result.  For some applications, though,
-we want the computer to be unpredictable.  Games are an obvious
-example, but there are more.
-
-Making a program truly nondeterministic turns out to be not so easy,
-but there are ways to make it at least seem nondeterministic.  One of
-them is to use {\bf algorithms} that generate {\bf pseudorandom} numbers.
-Pseudorandom numbers are not truly random because they are generated
-by a deterministic computation, but just by looking at the numbers it
-is all but impossible to distinguish them from random.
+동일한 입력을 받을 때, 대부분의 컴퓨터는 매번 동일한 출력값을 생성하기 때문에 {\bf 결정적(deterministic)}이라고 합니다.
+결정론이 대체로 좋은데 왜냐하면, 동일한 계산은 동일한 결과를 기대할 수 있기 때문입니다. 하지만, 어떤 어플리케이션에서는 컴퓨터가 예측불가능하길 바랍니다. 게임이 좋은 예이고, 더 많은 예를 찾을 수 있습니다. 
+프로그램을 온전하게 비결정론적으로 만드는 것은 쉽지 않은 것으로 밝혀졌지만, 비결정론적인 것처럼 보이게 하는 방법은 있습니다. {\bf 의사 난수(pseudorandom numbers)}를 생성하는 알고리즘을 사용하는 방법이 그 중 하나입니다. 의사 난수는 이미 결정된 연산에 의해서 생성된다는 점에서 
+진정한 의미의 난수는 아니지만,이렇게 생성된 숫자를 진정한 난수와 구별하기는 불가능에 가깝다.
 
 \index{random module}
 \index{module!random}
 
-The {\tt random} module provides functions that generate
-pseudorandom numbers (which I will simply call ``random'' from
-here on).
+{\tt random} 모듈은 의사 난수를 생성하는 함수를 제공한다. (이하 의사 난수 대신 ''난수(random)''로 간략히 부르기로 한다.)
 
 \index{random function}
 \index{function!random}
 
-The function {\tt random} returns a random float
-between 0.0 and 1.0 (including 0.0 but not 1.0).  Each time you
-call {\tt random}, you get the next number in a long series.  To see a
-sample, run this loop:
+{\tt random} 함수는 0.0과 1.0 사이의 부동 소수점 난수를 반환한다. {\tt random} 함수는 0.0은 생성하지만 1.0은 생성하지 않는다.
+매번 {\tt random} 함수를 호출할 때 마다 이미 생성된 난수열에서 하나씩 하나씩 뽑아 쓰게 됩니다. 샘플로 다음 반복문을 실행해 봅시다.
 
 \beforeverb
 \begin{verbatim}
@@ -195,8 +169,8 @@ for i in range(10):
 \end{verbatim}
 \afterverb
 %
-This program produces the following list of 10 random numbers
-between 0.0 and up to but not including 1.0.
+
+프로그램이 0.0과 1.0을 포함하지 않는 최대 1.0에서 10개의 난수 리스트를 생성합니다.
 
 \beforeverb
 \begin{verbatim}
@@ -213,16 +187,15 @@ between 0.0 and up to but not including 1.0.
 \end{verbatim}
 \afterverb
 %
+
 \begin{ex}
-Run the program on your system and see what numbers you get.
-Run the program more than once and see what numbers you get.
+여러분의 컴퓨터에 프로그램을 실행해서, 어떤 난수가 생성되는지 살펴보세요.
+한번 이상 프로그램을 실행하여 보고, 어떤 난수가 생성되는지 다시 살펴보세요.
 \end{ex}
 
-The {\tt random} function is only one of many 
-functions which handle random numbers.
-The function {\tt randint} takes parameters {\tt low} and
-{\tt high} and returns an integer between {\tt low} and
-{\tt high} (including both).
+{\tt random}함수는 난수를 다루는 단지 많은 함수 중의 하나입니다.
+{\tt randint} 함수는 {\tt 최저(low)}와 {\tt 최고(high)} 매개 변수를 입력받아
+{\tt 최저값(low)}와 {\tt 최고값(high)}을 포함하는 두 사이의 정수를 반환합니다.
 
 \index{randint function}
 \index{function!randint}
@@ -236,8 +209,8 @@ The function {\tt randint} takes parameters {\tt low} and
 \end{verbatim}
 \afterverb
 %
-To choose an element from a sequence at random, you can use
-{\tt choice}:
+
+무작위로 배열로부터 하나의 숫자를 뽑아내기 위해서, {\tt choice}를 사용합니다.
 
 \index{choice function}
 \index{function!choice}
@@ -252,19 +225,18 @@ To choose an element from a sequence at random, you can use
 \end{verbatim}
 \afterverb
 %
-The {\tt random} module also provides functions to generate
-random values from continuous distributions including
-Gaussian, exponential, gamma, and a few more.
 
-\section{Math functions}
+{\tt random} 모듈은 정규분포, 지수분포, 감마분포 및 몇가지 추가된 연속형 분포에서
+난수를 생성할 수 있는 함수도 제공합니다.
+
+\section{수학 함수}
 \index{math function}
 \index{function, math}
 \index{module}
 \index{module object}
 
-Python has a math {\bf module} that provides most of the familiar
-mathematical functions.  
-Before we can use the module, we have to import it:
+파이썬은 가장 친숙한 수학 함수를 제공하는 수학 모듈이 있습니다.
+수학 모듈을 사용하기 전에, 수학 모듈 가져오기를 실행합니다.
 
 \beforeverb
 \begin{verbatim}
@@ -272,8 +244,8 @@ Before we can use the module, we have to import it:
 \end{verbatim}
 \afterverb
 %
-This statement creates a {\bf module object} named math.  If
-you print the module object, you get some information about it:
+
+이 명령문은 math 모듈 개체를 생성한다. 모듈 개체를 출력하면, 모듈 개체에 대한 정보를 얻을 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -282,10 +254,9 @@ you print the module object, you get some information about it:
 \end{verbatim}
 \afterverb
 %
-The module object contains the functions and variables defined in the
-module.  To access one of the functions, you have to specify the name
-of the module and the name of the function, separated by a dot (also
-known as a period).  This format is called {\bf dot notation}.
+
+모듈 개체는 모듈에 정의된 함수와 변수를 담고 있다. 함수 중에 하나에 접근하기 위해서, 점으로 구분되는 모듈의 이름과 함수의 이름을 명시해야 한다.
+이런 형식을 {\bf 점 표기법(dot notation)}이라고 부른다.
 
 \index{dot notation}
 
@@ -299,9 +270,9 @@ known as a period).  This format is called {\bf dot notation}.
 \end{verbatim}
 \afterverb
 %
-The first example computes the logarithm base 10 of the
-signal-to-noise ratio.  The math module also provides a
-function called {\tt log} that computes logarithms base {\tt e}.
+
+첫 예제는 로그 지수 10으로 신호 대비 소음 비율을  계산한다.
+수학 모듈은 자연 로그를 {\tt log}함수를 호출해서 사용할 수 있도록 제공한다.
 
 \index{log function}
 \index{function!log}
@@ -310,11 +281,8 @@ function called {\tt log} that computes logarithms base {\tt e}.
 \index{trigonometric function}
 \index{function, trigonometric}
 
-The second example finds the sine of {\tt radians}.  The name of the
-variable is a hint that {\tt sin} and the other trigonometric
-functions ({\tt cos}, {\tt tan}, etc.)  take arguments in radians. To
-convert from degrees to radians, divide by 360 and multiply by $2
-\pi$:
+두 번째 예제는 라디안의 사인값을 찾는 것이다. 변수의 이름이 힌트로 {\tt sin}과 다른 삼각 함수({\tt cos}, {\tt tan} 등)는 라디안을 인수로 받는다.
+도수에서 라디안으로 변환하기 위해서 360으로 나누고 $2\pi$를 곱한다.
 
 \beforeverb
 \begin{verbatim}
@@ -325,15 +293,12 @@ convert from degrees to radians, divide by 360 and multiply by $2
 \end{verbatim}
 \afterverb
 %
-The expression {\tt math.pi} gets the variable {\tt pi} from the math
-module.  The value of this variable is an approximation
-of $\pi$, accurate to about 15 digits.
+
+{\tt math.pi} 표현문은 수학 모듈에서 {\tt pi} 변수를 얻고, $\pi$와 근사적으로 동일하고 15 자리수까지 정확하다. 
 
 \index{pi}
 
-If you know
-your trigonometry, you can check the previous result by comparing it to
-the square root of two divided by two:
+삼각함수를 배웠다면, 앞의 연산 결과를 2를 루트를 씌우고 2로 나누어서 비교한다.
 
 \index{sqrt function}
 \index{function!sqrt}
@@ -347,20 +312,17 @@ the square root of two divided by two:
 %
 
 
-\section{Adding new functions}
+\section{신규 함수 추가}
 
-So far, we have only been using the functions that come with Python,
-but it is also possible to add new functions.
-A {\bf function definition} specifies the name of a new function and
-the sequence of statements that execute when the function is called.
-Once we define a function, we can reuse the function over and over 
-throughout our program.
+지금까지 파이썬에 딸려 있는 함수를 사용했지만 새로운 함수를 추가하는 것도 가능하다.
+{\bf 함수 정의(function definition)}는 신규 함수명과 함수가 호출될 때 실행할 일련의 명령문을 명세한다.
+함수를 신규로 정의하면, 프로그램 내내 반복해서 함수를 재사용할 수 있다. 
 
 \index{function}
 \index{function definition}
 \index{definition!function}
 
-Here is an example:
+여기 예제가 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -370,21 +332,16 @@ def print_lyrics():
 \end{verbatim}
 \afterverb
 %
-{\tt def} is a keyword that indicates that this is a function
-definition.  The name of the function is \verb"print_lyrics".  The
-rules for function names are the same as for variable names: letters,
-numbers and some punctuation marks are legal, but the first character
-can't be a number.  You can't use a keyword as the name of a function,
-and you should avoid having a variable and a function with the same
-name.
+{\tt def}는 이것이 함수 정의를 나타내는 키워드입니다. 함수명은 \verb"print_lyrics"입니다.
+함수명을 명명 규칙은 변수명과 동일합니다. 문자, 숫자, 그리고 몇몇 문장 부호는 사용할 수 있지만,
+첫 문자가 숫자는 될 수 없다. 함수명으로 예약어 키워드를 사용할 수도 없고, 동일한 변수명과 함수명은 피하는 것이 좋다.
 
 \index{def keyword}
 \index{keyword!def}
 \index{argument}
 
-The empty parentheses after the name indicate that this function
-doesn't take any arguments.   Later we will build functions that 
-take arguments as their inputs.
+함수명 뒤에 빈 괄호는 이 함수가 어떠한 인수도 갖지 않는다는 것을 나타낸다.
+나중에, 입력값으로 인수를 가지는 함수를 작성해 볼 것이다.
 
 \index{parentheses!empty}
 \index{header}
@@ -392,22 +349,16 @@ take arguments as their inputs.
 \index{indentation}
 \index{colon}
 
-The first line of the function definition is called the {\bf header};
-the rest is called the {\bf body}.  The header has to end with a colon
-and the body has to be indented.  By convention, the indentation is
-always four spaces.  The body can contain
-any number of statements.
+함수 정의 첫번째 줄을 {\bf 머리 부문(헤더, header)}, 나머지 부문을 {\bf 몸통 부문(바디, body)}라고 부른다.
+머리 부문은 콜론(:)으로 끝나고, 몸통 부문은 들여쓰기를 해야 한다.
+파이썬 관례로 들여쓰기는 항상 4칸의 공백이다. 몸통 부문은 제약 없이 명령문을 작성할 수 있다.
 
-The strings in the print statements are enclosed in double
-quotes.  Single quotes and double quotes do the same thing;
-most people use single quotes except in cases like this where
-a single quote (which is also an apostrophe) appears in the string.
+print문의 문자열은 이중 인용부호로 감싸진다. 단일 인용부호나, 이중 인용부호나 차이가 없다.
+대부분의 경우 단일 인용부호를 사용하고, 단일 인용부호가 문자열에 나타나는 경우, 이중 인용부호를 사용하여 단일 인용부호가 출력되게 감싼다.
 
 \index{ellipses}
 
-If you type a function definition in interactive mode, the interpreter
-prints ellipses (\emph{...}) to let you know that the definition
-isn't complete:
+함수 정의를 인터렉티브 모드에서 타이핑을 한다면, 함수 정의가 끝나지 않았다는 것을 알 수 있도록 생략부호(...)를 출력한다.
 
 \beforeverb
 \begin{verbatim}
@@ -418,10 +369,10 @@ isn't complete:
 \end{verbatim}
 \afterverb
 %
-To end the function, you have to enter an empty line (this is
-not necessary in a script).
 
-Defining a function creates a variable with the same name.
+함수 정의를 끝내기 위해서는 엔터(Enter)키를 눌러 빈 줄을 삽입한다. (스크립트에서는 반듯이 필요한 것은 아니다.) 
+
+함수를 정의하게 되면 동일한 이름의 변수도 생성된다.
 
 \beforeverb
 \begin{verbatim}
@@ -432,14 +383,12 @@ Defining a function creates a variable with the same name.
 \end{verbatim}
 \afterverb
 %
-The value of \verb"print_lyrics" is a {\bf function object}, which
-has type \verb"'function'".
+
+\verb"print_lyrics"의 값은 \verb"'function'" 형을 가지는 {\bf 함수 개체(function object)}이다. 
 
 \index{function object}
 \index{object!function}
-
-The syntax for calling the new function is the same as
-for built-in functions:
+신규 함수를 호출하는 구문은 내장 함수의 경우와 동일합니다.
 
 \beforeverb
 \begin{verbatim}
@@ -449,9 +398,9 @@ I sleep all night and I work all day.
 \end{verbatim}
 \afterverb
 %
-Once you have defined a function, you can use it inside another
-function.  For example, to repeat the previous refrain, we could write
-a function called \verb"repeat_lyrics":
+
+함수를 정의하면, 또 다른 함수 내부에서 사용이 가능합니다.
+예를 들어, 이전의 후렴구를 반복하기 위해 \verb"repeat_lyrics" 함수를 작성할 수 있습니다.
 
 \beforeverb
 \begin{verbatim}
@@ -461,7 +410,8 @@ def repeat_lyrics():
 \end{verbatim}
 \afterverb
 %
-And then call \verb"repeat_lyrics":
+
+그리고 나서, \verb"repeat_lyrics" 함수를 호출합니다.
 
 \beforeverb
 \begin{verbatim}
@@ -473,14 +423,13 @@ I sleep all night and I work all day.
 \end{verbatim}
 \afterverb
 %
-But that's not really how the song goes.
 
+하지만, 이 방법이 실제 노래가 불려지는 방법은 아닙니다.
 
-\section{Definitions and uses}
+\section{함수 정의와 사용법}
 \index{function definition}
 
-Pulling together the code fragments from the previous section, the
-whole program looks like this:
+앞 절의 코드 조각을 모아서 작성한 전체 프로그램은 다음과 같다.
 
 \beforeverb
 \begin{verbatim}
@@ -496,82 +445,59 @@ repeat_lyrics()
 \end{verbatim}
 \afterverb
 %
-This program contains two function definitions: \verb"print_lyrics" and
-\verb"repeat_lyrics".  Function definitions get executed just like other
-statements, but the effect is to create function objects.  The statements
-inside the function do not get executed until the function is called, and
-the function definition generates no output.
+
+상기 프로그램은 두개의 함수(\verb"print_lyrics", \verb"repeat_lyrics")를 담고 있다.
+함수정의는 다른 명령문과 동일하게 수행되지만, 함수 개체를 생성한다는 점에서 차이가 있다.
+함수 내부의 명령문은 함수가 호출되기 전까지 수행되지 않고, 함수 정의는 출력값도 생성하지 않는다.
 
 \index{use before def}
 
-As you might expect, you have to create a function before you can
-execute it.  In other words, the function definition has to be
-executed before the first time it is called.
+예상하듯이, 함수를 실행하기 전에 함수를 생성해야 한다. 다시 말해서, 처음으로 호출되기 전에
+함수 정의가 실행되어야 한다.
 
 \begin{ex}
-Move the last line of this program
-to the top, so the function call appears before the definitions. Run 
-the program and see what error
-message you get.
+상기 프로그램의 마지막 줄을 최상단으로 옮겨서 함수 정의 전에 호출되도록 프로그램을 고쳐보세요.
+프로그램을 실행서 오류 메시지를 확인하세요.
 \end{ex}
 
 \begin{ex}
-Move the function call back to the bottom
-and move the definition of \verb"print_lyrics" after the definition of
-\verb"repeat_lyrics".  What happens when you run this program?
+함수 호출을 맨 마지막으로 옮기고, \verb"repeat_lyrics" 함수 정의 뒤에 \verb"print_lyrics" 함수를 옮기세요.
+프로그램을 실행하게 되면 무슨 일이 발생하나요?
 \end{ex}
 
 
-\section{Flow of execution}
+\section{실행 흐름}
 \index{flow of execution}
 
-In order to ensure that a function is defined before its first use,
-you have to know the order in which statements are executed, which is
-called the {\bf flow of execution}.
+함수가 첫 사용전에 정의되는 것을 확인하기 위해서, 명령문의 실행 순서를 파악해야 하는데 이를 {\bf 실행 흐름(flow of execution)}이라고 한다.
 
-Execution always begins at the first statement of the program.
-Statements are executed one at a time, in order from top to bottom.
+프로그램 실행은 항상 프로그램의 첫 명령문부터 시작한다. 명령문은 한번에 하나씩 위에서 아래로 실행된다.
 
-Function \emph{definitions} do not alter the flow of execution of the
-program, but remember that statements inside the function are not
-executed until the function is called.
+함수 \emph{정의(definitions)}가 프로그램의 실행 순서를 바꾸지는 않는다. 하지만, 함수 내부의 명령문은 함수가 호출될 때까지 실행이 되지 않는 것을 기억합니다. 
 
-A function call is like a detour in the flow of execution. Instead of
-going to the next statement, the flow jumps to the body of
-the function, executes all the statements there, and then comes back
-to pick up where it left off.
+함수 호출은 프로그램의 실행 흐름을 우회하는 것과 같습니다. 다음 실행 명령문으로 가기 전에 실행 흐름은 함수의 몸통 부문으로 건너 뛰어 실행하고는 다시 건너 뛰기를 
+시작한 지점으로 다시 돌아온다.
 
-That sounds simple enough, until you remember that one function can
-call another.  While in the middle of one function, the program might
-have to execute the statements in another function. But while
-executing that new function, the program might have to execute yet
-another function!
+하나의 함수가 또 다른 함수를 호출한다는 것을 기억할 때까지는 매우 간단하게 들립니다.
+함수 중간에서 프로그램이 또다른 함수의 명령문을 수행할지도 모릅니다. 하지만, 새로운 함수가 실행되는 중간에 프로그램이 또 다른 함수를 실행할지도 모릅니다!
+ 
+다행스럽게도, 파이썬은 프로그램의 실행 위치를 정확히 추적합니다. 그래서, 함수가 실행을 완료할 때 마다, 프로그램이 함수를 호출해서 떠난 지점으로 정확히 되돌려 놓습니다. 프로그램의 마지막에 도달했을 때, 프로그램은 종료합니다.
 
-Fortunately, Python is good at keeping track of where it is, so each
-time a function completes, the program picks up where it left off in
-the function that called it.  When it gets to the end of the program,
-it terminates.
-
-What's the moral of this sordid tale?  When you read a program, you
-don't always want to read from top to bottom.  Sometimes it makes
-more sense if you follow the flow of execution.
+조금 복잡한 이야기의 교훈은 무엇일까요? 프로그램을 읽을 때, 위에서부터 아래로 읽을 필요는 없습니다. 때때로, 실행 흐름을 따르는 것이 좀더 이치에 맞습니다.
 
 
-\section{Parameters and arguments}
+\section{매개 변수(parameter)와 인수(argument)}
 \label{parameters}
 \index{parameter}
 \index{function parameter}
 \index{argument}
 \index{function argument}
 
-Some of the built-in functions we have seen require arguments.  For
-example, when you call {\tt math.sin} you pass a number
-as an argument.  Some functions take more than one argument:
-{\tt math.pow} takes two, the base and the exponent.
+지금까지 살펴본 몇몇 내장 함수는 인수를 요구합니다. 예를 들어, {\tt math.sin} 함수를 호출할 때, 숫자를 인수로 넘겨야 합니다.
+어떤 함수는 2개 이상의 인수를 받습니다. {\tt math.pow} 는 밑과 지수 2개의 인수가 필요합니다. 
 
-Inside the function, the arguments are assigned to
-variables called {\bf parameters}.  Here is an example of a
-user-defined function that takes an argument:
+인수는 함수 내부에서  {\bf 매개 변수(parameters)}로 불리는 변수로 할당됩니다.
+하나의 인수를 받는 사용자 정의 함수가 예제로 있습니다.  
 
 \index{parentheses!parameters in}
 
@@ -583,11 +509,10 @@ def print_twice(bruce):
 \end{verbatim}
 \afterverb
 %
-This function assigns the argument to a parameter
-named {\tt bruce}.  When the function is called, it prints the value of
-the parameter (whatever it is) twice.
 
-This function works with any value that can be printed.
+사용자 정의 함수는 인수를 받아 {\tt bruce} 매개변수에 할당한다. 함수가 호출될 때, 매개변수의 값(무엇이든지 관계 없이)을 두번 출력합니다.
+
+사용자 정의 함수는 출력가능한 임의의 값에 작동합니다.
 
 \beforeverb
 \begin{verbatim}
@@ -603,9 +528,8 @@ Spam
 \end{verbatim}
 \afterverb
 %
-The same rules of composition that apply to built-in functions also
-apply to user-defined functions, so we can use any kind of expression
-as an argument for \verb"print_twice":
+
+내장함수에 적용되는 동일한 조합 규칙이 사용자 정의 함수에도 적용되어서, \verb"print_twice" 함수의 인수로 어떤 종류의 표현식도 가능합니다. 
 
 \index{composition}
 
@@ -620,13 +544,12 @@ Spam Spam Spam Spam
 \end{verbatim}
 \afterverb
 %
-The argument is evaluated before the function is called, so
-in the examples the expressions \verb"'Spam '*4" and
-{\tt math.cos(math.pi)} are only evaluated once.
+
+인수는 함수가 호출되기 전에 평가가 완료되어서, 예제에서 \verb"'Spam '*4"과 {\tt math.cos(math.pi)}은 단지 1회만 평가가 됩니다.
 
 \index{argument}
 
-You can also use a variable as an argument:
+인수로 변수도 사용이 가능합니다.
 
 \beforeverb
 \begin{verbatim}
@@ -637,27 +560,21 @@ Eric, the half a bee.
 \end{verbatim}
 \afterverb
 %
-The name of the variable we pass as an argument ({\tt michael}) has
-nothing to do with the name of the parameter ({\tt bruce}).  It
-doesn't matter what the value was called back home (in the caller);
-here in \verb"print_twice", we call everybody {\tt bruce}.
 
-\section{Fruitful functions and void functions}
+인수로 넘기는 변수명({\tt michael})은 매개 변수명({\tt bruce})과 아무런 연관이 없다.
+무슨 값이 호출된든 호출하는 측에서는 상관이 없다. 여기 \verb"print_twice" 함수에서 누구나 {\tt bruce}라고 부른다. 
+
+\section{열매 함수(fruitful function)와 빈 함수(void function)}
 
 \index{fruitful function}
 \index{void function}
 \index{function, fruitful}
 \index{function, void} 
 
-Some of the functions we are using, such as the math functions, yield
-results; for lack of a better name, I call them {\bf fruitful
-  functions}.  Other functions, like \verb"print_twice", perform an
-action but don't return a value.  They are called {\bf void
-  functions}.
+수학 함수와 같은 몇몇 함수는 결과를 만들어 낸다. 좀더 좋은 이름이 없어서, 결과를 만들어 내는 함수를 {\bf 열매함수(fruitful functions)}라고 명명한다.
+\verb"print_twice"와 같은 명령을 수행하지만, 결과를 만들어 내지 않는 함수를 {\bf 빈 함수(void functions)}라고 부른다.
 
-When you call a fruitful function, you almost always
-want to do something with the result; for example, you might
-assign it to a variable or use it as part of an expression:
+열매 함수를 호출할 때는 결과 값을 가지고 뭔가를 하려고 한다. 예를 들어, 결과값을 변수에 할당하거나, 표현식의 일부로 재사용할 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -666,8 +583,7 @@ golden = (math.sqrt(5) + 1) / 2
 \end{verbatim}
 \afterverb
 %
-When you call a function in interactive mode, Python displays
-the result:
+인터랙티브 모드에서 함수를 호출할 때, 파이썬은 결과를 화면에 출력한다.
 
 \beforeverb
 \begin{verbatim}
@@ -676,9 +592,7 @@ the result:
 \end{verbatim}
 \afterverb
 %
-But in a script, if you call a fruitful function and do 
-not store the result of the function in a variable,
-the return value vanishes into the mist!
+하지만, 스크립트에서 열매함수를 호출하고 변수에 결과값을 저장하지 않으면 반환되는 결과값은 안개속에 사라져간다!
 
 \beforeverb
 \begin{verbatim}
@@ -686,16 +600,13 @@ math.sqrt(5)
 \end{verbatim}
 \afterverb
 %
-This script computes the square root of 5, but since it doesn't store
-the result in a variable or display the result, it is not very useful.
+이 스크립트는 제곱근 5의 값을 연산하지만, 변수에 결과값을 저장하거나, 화면에 출력하지 않아서 그 다지 유용하지는 않다.
 
 \index{interactive mode}
 \index{script mode}
 
-Void functions might display something on the screen or have some
-other effect, but they don't have a return value.  If you try to
-assign the result to a variable, you get a special value called
-{\tt None}.
+빈 함수(Void functions)는 화면에 뭔가 출력하거나 뭔가 다른 효과를 가지지만, 반환값은 없다.
+빈 함수를 사용하여 결과에 변수를 할당하면, {\tt None}으로 불리는 특별한 값을 얻게 된다.
 
 \index{None special value}
 \index{special value!None}
@@ -710,8 +621,8 @@ None
 \end{verbatim}
 \afterverb
 %
-The value {\tt None} is not the same as the string \verb"'None'". 
-It is a special value that has its own type:
+
+{\tt None} 값은 자신만의 특별한 값을 가지며, 문자열 \verb"'None'" 과는 같지 않다. 
 
 \beforeverb
 \begin{verbatim}
@@ -720,10 +631,9 @@ It is a special value that has its own type:
 \end{verbatim}
 \afterverb
 %
-To return a result from a function, we use the {\tt return} statement 
-in our function.  For example, we could make a very 
-simple function called {\tt addtwo}
-that adds two numbers together and return a result.
+
+함수에서 결과를 반환하기 위해서, 함수내부에 {\tt return}문을 사용한다.
+예를 들어, 두 숫자를 더해서 결과를 반환하는 {\tt addtwo}라는 간단한 함수를 작성할 수 있다. 
 
 \beforeverb
 \begin{verbatim}
@@ -736,181 +646,141 @@ print x
 \end{verbatim}
 \afterverb
 %
-When this script executes, the {\tt print} statement will print out ``8''
-because the {\tt addtwo} function was called with 3 and 5 as arguments.
-Within the function the parameters {\tt a} and {\tt b} were 3 and 5 
-respectively. The function computed the sum of the two numbers and placed
-it in the local function variable named {\tt added} 
-and used the {\tt return} statement 
-to send the computed value back to the calling code 
-as the function result which was assigned
-to the variable {\tt x} and printed out.
 
+상기 스크립트가 실행될 때 print 문은 ``8''을 출력한다. 왜냐하면, 3과 5를 인수로 받는 {\tt addtwo} 함수가 호출되기 때문이다.
+함수 내부에 매개 변수 {\tt a}, {\tt b}는 각각 3, 5이다.
+ {\tt addtwo} 함수는 두 숫자의 덧셈을 수행하고  {\tt added}라는 로컬 변수에 저장하고, {\tt return}문을 사용해서 덧셈 결과를 반환하고,
+  {\tt x} 라는 변수에 할당하여 출력한다.
 
-\section{Why functions?}
+\section{왜 함수를 사용하는가?}
 \index{function, reasons for}
 
-It may not be clear why it is worth the trouble to divide
-a program into functions.  There are several reasons:
+프로그램을 함수로 나누는 고생을 할 가치가 왜 있는지 불명확할지 모릅니다. 여기 몇 가지 이유가 있습니다.
 
 \begin{itemize}
 
-\item Creating a new function gives you an opportunity to name a group
-of statements, which makes your program easier to read, understand 
-and debug.
+\item 명령문을 그룹으로 만들어 새로운 함수로 명명하는 것은 프로그램을 읽고, 이해하고, 디버그하기 좋게 합니다. 
 
-\item Functions can make a program smaller by eliminating repetitive
-code.  Later, if you make a change, you only have
-to make it in one place.
+\item 함수는 반복 코드를 제거해서 프로그램을 작고 콤팩트하게 만듭니다. 후에 프로그램에 수정사항이 생기면, 단지 한 곳에서만 수정을 하면 됩니다.
 
-\item Dividing a long program into functions allows you to debug the
-parts one at a time and then assemble them into a working whole.
+\item 긴 프로그램을 함수로 나누어 작성하는 것은 작은 부분에서 버그를 수정할 수 있게 하고 이를 조합해서 전체 온전한 프로그램을 만들 수 있습니다.
 
-\item Well-designed functions are often useful for many programs.
-Once you write and debug one, you can reuse it.
+\item 잘 설계된 함수는 종종 많은 프로그램에 유용하게 사용됩니다. 잘 설계된 프로그램을 작성하고 디버그를 해서 오류가 없이 만들게 되면, 나중에 재사용이 용이합니다.
 
 \end{itemize}
 
-Throughout the rest of the book, often we will use a function definition to 
-explain a concept.  Part of the skill of creating and using functions is
-to have a function properly capture an idea such as ``find the smallest
-value in a list of values''.  Later we will show you code that finds
-the smallest in a list of values and we will present it to you as a function
-named {\tt min} which takes a list of values as its argument and 
-returns the smallest value in the list.
+책의 나머지 부분에서 이 개념을 설명하는 함수 정의를 종종 사용할 것입니다. 함수를 만들고 사용하는 기술의 일부는 "리스트에서 가장 작은 값을 찾아내는 것"과 같은 
+생각을 적절하게 추상화하여 함수를 작성하는 것입니다. 나중에, 리스트에서 가장 작은 값을 찾아내는 코드를 보여 줄 것입니다. 리스트를 인수로 받아 가장 작은 값을 
+반환하는 {\tt min} 함수를 작성해서 여러분에게 보여드릴 것입니다.
 
-
-\section{Debugging}
+\section{디버깅}
 \label{editor}
 \index{debugging}
 
-If you are using a text editor to write your scripts, you might
-run into problems with spaces and tabs.  The best way to avoid
-these problems is to use spaces exclusively (no tabs).  Most text
-editors that know about Python do this by default, but some
-don't.
+텍스트 에디터로 스크립트를 작성한다면 공백과 탭으로 몇번씩 문제에 봉착했을 것입니다. 이런 문제를 피하는 가장 최선의 방식은 절대 탭을 사용하지 말고
+공백(스페이스)를 사용하는 것입니다. 파이썬을 인식하는 대부분의 텍스트 에디터는 디폴트로 이런 기능을 지원하지만, 몇몇 텍스트 에디터는 지원하지 않아 탭과 공백으로 문제를 야기합니다.
 
 \index{whitespace}
 
-Tabs and spaces are usually invisible, which makes them
-hard to debug, so try to find an editor that manages indentation
-for you.
+탭과 공백은 통상 눈에 보이지 않기 때문에 디버그를 어렵게 합니다. 자동으로 들여쓰기를 해주는 에디터를 프로그램 작성 시 사용하세요.
 
-Also, don't forget to save your program before you run it.  Some
-development environments do this automatically, but some don't.
-In that case the program you are looking at in the text editor
-is not the same as the program you are running.
+프로그램을 실행하기 전에 저장하는 것을 잊지 마세요. 몇몇 개발 환경은 자동저장 기능을 지원하지만 그렇지 않는 것도 있습니다.
+이런 이유 때문에 텍스트 에디터에서 작성한 프로그램과 실행하고 있는 프로그램이 같지 않을 수도 있습니다.
 
-Debugging can take a long time if you keep running the same,
-incorrect, program over and over!
+동일하지만 잘못된 프로그램을 반복적으로 실행한다면, 디버깅은 오래 걸릴 수 있습니다.
 
-Make sure that the code you are looking at is the code you are running.
-If you're not sure, put something like \verb"print 'hello'" at the
-beginning of the program and run it again.  If you don't see
-\verb"hello", you're not running the right program!
+작성하고 있는 코드와 실행하는 코드가 일치하는지 필히 확인하세요. 확신을 하지 못한다면, 프로그램의 첫줄에 \verb"print 'hello'" 을 넣어서 실행해 보세요.
+\verb"hello"를 보지 못한다면, 작성하고 있는 프로그램과 실행하고 있는 프로그램은 다른 것입니다.
 
 
-
-
-\section{Glossary}
+\section{용어정의}
 
 \begin{description}
 
-\item[algorithm:]  A general process for solving a category of
-problems.
+\item[알고리즘(algorithm):] 특정 범주의 문제를 해결하는 일반적인 프로세스
+
 \index{algorithm}
 
-\item[argument:]  A value provided to a function when the function is called.
-This value is assigned to the corresponding parameter in the function.
+\item[인수(argument):] 함수가 호출될 때 함수에 제공되는 값. 이 값은 함수 내부에 상응하는 매개 변수에 할당된다.
+
 \index{argument}
 
-\item[body:] The sequence of statements inside a function definition.
+\item[몸통 부문(body):] 함수 정의문 내부에 일련의 명령문
+
 \index{body}
 
-\item[composition:] Using an expression as part of a larger expression,
-or a statement as part of a larger statement.
+\item[복합(composition):] 
+좀더 큰 표현식의 일부분으로 표현식을 사용하거나, 좀더 큰 명령문의 일부로서의 명령문.
 \index{composition}
 
-\item[deterministic:] Pertaining to a program that does the same
-thing each time it runs, given the same inputs.
+\item[결정론적(deterministic):] 동일한 입력값이 주어지고 실행될 때마다 동일한 행동을 하는 프로그램에 관련된 것.
 \index{deterministic}
 
-\item[dot notation:]  The syntax for calling a function in another
-module by specifying the module name followed by a dot (period) and
-the function name.
+\item[점 표기법(dot notation):] 점과 함수명으로 모듈명을 명세함으로써 다른 모듈의 함수를 호출하는 구문.
 \index{dot notation}
 
-\item[flow of execution:]  The order in which statements are executed during
-a program run.
+\item[실행 흐름(flow of execution):] 프로그램 실행 동안 명령문이 실행되는 순서.
 \index{flow of execution}
 
-\item[fruitful function:] A function that returns a value.
+\item[열매 함수(fruitful function):] 반환값을 가지는 함수.
 \index{fruitful function}
 
-\item[function:] A named sequence of statements that performs some
-useful operation.  Functions may or may not take arguments and may or
-may not produce a result.
+\item[함수(function):] 유용한 연산을 수행하는 이름을 가진 일련의 명령문.
+함수는 인수를 가질 수도 갖지 않을 수도 있고, 결과값을 생성할 수도 생성하지 않을 수도 있다.
 \index{function}
 
-\item[function call:] A statement that executes a function. It
-consists of the function name followed by an argument list.
+\item[함수 호출(function call):] 함수를 실행하는 명령문. 함수 이름과 인수 리스트로 구성된다.
 \index{function call}
 
-\item[function definition:]  A statement that creates a new function,
-specifying its name, parameters, and the statements it executes.
+\item[함수 정의(function definition):] 신규 함수를 정의하는 명령문으로 이름, 매개변수, 실행 명령문을 명세한다.
 \index{function definition}
 
-\item[function object:]  A value created by a function definition.
-The name of the function is a variable that refers to a function
-object.
+\item[함수 개체(function object):] 함수 정의로 생성되는 값. 함수명은 함수 개체를 참조하는 변수다.
 \index{function definition}
 
-\item[header:] The first line of a function definition.
+\item[머리 부문(header):] 함수 정의의 첫번째 줄
 \index{header}
 
-\item[import statement:] A statement that reads a module file and creates
-a module object.
+\item[가져오기 문(import statement):] 모듈 파일을 읽어 모듈 개체를 생성하는 명령문
 \index{import statement}
 \index{statement!import}
 
-\item[module object:] A value created by an {\tt import} statement
-that provides access to the data and code defined in a module.
+\item[모듈 개체(module object):] {\tt import}문에 의해서 생성된 모듈에 정의된 코드와 데이터에 접근할 수 있는 값
 \index{module}
 
-\item[parameter:] A name used inside a function to refer to the value
-passed as an argument.
+\item[매개 변수(parameter):] 인수로 전달된 값을 참조하기 위해 함수 내부에 사용되는 이름
 \index{parameter}
 
-\item[pseudorandom:] Pertaining to a sequence of numbers that appear
-to be random, but are generated by a deterministic program.
+\item[의사 난수(pseudorandom):] 난수처럼 보이는 일련의 숫자와 관련되어 있지만, 결정론적 프로그램에 의해 생성된다.
 \index{pseudorandom}
 
-\item[return value:]  The result of a function.  If a function call
-is used as an expression, the return value is the value of
-the expression.
+\item[반환 값(return value):] 함수의 결과. 함수 호출이 표현식으로 사용된다면, 반환값은 표현식의 값이 된다. 
 \index{return value}
 
-\item[void function:] A function that doesn't return a value.
+\item[빈 함수(void function):] 반환값을 갖지 않는 함수
 \index{void function}
 
 
 \end{description}
 
 
-\section{Exercises}
+\section{연습문제}
 
 \begin{ex}
+파이썬의 "def" 키워드의 목적은 무엇입니까?
+
 What is the purpose of the "def" keyword in Python?
 
-a) It is slang that means "the following code is really cool"\\
-b) It indicates the start of a function\\
-c) It indicates that the following indented section of code is to be stored for later\\
-d) b and c are both true\\
-e) None of the above
+a) "다음의 코드는 정말 좋다"라는 의미를 가진 속어\\
+b) 함수의 시작을 표시한다.\\
+c) 다음의 들여쓰기 코드 부문은 나중을 위해 저장되야 된다는 것을 표시한다.\\
+d) b와 c 모두 사실\\
+e) 위 모두 거짓
 \end{ex}
 
 \begin{ex}
-What will the following Python program print out?
+
+다음 파이썬 프로그램은 무엇을 출력할까요?
 
 \beforeverb
 \begin{verbatim}
@@ -934,9 +804,9 @@ e) Zap Zap Zap
 \end{ex}
 
 \begin{ex}
-Rewrite your pay computation with time-and-a-half for overtime
-and create a function called {\tt computepay} which takes
-two parameters ({\tt hours} and {\tt rate}).
+
+프로그램 작성 시 ({\tt hours}과 {\tt rate})을 매개 변수로 가지는 함수 {\tt computepay}을 생성하여,
+초과근무에 대해서는 50％ 초과 근무 수당을 지급하는 봉급 계산 프로그램을 다시 작성하세요.
 
 \begin{verbatim}
 Enter Hours: 45
@@ -946,9 +816,9 @@ Pay: 475.0
 \end{ex}
 
 \begin{ex}
-Rewrite the grade program from the previous chapter 
-using a function called {\tt computegrade} that takes
-a score as its parameter and returns a grade as a string.
+
+매개 변수로 점수를 받아 문자열로 등급을 반환하는 {\tt computegrade} 함수를 사용하여
+앞장의 등급 프로그램을 다시 작성하세요.
 
 \begin{verbatim}
 Score   Grade
@@ -976,8 +846,8 @@ Enter score: 0.5
 F
 \end{verbatim}
 
-Run the program repeatedly to test the various different values
-for input.
+입력값으로 다양한 다른 값을 테스트하기 위해서 반복적으로 프로그램을 실행하세요.
+
 \end{ex}
 
 

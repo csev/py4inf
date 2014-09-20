@@ -1,22 +1,32 @@
 % The contents of this file is 
 % Copyright (c) 2009-  Charles R. Severance, All Righs Reserved
 
-\chapter{Regular expressions}
+\chapter{정규 표현식}
 
-So far we have been reading through files, looking for patterns and extracting various bits of lines that we find interesting.  We have been using string methods like {\tt split} and {\tt find} and using lists and string slicing to extract portions of the lines.
+지금까지 파일을 훑어서 패턴을 찾고, 관심있는 라인에서 다양한 비트(bits)를 뽑아냈다. 
+{\tt split}, {\tt find} 같은 문자열 메쏘드를 사용하였고, 라인에서 일정 부분을 뽑아내기 위해서 리스트와 문자열 슬라이싱(slicing)을 사용했다.
+
 \index{regular expressions}
 \index{regex}
 \index{re module}
 
-This task of searching and extracting is so common that Python has a very powerful library called {\bf regular expressions} that handles many of these tasks quite elegantly.  The reason we have not introduced regular expressions earlier in the book is because while they are very powerful, they are a little complicated and their syntax takes some getting used to. 
+검색하고 추출하는 작업은 너무 자주 있는 일이어서 파이썬은 상기와 같은 작업을 매우 우아하게 처리하는 {\bf 정규 표현식(regular expressions)}으로 불리는 
+매우 강력한 라이브러리를 제공한다.
+정규 표현식을 책의 앞부분에 소개하지 않은 이유는 정규 표현식 라이브러리가 매우 강력하지만, 약간 복잡하고, 구문에 익숙해지는데 시간이 필요하기 때문이다.
 
-Regular expressions are almost their own little programming language for searching and parsing strings.  As a matter of fact, entire books have been written on the topic of regular expressions.  In this chapter, we will only cover the basics of regular expressions.  For more detail on regular expressions, see:
+정규표현식은 문자열을 검색하고 파싱하는데 그 자체가 작은 프로그래밍 언어다.
+사실, 책 전체가 정규 표현식을 주제로 쓰여진 책이 몇권있다.
+이번 장에서는 정규 표현식의 기초만을 다룰 것이다.
+정규 표현식의 좀더 자세한 사항은 다음을 참조하라.
 
 \url{http://en.wikipedia.org/wiki/Regular_expression}
 
 \url{http://docs.python.org/library/re.html}
 
-The regular expression library must be imported into your program before you can use it.  The simplest use of the regular expression library is the {\tt search()} function.  The following program demonstrates a trivial use of the search function.
+정규 표현식 라이브러리는 사용하기 전에 프로그램에 가져오기(import)하여야 한다.
+정규 표현식 라이브러리의 가장 간단한 쓰임은  {\tt search()} 검색 함수다. 
+다음 프로그램은 검색 함수의 사소한 사용례를 보여준다.
+
 \index{regex!search}
 
 \beforeverb
@@ -30,15 +40,17 @@ for line in hand:
 \end{verbatim}
 \afterverb
 %
-We open the file, loop through each line and use the regular expression {\tt search()} to only print out lines that contain the string ``From:''.   This program does not use the real power of regular expressions since we could have just as easily used {\tt line.find()} to accomplish the same result.
+
+파일을 열고, 매 라인을 루프를 반복해서 정규 표현식 {\tt search()} 메쏘드를 호출하여 문자열 ''From''이 포함된 라인만 출력한다.
+상기 프로그램은 정규 표현식의 진정 강력한 기능을 사용하지 않았다. 왜냐하면, {\tt line.find()} 메쏘드를 가지고 동일한 결과를 쉽게 구현할 수 있기 때문이다.
+
 \index{string!find}
 
-The power of the regular expressions comes when we add to special characters to the search string that allow us to more precisely control which lines match the string.  Adding these special characters to our regular expression allow us to do sophisticated matching and extraction while writing very little code.
+정규 표현식의 강력한 기능은 문자열에 해당하는 라인을 좀더 정확하게 제어하기 위해서 검색 문자열에 특수문자를 추가할 때 확인할 수 있다.
+매우 적은 코드를 작성해도 정규 표현식에 특수 문자를 추가하는 것 만으로도 정교한 일치(matching)와 추출이 가능하게 한다.
 
-For example, the caret character is uses in regular 
-expressions to match ``the beginning'' of a line.
-We could change our application to only match 
-lines where ``From:'' was at the beginning of the line as follows:
+예를 들어, 탈자 기호(caret)는 라인의 ''시작''과 일치하는 정규 표현식에 사용된다.
+다음과 같이 ''From:''으로 시작하는 라인만 일치하는 응용프로그램을 변경할 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -51,16 +63,21 @@ for line in hand:
 \end{verbatim}
 \afterverb
 %
-Now we will only match lines that {\em start with} the string ``From:''.  This is still a very simple example that we could have done equivalently with the {\tt startswith()} method from the string library.  But it serves to introduce the notion that regular expressions contain special action characters that give us more control as to what will match the regular expression.
+
+''From:'' 문자열로 {\em 시작}하는 라인만 일치할 수 있다. 여전히 매우 간단한 프로그램으로 문자열 라이브러리에서  {\tt startswith()} 메쏘드로 동일하게 수행할 수 있다.
+하지만, 무엇이 정규 표현식을 매칭하는가에 대해서 좀더 많은 제어를 할수 있게 하는 특수 액션 문자를 담고 있는 정규 표현식의 개념을 소개하기에는 충분하다.
+
 \index{string!startswith}
 
-\section{Character matching in regular expressions}
+\section{정규 표현식의 문자 매칭}
 
-There are a number of other special characters that let us build even more powerful regular expressions.  The most commonly used special character is the period character which matches any character.
+좀더 강력한 정규 표현식을 작성할 수 있는 다른 특수문자 많이 있다.
+가장 자주 사용되는 특수 문자는 임의의 문자를 매칭하는 마침표다.
+
 \index{wild card}
 \index{regex!wild card}
 
-In the following example, the regular expression ``F..m:'' would match any of the strings ``From:'', ``Fxxm:'', ``F12m:'', or ``F!@m:'' since the period characters in the regular expression match any character.
+다음 예제에서 정규 표현식 ``F..m:''은 ``From:'', ``Fxxm:'', ``F12m:'', ``F!@m:' 같은 임의의 문자열을 매칭한다. 왜냐하면 정규 표현식의 마침표 문자가 임의의 문자와 매칭되기 때문이다.
 
 \beforeverb
 \begin{verbatim}
@@ -73,9 +90,11 @@ for line in hand:
 \end{verbatim}
 \afterverb
 %
-This is particularly powerful when combined with the ability to indicate that a character can be repeated any number of times using the ``*'' or ``+'' characters in your regular expression.   These special characters mean that instead of matching a single character in the search string they match zero-or-more in the case of the asterisk or one-or-more of the characters in the case of the plus sign.
 
-We can further narrow down the lines that we match using a repeated {\bf wild card} character in the following example:
+정규 표현식에 ``*'', ``+' ' 문자를 사용하여 문자가 원하는만큼 반복을 나타내는 기능과 결합되었을 때, 더욱 강력해진다.
+``*'', ``+' ' 특수 문자는 검색 문자열에 하나의 문자만을 매칭하는 대신에 별표 기호인 경우 0 혹은 그 이상의 매칭, 더하기 기호인 경우 1 혹은 그 이상의 문자의 매칭을 의미한다.
+
+다음 예제에서 반복 {\bf 와일드 카드(wild card)} 문자를 사용하여 매칭하는 라인을 좀더 좁힐 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -88,7 +107,9 @@ for line in hand:
 \end{verbatim}
 \afterverb
 %
-The search string ``\verb"^"From:.+@'' will successfully match lines that start with ``From:'' followed by one or more characters ``.+'' followed by an at-sign.  So this will match the following line:
+
+검색 문자열 ''{\verb"^"}From:.+@'' 은 ``From:'' 으로 시작하고, ''.+'' {\verb"@"} 기호로 되는 하나 혹은 그 이상의 문자들의 라인을 성공적으로 매칭한다.
+그래서 다음 라인은 매칭이 될 것이다.
 
 \beforeverb
 \begin{alltt}
@@ -96,8 +117,7 @@ The search string ``\verb"^"From:.+@'' will successfully match lines that start 
 \end{alltt}
 \afterverb
 
-You can think of the ``.+'' wildcard as expanding to match all the characters between the 
-colon character and the at-sign.  
+콜론(:)과  {\verb"@"} 기호 사이의 모든 문자들을 매칭하도록 확장하는 것으로 ``.+'' 와이드 카드를 간주할 수 있다.
 
 \beforeverb
 \begin{alltt}
@@ -105,7 +125,8 @@ colon character and the at-sign.
 \end{alltt}
 \afterverb
 
-It is good to think of the plus and asterisk characters as ``pushy''.  For example the following string would match the last at-sign in the string as the ``.+'' pushes outwards as shown below:
+더하기와 별표 기호를 ''밀어내기(pushy)'' 문자로 생각하는 것이 좋다. 예를 들어, 다음 문자열은 ''.+'' 특수문자가 다음에 보여주듯이 밖으로 밀어내는 것 처럼 문자령릐 마지막
+{\verb"@"} 기호를 매칭한다.
 
 \beforeverb
 \begin{alltt}
@@ -113,14 +134,16 @@ It is good to think of the plus and asterisk characters as ``pushy''.  For examp
 \end{alltt}
 \afterverb
 
-It is possible to tell an asterisk or plus-sign not to be so ``greedy'' by adding 
-another character.   See the detailed documentation for information on turning off the 
-greedy behavior.
+추가로 다른 특수문자를 추가함으로서 별표나 더하기 기호가 너무 ''탐욕(greedy)''스럽지 않게 할 수 있다.
+와일드 카드 특수문자의 탐욕스러운 기능을 끄는 것에 대해서는 자세한 정보를 참조바란다. 
+
 \index{greedy}
 
-\section{Extracting data using regular expressions}
+\section{정규 표현식 사용 데이터 추출}
 
-If we want to extract data from a string in Python we can use the {\tt findall()} method to extract all of the substrings which match a regular expression.  Let's use the example of wanting to extract anything that looks like an e-mail address from any line regardless of format.  For example, we want to pull the e-mail addresses from each of the following lines:
+파이썬에서 문자열에서 데이터를 추출하려면, {\tt findall()} 메쏘드를 사용해서 정규 표현식과 매칭되는 모든 부속 문자열을 추출할 수 있다.
+형식에 관계없이 임의의 라인에서 전자우편 주소 같은 문자열을 추출하는 예제를 사용하자.
+예를 들어, 다음 각 라인에서 전자우편 주소를 뽑아내고자 한다.
 
 \beforeverb
 \begin{verbatim}
@@ -132,7 +155,10 @@ Author: stephen.marquard@uct.ac.za
 \end{verbatim}
 \afterverb
 %
-We don't want to write code for each of the types of lines, splitting and slicing differently for each line.  This following program uses {\tt findall()} to find the lines with e-mail addresses in them and extract one or more addresses from each of those lines.
+
+각각의 라인에 대해서 다르게 쪼개고, 슬라이싱하면서 라인의 각각의 형식에 맞는 코드를 작성하고는 싶지 않다.
+다음 프로그램은 {\tt findall()} 메쏘드를 사용하여 전자우편 주소가 있는 라인을 찾아내고 하나 혹은 그 이상의 주소를 뽑아낸다.
+
 \index{findall}
 \index{regex!findall}
 
@@ -145,10 +171,11 @@ print lst
 \end{verbatim}
 \afterverb
 %
-The {\tt findall()} method searches the string in the second argument and returns a list of all of the strings that look like e-mail addresses.   We are using a two-character sequence 
-that matches a non-whitespace character ({\textbackslash}S). 
 
-The output of the program would be:
+{\tt findall()} 메쏘드는 두번째 인수 문자열을 찾아서 전자우편 주소처럼 보이는 모든 문자열을 리스트로 반환한다.
+공백이 아닌 문자 ({\textbackslash}S)와 매칭되는 두 문자 스퀀스를 사용한다.
+
+프로그램의 출력은 다음과 같다.
 
 \beforeverb
 \begin{verbatim}
@@ -156,10 +183,13 @@ The output of the program would be:
 \end{verbatim}
 \afterverb
 %
-Translating the regular expression, we are looking for substrings that have at least one non-whitespace character, followed by an at-sign, followed by at least one more non-white space characters.  Also, the ``{\textbackslash}S+'' matches as many non-whitespace characters as possible (this is called {\bf ``greedy''} matching in regular expressions).  
 
-The regular expression would match twice (csev@umich.edu and cwen@iupui.edu) but it would not match the string ``@2PM'' because there are no non-blank characters {\em before} the at-sign.  
-We can use this regular expression in a program to read all the lines in a file and print out anything that looks like an e-mail address as follows:
+정규 표현식을 해석하면, 적어도 하나의 공백이 아닌 문자, {\verb"@"}과 적어도 하나 이상의 공백이 아닌 문자를 가진 부속 문자열을 찾는다.
+또한, ``{\textbackslash}S+'' 특수 문자는 가능한 많이 공백이 아닌 문자를 매칭한다. (정규 표현식에서  {\bf ``탐욕(greedy)''} 매칭이라고 부른다.)
+
+정규 표현식은 두번 매칭(csev@umich.edu, cwen@iupui.edu)하지만, 문자열 ``@2PM''은 매칭을 하지 않는다.
+왜냐하면, {\verb"@"} 기호 {\em 앞}에 공백이 아닌 문자가 하나도 없기 때문이다.
+프로그램의 정규 표현식을 사용해서 파일에 모든 라인을 읽고 다음과 같이 전자우편 주소처럼 보이는 모든 문자열을 출력한다.
 
 \beforeverb
 \begin{verbatim}
@@ -173,9 +203,11 @@ for line in hand:
 \end{verbatim}
 \afterverb
 %
-We read each line and then extract all the substrings that match our regular expression.  Since {\tt findall()} returns a list, we simple check if the number of elements in our returned list is more than zero to print only lines where we found at least one substring that looks like an e-mail address.
+각 라인을 읽어 들이고, 정규 표현식과 매칭되는 모든 부속 문자열을 추출한다. 
+{\tt findall()} 메쏘드는 리스트를 반환하기 때문에, 전자우편 처럼 보이는 부속 문자열을 적어도 하나 찾아서 출력하기 위해서 
+반환 리스트 요소 숫자가 0 보다 큰가를 만을 간단히 확인한다.
 
-If we run the program on {\tt mbox.txt} we get the following output:
+{\tt mbox.txt} 파일에 프로그램을 실행하면, 다음 출력을 얻는다.
 
 \beforeverb
 \begin{verbatim}
@@ -191,11 +223,14 @@ If we run the program on {\tt mbox.txt} we get the following output:
 \end{verbatim}
 \afterverb
 %
-Some of our E-mail addresses have incorrect characters like ``\verb"<"'' or ``;'' at the beginning or end.   Let's declare that we are only interested in the portion of the string that starts and ends with a letter or a number.
 
-To do this, we use another feature of regular expressions.  Square brackets are used to indicate a set of multiple acceptable characters we are willing to consider matching.  In a sense, the ``{\textbackslash}S'' is asking to match the set of ``non-whitespace characters''.  Now we will be a little more explicit in terms of the characters we will match.
+전자우편 수조 몇몇은 ``\verb"<"'', ``;'' 같은 잘못된 문자가 앞과 뒤에 붙어있다.
+문자나 숫자로 시작하고 끝나는 문자열 부분만 관심있다고 하자.
 
-Here is our new regular expression:
+그러기 위해서, 정규 표현식의 또 다른 기능을 사용한다. 매칭하려는 다중 허용 문자 집합을 표기하기 위해서 꺾쇠 괄호를 사용한다. 
+그런 의미에서 ``{\textbackslash}S''은 공백이 아닌 문자 집합을 매칭하게 한다. 이제 매칭하려는 문자에 관해서 좀더 명확해졌다.
+
+여기 새로운 정규 표현식이 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -203,10 +238,16 @@ Here is our new regular expression:
 \end{verbatim}
 \afterverb
 %
-This is getting a little complicated and you can begin to see why regular expressions are their own little language unto themselves.  Translating this regular expression, we are looking for substrings that start with a {\em single} lowercase letter, upper case letter, or number ``[a-zA-Z0-9]'' followed by zero or more non blank characters ``{\textbackslash}S*'', followed by an at-sign, followed by zero or more non-blank characters ``{\textbackslash}S*'' followed by an upper or lower case letter.  Note that we switched from ``+'' to ``*'' to indicate zero-or-more non-blank characters since ``[a-zA-Z0-9]'' is already one non-blank character.   Remember that the ``*'' or ``+'' applies to the single character immediately to the left of the plus or asterisk.
+
+약간 복잡해졌다. 왜 정규 표현식이 자신만의 언어인가에 대해서 이해할 수 있다. 이 정규 표현식을 해석하면, 
+0 혹은 그 이상의 공백이 아닌 문자(``{\textbackslash}S*'')로 하나의 소문자, 대문자 혹은 숫자(``[a-zA-Z0-9]'')를 가지며, {\verb"@"} 다음에 
+0 혹은 그 이상의 공백이 아닌 문자(``{\textbackslash}S*'')로 하나의 소문자, 대문자 혹은 숫자(``[a-zA-Z0-9]'')로 된 부속 문자열을 찾는다.
+0 혹은 그 이상의 공백이 아닌 문자를 나타내기 위해서 ``+''에서 ``*''으로 바꿨다. 왜냐하면 ``[a-zA-Z0-9]'' 자체가 이미 하나의 공백이 아닌 문자이기 때문이다.
+``*'', ``+''는 단일 문자에 별표, 더하기 기호 왼편에 즉시 적용됨을 기억하세요.
+
 \index{regex!character sets(brackets)}
 
-If we use this expression in our program, our data is much cleaner:
+프로그램에 정규 표현식을 사용하면, 데이터가 훨씬 깔끔해진다.
 
 \beforeverb
 \begin{verbatim}
@@ -235,13 +276,16 @@ for line in hand:
 \end{verbatim}
 \afterverb
 %
-Notice that on the ``source@collab.sakaiproject.org'' lines, our regular expression eliminated two letters at the end of the string (``\verb">";'').  This is because when we append ``[a-zA-Z]'' to the end of our regular expression, we are demanding that whatever string the regular expression parser finds, it must end with a letter.   So when it sees the ``\verb">"'' after ``sakaiproject.org\verb">";'' it simply stops at the last ``matching'' letter it found (i.e. the ``g'' was the last good match).
 
-Also note that the output of the program is a Python list that has a string as the single element in the list.
+``source@collab.sakaiproject.org'' 라인에서 문자열 끝에 ``\verb">";'' 문자를 정규 표현식으로 제거한 것을 주목하세요.
+정규 표현식 끝에 ``[a-zA-Z]''을 추가하여서 정규 표현식 파서가 찾는 임의의 문자열은 문자로만 끝나야 되기 때문이다.
+그래서, ``sakaiproject.org\verb">";''에서 ``\verb">"''을 봤을 때, ''g''가 마지막 맞는 매칭이 되고, 거기서 마지막 매칭을 마치고 중단한다.
 
-\section{Combining searching and extracting}
+프로그램의 출력은 리스트의 단일 요소를 가진 문자열로 파이썬 리스트이다.
 
-If we want to find numbers on lines that start with the string ``X-'' such as:
+\section{검색과 추출 조합하기}
+
+다음과 같은 ``X-'' 문자열로 시작하는 라인의 숫자를 찾고자 한다면,
 
 \beforeverb
 \begin{verbatim}
@@ -250,9 +294,10 @@ X-DSPAM-Probability: 0.0000
 \end{verbatim}
 \afterverb
 %
-We don't just want any floating point numbers from any lines.  We only to extract numbers from lines that have the above syntax.
 
-We can construct the following regular expression to select the lines:
+임의의 라인에서 임의의 부동 소수점 숫자가 아니라 상기 구문을 가진 라인에서만 숫자를 추출하고자 한다.
+
+라인을 선택하기 위해서 다음과 같이 정규 표현식을 구성한다.
 
 \beforeverb
 \begin{verbatim}
@@ -260,9 +305,11 @@ We can construct the following regular expression to select the lines:
 \end{verbatim}
 \afterverb
 %
-Translating this, we are saying, we want lines that start with ``X-'' followed by zero or more characters ``.*'' followed by a colon (``:'') and then a space.  After the space we are looking for one or more characters that are either a digit (0-9) or a period ``[0-9.]+''.  Note that in between the square braces, the period matches an actual period (i.e. it is not a wildcard between the square brackets).
 
-This is a very tight expression that will pretty much match only the lines we are interested in as follows:
+정규 표현식을 해석하면, {\verb"''^''"}에서 ``X-''으로 시작하고, ``.*''에서 0 혹은 그이상의 문자를 가지며, 콜론('':'')이 나오고 나서 공백을 만족하는 라인을 찾는다.
+공백 뒤에 ``[0-9.]+''에서 숫자 (0-9) 혹은 점을 가진 하나 혹은 그 이상의 문자가 있여야 한다.
+
+관심을 가지고 있는 특정한 라인과 매우 정확하게 매칭이되는 매우 빠듯한 정규 표현식으로 다음과 같다.
 
 \beforeverb
 \begin{verbatim}
@@ -275,8 +322,8 @@ for line in hand:
 \end{verbatim}
 \afterverb
 %
-When we run the program, we see the data nicely filtered to show 
-only the lines we are looking for.
+
+프로그램을 실행하면, 잘 걸러져서 찾고자 하는 라인만 볼 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -287,14 +334,19 @@ X-DSPAM-Probability: 0.0000
 \end{verbatim}
 \afterverb
 %
-But now we have to solve the problem of extracting the numbers using {\tt split}.  While it would be simple enough to use {\tt split}, we can use another feature of regular expressions to both search and parse the line at the same time.
-\index{string!split}
 
-Parentheses are another special character in regular expressions.  When you add parentheses to a regular expression they are ignored when matching the string, but when you are using {\tt findall()}, parentheses indicate that while you want the whole expression to match, you only are interested in extracting a portion of the substring that matches the regular expression.  
+하지만, 이제 {\tt rsplit} 사용해서 숫자를 뽑아내는 문제를 해결해야 합니다.
+{\tt rsplit}을 사용하는 것이 간단해 보이지만, 동시에 라인을 검색하고 파싱하기 위해서 정규 표현식의 또 다른 기능을 사용할 수 있다.
+
+\index{string!rsplit}
+
+괄호는 정규 표현식의 또 다른 특수 문자다. 정규 표현식에 괄호를 추가할 때, 문자열이 매칭될 때, 무시된다.
+하지만, {\tt findall()}을 사용할 때, 매칭할 전체 정규 표현식을 원할지라도, 정규 표현식을 매칭하는 부속 문자열의 부분만을 뽑아내다는 것을 괄호가 표시한다.
+
 \index{regex!parentheses}
 \index{parentheses!regular expression}
 
-So we make the following change to our program:
+그래서, 프로그램에 다음과 같이 수정한다.
 
 \beforeverb
 \begin{verbatim}
@@ -308,9 +360,10 @@ for line in hand:
 \end{verbatim}
 \afterverb
 %
-Instead of calling {\tt search()}, we add parentheses around the part of the regular expression that represents the floating point number to indicate we only want {\tt findall()} to give us back the floating point number portion of the matching string.
 
-The output from this program is as follows:
+{\tt search()}을 호출하는 대신에, 매칭 문자열의 부동 소수점 숫자만 뽑아내는 {\tt findall()}에 원하는 부동 소수점 숫자를 표현하는 정규 표현식 부분에 괄호를 추가한다.
+
+프로그램의 출력은 다음과 같다.
 
 \beforeverb
 \begin{verbatim}
@@ -324,10 +377,10 @@ The output from this program is as follows:
 \end{verbatim}
 \afterverb
 %
-The numbers are still in a list and need to be converted from strings to floating point but we have used the power of regular expressions to both search and extract the information we found interesting.
 
-As another example of this technique, if 
-you look at the file there are a number of lines of the form:
+숫자가 여전히 리스트에 있어서 문자열에서 부동 소수점으로 변환할 필요가 있지만, 흥미로운 정보를 찾아 뽑아내기 위해서 정규 표현식의 강력한 힘을 사용했다.
+
+이 기술을 활용한 또 다른 예제로, 파일을 살펴보면, 폼(form)을 가진 라인이 많다.
 
 \beforeverb
 \begin{verbatim}
@@ -335,7 +388,8 @@ Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772
 \end{verbatim}
 \afterverb
 %
-If we wanted to extract all of the revision numbers (the integer number at the end of these lines) using the same technique as above,  we could write the following program:
+
+상기 언급한 동일한 기법을 사용하여 모든 변경 번호(라인의 끝에 정수 숫자)를 추출하고자 한다만, 다음과 같이 프로그램을 작성할 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -349,9 +403,11 @@ for line in hand:
 \end{verbatim}
 \afterverb
 %
-Translating our regular expression, we are looking for lines that start with ``Details:', followed by any number of characters ``.*'' followed by ``rev='' and then by one or more digits.   We want lines that match the entire expression but we only want to extract the integer number at the end of the line so we surround ``[0-9]+'' with parentheses.  
 
-When we run the program, we get the following output:
+작성한 정규 표현식을 해석하면, ``Details:''로 시작하는 ``.*''에 임의의 문자들로, ``rev=''을 포함하고 나서, 하나 혹은 그 이상의 숫자를 가진 라인을 찾는다.
+전체 정규 표현식을 만족하는 라인을 찾고자 하지만, 라인의 끝에 정수만을 추출하기 위해서 ``[0-9]+''을 괄호로 감쌌다.
+
+프로그램을 실행하면, 다음 출력을 얻는다.
 
 \beforeverb
 \begin{verbatim}
@@ -363,9 +419,13 @@ When we run the program, we get the following output:
 \end{verbatim}
 \afterverb
 %
-Remember that the ``[0-9]+'' is ``greedy'' and it tries to make as large a string of digits as possible before extracting those digits.  This ``greedy'' behavior is why we get all five digits for each number.  The regular expression library expands in both directions until it counters a non-digit, the beginning, or the end of a line.
 
-Now we can use regular expressions to re-do an exercise from earlier in the book where we were interested in the time of day of each mail message.   We looked for lines of the form:
+``[0-9]+''은 ''탐욕(greedy)''스러워서, 숫자를 추출하기 전에 가능한 큰 문자열 숫자를 만들려고 한다는 것을 기억하라.
+이런 ''탐욕(greedy)''스러운 행동이 왜 각 숫자로 모든 5자리 숫자를 얻은 이유다.
+정규 표현식 라이브러리는 양방향으로 파일 처음이나 끝에 숫자가 아닌 것을 마주칠 때 까지 뻗어 나간다.
+
+이제 정규 표현식을 사용해서 각 전자우편 메시지의 요일에 관심이 있었던 책 앞의 연습 프로그램을 다시 작성한다.
+다음 형식의 라인을 찾는다.
 
 \beforeverb
 \begin{verbatim}
@@ -373,12 +433,17 @@ From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
 \end{verbatim}
 \afterverb
 %
-And wanted to extract the hour of the day for each line.  Previously we did this with two calls to {\tt split}.  First the line was split into words and then we pulled out the fifth word and split it again on the colon character to pull out the two characters we were interested in.
+
+그리고 나서, 각 라인의 요일의 시간을 추출하고자 한다. 앞에서 {\tt split}를 두번 호출하여 작업을 수행했다. 첫번째는 라인을 단어로 쪼개고, 다섯번째 단어를 뽑아내서,
+관심있는 두 문자를 뽑아내기 위해서 콜론 문자에서 다시 쪼갰다.
 
 % Add a section on the notion of brittle code
-While this worked, it actually results in pretty brittle code that is assuming the lines are nicely formatted.  If you were to add enough error checking (or a big try/except block) to insure that your program never failed when presented with incorrectly formatted lines, the code would balloon to 10-15 lines of code that was pretty hard to read.
 
-We can do this far simpler with the following regular expression:
+작동을 할지 모르지만, 실질적으로 정말 부서지기 쉬운 코드로 라인이 잘 짜여져 있다고 가정하에 가능하다. 
+잘못된 형식의 라인이 나타날 때도 결코 망가지지 않는 프로그램을 담보하기 위해서 충분한 오류 검사기능을 추가하거나 커다란 try/except 블록을 넣으면, 
+참 읽기 힘든 10-15 라인의 코드로 커질 것이다.
+
+다음 정규 표현식으로 훨씬 간결하게 작성할 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -386,9 +451,11 @@ We can do this far simpler with the following regular expression:
 \end{verbatim}
 \afterverb
 %
-The translation of this regular expression is that we are looking for lines that start with ``From '' (note the space) followed by any number of characters ``.*'' followed by a space followed by two digits ``[0-9][0-9]'' followed by a colon character.  This is the definition of the kinds of lines we are looking for.  
 
-In order to pull out only the hour using {\tt findall()}, we add parentheses around the two digits as follows:
+상기 정규 표현식을 해석하면, 공백을 포함한 ``From ''으로 시작해서, ``.*''에 임의 갯수의 문자, 그리고 공백, 두 개의 숫자 ``[0-9][0-9]'' 뒤에 콜론(:) 문자를 가진 
+라인을 찾는다. 일종의 찾고 있는 라인의 정의다. 
+
+{\tt findall()}을 사용해서 단지 시간만 뽑아내기 위해서, 두 숫자를 괄호를 다음과 같이 추가한다.
 
 \beforeverb
 \begin{verbatim}
@@ -396,7 +463,8 @@ In order to pull out only the hour using {\tt findall()}, we add parentheses aro
 \end{verbatim}
 \afterverb
 %
-This results in the following program:
+
+작업 결과는 다음과 같이 프로그램에 나타난다.
 
 \beforeverb
 \begin{verbatim}
@@ -409,7 +477,8 @@ for line in hand:
 \end{verbatim}
 \afterverb
 %
-When the program runs, it produces the following output:
+
+프로그램을 실행하면, 다음 출력 결과가 나온다.
 
 \beforeverb
 \begin{verbatim}
@@ -421,15 +490,15 @@ When the program runs, it produces the following output:
 \end{verbatim}
 \afterverb
 %
-\section{Escape character}
 
-Since we use special characters in regular expressions to match the beginning or end of 
-a line or specify wild cards, we need a way to indicate that these characters are ``normal'' 
-and we want to match the actual character such as a dollar-sign or caret.
+\section{이스케이프(Escape) 문자}
 
-We can indicate that we want to simply match a character by prefixing that character 
-with a backslash.  For example, we can find money amounts with the following regular
-expression.
+라인의 처음과 끝을 매칭하거나, 와일드 카드를 명세하기 위해서 정규 표현식의 특수 문자를 사용했기 때문에,
+정규 표현식에 사용된 문자가 ''정상(normal)''적인 문자임을 표기할 방법이 필요하고
+달러 기호와 탈자 기호({\verb"^"}) 같은 실제 문자를 매칭하고자 한다.
+
+역슬래쉬('\')를 가진 문자를 앞에 덮붙여서 문자를 단순히 매칭하고자 한다고 나타낼 수 있다.
+예를 들어, 다음 정규표현식으로 금액을 찾을 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -439,78 +508,79 @@ y = re.findall('\$[0-9.]+',x)
 \end{verbatim}
 \afterverb
 %
-Since we prefix the dollar-sign with a backslash, it actually matches the dollar-sign
-in the input string instead of matching the ``end of line'' and the rest of the regular
-expression matches one or more digits or the period character.  {\em Note:} In between 
-square brackets, characters are not ``special''.   So when we say ``[0-9.]'', it really 
-means digits or a period.    Outside of square brackets, a period is the ``wild-card'' 
-character and matches any character.  In between square brackets, the period is a period.
 
-\section{Summary}
+역슬래쉬 달러 기호를 앞에 덮붙여서, 실제로 ''라인 끝(end of line)'' 매칭 대신에 입력 문자열의 달러 기호화 매칭한다.
+정규 표현식의 나머지 부분은 하나 혹은 그 이상의 숫자 혹은 소수점 문자를 매칭한다.
+{\em 주목}: 꺾쇠 괄호 내부에 문자는 ''특수 문자''가 아니다. 그래서 ``[0-9.]''은 실제 숫자 혹은 점을 의미한다.
+꺾쇠 괄호 외부에 점은 ''와일드 카드(wild-card)'' 문자이고 임의의 문자와 매칭한다. 꺾쇠 괄호 내부에서 점은 점일 뿐이다.
 
-While this only scratched the surface of regular expressions, we have learned a bit about the language of regular expressions.  They are search strings that have special characters in them that communicate your wishes to the regular expression system as to what defines ``matching'' and what is extracted from the matched strings.  Here are some of those special characters and character sequences:
+\section{요약}
+
+지금까지 정규 표현식의 표면을 긁은 정도지만, 정규 표현식 언어에 대해서 조금 학습했다.
+정규 표현식은 특수 문자로 구성된 검색 문자열로 ''매칭(matching)'' 정의하고 매칭된 문자열로부터 추출된 결과물을 정규 표현식 시스템과
+프로그래머가 의도한 바를 의사소통하는 것이다.
+다음에 특수 문자 및 문자 시퀀스의 일부가 있다.
 
 \verb"^" \newline
-Matches the beginning of the line.
+라인의 처음을 매칭.
 
 \$ \newline
-Matches the end of the line.
+라인의 끝을 매칭.
 
 . \newline
-Matches any character (a wildcard).
+임의의 문자를 매칭(와일드 카드)
 
 {\textbackslash}s \newline
-Matches a whitespace character.
+공백 문자를 매칭.
 
 {\textbackslash}S \newline
-Matches a non-whitespace character (opposite of {\textbackslash}s).
+공백이 아닌 문자를 매칭.({\textbackslash}s 의 반대).
 
 * \newline
-Applies to the immediately preceding character and indicates to match zero or more of the preceding character.
+바로 앞선 문자에 적용되고 0 혹은 그 이상의 앞선문자와 매칭을 표기함.
 
 *? \newline
-Applies to the immediately preceding character and indicates to match zero or more of the preceding character in ``non-greedy mode''.
+바로 앞선 문자에 적용되고 0 혹은 그 이상의 앞선문자와 매칭을 ''탐욕적이지 않은(non-greedy) 방식''으로 표기함.
 
 + \newline
-Applies to the immediately preceding character and indicates to match zero or more of the preceding character.
+바로 앞선 문자에 적용되고 1 혹은 그 이상의 앞선문자와 매칭을 표기함.
 
 +? \newline
-Applies to the immediately preceding character and indicates to match zero or more of the preceding character in ``non-greedy mode''.
+바로 앞선 문자에 적용되고 1 혹은 그 이상의 앞선문자와 매칭을 ''탐욕적이지 않은(non-greedy) 방식''으로 표기함.
 
 [aeiou] \newline
-Matches a single character as long as that character is in the specified set.  In this example, it would match ``a'', ``e'', ``i'', ``o'' or ``u'' but no other characters.
+명세된 집합 문자에 존재하는 단일 문자와 매칭. 다른 문자는 안되고, ``a'', ``e'', ``i'', ``o'', ``u'' 문자만 매칭되는 예제.
 
 [a-z0-9] \newline
-You can specify ranges of characters using the minus sign.  This example is a single character that must be a lower case letter or a digit.
+음수 기호로 문자 범위를 명세할 수 있다. 소문자이거나 숫자인 단일 문자만 매칭되는 예제.
 
 [\verb"^"A-Za-z] \newline
-When the first character in the set notation is a caret, it inverts the logic.  This example matches a single character that is anything {\em other than} an upper or lower case character.
+집합 표기의 첫문자가 {\verb"^"}인 경우, 로직을 거꾸로 적용한다. 대문자나 혹은 소문자가 아닌 임의의 단일 문자만 매칭하는 예제.
 
 ( ) \newline
-When parentheses are added to a regular expression, they are ignored for the purpose of matching, but allow you to extract a particular subset of the matched string rather than the whole string when using {\tt findall()}.
+괄호가 정규표현식에 추가될 때, 매칭을 무시한다. 하지만 {\tt findall()}을 사용할 때 전체 문자열보다 매칭된 문자열의 상세한 부속 문자열을 추출할 수 있게 한다.
 
 {\textbackslash}b \newline
-Matches the empty string, but only at the start or end of a word.
+빈 문자열을 매칭하지만, 단어의 시작과 끝에만 사용된다.
 
 {\textbackslash}B \newline
-Matches the empty string, but not at the start or end of a word.
+빈 문자열을 매칭하지만, 단어의 시작과 끝이 아닌 곳에 사용된다.
 
 {\textbackslash}d \newline
-Matches any decimal digit; equivalent to the set [0-9].
+임의의 숫자와 매칭하여 [0-9] 집합에 상응함.
 
 {\textbackslash}D \newline
-Matches any non-digit character; equivalent to the set [\verb"^"0-9].
+임의의 숫자가 아닌 문자와 매칭하여 [\verb"^"0-9] 집합에 상응함.
 
-\section{Bonus section for Unix users}
+\section{유닉스 사용자를 위한 보너스}
 
-Support for searching files using regular expressions was built into the Unix operating system 
-since the 1960's and it is available in nearly all programming languages in one form or another.
+정규 표현식을 사용하여 파일을 검색 기능은 1960년대 이래로 유닉스 운영 시스템에 내장되어
+여러가지 형태로 거의 모든 프로그래밍 언어에서 이용가능하다.
 
 \index{grep}
-As a matter of fact, there is a command-line program built into Unix 
-called {\bf grep} (Generalized Regular Expression Parser) that does pretty much 
-the same as the {\tt search()} examples in this chapter.  So if you have a 
-Macintosh or Linux system, you can try the following commands in your command line window.
+
+사실, {\tt search()} 예제에서와 거의 동일한 기능을 하는 {\bf grep} (Generalized Regular Expression Parser)으로 불리는 유닉스 내장 명령어 프로그램이 있다.
+그래서, 맥킨토시나 리눅스 운영 시스템을 가지고 있다면, 명령어 창에서 다음 명령어를 시도할 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -522,13 +592,19 @@ From: rjlowe@iupui.edu
 \end{verbatim}
 \afterverb
 %
-This tells {\tt grep} to show you lines that start with the string ``From:'' in the file {\tt mbox-short.txt}.   If you experiment with the {\tt grep} command a bit and read the documentation for {\tt grep}, you will find some subtle differences between the regular expression support in Python and the regular expression support in {\tt grep}.  As an example, {\tt grep} does not support the non-blank character ``{\textbackslash}S'' so you will need to use the slightly more complex set notation ``[\verb"^" ]''- which simply means - match a character that is anything other than a space.
 
-\section{Debugging}
+{\tt grep}을 사용하여, {\tt mbox-short.txt} 파일 내부에 ''From:'' 문자열로 시작하는 라인을 보여준다.
+{\tt grep} 명령어를 가지고 약간 실험을 하고 {\tt grep}에 대한 문서를 읽는다면, 파이썬에서 지원하는 정규 표현식과 {\tt grep}에서 지원되는 정규 표현식의 
+차이를 발견할 것이다.
+예를 들어, {\tt grep} 공백이 아닌 문자 ``{\textbackslash}S''을 지원하지 않는다. 그래서 약간 더 복잡한 집합 표기 ``[\verb"^" ]''을 사용해야 한다.
+``[\verb"^" ]''은 간단히 정리하면, 공복을 제외한 임의의 문자와 매칭한다.
 
-Python has some simple and rudimentary built-in documentation that can be quite helpful if you need a quick refresher to trigger your memory about the exact name of a particular method.   This documentation can be viewed in the Python interpreter in interactive mode.
+\section{디버깅}
 
-You can bring up an interactive help system using {\tt help()}.
+만약 특정 메쏘드의 정확한 이름을 기억해 내기 위해서 빠르게 생각나게 하는 것이 필요하다면 도움이 많이 될 수 있는 간단하고 초보적인 내장 문서가 파이썬에 포함되어 있다.
+내장 문서 도움말은 인터랙티브 모드의 파이썬 인터프리터에서 볼 수 있다.
+
+{\tt help()}를 사용하여 인터랙티브 도움을 받을 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -552,7 +628,8 @@ help> modules
 \end{verbatim}
 \afterverb
 %
-If you know what module you want to use, you can use the {\tt dir()} command to find the methods in the module as follows:
+
+특정한 모듈을 사용하고자 한다면, {\tt dir()} 명령어를 사용하여 다음과 같이 모듈의 메쏘드를 찾을 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -564,7 +641,8 @@ If you know what module you want to use, you can use the {\tt dir()} command to 
 \end{verbatim}
 \afterverb
 %
-You can also get a small amount of documentation on a particular method using the dir command.
+
+또한, {\tt dir()} 명령어를 사용하여 특정 메쏘드에 대한 짧은 문서 도움말을 얻을 수 있다.
 
 \beforeverb
 \begin{verbatim}
@@ -578,42 +656,42 @@ search(pattern, string, flags=0)
 \end{verbatim}
 \afterverb
 %
-The built in documentation is not very extensive, but it can be helpful when you are in a hurry
-or don't have access to a web browser or search engine.
 
-\section{Glossary}
+내장 문서는 광범위하지 않아서, 급하거나, 웹 브라우저나 검색엔진에 접근할 수 없을 때 도움이 될 수 있다.
+
+\section{용어정의}
 
 \begin{description}
 
-\item[brittle code:]
-Code that works when the input data is in a particular format but prone to breakage
-if there is some deviation from the correct format.  We call this ``brittle code'' 
-because it is easily broken.
+\item[부서지기 쉬운 코드(brittle code):]
+입력 데이터가 특정한 형식일 경우에만 작동하는 코드.
+하지만 올바른 형식에서 약간이도 벗아나게 되면 깨지기 쉽니다.
+쉽게 부서지기 때문에 ''부서지기 쉬운 코드(brittle code)''라고 부른다.
 
-\item[greedy matching:]
-The notion that the ``+'' and ``*'' characters in a regular expression expand outward to match the largest possible string.
+\item[욕심쟁이 매칭(greedy matching):]
+정규 표현식의 ``+'', ``*'' 문자는 가능한 큰 문자열을 매칭하기 위해서 밖으로 확장하는 개념.
 \index{greedy}
 \index{greedy matching}
 
 \item[grep:]
-A command available in most Unix systems that searches through text files looking for lines that match regular expressions.  The command name stands for "Generalized Regular Expression Parser".
+정규 표현식에 매칭되는 파일을 탐색하여 라인을 찾는데 대부분의 유닉스 시스템에서 사용가능한 명령어.
+"Generalized Regular Expression Parser"의 약자.
 \index{grep}
 
-\item[regular expression:]
-A language for expressing more complex search strings.  A regular expression may contain special characters that indicate that a search only matches at the beginning or end of a line or many other similar capabilities.
+\item[정규 표현식(regular expression):]
+좀더 복잡한 검색 문자열을 표현하는 언어. 정규 표현식은 특수 문자를 포함해서 검색은 라인의 처음 혹은 끝만 매칭하거나 많은 다른 비슷한 것만 매칭한다.
 
-\item[wild card:]
-A special character that matches any character.   In regular expressions the wild card character is the period character.
+\item[와일드 카드(wild card):]
+임의의 문자를 매칭하는 특수 문자. 정규 표현식에서 와이드 카드 문자는 마침표 문자다.
 \index{wild card}
 
 \end{description}
 
-\section{Exercises}
+\section{연습 문제}
 
 \begin{ex}
-Write a simple program to simulate the operation of the {\tt grep} command 
-on Unix.  Ask the user to enter a regular expression and count the number
-of lines that matched the regular expression:
+유닉스의 {\tt grep} 명령어를 모사하는 간단한 프로그램을 작성하세요.
+사용자가 정규 표현식을 입력하고 정규 표현식에 매칭되는 라인수를 셈하는 프로그램입니다.
 
 \beforeverb
 \begin{verbatim}
@@ -634,13 +712,13 @@ mbox.txt had 4218 lines that matched java$
 \end{ex}
 
 \begin{ex}
-Write a program to look for lines of the form
+
+다음 형식의 라인만을 찾는 프로그램을 작성하세요.
 
 \verb"New Revision: 39772"
 
-And extract the number from each of the lines using a regular expression
-and the {\tt findall()} method.  Compute the average of the numbers and 
-print out the average.
+그리고, 정규 표현식과 {\tt findall()} 메쏘드를 사용하여 각 라인으로부터 숫자를 추출하세요.
+숫자들의 평균을 구하고 출력하세요.
 
 \beforeverb
 \begin{verbatim}
