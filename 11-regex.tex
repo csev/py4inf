@@ -35,7 +35,7 @@ We open the file, loop through each line and use the regular expression {\tt sea
 
 The power of the regular expressions comes when we add to special characters to the search string that allow us to more precisely control which lines match the string.  Adding these special characters to our regular expression allow us to do sophisticated matching and extraction while writing very little code.
 
-For example, the caret character is uses in regular 
+For example, the caret character is used in regular 
 expressions to match ``the beginning'' of a line.
 We could change our application to only match 
 lines where ``From:'' was at the beginning of the line as follows:
@@ -472,10 +472,10 @@ Applies to the immediately preceding character and indicates to match zero or mo
 Applies to the immediately preceding character and indicates to match zero or more of the preceding character in ``non-greedy mode''.
 
 + \newline
-Applies to the immediately preceding character and indicates to match zero or more of the preceding character.
+Applies to the immediately preceding character and indicates to match one or more of the preceding character.
 
 +? \newline
-Applies to the immediately preceding character and indicates to match zero or more of the preceding character in ``non-greedy mode''.
+Applies to the immediately preceding character and indicates to match one or more of the preceding character in ``non-greedy mode''.
 
 [aeiou] \newline
 Matches a single character as long as that character is in the specified set.  In this example, it would match ``a'', ``e'', ``i'', ``o'' or ``u'' but no other characters.
