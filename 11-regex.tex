@@ -33,11 +33,11 @@ for line in hand:
 We open the file, loop through each line and use the regular expression {\tt search()} to only print out lines that contain the string ``From:''.   This program does not use the real power of regular expressions since we could have just as easily used {\tt line.find()} to accomplish the same result.
 \index{string!find}
 
-The power of the regular expressions comes when we add to special characters to the search string that allow us to more precisely control which lines match the string.  Adding these special characters to our regular expression allow us to do sophisticated matching and extraction while writing very little code.
+The power of the regular expressions comes when we add special characters to the search string that allow us to control more precisely which lines match the string.  Adding these special characters to our regular expression allows us to do sophisticated matching and extraction while writing very little code.
 
 For example, the caret character is used in regular 
 expressions to match ``the beginning'' of a line.
-We could change our application to only match 
+We could change our application to match only 
 lines where ``From:'' was at the beginning of the line as follows:
 
 \beforeverb
@@ -51,12 +51,12 @@ for line in hand:
 \end{verbatim}
 \afterverb
 %
-Now we will only match lines that {\em start with} the string ``From:''.  This is still a very simple example that we could have done equivalently with the {\tt startswith()} method from the string library.  But it serves to introduce the notion that regular expressions contain special action characters that give us more control as to what will match the regular expression.
+Now we will only match lines that {\em start with} the string ``From:''.  This is still a very simple example that we could have done equivalently with the {\tt startswith()} method from the string library.  But it serves to introduce the notion that regular expressions contain special action characters that give us more control over what will match the regular expression.
 \index{string!startswith}
 
 \section{Character matching in regular expressions}
 
-There are a number of other special characters that let us build even more powerful regular expressions.  The most commonly used special character is the period character which matches any character.
+There are a number of other special characters that let us build even more powerful regular expressions.  The most commonly used special character is the period (``dot'') character which matches any character.
 \index{wild card}
 \index{regex!wild card}
 
@@ -105,7 +105,7 @@ colon character and the at-sign.
 \end{alltt}
 \afterverb
 
-It is good to think of the plus and asterisk characters as ``pushy''.  For example the following string would match the last at-sign in the string as the ``.+'' pushes outwards as shown below:
+It is good to think of the plus and asterisk characters as ``pushy''.  For example the following string would match the {\em last} at-sign in the string as the ``.+'' pushes outwards as shown below:
 
 \beforeverb
 \begin{alltt}
@@ -120,7 +120,7 @@ greedy behavior.
 
 \section{Extracting data using regular expressions}
 
-If we want to extract data from a string in Python we can use the {\tt findall()} method to extract all of the substrings which match a regular expression.  Let's use the example of wanting to extract anything that looks like an e-mail address from any line regardless of format.  For example, we want to pull the e-mail addresses from each of the following lines:
+If we want to extract data from a string in Python we can use the {\tt findall()} method to extract all of the substrings which match a regular expression.  Let's use the example of wanting to extract anything that looks like an e-mail address from any line, regardless of format.  For example, we want to pull the e-mail addresses from each of the following lines:
 
 \beforeverb
 \begin{verbatim}
@@ -156,7 +156,7 @@ The output of the program would be:
 \end{verbatim}
 \afterverb
 %
-Translating the regular expression, we are looking for substrings that have at least one non-whitespace character, followed by an at-sign, followed by at least one more non-white space characters.  Also, the ``{\textbackslash}S+'' matches as many non-whitespace characters as possible (this is called {\bf ``greedy''} matching in regular expressions).  
+Translating the regular expression, we are looking for substrings that have at least one non-whitespace character, followed by an at-sign, followed by at least one more non-white space character.  Also, the ``{\textbackslash}S+'' matches as many non-whitespace characters as possible (this is called {\bf ``greedy''} matching in regular expressions).  
 
 The regular expression would match twice (csev@umich.edu and cwen@iupui.edu) but it would not match the string ``@2PM'' because there are no non-blank characters {\em before} the at-sign.  
 We can use this regular expression in a program to read all the lines in a file and print out anything that looks like an e-mail address as follows:
@@ -173,7 +173,7 @@ for line in hand:
 \end{verbatim}
 \afterverb
 %
-We read each line and then extract all the substrings that match our regular expression.  Since {\tt findall()} returns a list, we simple check if the number of elements in our returned list is more than zero to print only lines where we found at least one substring that looks like an e-mail address.
+We read each line and then extract all the substrings that match our regular expression.  Since {\tt findall()} returns a list, we simply check if the number of elements in our returned list is more than zero to print only lines where we found at least one substring that looks like an e-mail address.
 
 If we run the program on {\tt mbox.txt} we get the following output:
 
@@ -241,7 +241,7 @@ Also note that the output of the program is a Python list that has a string as t
 
 \section{Combining searching and extracting}
 
-If we want to find numbers on lines that start with the string ``X-'' such as:
+Suppose we want to find numbers on lines that start with the string ``X-'' such as:
 
 \beforeverb
 \begin{verbatim}
@@ -250,7 +250,7 @@ X-DSPAM-Probability: 0.0000
 \end{verbatim}
 \afterverb
 %
-We don't just want any floating point numbers from any lines.  We only to extract numbers from lines that have the above syntax.
+We don't just want {\em any} floating point numbers from {\em any} lines.  We only want to extract numbers from lines that have the above syntax.
 
 We can construct the following regular expression to select the lines:
 
@@ -262,7 +262,7 @@ We can construct the following regular expression to select the lines:
 %
 Translating this, we are saying, we want lines that start with ``X-'' followed by zero or more characters ``.*'' followed by a colon (``:'') and then a space.  After the space we are looking for one or more characters that are either a digit (0-9) or a period ``[0-9.]+''.  Note that in between the square braces, the period matches an actual period (i.e. it is not a wildcard between the square brackets).
 
-This is a very tight expression that will pretty much match only the lines we are interested in as follows:
+This is a very tight expression that will pretty much match only the lines we are interested in, as follows:
 
 \beforeverb
 \begin{verbatim}
@@ -290,7 +290,7 @@ X-DSPAM-Probability: 0.0000
 But now we have to solve the problem of extracting the numbers using {\tt split}.  While it would be simple enough to use {\tt split}, we can use another feature of regular expressions to both search and parse the line at the same time.
 \index{string!split}
 
-Parentheses are another special character in regular expressions.  When you add parentheses to a regular expression they are ignored when matching the string, but when you are using {\tt findall()}, parentheses indicate that while you want the whole expression to match, you only are interested in extracting a portion of the substring that matches the regular expression.  
+Parentheses are another special character in regular expressions.  When we add parentheses to a regular expression they are ignored when matching the string, but when we are using {\tt findall()}, parentheses indicate that while we want the whole expression to match, we only are interested in extracting a portion of the substring that matches the regular expression.  
 \index{regex!parentheses}
 \index{parentheses!regular expression}
 
@@ -326,8 +326,8 @@ The output from this program is as follows:
 %
 The numbers are still in a list and need to be converted from strings to floating point but we have used the power of regular expressions to both search and extract the information we found interesting.
 
-As another example of this technique, if 
-you look at the file there are a number of lines of the form:
+As another example of this technique, we 
+see that the file contains a number of lines of the form:
 
 \beforeverb
 \begin{verbatim}
@@ -378,7 +378,7 @@ And wanted to extract the hour of the day for each line.  Previously we did this
 % Add a section on the notion of brittle code
 While this worked, it actually results in pretty brittle code that is assuming the lines are nicely formatted.  If you were to add enough error checking (or a big try/except block) to insure that your program never failed when presented with incorrectly formatted lines, the code would balloon to 10-15 lines of code that was pretty hard to read.
 
-We can do this far simpler with the following regular expression:
+We can do this far more simply with the following regular expression:
 
 \beforeverb
 \begin{verbatim}
@@ -427,7 +427,7 @@ Since we use special characters in regular expressions to match the beginning or
 a line or specify wild cards, we need a way to indicate that these characters are ``normal'' 
 and we want to match the actual character such as a dollar-sign or caret.
 
-We can indicate that we want to simply match a character by prefixing that character 
+We can indicate that we simply want to match a character by prefixing that character 
 with a backslash.  For example, we can find money amounts with the following regular
 expression.
 
@@ -444,7 +444,9 @@ in the input string instead of matching the ``end of line'' and the rest of the 
 expression matches one or more digits or the period character.  {\em Note:} In between 
 square brackets, characters are not ``special''.   So when we say ``[0-9.]'', it really 
 means digits or a period.    Outside of square brackets, a period is the ``wild-card'' 
-character and matches any character.  In between square brackets, the period is a period.
+character and matches any character.  In between square brackets, the period is a period. 
+Using the backslash character in this way is known as ``escaping'' the magic properties of ``special'' characters, 
+which we've seen before, for example, when we explicitly include a newline character in {\tt print} statements.
 
 \section{Summary}
 
