@@ -58,7 +58,8 @@ others are:
 \afterverb
 %
 Although these operations are probably familiar to you, the Python
-symbols are different from the mathematical symbols.  A common error
+symbols are different from the mathematical symbols for the same
+operations.  A common error
 is to use a single equal sign ({\tt =}) instead of a double equal sign
 ({\tt ==}).  Remember that {\tt =} is an assignment operator and
 {\tt ==} is a comparison operator.   There is no such thing as
@@ -92,7 +93,7 @@ is true only if {\tt x} is greater than 0
 is true, that is, if the number is divisible by 2 \emph{or} 3.
 
 Finally, the {\tt not} operator negates a boolean
-expression, so {\tt not (x > y)} is true if {\tt x > y} is false,
+expression, so {\tt not (x > y)} is true if {\tt x > y} is false;
 that is, if {\tt x} is less than or equal to {\tt y}.
 
 Strictly speaking, the operands of the logical operators should be
@@ -107,8 +108,8 @@ True
 \afterverb
 %
 This flexibility can be useful, but there are some subtleties to
-it that might be confusing.  You might want to avoid it (unless
-you know what you are doing).
+it that might be confusing.  You might want to avoid it until
+you are sure you know what you are doing.
 
 \section{Conditional execution}
 \label{conditional execution}
@@ -149,16 +150,17 @@ false, the indented statement is skipped.
 \index{statement!compound}
 
 {\tt if} statements have the same structure as function definitions
-or {\tt for} loops.  The statement consists of a header line
+or {\tt for} loops\footnote{We will kearn about functions in Chapter 4
+and loops in Chapter 5.}.The statement consists of a header line
 that ends with the colon character (:) 
 followed by an indented block.  Statements like this are
 called {\bf compound statements} because they stretch 
 across more than one line.
 
 There is no limit on the number of statements that can appear in
-the body, but there has to be at least one.
+the body, but there must be at least one.
 Occasionally, it is useful to have a body with no statements (usually
-as a place keeper for code you haven't written yet).  In that
+as a placekeeper for code you haven't written yet).  In that
 case, you can use the {\tt pass} statement, which does nothing.
 
 \index{pass statement}
@@ -171,9 +173,9 @@ if x < 0 :
 \end{verbatim}
 \afterverb
 %
-If you enter an if statement in the Python interpreter, the prompt will change 
+If you enter an {\tt if} statement in the Python interpreter, the prompt will change 
 from three chevrons to three dots to indicate you are in the middle of a block of
-statements as shown below:
+statements, as shown below:
 
 \beforeverb
 \begin{verbatim}
@@ -216,7 +218,7 @@ executed.
 \centerline{\includegraphics[height=1.75in]{figs2/if-else.eps}}
 \afterfig
 
-Since the condition must be true or false, exactly one of
+Since the condition must either be true or false, exactly one of
 the alternatives will be executed.  The alternatives are called
 {\bf branches}, because they are branches in the flow of execution.
 
@@ -281,7 +283,7 @@ first true branch executes.
 \index{conditional!nested}
 
 One conditional can also be nested within another.  We could have
-written the trichotomy example like this:
+written the three-branch example like this:
 
 \beforeverb
 \begin{verbatim}
@@ -351,10 +353,10 @@ ValueError: invalid literal for int()
 \afterverb
 %
 When we are executing these statements in the Python interpreter, 
-we get a new prompt from the interpreter, think ``oops'' and move 
+we get a new prompt from the interpreter, think ``oops'', and move 
 on to our next statement.  
 
-However if this code is placed in a 
+However if you place this code in a 
 Python script and this error occurs, your script immediately 
 stops in its tracks with a traceback.  
 It does not execute the following statement. 
@@ -448,12 +450,12 @@ prints an error message.  In general,
 catching an exception gives you a chance to fix the problem, or try
 again, or at least end the program gracefully.
 
-\section{Short circuit evaluation of logical expressions}
+\section{Short-circuit evaluation of logical expressions}
 \index{short circuit}
 
 When Python is processing a logical expression such as 
 {\tt x >= 2 and (x/y) > 2}, it evaluates the expression
-from left-to-right.  Because of the definition of {\tt and},
+from left to right.  Because of the definition of {\tt and},
 if {\tt x} is less than 2, the expression {\tt x >= 2} is 
 {\tt False} and so the whole expression is {\tt False} regardless
 of whether {\tt (x/y) > 2} evaluates to {\tt True} or {\tt False}.
@@ -467,7 +469,7 @@ the evaluation.
 
 \index{guardian pattern}
 \index{pattern!guardian}
-While this may seem like a fine point, the short circuit behavior
+While this may seem like a fine point, the short-circuit behavior
 leads to a clever technique called the {\bf guardian pattern}.  
 Consider the following code sequence in the Python interpreter:
 
@@ -492,10 +494,10 @@ ZeroDivisionError: integer division or modulo by zero
 \afterverb
 %
 The third calculation failed because Python was evaluating {\tt (x/y)}
-and {\tt y} was zero which causes a runtime error.  But the second example
+and {\tt y} was zero, which causes a runtime error.  But the second example
 did \emph{not} fail because the first part of the expression {\tt x >= 2} 
 evaluated to {\tt False} so the {\tt (x/y)} was not ever executed 
-due to the {\bf short circuit} rule and there was no error.
+due to the {\bf short-circuit} rule and there was no error.
 
 We can construct the logical expression to strategically place a {\bf guard}
 evaluation just before the evaluation that might cause an error as follows:
@@ -519,7 +521,7 @@ ZeroDivisionError: integer division or modulo by zero
 \afterverb
 %
 In the first logical expression, {\tt x >= 2} is {\tt False} so the evaluation
-stops at the {\tt and}.  In the second logical expression {\tt x >= 2} is {\tt True}
+stops at the {\tt and}.  In the second logical expression, {\tt x >= 2} is {\tt True}
 but {\tt y != 0} is {\tt False} so we never reach {\tt (x/y)}.
 
 In the third logical expression, the {\tt y != 0} is \emph{after} the 
@@ -535,8 +537,7 @@ to insure that we only execute {\tt (x/y)} if {\tt y} is non-zero.
 \index{traceback}
 
 The traceback Python displays when an error occurs contains
-a lot of information, but it can be overwhelming, especially
-when there are many frames on the stack.  The most
+a lot of information, but it can be overwhelming.  The most
 useful parts are usually:
 
 \begin{itemize}
@@ -659,7 +660,7 @@ relative to the header.
 
 \item[guardian pattern:] Where we construct a logical expression 
 with additional
-comparisons to take advantage of the short circuit behavior.
+comparisons to take advantage of the short-circuit behavior.
 \index{guardian pattern}
 \index{pattern!guardian}
 
@@ -715,7 +716,7 @@ Error, please enter numeric input
 
 \begin{ex}
 Write a program to prompt for a score between 0.0 and 1.0.
-If the score is out of range print an error.  If the score
+If the score is out of range, print an error message.  If the score
 is between 0.0 and 1.0, print a grade using the following 
 table:
 
