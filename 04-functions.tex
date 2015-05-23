@@ -57,8 +57,8 @@ smallest values in a list, respectively:
 %
 The {\tt max} function tells us the ``largest character'' in the 
 string (which turns out to be the letter ``w'') and the {\tt min}
-function shows us the smallest character which turns out to be a 
-space.
+function shows us the smallest character (which turns out to be a 
+space).
 
 Another very common built-in function is the {\tt len} function
 which tells us how many items are in its argument. If the argument
@@ -73,10 +73,10 @@ in the string.
 \end{verbatim}
 \afterverb
 %
-These functions are not limited to looking at strings, they can operate
-on any set of values as we will see in later chapters.
+These functions are not limited to looking at strings. They can operate
+on any set of values, as we will see in later chapters.
 
-You should treat the names of built-in functions as reserved words (i.e.
+You should treat the names of built-in functions as reserved words (i.e.,
 avoid using ``max'' as a variable name).
 
 \section{Type conversion functions}
@@ -219,9 +219,9 @@ Run the program more than once and see what numbers you get.
 \end{ex}
 
 The {\tt random} function is only one of many 
-functions which handle random numbers.
-The function {\tt randint} takes parameters {\tt low} and
-{\tt high} and returns an integer between {\tt low} and
+functions that handle random numbers.
+The function {\tt randint} takes the parameters {\tt low} and
+{\tt high}, and returns an integer between {\tt low} and
 {\tt high} (including both).
 
 \index{randint function}
@@ -262,7 +262,7 @@ Gaussian, exponential, gamma, and a few more.
 \index{module}
 \index{module object}
 
-Python has a math {\bf module} that provides most of the familiar
+Python has a {\tt math} module that provides most of the familiar
 mathematical functions.  
 Before we can use the module, we have to import it:
 
@@ -398,7 +398,7 @@ and the body has to be indented.  By convention, the indentation is
 always four spaces.  The body can contain
 any number of statements.
 
-The strings in the print statements are enclosed in double
+The strings in the print statements are enclosed in
 quotes.  Single quotes and double quotes do the same thing;
 most people use single quotes except in cases like this where
 a single quote (which is also an apostrophe) appears in the string.
@@ -723,7 +723,7 @@ It is a special value that has its own type:
 To return a result from a function, we use the {\tt return} statement 
 in our function.  For example, we could make a very 
 simple function called {\tt addtwo}
-that adds two numbers together and return a result.
+that adds two numbers together and returns a result.
 
 \beforeverb
 \begin{verbatim}
@@ -738,12 +738,12 @@ print x
 %
 When this script executes, the {\tt print} statement will print out ``8''
 because the {\tt addtwo} function was called with 3 and 5 as arguments.
-Within the function the parameters {\tt a} and {\tt b} were 3 and 5 
+Within the function, the parameters {\tt a} and {\tt b} were 3 and 5 
 respectively. The function computed the sum of the two numbers and placed
-it in the local function variable named {\tt added} 
-and used the {\tt return} statement 
+it in the local function variable named {\tt added}. 
+Then it used the {\tt return} statement 
 to send the computed value back to the calling code 
-as the function result which was assigned
+as the function result, which was assigned
 to the variable {\tt x} and printed out.
 
 
@@ -756,7 +756,7 @@ a program into functions.  There are several reasons:
 \begin{itemize}
 
 \item Creating a new function gives you an opportunity to name a group
-of statements, which makes your program easier to read, understand 
+of statements, which makes your program easier to read, understand, 
 and debug.
 
 \item Functions can make a program smaller by eliminating repetitive
@@ -798,11 +798,11 @@ for you.
 
 Also, don't forget to save your program before you run it.  Some
 development environments do this automatically, but some don't.
-In that case the program you are looking at in the text editor
+In that case, the program you are looking at in the text editor
 is not the same as the program you are running.
 
-Debugging can take a long time if you keep running the same,
-incorrect, program over and over!
+Debugging can take a long time if you keep running the same
+incorrect program over and over!
 
 Make sure that the code you are looking at is the code you are running.
 If you're not sure, put something like \verb"print 'hello'" at the
@@ -890,7 +890,7 @@ is used as an expression, the return value is the value of
 the expression.
 \index{return value}
 
-\item[void function:] A function that doesn't return a value.
+\item[void function:] A function that does not return a value.
 \index{void function}
 
 
