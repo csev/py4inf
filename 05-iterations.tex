@@ -11,7 +11,7 @@
 \index{variable!updating}
 
 A common pattern in assignment statements is an assignment statement
-that updates a variable - 
+that updates a variable -- 
 where the new value of the variable depends on the old.
 
 \beforeverb
@@ -20,7 +20,7 @@ x = x+1
 \end{verbatim}
 \afterverb
 %
-This means ``get the current value of {\tt x}, add one, and then
+This means ``get the current value of {\tt x}, add 1, and then
 update {\tt x} with the new value.''
 
 If you try to update a variable that doesn't exist, you get an
@@ -81,7 +81,7 @@ print 'Blastoff!'
 You can almost read the {\tt while} statement as if it were English.
 It means, ``While {\tt n} is greater than 0,
 display the value of {\tt n} and then reduce the value of
-{\tt n} by 1.  When you get to 0, exit the while statement and
+{\tt n} by 1.  When you get to 0, exit the {\tt while} statement and
 display the word {\tt Blastoff!}''
 
 \index{flow of execution}
@@ -101,9 +101,9 @@ body and then go back to step 1.
 \end{enumerate}
 
 This type of flow is called a {\bf loop} because the third step
-loops back around to the top.  Each time we execute the body of 
-the loop, we call it an {\bf iteration}.  For the above loop, we 
-would say, ``It had five iterations'' which means that the body of
+loops back around to the top.  We call each time we execute the body of 
+the loop an {\bf iteration}.  For the above loop, we 
+would say, ``It had five iterations'', which means that the body of
 the loop was executed five times.
 
 \index{condition}
@@ -264,11 +264,11 @@ skipping the {\tt print} statement.
 \index{statement!for}
 
 Sometimes we want to loop through a {\bf set} of things such 
-as a list of words, the lines in a file or a list of numbers.
+as a list of words, the lines in a file, or a list of numbers.
 When we have a list of things to loop through, we can
 construct a \emph{definite} loop using a {\tt for} statement.
 We call the {\tt while} statement an \emph{indefinite} loop
-because it simply loops until some condition becomes {\tt False} 
+because it simply loops until some condition becomes {\tt False}, 
 whereas the {\tt for} loop is looping through a known
 set of items so it runs through as many iterations as there
 are items in the set.
@@ -287,7 +287,7 @@ print 'Done!'
 %
 In Python terms, 
 the variable {\tt friends} is a list\footnote{We will 
-examine lists in more detail in a later chapter} 
+examine lists in more detail in a later chapter.} 
 of three strings and the {\tt for}
 loop goes through the list and executes the body once
 for each of the three strings in the list resulting in this output:
@@ -305,7 +305,7 @@ Done!
 Translating this {\tt for} loop to English is not as direct as the 
 {\tt while}, but if you think of friends as a {\bf set},
 it goes like this: ``Run the statements in the body of the 
-for loop once for each friend \emph{in} the set named friends.''.
+for loop once for each friend \emph{in} the set named friends.''
 
 Looking at the {\tt for} loop, {\bf for} and {\bf in} are reserved
 Python keywords, and {\tt friend} and {\tt friends} are variables.
@@ -322,7 +322,7 @@ three strings stored in the {\tt friends} variable.
 
 \section{Loop patterns}
 
-Often we use a for or while loop to go through a list of items
+Often we use a {\tt for} or {\tt while} loop to go through a list of items
 or the contents of a file and we are looking for something such as
 the largest or smallest value of the data we scan through.
 
@@ -330,12 +330,12 @@ These loops are generally constructed by:
 
 \begin{itemize}
 
-\item Initializing one or more variables before the loop starts.
+\item Initializing one or more variables before the loop starts
 
 \item Performing some computation on each item in the loop body, 
-possibly changing the variables in the body of the loop.
+possibly changing the variables in the body of the loop
 
-\item Looking at the resulting variables when the loop completes.
+\item Looking at the resulting variables when the loop completes
 
 \end{itemize}
 
@@ -362,7 +362,7 @@ Our {\bf iteration} variable is named {\tt itervar} and while we do
 not use {\tt itervar} in the loop, it does control the loop and cause
 the loop body to be executed once for each of the values in the list.
 
-In the body of the loop, we add one to the current value of {\tt count}
+In the body of the loop, we add 1 to the current value of {\tt count}
 for each of the values in the list.  While the loop is executing, the 
 value of {\tt count} is the number of values we have seen ``so far''.
 
@@ -507,7 +507,7 @@ def min(values):
 %
 In the function version of the smallest code, we removed all of the 
 {\tt print} statements so as to be equivalent to the {\tt min} 
-function which is already built-in to Python.
+function which is already built in to Python.
 
 \section{Debugging}
 
@@ -570,11 +570,11 @@ a variable that will be updated.
 \index{increment}
 
 \item[infinite loop:] A loop in which the terminating condition is
-never satisfied or for which there is no termination condition.
+never satisfied or for which there is no terminating condition.
 \index{infinite loop}
 
 \item[iteration:] Repeated execution of a set of statements using
-either a recursive function call or a loop.
+either a function that calls itself or a loop.
 \index{iteration}
 
 \end{description}
