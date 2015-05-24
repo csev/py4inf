@@ -24,7 +24,7 @@ bracket operator:
 %
 \index{index}
 The second statement extracts the character at index position 1 from the 
-{\tt fruit} variable and assigns it to {\tt letter} variable.  
+{\tt fruit} variable and assigns it to the {\tt letter} variable.  
 
 The expression in brackets is called an {\bf index}.  
 The index indicates which character in the sequence you
@@ -199,7 +199,7 @@ similar to selecting a character:
 >>> s = 'Monty Python'
 >>> print s[0:5]
 Monty
->>> print s[6:13]
+>>> print s[6:12]
 Python
 \end{verbatim}
 \afterverb
@@ -403,11 +403,11 @@ against a man armed with a Pineapple.
 \section{{\tt string} methods}
 
 Strings are an example of Python {\bf objects}.  An object contains
-both data (the actual string itself) as well as {\bf methods}, which
-are effectively functions which that are built into the object and 
+both data (the actual string itself) and {\bf methods}, which
+are effectively functions that are built into the object and 
 are available to any {\bf instance} of the object.
 
-Python has a function called {\tt dir} that lists the methods available
+Python has a function called {\tt dir} which lists the methods available
 for an object.  The {\tt type} function shows the type of an object 
 and the {\tt dir} function shows the available methods.
 
@@ -441,13 +441,12 @@ capitalize(...)
 While the {\tt dir} function lists the methods, and you 
 can use {\tt help} to get some simple documentation on a method, 
 a better source of documentation for string methods would be
-\url{docs.python.org/library/string.html}.
+\url{https://docs.python.org/2/library/stdtypes.html#string-methods}.
 
 Calling a {\bf method} is similar to calling a function---it 
-takes arguments and
-returns a value---but the syntax is different.  We call a method
-by appending the method name to the variable name using the period 
-as a delimiter.
+takes arguments and returns a value---but the syntax is different.
+We call a method by appending the method name to the variable name
+using the period as a delimiter.
 
 For example, the
 method {\tt upper} takes a string and returns a new string with
@@ -497,7 +496,7 @@ searches for the position of one string within another:
 In this example, we invoke {\tt find} on {\tt word} and pass
 the letter we are looking for as a parameter.
 
-The {\tt find} method can find substrings, not just characters:
+The {\tt find} method can find substrings as well as characters:
 
 \beforeverb
 \begin{verbatim}
@@ -541,7 +540,7 @@ False
 \end{verbatim}
 \afterverb
 %
-You will note that {\tt startswith} requires case to match so sometimes
+You will note that {\tt startswith} requires case to match, so sometimes
 we take a line and map it all to lowercase before we do any checking
 using the {\tt lower} method.
 
@@ -559,7 +558,7 @@ True
 %
 In the last example, the method {\tt lower} is called
 and then we use {\tt startswith}
-to check to see if the resulting lowercase string
+to see if the resulting lowercase string
 starts with the letter ``p''.  As long as we are careful
 with the order, we can make multiple method calls in a
 single expression.
@@ -571,7 +570,7 @@ single expression.
 There is a string method called {\tt count} that is similar
 to the function in the previous exercise.  Read the documentation
 of this method at
-\url{docs.python.org/library/string.html}
+\url{https://docs.python.org/2/library/stdtypes.html#string-methods}
 and write an invocation that counts the number of times the 
 letter a  occurs
 in \verb"'banana'".
@@ -588,8 +587,8 @@ From stephen.marquard@{\bf uct.ac.za} Sat Jan  5 09:14:16 2008
 \end{alltt}
 \afterverb
 
-And we wanted to pull out only the second half of the address (i.e.
-{\tt uct.ac.za}) from each line.  We can do this by using the {\tt find}
+and we wanted to pull out only the second half of the address (i.e.,
+{\tt uct.ac.za}) from each line, we can do this by using the {\tt find}
 method and string slicing.   
 
 First, we will find the position of the at-sign in the string.  Then we will
@@ -620,7 +619,7 @@ from ``one beyond the at-sign through up to \emph{but not including} the
 space character''.  
 
 The documentation for the {\tt find} method is available at
-\url{docs.python.org/library/string.html}.
+\url{https://docs.python.org/2/library/stdtypes.html#string-methods}.
 
 \section{Format operator}
 
@@ -636,8 +635,7 @@ when the first operand is a string, {\tt \%} is the format operator.
 \index{format string}
 
 The first operand is the {\bf format string}, which contains
-one or more {\bf format sequences} that
-specify how
+one or more {\bf format sequences} that specify how
 the second operand is formatted.  The result is a string.
 
 \index{format sequence}
@@ -669,7 +667,9 @@ so you can embed a value in a sentence:
 \afterverb
 %
 If there is more than one format sequence in the string,
-the second argument has to be a tuple.  Each format sequence is
+the second argument has to be a tuple\footnote{A tuple is a
+sequence of comma-separated values inside a pair of brackets.
+We will covver tuples in Chapter 10}.  Each format sequence is
 matched with an element of the tuple, in order.
 
 The following example uses \verb"'%d'" to format an integer,
@@ -684,9 +684,9 @@ a string:
 \end{verbatim}
 \afterverb
 %
-The number of elements in the tuple has to match the number
-of format sequences in the string.  Also, the types of the
-elements have to match the format sequences:
+The number of elements in the tuple must match the number
+of format sequences in the string.  The types of the
+elements also must match the format sequences:
 
 \index{exception!TypeError}
 \index{TypeError}
@@ -705,7 +705,7 @@ second, the element is the wrong type.
 
 The format operator is powerful, but it can be difficult to use.  You
 can read more about it at
-\url{docs.python.org/lib/typesseq-strings.html}.
+\url{https://docs.python.org/2/library/stdtypes.html#string-formatting}.
 
 % You can specify the number of digits as part of the format sequence.
 % For example, the sequence \verb"'%8.2f'"
@@ -729,7 +729,7 @@ can read more about it at
 A skill that you should cultivate as you program is always
 asking yourself, ``What could go wrong here?'' or alternatively,
 ``What crazy thing might our user do to crash our (seemingly) 
-perfect program?''.
+perfect program?''
 
 For example, look at the program which we used to demonstrate
 the {\tt while} loop in the chapter on iteration:
@@ -765,7 +765,7 @@ Traceback (most recent call last):
 \afterverb
 %
 The code works fine until it is presented an empty line.  Then
-there is no zeroth character so we get a traceback.  There are two
+there is no zero-th character, so we get a traceback.  There are two
 solutions to this to make line three ``safe'' even if the line is 
 empty.
 
@@ -780,7 +780,7 @@ which returns {\tt False} if the string is empty.
 %
 \index{guardian pattern}
 \index{pattern!guardian}
-Another way to safely write the {\tt if} statement using the {\bf guardian}
+Another way is to safely write the {\tt if} statement using the {\bf guardian}
 pattern and make sure the second logical expression is evaluated 
 only where there is at least one character in the string.:
 
@@ -886,8 +886,8 @@ into a floating point number.
 \index{method!string}
 
 Read the documentation of the string methods at
-\url{docs.python.org/lib/string-methods.html}.  You
-might want to experiment with some of them to make sure
+\url{https://docs.python.org/2/library/stdtypes.html#string-methods}.
+You might want to experiment with some of them to make sure
 you understand how they work.  {\tt strip} and
 {\tt replace} are particularly useful.
 
