@@ -85,9 +85,8 @@ With no argument, it creates an empty tuple:
 \end{verbatim}
 \afterverb
 %
-If the argument is a sequence (string, list or tuple), the result
-of the call to {\tt tuple}
-is a tuple with the elements of the sequence:
+If the argument is a sequence (string, list, or tuple), the result
+of the call to {\tt tuple} is a tuple with the elements of the sequence:
 
 \beforeverb
 \begin{verbatim}
@@ -162,7 +161,7 @@ one tuple with another:
 \index{sort method}
 \index{method!sort}
 
-The comparison operators work with tuples and other sequences;
+The comparison operators work with tuples and other sequences.
 Python starts by comparing the first element from each
 sequence.  If they are equal, it goes on to the next element,
 and so on, until it finds elements that differ.  Subsequent
@@ -234,8 +233,8 @@ only considers the second element to break ties.  The keyword argument
 \index{traversal}
 
 The second loop traverses the list of tuples and builds a list of
-words in descending order of length.  So among the five character words,
-they are sorted in {\em reverse} alphabetical order.  So ``what'' appears
+words in descending order of length.  The four-character words
+are sorted in {\em reverse} alphabetical order, so ``what'' appears
 before ``soft'' in the following list.
 
 The output of the program is as follows:
@@ -260,12 +259,12 @@ descending word length order.
 \index{pattern!swap}
 
 One of the unique syntactic features of the Python language
-is the ability to have a tuple on the left hand
+is the ability to have a tuple on the left
 side of an assignment statement.  This allows you to assign
-more than one variable at a time when the left hand side is a 
+more than one variable at a time when the left side is a 
 sequence.
 
-In this example we have a two element list (which is a sequence) and
+In this example we have a two-element list (which is a sequence) and
 assign the first and second elements of the sequence
 to the variables {\tt x} and {\tt y} in a single statement.
 
@@ -284,7 +283,7 @@ to the variables {\tt x} and {\tt y} in a single statement.
 It is not magic, Python \emph{roughly} translates the 
 tuple assignment syntax
 to be the following:\footnote{Python does not translate the 
-syntax literally.  For example if you try this with a dictionary
+syntax literally.  For example, if you try this with a dictionary,
 it will not work as might expect.}
 
 \beforeverb
@@ -300,7 +299,7 @@ it will not work as might expect.}
 \end{verbatim}
 \afterverb
 
-Stylistically when we use a tuple on the left hand side of the assignment
+Stylistically when we use a tuple on the left side of the assignment
 statement, we omit the parentheses, but the following is an equally 
 valid syntax:
 
@@ -333,7 +332,7 @@ All the expressions on the right side are evaluated before any
 of the assignments.
 
 The number of variables on the left and the number of
-values on the right have to be the same:
+values on the right must be the same:
 
 \index{exception!ValueError}
 \index{ValueError}
@@ -346,7 +345,7 @@ ValueError: too many values to unpack
 \afterverb
 %
 More generally, the right side can be any kind of sequence
-(string, list or tuple).  For example, to split an email address
+(string, list, or tuple).  For example, to split an email address
 into a user name and a domain, you could write:
 
 \index{split method}
@@ -421,7 +420,7 @@ The new list is sorted in ascending alphabetical order by the key value.
 \index{traverse!dictionary}
 \index{dictionary!traversal}
 
-Combining {\tt items}, tuple assignment and {\tt for}, you
+Combining {\tt items}, tuple assignment, and {\tt for}, you
 can see a nice code pattern for traversing the keys and values of a dictionary
 in a single loop:
 
@@ -434,11 +433,12 @@ for key, val in d.items():
 %
 This loop has two {\bf iteration variables} because {\tt items} returns
 a list of tuples and {\tt key, val} is a tuple assignment
-that successively iterates through each of the key/value pairs in the dictionary.  
+that successively iterates through each of the key-value pairs in the
+dictionary.  
 
 For each iteration
 through the loop, both {\tt key} and {\tt value} are advanced to the
-next key/value pair in the dictionary (still in hash order).
+next key-value pair in the dictionary (still in hash order).
 
 The output of this loop is:
 
@@ -450,16 +450,16 @@ The output of this loop is:
 \end{verbatim}
 \afterverb
 %
-Again in hash key order (i.e. no particular order).
+Again, it is in hash key order (i.e., no particular order).
 
 If we combine these two techniques, we can print out the contents
-of a dictionary sorted by the \emph{value} stored in each key/value
+of a dictionary sorted by the \emph{value} stored in each key-value
 pair.
 
 To do this, we first make a list of tuples where each tuple is 
 {\tt (value, key)}.  The {\tt items} method would give us a list of 
-{\tt (key, value)} tuples--but this time we want to sort by value not key.
-Once we have constructed the list with the value/key tuples, it is a simple
+{\tt (key, value)} tuples---but this time we want to sort by value, not key.
+Once we have constructed the list with the value-key tuples, it is a simple
 matter to sort the list in reverse order and print out the new, sorted list.
 
 \beforeverb
@@ -522,12 +522,12 @@ document is unchanged.  But instead of simply printing out
 {\tt counts} and ending the program, we construct a list 
 of {\tt (val, key)} tuples and then sort the list in reverse order.
 
-Since the value is first, it will be used for the comparisons and 
-if there is more than one tuple with the same value, it will look
-at the second element (the key) so tuples where the value is the
+Since the value is first, it will be used for the comparisons. 
+If there is more than one tuple with the same value, it will look
+at the second element (the key), so tuples where the value is the
 same will be further sorted by the alphabetical order of the key.
 
-At the end we write a nice {\tt for loop} which does a multiple
+At the end we write a nice {\tt for} loop which does a multiple
 assignment iteration and prints out the ten most common words
 by iterating through a slice of the list ({\tt lst[:10]}).
 
@@ -550,7 +550,7 @@ frequency analysis.
 \afterverb
 %
 The fact that this complex data parsing and analysis 
-can be done with an easy-to-understand 19 line Python
+can be done with an easy-to-understand 19-line Python
 program is one reason why Python is a good choice as a language 
 for exploring information.
 
@@ -567,7 +567,7 @@ We would encounter a composite key if we wanted to create a
 telephone directory that maps
 from last-name, first-name pairs to telephone numbers.  Assuming
 that we have defined the variables 
-{\tt last}, {\tt first} and {\tt number}, we could write
+{\tt last}, {\tt first}, and {\tt number}, we could write
 a dictionary assignment statement as follows:
 
 \beforeverb
@@ -592,7 +592,7 @@ This loop traverses the keys in {\tt directory}, which are tuples.  It
 assigns the elements of each tuple to {\tt last} and {\tt first}, then
 prints the name and corresponding telephone number.
 
-\section{Sequences: strings, lists, and tuples--Oh My!}
+\section{Sequences: strings, lists, and tuples---Oh My!}
 \index{sequence}
 
 I have focused on lists of tuples, but almost all of the examples in
@@ -600,7 +600,7 @@ this chapter also work with lists of lists, tuples of tuples, and
 tuples of lists.  To avoid enumerating the possible combinations, it
 is sometimes easier to talk about sequences of sequences.
 
-In many contexts, the different kinds of sequences (strings, lists and
+In many contexts, the different kinds of sequences (strings, lists, and
 tuples) can be used interchangeably.  So how and why do you choose one
 over the others?
 
@@ -638,7 +638,7 @@ Because tuples are immutable, they don't provide methods
 like {\tt sort} and {\tt reverse}, which modify existing lists.
 However Python provides the built-in functions {\tt sorted}
 and {\tt reversed}, which take any sequence as a parameter
-and return a new list with the same elements in a different
+and return a new sequence with the same elements in a different
 order.
 
 \index{sorted function}
@@ -659,7 +659,7 @@ Lists, dictionaries and tuples are known generically as {\bf data
 structures, like lists of tuples, and dictionaries that contain tuples
 as keys and lists as values.  Compound data structures are useful, but
 they are prone to what I call {\bf shape errors}; that is, errors
-caused when a data structure has the wrong type, size or composition
+caused when a data structure has the wrong type, size, or composition,
 or perhaps you write some code and forget the shape of your data
 and introduce an error.
 
@@ -707,7 +707,7 @@ your head.
 
 Running experiments can help, especially if you run small, simple
 tests.  But if you run experiments without thinking or reading your
-code, you might fall into a pattern I call ``random walk programming,''
+code, you might fall into a pattern I call ``random walk programming'',
 which is the process of making random changes until the program
 does the right thing.  Needless to say, random walk programming
 can take a long time.
@@ -721,7 +721,7 @@ what the problem is.  If there are two or more possibilities, try to
 think of a test that would eliminate one of them.
 
 Taking a break helps with the thinking.  So does talking.
-If you explain the problem to someone else (or even yourself), you
+If you explain the problem to someone else (or even to yourself), you
 will sometimes find the answer before you finish asking the question.
 
 But even the best debugging techniques will fail if there are too many
@@ -746,7 +746,7 @@ try the others.
 \begin{description}
 
 \item[comparable:] A type where one value can be checked to see if it is
-greater than, less than or equal to another value of the same type.
+greater than, less than, or equal to another value of the same type.
 Types which are comparable can be put in a list and sorted.
 \index{comparable}
 
@@ -754,7 +754,7 @@ Types which are comparable can be put in a list and sorted.
 organized in lists, dictionaries, tuples, etc.
 \index{data structure}
 
-\item[DSU:] Abbreviation of ``decorate-sort-undecorate,'' a
+\item[DSU:] Abbreviation of ``decorate-sort-undecorate'', a
 pattern that involves building a list of tuples, sorting, and
 extracting part of the result.
 \index{DSU pattern}
@@ -765,7 +765,7 @@ argument tuple.
 
 \item[hashable:] A type that has a hash function.  Immutable
 types like integers,
-floats and strings are hashable; mutable types like lists and
+floats, and strings are hashable; mutable types like lists and
 dictionaries are not.
 \index{hashable}
 
@@ -774,7 +774,7 @@ arguments.
 \index{scatter}
 
 \item[shape (of a data structure):] A summary of the type,
-size and composition of a data structure.
+size, and composition of a data structure.
 \index{shape}
 
 \item[singleton:] A list (or other sequence) with a single element.
@@ -801,10 +801,10 @@ parse the ``From'' lines and pull out the
 addresses from the line.   Count the number of
 messages from each person using a dictionary.
 
-After all the data has been read print 
+After all the data has been read, print 
 the person with the most commits by creating
 a list of (count, email) tuples from the 
-dictionary and then sorting the list in reverse
+dictionary.   Then sort the list in reverse
 order and print out the person who has the most
 commits.
 
@@ -854,7 +854,7 @@ Enter a file name: mbox-short.txt
 Write a program that reads a file and 
 prints the {\em letters} in decreasing order of frequency.  Your program
 should convert all the input to lower case and only count the letters a-z.
-Your program should not count spaces, digits, punctuation or anything 
+Your program should not count spaces, digits, punctuation, or anything 
 other than the letters a-z.
 Find text samples from several different languages and see how letter frequency
 varies between languages.  Compare your results with the tables at
