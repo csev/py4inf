@@ -187,7 +187,7 @@ for i in range(len(numbers)):
 This loop traverses the list and updates each element.  {\tt len}
 returns the number of elements in the list.  {\tt range} returns
 a list of indices from 0 to $n-1$, where $n$ is the length of
-the list.  Each time through the loop {\tt i} gets the index
+the list.  Each time through the loop, {\tt i} gets the index
 of the next element.  The assignment statement in the body uses
 {\tt i} to read the old value of the element and to assign the
 new value.
@@ -293,7 +293,7 @@ omit both, the slice is a copy of the whole list.
 \afterverb
 %
 Since lists are mutable, it is often useful to make a copy
-before performing operations that fold, spindle or mutilate
+before performing operations that fold, spindle, or mutilate
 lists.
 
 \index{mutability}
@@ -500,7 +500,7 @@ print 'Average:', average
 \end{verbatim}
 \afterverb
 %
-In this program, we have {\tt count} and {\tt sum} variables to 
+In this program, we have {\tt count} and {\tt total} variables to 
 keep the number and running total of the user's numbers as 
 we repeatedly prompt the user for a number.
 
@@ -552,8 +552,8 @@ you can use {\tt list}:
 \afterverb
 %
 Because {\tt list} is the name of a built-in function, you should
-avoid using it as a variable name.  I also avoid {\tt l} because
-it looks too much like {\tt 1}.  So that's why I use {\tt t}.
+avoid using it as a variable name.  I also avoid the letter {\tt l} because
+it looks too much like the number {\tt 1}.  So that's why I use {\tt t}.
 
 The {\tt list} function breaks a string into individual letters.  If
 you want to break a string into words, you can use the {\tt split}
@@ -574,14 +574,13 @@ the
 \afterverb
 %
 Once you have used {\tt split} to break the string into 
-a list of tokens, you can use the index operator (square
+a list of words, you can use the index operator (square
 bracket) to look at a particular word in the list.
 
 You can call {\tt split} with 
-an optional argument called a {\bf delimiter} specifies which
-characters to use as word boundaries.
-The following example
-uses a hyphen as a delimiter:
+an optional argument called a {\bf delimiter} that 
+specifies which characters to use as word boundaries.
+The following example uses a hyphen as a delimiter:
 
 \index{optional argument}
 \index{argument!optional}
@@ -631,7 +630,7 @@ we want to do something to the lines other than just
 printing the whole line.  Often we want to find the ``interesting
 lines'' and then {\bf parse} the line to find some interesting
 \emph{part} of the line.  What if we wanted to print out the day of the 
-week from those lines that start with ``From ''.
+week from those lines that start with ``From ''?
 
 \beforeverb
 \begin{alltt}
@@ -642,7 +641,7 @@ From stephen.marquard@uct.ac.za {\bf Sat} Jan  5 09:14:16 2008
 The {\tt split} method is very effective when faced with this 
 kind of problem.
 We can write a small program that looks for lines where the 
-line starts with ``From '' and then {\tt split} those lines 
+line starts with ``From '', {\tt split} those lines, 
 and then print out the third word in the line:
 
 \beforeverb
@@ -656,7 +655,7 @@ for line in fhand:
 \end{verbatim}
 \afterverb
 %
-We also use the contracted form of the {\tt if}
+Here we also use the contracted form of the {\tt if}
 statement where we put the {\tt continue } on the
 same line as the {\tt if}.  This contracted form
 of the {\tt if} functions the same as if the
@@ -692,10 +691,9 @@ b = 'banana'
 \end{verbatim}
 \afterverb
 %
-We know that {\tt a} and {\tt b} both refer to a
-string, but we don't
-know whether they refer to the \emph{same} string.
-There are two possible states:
+we know that {\tt a} and {\tt b} both refer to a
+string, but we don't know whether they refer to the
+\emph{same} string. There are two possible states:
 
 \index{aliasing}
 
@@ -813,7 +811,7 @@ b = 'banana'
 \end{verbatim}
 \afterverb
 %
-It almost never makes a difference whether {\tt a} and {\tt b} refer
+it almost never makes a difference whether {\tt a} and {\tt b} refer
 to the same string or not.
 
 
@@ -972,9 +970,10 @@ Before using list methods and operators, you should read the
 documentation carefully and then test them in interactive mode.  The
 methods and operators that lists share with other sequences (like
 strings) are documented at
-\url{docs.python.org/lib/typesseq.html}.  The
-methods and operators that only apply to mutable sequences
-are documented at \url{docs.python.org/lib/typesseq-mutable.html}.
+\url{https://docs.python.org/2/library/stdtypes.html#string-methods}.
+The methods and operators that only apply to mutable sequences
+are documented at
+\url{https://docs.python.org/2/library/stdtypes.html#mutable-sequence-types}.
 
 
 \item Pick an idiom and stick with it.
@@ -1082,9 +1081,9 @@ IndexError: list index out of range
 \afterverb
 %
 It kind of works and we see the day from the first line
-(Sat) but then the program fails with a traceback error.
+(Sat), but then the program fails with a traceback error.
 What went wrong?  What messed-up data caused our elegant, 
-clever and very Pythonic program to fail?
+clever, and very Pythonic program to fail?
 
 You could stare at it for a long time and puzzle through
 it or ask someone for help, but the quicker and smarter
@@ -1093,8 +1092,8 @@ to add the print statement is right before the line where
 the program failed and print out the data that seems to be causing
 the failure.
 
-Now this approach may generate a lot of lines of output but at 
-least you will immediately have some clue as to the 
+Now this approach may generate a lot of lines of output, but
+at least you will immediately have some clue as to the 
 problem at hand.  So we add a print of the variable
 {\tt words} right before line five.  We even 
 add a prefix ``Debug:'' to the line so we can keep
@@ -1127,9 +1126,9 @@ IndexError: list index out of range
 \afterverb
 %
 Each debug line is printing the list of words which we get
-when we {\tt split} the line into words.  When the program fails
-the list of words is empty \verb"[]".  If we open the file in a text editor
-and look at the file, at that point it looks as follows:
+when we {\tt split} the line into words.  When the program fails,
+the list of words is empty \verb"[]".  If we open the file in a
+text editor and look at the file, at that point it looks as follows:
 
 \beforeverb
 \begin{verbatim}
@@ -1144,13 +1143,13 @@ Details: http://source.sakaiproject.org/viewsvn/?view=rev&rev=39772
 %
 The error occurs when our program encounters a blank line! Of course there
 are ``zero words'' on a blank line.  Why didn't we think of that 
-when we were writing the code.  When the code looks for the first
+when we were writing the code?  When the code looks for the first
 word (\verb"word[0]") to check to see if it matches ``From'', 
 we get an ``index out of range'' error.
 
 This of course is the perfect place to add some {\bf guardian} code 
 to avoid checking the first word if the first word is not there.
-There are many ways to protect this code, we will choose to 
+There are many ways to protect this code; we will choose to 
 check the number of words we have before we look at the first word:
 
 \beforeverb
@@ -1166,7 +1165,7 @@ for line in fhand:
 \end{verbatim}
 \afterverb
 %
-First we commented out the debug print statement instead of removing it 
+First we commented out the debug print statement instead of removing it, 
 in case our modification fails and we need to debug again.  Then we added
 a guardian statement that checks to see if we have zero words, and if so, 
 we use {\tt continue} to skip to the next line in the file.
@@ -1177,10 +1176,10 @@ to process some more.  A line which has no words is ``uninteresting'' to
 us so we skip to the next line.  A line which does not have ``From''
 as its first word is uninteresting to us so we skip it.
 
-The program as modified runs successfully so perhaps it is correct.  Our
+The program as modified runs successfully, so perhaps it is correct.  Our
 guardian statement does make sure that the {\tt words[0]} will never fail, 
 but perhaps it is not enough.  When we are programming, we must always be 
-thinking, ``What might go wrong?''.
+thinking, ``What might go wrong?''
 
 \begin{ex}
 Figure out which line of the above program is still not properly guarded.
@@ -1191,7 +1190,7 @@ test it to make sure it handles your new text file.
 
 \begin{ex}
 Rewrite the guardian code in the above example without two
-{\tt if} statements.  Instead use a compound logical expression using the
+{\tt if} statements.  Instead, use a compound logical expression using the
 {\tt and} logical operator with a single {\tt if} statement.
 \end{ex}
 
@@ -1212,7 +1211,7 @@ object.
 string should be split.
 \index{delimiter}
 
-\item[element:] One of the values in a list (or other sequence),
+\item[element:] One of the values in a list (or other sequence);
 also called items.
 \index{element}
 
@@ -1275,12 +1274,12 @@ Enter file: romeo.txt
 Write a program to read through the mail box data and when you find 
 line that starts with ``From'', you will split the line into 
 words using the {\tt split} function. We are interested in 
-who sent the message which is the second word on the From line.
+who sent the message, which is the second word on the From line.
 
 {\tt From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008 }
 
 You will parse the From line and print out the second word for 
-each From line and then you will also count the number of 
+each From line, then you will also count the number of 
 From (not From:) lines and print out a count at the end.
 
 This is a good sample output with a few lines removed:
