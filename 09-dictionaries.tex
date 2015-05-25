@@ -11,7 +11,7 @@
 \index{index}
 
 A {\bf dictionary} is like a list, but more general.  In a list,
-the positions (a.k.a. indices) have to be integers; in a dictionary 
+the index positions have to be integers; in a dictionary, 
 the indices can be (almost) any type.
 
 You can think of a dictionary as a mapping between a set of indices
@@ -37,7 +37,7 @@ should avoid using it as a variable name.
 \end{verbatim}
 \afterverb
 
-The squiggly-brackets, \verb"{}", represent an empty dictionary.
+The curly brackets, \verb"{}", represent an empty dictionary.
 To add items to the dictionary, you can use square brackets:
 
 \index{squiggly bracket}
@@ -160,7 +160,7 @@ dictionaries.  For lists, it uses a linear search algorithm.
 As the list gets longer, the search time gets
 longer in direct proportion to the length of the list.  
 For dictionaries, Python uses an
-algorithm called a {\bf hash table} that has a remarkable property; the
+algorithm called a {\bf hash table} that has a remarkable property---the
 {\tt in} operator takes about the same amount of time no matter how
 many items there are in a dictionary.  I won't explain 
 why hash functions are so magical,
@@ -298,7 +298,7 @@ print d
 %
 The use of the {\tt get} method to simplify this counting loop 
 ends up being a very commonly used ``idiom'' in Python and 
-we will use it many times the rest of the book.   So you should
+we will use it many times in the rest of the book.   So you should
 take a moment and compare the loop using the {\tt if} statement
 and {\tt in} operator with the loop using the {\tt get} method.
 They do exactly the same thing, but one is more succinct.
@@ -309,9 +309,7 @@ They do exactly the same thing, but one is more succinct.
 One of the common uses of a dictionary is to count the occurrence
 of words in a file with some written text.  
 Let's start with a very simple file of
-words taken from the text of \emph{Romeo and Juliet}
-thanks to 
-\url{http://shakespeare.mit.edu/Tragedy/romeoandjuliet/romeo_juliet.2.2.html}.
+words taken from the text of \emph{Romeo and Juliet}.
 
 For the first set of examples, we will use a shortened and simplified version
 of the text with no punctuation.  Later we will work with the text of the 
@@ -328,7 +326,7 @@ Who is already sick and pale with grief
 %
 We will write a Python program to read through the lines of the file, 
 break each line into a list of words, and then loop through each 
-of the words in the line, and count each word using a dictionary.
+of the words in the line and count each word using a dictionary.
 
 \index{nested loops}
 \index{loop!nested}
@@ -461,7 +459,7 @@ make a list of the keys in the dictionary using the
 {\tt keys} method available in dictionary objects,
 and then sort that list
 and loop through the sorted list, looking up each
-key printing out key/value pairs in sorted order
+key and printing out key/value pairs in sorted order
 as follows:
 
 \beforeverb
@@ -495,8 +493,8 @@ pairs in order from the {\tt for} loop.
 \index{Romeo and Juliet}
 In the above example using the file {\tt romeo.txt},
 we made the file as simple as possible by removing 
-any and all punctuation by hand.  The real text 
-has lots of punctuation as shown below:
+all punctuation by hand.  The actual text 
+has lots of punctuation, as shown below.
 
 \beforeverb
 \begin{verbatim}
@@ -572,9 +570,9 @@ print counts
 %
 We use {\tt translate} to remove all punctuation and {\tt lower} to 
 force the line to lowercase.  Otherwise the program is unchanged.
-Note for Python 2.5 and earlier, {\tt translate} does not 
-accept {\tt None} as the first parameter so use this code for the translate 
-call:
+Note that for Python 2.5 and earlier, {\tt translate} does not 
+accept {\tt None} as the first parameter so use this code instead
+for the translate call:
 
 \beforeverb
 \begin{verbatim}
@@ -584,7 +582,7 @@ print a.translate(string.maketrans(' ',' '), string.punctuation
 %
 Part of learning the ``Art of Python'' or ``Thinking Pythonically''
 is realizing that Python
-often has built-in capabilities for many common data-analysis
+often has built-in capabilities for many common data analysis
 problems.  Over time, you will see enough example code and read
 enough of the documentation to know where to look to see if someone
 has already written something that makes your job much easier.
@@ -603,7 +601,7 @@ a': 24, 'orchard': 2, 'light': 5, 'lovers': 2, 'romeo': 40,
 \afterverb
 %
 Looking through this output is still unwieldy and we can use
-Python to gives us exactly what we are looking for, but to do 
+Python to give us exactly what we are looking for, but to do 
 so, we need to learn about Python {\bf tuples}.  We
 will pick up this example once we learn about tuples.
 
@@ -639,14 +637,14 @@ for errors automatically.  For example, if you are computing the
 average of a list of numbers, you could check that the result is
 not greater than the largest element in the list or less than
 the smallest.  This is called a ``sanity check'' because it detects
-results that are ``completely illogical.''
+results that are ``completely illogical''.
 
 \index{sanity check}
 \index{consistency check}
 
 Another kind of check compares the results of two different
 computations to see if they are consistent.  This is called a
-``consistency check.''
+``consistency check''.
 
 \item[Pretty print the output:] Formatting debugging output
 can make it easier to spot an error.  
@@ -695,7 +693,7 @@ a key to a value.
 the corresponding value.
 \index{lookup}
 
-\item[nested loops:] When there is one or more loops ``inside'' of 
+\item[nested loops:] When there are one or more loops ``inside'' of 
 another loop.  The inner loop runs to completion each time the outer
 loop runs once.
 \index{nested loops}
@@ -703,7 +701,7 @@ loop runs once.
 
 \item[value:] An object that appears in a dictionary as the
 second part of a key-value pair.  This is more specific than
-our previous use of the word ``value.''
+our previous use of the word ``value''.
 \index{value}
 
 \end{description}
@@ -713,8 +711,8 @@ our previous use of the word ``value.''
 \begin{ex}
 Write a program that categorizes each mail message by which 
 day of the week the commit was done. To do this look for 
-lines which start with ``From'', then look for the 
-third word and then keep a running count of each of the 
+lines that start with ``From'', then look for the 
+third word and keep a running count of each of the 
 days of the week. At the end of the program print out the 
 contents of your dictionary (order does not matter).
 
@@ -732,9 +730,9 @@ Enter a file name: mbox-short.txt
 \end{ex}
 
 \begin{ex}
-Write a program to read through a mail log, and 
+Write a program to read through a mail log,  
 build a histogram using a dictionary to count how many 
-messages have come from each email address 
+messages have come from each email address, 
 and print the dictionary.
 
 \beforeverb
@@ -775,7 +773,7 @@ zqian@umich.edu 195
 \begin{ex}
 This program records the domain name (instead of the address) 
 where the message was sent from instead of who the mail 
-came from (i.e. the whole e-mail address). At the end 
+came from (i.e., the whole e-mail address). At the end 
 of the program print out the contents of your dictionary. 
 
 \beforeverb
