@@ -64,6 +64,8 @@ This is the rough set of steps I use on Ubuntu:
     sudo apt-get install texlive-latex-extra
     sudo apt-get install hevea
     sudo apt-get install imagemagick
+    sudo apt-get install texlive-fonts-extra
+
 
 You could put them all on one long apt-get, but I like to see if they work :)
 
