@@ -11,5 +11,8 @@ Convert to EPUB - In the dialog that popps up
 -  Do *not* do heuristic processing
 -  Under Structure Detection, Blank out the Insert page breaks before regex
 
-Save To Disk in a Single Direcotry
+Use Calibre to do the MOBI conversion - just uploadig the EPUB seems
+to lose KDP awareness of the table of contents.
+
+Save To Disk in a Single Directory
 
