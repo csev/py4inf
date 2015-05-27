@@ -90,7 +90,7 @@ must tell the database in advance the names of each of the
 {\bf columns} in the table and the type of data which we are 
 planning to store in each {\bf column}.   When the database software
 knows the type of data in each column, it can choose the most 
-efficient way to store and lookup the data based on the type of
+efficient way to store and look up the data based on the type of
 data. 
 
 You can look at the various data types supported by SQLite
@@ -166,7 +166,7 @@ database if it exists.  This pattern is simply to allow us to
 run the same program to create the {\tt Tracks} table over 
 and over again without causing an error.  Note that the
 {\tt DROP TABLE} command deletes the table and all of its contents
-from the database (i.e. there is no ``undo'').
+from the database (i.e., there is no ``undo'').
 
 \beforeverb
 \begin{verbatim}
@@ -191,11 +191,11 @@ We can then execute SQL commands using the cursor.
 
 The SQL {\tt INSERT} command indicates which table we are using 
 and then defines a new row by listing the fields we want to 
-include {\tt (title, plays) } followed by the {\tt VALUES} we want
-placed in the new row in the table.   We specify the values
-as question marks {\tt (?, ?)} to indicate that the actual 
-values are passed in as a tuple {\tt ( 'My Way', 15 ) } as the
-second parameter to the {\tt execute()} call.
+include {\tt (title, plays)} followed by the {\tt VALUES} we want
+placed in the new row.  We specify the values as question marks
+{\tt (?, ?)} to indicate that the actual values are passed in as a
+tuple {\tt ( 'My Way', 15 ) } as the second parameter to the
+{\tt execute()} call.
 
 \beforeverb
 \begin{verbatim}
@@ -238,7 +238,7 @@ execute the {\tt SELECT} statement, the cursor is something we can loop through
 in a {\tt for} statement.   For efficiency,
 the cursor does not read all of the data from the
 database when we execute the {\tt SELECT} statement.  
-Instead, the data is read on-demand
+Instead, the data is read on demand
 as we loop through the rows in the {\tt for} statement.
 
 The output of the program is as follows:
@@ -264,10 +264,10 @@ The {\tt DELETE} command shows the use of a {\tt WHERE} clause that
 allows us to express a selection criterion so that we can ask the database
 to apply the command to only the rows that match the criterion.  In this example
 the criterion happens to apply to all the rows so we empty the table
-out so we can run the program repeatedly.  After the {\tt DELETE} is performed
+out so we can run the program repeatedly.  After the {\tt DELETE} is performed,
 we also call {\tt commit()} to force the data to be removed from the database.
 
-\section{Structured Query Language (SQL) summary}
+\section{Structured Query Language summary}
 
 So far, we have been using the Structured Query Language in our Python
 examples and have covered many of the basics of the SQL commands.
@@ -296,9 +296,9 @@ INSERT INTO Tracks (title, plays) VALUES ('My Way', 15)
 \end{verbatim}
 \afterverb
 %
-The {\tt INSERT} statement specifies the table name, and then a list of
+The {\tt INSERT} statement specifies the table name, then a list of
 the fields/columns that you would like to set in the new row, and then 
-the keyword {\tt VALUES} and then a list of corresponding values 
+the keyword {\tt VALUES} and a list of corresponding values 
 for each of the fields.
 
 The SQL {\tt SELECT} command is used to retrieve rows and columns from a database.
@@ -359,7 +359,7 @@ The {\tt UPDATE} statement specifies a table and
 then a list of fields and values to change after the {\tt SET} 
 keyword and then an optional {\tt WHERE} clause to select
 the rows that are to be updated.  A single {\tt UPDATE} statement
-will change all of the rows that match the {\tt WHERE} clause, or if 
+will change all of the rows that match the {\tt WHERE} clause.  If 
 a {\tt WHERE} clause is not specified, it performs the {\tt UPDATE}
 on all of the rows in the table.
 
@@ -387,11 +387,11 @@ statuses, looping through the list of friends, and adding each
 of the friends to a database to be retrieved in the future.  After
 we process one person's Twitter friends, we check in our database
 and retrieve one of the friends of the friend.  We do this over and
-over, picking an ``unvisited'' person, retrieving their friend list
+over, picking an ``unvisited'' person, retrieving their friend list,
 and adding friends we have not seen to our list for a future visit.
 
 We also track how many times we have seen a particular friend in the
-database to get some sense of ``popularity''.
+database to get some sense of their ``popularity''.
 
 By storing our list of known accounts and whether 
 we have retrieved the account or not, 
@@ -469,7 +469,7 @@ cur.close()
 \afterverb
 %
 Our database is stored in the file {\tt spider.sqlite3} and it has one 
-table named {\tt Twitter} and each row in the {\tt Twitter} table
+table named {\tt Twitter}.  Each row in the {\tt Twitter} table
 has a column for the account name, whether we have retrieved the friends
 of this account, and how many times this account has been ``friended''.
 
@@ -479,17 +479,17 @@ If the user enters a Twitter account, we retrieve the
 list of friends and statuses
 for that user and add each friend to the database if 
 not already in the database.  If the friend is already in the list, 
-we add one to the {\tt friends} field in the row in the database.
+we add 1 to the {\tt friends} field in the row in the database.
 
 If the user presses enter, we look in the database for the next 
-Twitter account that we have not yet retrieved and retrieve the
+Twitter account that we have not yet retrieved, retrieve the
 friends and statuses for that account, add them to the database 
-or update them and increase their {\tt friends count}.
+or update them, and increase their {\tt friends} count.
 
 Once we retrieve the list of friends and statuses, we loop 
 through all of the {\tt user} items in the returned JSON
 and retrieve the \verb"screen_name" for each user.  Then we use
-the {\tt SELECT } statement to see if we already have stored this
+the {\tt SELECT} statement to see if we already have stored this
 particular \verb"screen_name" in the database and retrieve the
 friend count ({\tt friends}) if the record exists.
 
@@ -526,17 +526,17 @@ one field), we take the first value from the tuple using {\tt [0]} to get the
 current friend count into the variable {\tt count}.  
 
 If this retrieval is successful, we use the SQL {\tt UPDATE} statement with a 
-{\tt WHERE} clause to add one to the {\tt friends} column for the row that 
-matches the friend's account.  Notice that there are two placeholders (i.e.
+{\tt WHERE} clause to add 1 to the {\tt friends} column for the row that 
+matches the friend's account.  Notice that there are two placeholders (i.e.,
 question marks) in the SQL, and the second parameter to the {\tt execute()} is
-a two-element tuple which holds the values to be substituted into the SQL
+a two-element tuple that holds the values to be substituted into the SQL
 in place of the question marks.
 
-If the code in the {\tt try} block fails it is probably because no record
+If the code in the {\tt try} block fails, it is probably because no record
 matched the {\tt WHERE name = ?} clause on the SELECT statement.  So in the
 {\tt except} block, we use the SQL {\tt INSERT} statement to add the friend's
 \verb"screen_name" to the table with an indication that we have not yet 
-retrieved the \verb"screen_name" and setting the friend count to zero.
+retrieved the \verb"screen_name" and set the friend count to zero.
 
 So the first time the program runs and we enter a Twitter account, the program
 runs as follows:
@@ -595,7 +595,7 @@ spider above, its output will be as follows:
 \afterverb
 %
 We see one row for each \verb"screen_name", that we 
-have not retrieved the data for that \verb"screen_name" and 
+have not retrieved the data for that \verb"screen_name", and 
 everyone in the database has one friend.
 
 Now our database reflects the retrieval of the friends of 
@@ -616,7 +616,7 @@ Enter a Twitter account, or quit: quit
 \end{verbatim}
 \afterverb
 %
-Since we pressed enter (i.e. we did not specify a Twitter account),
+Since we pressed enter (i.e., we did not specify a Twitter account),
 the following code is executed:
 
 \beforeverb
@@ -653,8 +653,8 @@ their data as follows:
 \afterverb
 %
 Once we retrieve the data successfully, we use the {\tt UPDATE} statement 
-to set the {\tt retrieved} column to one to indicate that we have completed 
-the retrieval of the friends of this account.  This keeps us from re-retrieving
+to set the {\tt retrieved} column to 1 to indicate that we have completed 
+the retrieval of the friends of this account.  This keeps us from retrieving
 the same data over and over and keeps us progressing forward through the network
 of Twitter friends.
 
@@ -683,14 +683,14 @@ We can see that we have properly recorded that we have visited
 {\tt lhawthorn} and {\tt opencontent}.  Also the accounts 
 {\tt cnxorg} and {\tt kthanos} already have two followers.
 Since we now have retrieved the friends of three people
-({\tt drchuck}, {\tt opencontent} and {\tt lhawthorn}) our table has 55 rows 
+({\tt drchuck}, {\tt opencontent}, and {\tt lhawthorn}) our table has 55 rows 
 of friends to retrieve.
 
-Each time we run the program and press enter, it will pick the next 
-unvisited account (e.g. the next account will be \verb"steve_coppin"),
-retrieve their friends, mark them as retrieved and for each of the 
-friends of \verb"steve_coppin", either add them to the end of the 
-database, or update their friend count if they are already in the
+Each time we run the program and press enter it will pick the next 
+unvisited account (e.g., the next account will be \verb"steve_coppin"),
+retrieve their friends, mark them as retrieved, and for each of the 
+friends of \verb"steve_coppin" either add them to the end of the 
+database or update their friend count if they are already in the
 database.
 
 Since the program's data is all stored on disk in a database, 
@@ -699,10 +699,10 @@ like with no loss of data.
 
 \section{Basic data modeling}
 
-The real power of a relational database is when we make multiple tables
+The real power of a relational database is when we create multiple tables
 and make links between those tables.   The act of deciding how to break
 up your application data into multiple tables and establishing the
-relationships between the two tables is called {\bf data modeling}.  The
+relationships between the tables is called {\bf data modeling}.  The
 design document that shows the tables and their relationships 
 is called a {\bf data model}.
 
@@ -742,7 +742,7 @@ Twitter feed, we will insert 20 records with ``drchuck''
 as the first parameter so we will end up duplicating the 
 string many times in the database.
 
-This duplication of string data violates the best practices 
+This duplication of string data violates one of the best practices 
 for {\bf database normalization} which basically states that
 we should never put the same string data in the database more than once.  
 If we need the data more than once, we create a 
@@ -751,8 +751,8 @@ using this key.
 
 In practical terms, a string takes up a lot more 
 space than an integer on the disk
-and in the memory of our computer and takes more processor time
-to compare and sort.  If we only have a few hundred entries 
+and in the memory of our computer, and takes more processor time
+to compare and sort.  If we only have a few hundred entries, 
 the storage and processor time hardly matters.  But if we have 
 a million people in our database and a possibility of 100 million
 friend links, it is important to be able to scan data as quickly
@@ -789,7 +789,7 @@ Now instead of creating the table {\tt Pals} above, we create
 a table called {\tt Follows} with two integer columns
 \verb"from_id" and \verb"to_id" and a constraint on the table that
 the \emph{combination} of \verb"from_id" and \verb"to_id" must be unique 
-in this table (i.e. we cannot insert duplicate rows) in our database.
+in this table (i.e., we cannot insert duplicate rows) in our database.
 
 \beforeverb
 \begin{verbatim}
@@ -800,12 +800,12 @@ CREATE TABLE Follows
 %
 When we add {\tt UNIQUE} clauses to our tables, we are communicating a set
 of rules that we are asking the database to enforce when we attempt to insert
-records.   We are creating these rules as a convenience in our programs as we
+records.   We are creating these rules as a convenience in our programs, as we
 will see in a moment.  The rules both keep us from making mistakes and make
 it simpler to write some of our code.
 
 In essence, in creating this {\tt Follows} table, we are modelling a 
-"relationship" where one person "follows" someone else
+``relationship'' where one person ``follows'' someone else
 and representing it with a pair of numbers indicating that (a) the people are
 connected and (b) the direction of the relationship.
 
@@ -816,7 +816,7 @@ connected and (b) the direction of the relationship.
 
 \section{Programming with multiple tables}
 
-We will now re-do the Twitter spider program using two tables, the primary
+We will now redo the Twitter spider program using two tables, the primary
 keys, and the key references as described above.  Here is the code for 
 the new version of the program:
 
@@ -909,12 +909,12 @@ using integer keys to link tables. The basic patterns are:
 
 \begin{enumerate}
 
-\item Creating tables with primary keys and constraints.
+\item Create tables with primary keys and constraints.
 
-\item When we have a logical key for a person (i.e. account
-name) and we need the {\tt id} value for the person.
-Depending on whether or not the person is already
-in the {\tt People} table, we either need to: 
+\item When we have a logical key for a person (i.e., account
+name) and we need the {\tt id} value for the person,
+depending on whether or not the person is already
+in the {\tt People} table we either need to: 
 (1) look up the person in the {\tt People} table and 
 retrieve the {\tt id} value for the person 
 or (2) add the person to the {\tt People} table and get the 
@@ -973,7 +973,7 @@ cur.execute('''INSERT OR IGNORE INTO Follows
 \end{verbatim}
 \afterverb
 %
-Again we simply tell the database to ignore our attempted 
+Again, we simply tell the database to ignore our attempted 
 {\tt INSERT} if it would violate the uniqueness constraint
 that we specified for the {\tt Follows} rows.
 
@@ -1025,12 +1025,12 @@ and control will transfer into the {\tt except} section.
 \afterverb
 %
 If we end up in the {\tt except} code, it simply means that the row
-was not found so we must insert the row.  We use {\tt INSERT OR 
+was not found, so we must insert the row.  We use {\tt INSERT OR 
 IGNORE} just to avoid errors and then call {\tt commit()} to 
 force the database to really be updated.  After the write is done, we can 
 check the {\tt cur.rowcount} to see how many rows were affected.  Since
 we are attempting to insert a single row, if the number of 
-affected rows is something other than one, it is an error.  
+affected rows is something other than 1, it is an error.  
 
 If the {\tt INSERT} is successful, we can look at {\tt cur.lastrowid} 
 to find out what value the database assigned to the {\tt id} column in 
@@ -1101,7 +1101,7 @@ Follows:
 %
 You can see the {\tt id}, {\tt name}, and {\tt visited} fields in the 
 {\tt People} table and you see the numbers of both ends of 
-the relationship {\tt Follows} table.   
+the relationship in the {\tt Follows} table.   
 In the {\tt People} table, we can see that the first three people
 have been visited and their data has been retrieved.
 The data in the {\tt Follows} table indicates that
@@ -1109,12 +1109,12 @@ The data in the {\tt Follows} table indicates that
 five rows.  This makes sense because
 the first data we retrieved and stored was the Twitter friends of
 {\tt drchuck}.  If you were to print more rows from the {\tt Follows} table,
-you would see the friends of user two and three as well.
+you would see the friends of users 2 and 3 as well.
 
 \section{Three kinds of keys}
 
 Now that we have started building a data model putting our
-data into multiple linked tables, and linking the rows in those
+data into multiple linked tables and linking the rows in those
 tables using {\bf keys}, we need to look at some terminology 
 around keys.  There are generally three kinds of keys used 
 in a database model.
@@ -1135,7 +1135,7 @@ automatically by the database.  It generally has no meaning outside
 the program and is only used to link rows from different tables
 together.  When we want to look up a row in a table, usually 
 searching for the row using the primary key is the fastest 
-way to find a row.  Since primary keys are integer numbers, they 
+way to find the row.  Since primary keys are integer numbers, they 
 take up very little storage and can be compared or sorted very quickly.
 In our data model, the {\tt id} field is an example of a primary key.
 
@@ -1156,11 +1156,11 @@ that is a foreign key.
 Now that we have followed the rules of database normalization
 and have data separated into two tables, linked together using
 primary and foreign keys, we need to be able to build a 
-{\tt SELECT} that re-assembles the data across the tables.
+{\tt SELECT} that reassembles the data across the tables.
 
-SQL uses the {\tt JOIN} clause to re-connect these tables.  
+SQL uses the {\tt JOIN} clause to reconnect these tables.  
 In the {\tt JOIN} clause you specify the fields that are used 
-to re-connect the rows between the tables.
+to reconnect the rows between the tables.
 
 The following is an example of a {\tt SELECT} with a 
 {\tt JOIN} clause:
@@ -1174,7 +1174,7 @@ SELECT * FROM Follows JOIN People
 %
 The {\tt JOIN} clause indicates that the fields we are selecting
 cross both the {\tt Follows} and {\tt People} tables.  The {\tt ON}
-clause indicates how the two tables are to be joined.   Take the rows
+clause indicates how the two tables are to be joined:  Take the rows
 from {\tt Follows} and append the row from {\tt People} where the
 field \verb"from_id" in {\tt Follows} is the same the {\tt id} value
 in the {\tt People} table.
@@ -1183,10 +1183,10 @@ in the {\tt People} table.
 \centerline{\includegraphics[height=2.50in]{figs2/join.eps}}
 \afterfig
 
-The result of the JOIN is to create extra-long ``meta-rows'' which have both 
+The result of the JOIN is to create extra-long ``metarows'' which have both 
 the fields from {\tt People} and the matching fields from {\tt Follows}.
 Where there is more than one match between the {\tt id} field from {\tt People}
-and the \verb"from_id" from {\tt People}, then JOIN creates a meta-row 
+and the \verb"from_id" from {\tt People}, then JOIN creates a metarow 
 for \emph{each} of the matching pairs of rows, duplicating data as needed.
 
 The following code demonstrates the data that we will have in the 
@@ -1266,13 +1266,13 @@ You see the columns from the {\tt People} and {\tt Follows} tables and the last
 set of rows is the result of the {\tt SELECT} with the {\tt JOIN} clause.
 
 In the last select, we are looking for accounts that are friends of 
-``opencontent'' (i.e. {\tt People.id=2}).
+``opencontent'' (i.e., {\tt People.id=2}).
 
-In each of the ``meta-rows'' in the last select, the first two columns are
+In each of the ``metarows'' in the last select, the first two columns are
 from the {\tt Follows}
 table followed by columns three through five from the {\tt People} table.  You can also
 see that the second column (\verb"Follows.to_id") matches the third column
-({\tt People.id}) in each of the joined-up ``meta-rows''.
+({\tt People.id}) in each of the joined-up ``metarows''.
 
 \section{Summary}
 
@@ -1283,9 +1283,8 @@ little reason to use a database unless your application truly needs the capabili
 of a database.  The situations where a database can be quite useful are: 
 (1) when your application needs to make small many random updates within a large data set,
 (2) when your data is so large it cannot fit in a dictionary and you need to 
-look up information repeatedly, or
-(3) you have a long-running process that you want to be able to stop 
-and restart and retain the data from one run to the next.
+look up information repeatedly, or (3) when you have a long-running process that you
+want to be able to stop and restart and retain the data from one run to the next.
 
 You can build a simple database with a single table to suit many application 
 needs, but most problems will require several tables and links/relationships
@@ -1307,7 +1306,7 @@ You must be careful because SQLite takes care to keep two programs
 from changing the same data at the same time.   For example, if
 you open a database in the browser and make a change to the database
 and have not yet pressed the ``save'' button in the browser, the 
-browser ``locks'' the database file and keeping any other program
+browser ``locks'' the database file and keeps any other program
 from accessing the file.  In particular, your Python program
 will not be able to access the file if it is locked.
 
@@ -1328,12 +1327,12 @@ called a ``column'' or ``field''.
 \item[constraint:] 
 When we tell the database to enforce a rule on a field or a row
 in a table.  A common constraint is to insist that there can be no
-duplicate values in a particular field (i.e. all the values must be unique).
+duplicate values in a particular field (i.e., all the values must be unique).
 \index{constraint}
 
 \item[cursor:] A cursor allows you to execute SQL commands in a database
 and retrieve data from the database.  A cursor is similar to 
-a socket or file handle for network connections and files respectively.
+a socket or file handle for network connections and files, respectively.
 \index{cursor}
 
 \item[database browser:] 
@@ -1347,11 +1346,11 @@ stored in different tables.
 \index{foreign key}
 
 \item[index:] Additional data that the database software maintains as rows
-are inserted into a table designed to make lookups very fast.
+and inserts into a table to make lookups very fast.
 \index{index}
 
 \item[logical key:] A key that the ``outside world'' uses to look up a particular
-row.  For example in a table of user accounts, a person's e-mail address
+row.  For example in a table of user accounts, a person's email address
 might be a good candidate as the logical key for the user's data. 
 \index{logical key}
 
