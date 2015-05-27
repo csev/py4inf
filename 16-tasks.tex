@@ -32,9 +32,8 @@ To walk through all the directories and files in a tree we use
 \index{folder}
 
 Every running program has a ``current directory,'' which is the
-default directory for most operations.  
-For example, when you open a file for reading, Python looks for it in the
-current directory.
+default directory for most operations.  For example, when you open a file
+for reading, Python looks for it in the current directory.
 
 \index{os module}
 \index{module!os}
@@ -126,13 +125,13 @@ in the given directory:
 Some time ago, I built a bit of Flickr-like software that 
 received photos from my cell phone and stored those photos
 on my server.  I wrote this before Flickr existed and kept 
-using it after Flickr existed because
-I wanted to keep original copies of my images forever.
+using it after Flickr existed because I wanted to keep original
+copies of my images forever.
 
 I would also send a simple one-line text description in the MMS message
-or the subject line of the e-mail message.  I stored these messages
+or the subject line of the email message.  I stored these messages
 in a text file in the same directory as the image file.   I came up 
-with a directory structure based on the month, year, day and time the 
+with a directory structure based on the month, year, day, and time the 
 photo was taken.   The following would be an example of the naming for 
 one photo and its existing description:
 
@@ -150,7 +149,7 @@ would break and add a bunch of useless data on my server instead of a caption.
 I wanted to go through these files and figure out which of the 
 text files were really captions and which were junk and then delete the bad
 files.  The first thing to do was to get a simple inventory of 
-how many text files I had in of the sub-folders
+how many text files I had in one the subfolders
 using the following program:
 
 \beforeverb
@@ -171,16 +170,15 @@ Files: 1917
 The key bit of code that makes this possible is the {\tt os.walk}
 library in Python.  When we call {\tt os.walk} and give it a starting
 directory, it will ``walk'' through all of the directories 
-and sub-directories recursively.   The string ``.'' indicates
+and subdirectories recursively.   The string ``.'' indicates
 to start in the current directory and walk downward.
-As it encounters each directory,
-we get three values in a tuple in the body of the {\tt for} loop.  
-The first value is the current
-directory name, the second value is the list of sub-directories 
+As it encounters each directory, we get three values in a tuple in the
+body of the {\tt for} loop.  The first value is the current
+directory name, the second value is the list of subdirectories 
 in the current directory, and the third value is a list of files
 in the current directory.
 
-We do not have to explicitly look into each of the sub-directories
+We do not have to explicitly look into each of the subdirectories
 because we can count on {\tt os.walk} to visit every 
 folder eventually.  But we do want to look at each file, so 
 we write a simple {\tt for} loop to examine each of the files 
@@ -448,7 +446,7 @@ T-Mobile: ./2005/01/02-01-05_1858001.txt
 Just for fun, run the program a second time and it will produce no output
 since the bad files are already gone.
 
-If we re-run {\tt txtcount.py} we can see that we have removed
+If we rerun {\tt txtcount.py} we can see that we have removed
 899 bad files:
 \beforeverb
 \begin{verbatim}
@@ -474,7 +472,7 @@ to some of the files.  All of these are pretty
 straightforward once you understand how {\tt os.walk}
 and the other {\tt os} utilities can be used.
 
-\section{Command line arguments}
+\section{Command-line arguments}
 
 \index{arguments}
 
@@ -505,7 +503,7 @@ Enter file: mbox-short.txt
 \afterverb
 %
 We can place additional strings after the Python file and access
-those {\bf command line arguments} in our Python program.  Here is a simple program 
+those {\bf command-line arguments} in our Python program.  Here is a simple program 
 that demonstrates reading arguments from the command line:
 
 \beforeverb
@@ -522,7 +520,7 @@ The contents of {\tt sys.argv} are a list of strings where the first string
 is the name of the Python program and the remaining strings are the arguments
 on the command line after the Python file.
 
-The following shows our program reading several command line arguments from the command
+The following shows our program reading several command-line arguments from the command
 line:
 
 \beforeverb
@@ -538,10 +536,10 @@ Argument: there
 %
 There are three arguments are passed into our program as a three-element list.  
 The first element of the list is the file name (argtest.py) and the others are 
-the two command line arguments after the file name.
+the two command-line arguments after the file name.
 
 We can rewrite our program to read the file, taking the file name 
-from the command line argument as follows:
+from the command-line argument as follows:
 
 \beforeverb
 \begin{verbatim}
@@ -554,7 +552,7 @@ print name, 'is', len(text), 'bytes'
 \end{verbatim}
 \afterverb
 %
-We take the second command line argument as the name of the file (skipping past
+We take the second command-line argument as the name of the file (skipping past
 the program name in the {\tt [0]} entry).  We open the file and read 
 the contents as follows:
 
@@ -565,7 +563,7 @@ mbox-short.txt is 94626 bytes
 \end{verbatim}
 \afterverb
 %
-Using command line arguments as input can make it easier to reuse your Python programs 
+Using command-line arguments as input can make it easier to reuse your Python programs, 
 especially when you only need to input one or two strings.
 
 \section{Pipes}
@@ -659,14 +657,14 @@ received checksum.  If the checksums do not match, we must
 assume that the data was garbled as it was transferred.
 \index{checksum}
 
-\item[command line argument:] Parameters on the command line after the Python file name.
+\item[command-line argument:] Parameters on the command line after the Python file name.
 
 
 \item[current working directory:] The current directory that you 
 are ``in''.  You can change your working directory using the 
 {\tt cd} command on most systems in their command-line interfaces.
 When you open a file in Python using just the file name with no path 
-information the file must be in the current working directory
+information, the file must be in the current working directory
 where you are running the program.
 \index{directory!current}
 \index{directory!working}
@@ -683,7 +681,7 @@ MD5, SHA1, and SHA256 are examples of commonly used hash functions.
 a pipe, you can write a program to send data to another program
 or receive data from that program.  A pipe is similar to a 
 {\bf socket} except that a pipe can only be used to 
-connect programs running on the same computer (i.e. not
+connect programs running on the same computer (i.e., not
 across a network).
 \index{pipe}
 
@@ -722,15 +720,14 @@ these duplicates.
 \begin{enumerate}
 
 \item Write a program that walks a directory and all of its
-sub-directories for all files with a given suffix (like {\tt .mp3})
+subdirectories for all files with a given suffix (like {\tt .mp3})
 and lists pairs of files with that are the same size.
 Hint: Use a dictionary where the key of the dictionary is the size
 of the file from {\tt  os.path.getsize} and the value in the 
 dictionary is the path name concatenated with the file name.  
-As you encounter each file check to see if you already have a
-file that has the same size as the current file.  
-If so, you have a duplicate
-size file and print out the file size and the two files names 
+As you encounter each file, check to see if you already have a
+file that has the same size as the current file.  If so, you have a
+duplicate size file, so print out the file size and the two file names 
 (one from the hash and the other file you are looking at).
 
 \index{duplicate}
@@ -742,12 +739,12 @@ size file and print out the file size and the two files names
 have duplicate content using a hashing or {\bf checksum}
 algorithm.  For example,
 MD5 (Message-Digest algorithm 5) takes an arbitrarily-long
-``message'' and returns a 128-bit ``checksum.''  The probability
+``message'' and returns a 128-bit ``checksum''.  The probability
 is very small that two files with different contents will
 return the same checksum.
 
 You can read about MD5 at \url{wikipedia.org/wiki/Md5}.  The 
-following code snippet opens a file, reads it and computes
+following code snippet opens a file, reads it, and computes
 its checksum.
 
 \beforeverb
@@ -764,7 +761,7 @@ import hashlib
 You should create a dictionary where the checksum is the key 
 and the file name is the value.   When you compute a checksum
 and it is already in the dictionary as a key, you have two files with 
-duplicate content so print out the file in the dictionary
+duplicate content, so print out the file in the dictionary
 and the file you just read.  Here is some sample output
 from a run in a folder of image files:
 
