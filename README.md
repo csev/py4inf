@@ -66,6 +66,7 @@ This is the rough set of steps I use on Ubuntu:
     sudo apt-get install imagemagick
     sudo apt-get install texlive-fonts-extra
 
+    sudo apt-get install texlive-lang-spanish texlive-doc-es 
 
 You could put them all on one long apt-get, but I like to see if they work :)
 
