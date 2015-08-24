@@ -1,0 +1,59 @@
+
+%%%% Hevea support for babel option 'spanish'.
+
+%%%% Resets 
+%%%%    a) date format
+%%%%    b) names of various part descriptors (contentsname etc.)
+%
+\newcommand{\spanish@quotes}
+{\def{\flqq}{\@print@u{0171}}%
+\def{\glqq}{\@print@u{8222}}%
+\def{\glqq}{\@print@u{8222}}%
+\def{\grqq}{\@print@u{8220}}%
+\def{\glq}{\@print@u{8218}}%
+\def{\grq}{\@print@u{8216}}%
+\def{\frqq}{\@print@u{0187}}%
+\def{\flq}{\@print@u{8249}}%
+\def{\frq}{\@print@u{8250}}%
+\let\og\flqq\let\fg\frqq%
+}%
+\newcommand{\spanish@babel}{
+\spanish@quotes%
+\let\spanish@day\default@day%
+\def\csname f@month1\endcsname{enero}%
+\def\csname f@month2\endcsname{febrero}%
+\def\csname f@month3\endcsname{marzo}%
+\def\csname f@month4\endcsname{abril}%
+\def\csname f@month5\endcsname{mayo}%
+\def\csname f@month6\endcsname{junio}%
+\def\csname f@month7\endcsname{julio}%
+\def\csname f@month8\endcsname{agosto}%
+\def\csname f@month9\endcsname{septiembre}%
+\def\csname f@month10\endcsname{octubre}%
+\def\csname f@month11\endcsname{noviembre}%
+\def\csname f@month12\endcsname{diciembre}%
+\def\spanish@month{\csname f@month\arabic{month}\endcsname}%
+\@ifundefined{theyear}{}{\def\today{\theday~\spanish@month~\theyear}}%
+\def\prefacename{Prefacio}%
+\def\refname{Referencias}%
+\def\abstractname{Abstracto}%
+\def\bibname{Bibliograf\'ia}%
+\def\chaptername{Chap\'itulo}%
+\def\appendixname{Ap\'endice}%
+\def\contentsname{Contenido}%
+\def\listfigurename{Lista de Figuras}%
+\def\listtablename{Lista de Tablas}%
+\def\indexname{\'Indice}%
+\def\figurename{Figura}%
+\def\tablename{Tabla}%
+\def\partname{Parte}%
+\def\enclname{adjunto}%
+\def\ccname{copia para}%
+\def\headtoname{Para}%
+\def\pagename{P'agina}%
+\def\headpagename{P'agina}%
+\def\seename{ver}%
+\def\alsoseename{ver tambi'en}%
+\def\footertext{Este documento ha sido traducido desde \LaTeX{} por
+\footahref{\heveaurl/index.html}{\hevea}.}%
+}
