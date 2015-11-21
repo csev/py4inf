@@ -1,0 +1,3 @@
+Note that the real copies of this stuff is in 
+the pythonlearn github
+
