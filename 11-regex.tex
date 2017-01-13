@@ -1,4 +1,4 @@
-% The contents of this file is 
+% The contents of this file is
 % Copyright (c) 2009-  Charles R. Severance, All Righs Reserved
 
 \chapter{Regular expressions}
@@ -13,7 +13,7 @@ and {\tt find} and using lists and string slicing to extract portions of the lin
 This task of searching and extracting is so common that Python has a very powerful library
 called {\bf regular expressions} that handles many of these tasks quite elegantly.  The
 reason we have not introduced regular expressions earlier in the book is because while they
-are very powerful, they are a little complicated and their syntax takes some getting used to. 
+are very powerful, they are a little complicated and their syntax takes some getting used to.
 
 Regular expressions are almost their own little programming language for searching and parsing
 strings.  As a matter of fact, entire books have been written on the topic of regular expressions.
@@ -47,13 +47,13 @@ accomplish the same result.
 \index{string!find}
 
 The power of the regular expressions comes when we add special characters to the search string
-that allow us to more precisely control which lines match the string.  Adding these special
-characters to our regular expression allow us to do sophisticated matching and extraction while
+that allow us to control more precisely which lines match the string.  Adding these special
+characters to our regular expression allows us to do sophisticated matching and extraction while
 writing very little code.
 
-For example, the caret character is used in regular 
+For example, the caret character is used in regular
 expressions to match ``the beginning'' of a line.
-We could change our program to only match 
+We could change our program to match only
 lines where ``From:'' was at the beginning of the line as follows:
 
 \beforeverb
@@ -70,13 +70,13 @@ for line in hand:
 Now we will only match lines that {\em start with} the string ``From:''.  This is still a very
 simple example that we could have done equivalently with the {\tt startswith()} method from
 the string library.  But it serves to introduce the notion that regular expressions contain
-special action characters that give us more control as to what will match the regular expression.
+special action characters that give us more control over what will match the regular expression.
 \index{string!startswith}
 
 \section{Character matching in regular expressions}
 
 There are a number of other special characters that let us build even more powerful regular
-expressions.  The most commonly used special character is the period or full stop, which matches
+expressions.  The most commonly used special character is the period (''dot'') or full stop, which matches
 any character.
 \index{wild card}
 \index{regex!wild card}
@@ -126,8 +126,8 @@ following line:
 \end{alltt}
 \afterverb
 
-You can think of the ``.+'' wildcard as expanding to match all the characters between the 
-colon character and the at-sign.  
+You can think of the ``.+'' wildcard as expanding to match all the characters between the
+colon character and the at-sign.
 
 \beforeverb
 \begin{alltt}
@@ -136,7 +136,7 @@ colon character and the at-sign.
 \afterverb
 
 It is good to think of the plus and asterisk characters as ``pushy''.  For example, the following
-string would match the last at-sign in the string as the ``.+'' pushes outwards, as shown below:
+string would match the {\em last} at-sign in the string as the ``.+'' pushes outwards, as shown below:
 
 \beforeverb
 \begin{alltt}
@@ -144,8 +144,8 @@ string would match the last at-sign in the string as the ``.+'' pushes outwards,
 \end{alltt}
 \afterverb
 
-It is possible to tell an asterisk or plus sign not to be so ``greedy'' by adding 
-another character.   See the detailed documentation for information on turning off the 
+It is possible to tell an asterisk or plus sign not to be so ``greedy'' by adding
+another character.   See the detailed documentation for information on turning off the
 greedy behavior.
 \index{greedy}
 
@@ -153,7 +153,7 @@ greedy behavior.
 
 If we want to extract data from a string in Python we can use the {\tt findall()} method to extract
 all of the substrings which match a regular expression.  Let's use the example of wanting to extract
-anything that looks like an email address from any line regardless of format.  For example, we want
+anything that looks like an email address from any line, regardless of format.  For example, we want
 to pull the email addresses from each of the following lines:
 
 \beforeverb
@@ -182,8 +182,8 @@ print lst
 \afterverb
 %
 The {\tt findall()} method searches the string in the second argument and returns a list of
-all of the strings that look like email addresses.   We are using a two-character sequence 
-that matches a non-whitespace character ({\textbackslash}S). 
+all of the strings that look like email addresses.   We are using a two-character sequence
+that matches a non-whitespace character ({\textbackslash}S).
 
 The output of the program would be:
 
@@ -198,7 +198,7 @@ non-whitespace character, followed by an at-sign, followed by at least one more 
 character.  The ``{\textbackslash}S+'' matches as many non-whitespace characters as possible.
 
 The regular expression would match twice (csev@umich.edu and cwen@iupui.edu), but it would not
-match the string ``@2PM'' because there are no non-blank characters {\em before} the at-sign.  
+match the string ``@2PM'' because there are no non-blank characters {\em before} the at-sign.
 We can use this regular expression in a program to read all the lines in a file and print out
 anything that looks like an email address as follows:
 
@@ -303,16 +303,16 @@ element in the list.
 
 \section{Combining searching and extracting}
 
-If we want to find numbers on lines that start with the string ``X-'' such as:
+Suppose we want to find numbers on lines that start with the string ``X-'' such as:
 
 \beforeverb
 \begin{verbatim}
 X-DSPAM-Confidence: 0.8475
-X-DSPAM-Probability: 0.0000  
+X-DSPAM-Probability: 0.0000
 \end{verbatim}
 \afterverb
 %
-we don't just want any floating-point numbers from any lines.  We only want to extract
+we don't just want {\em any} floating-point numbers from {\em any} lines.  We only want to extract
 numbers from lines that have the above syntax.
 
 We can construct the following regular expression to select the lines:
@@ -330,7 +330,7 @@ Note that inside the square brackets, the period matches an actual period (i.e.,
 wildcard between the square brackets).
 
 This is a very tight expression that will pretty much match only the lines we are interested
-in as follows:
+in, as follows:
 
 \beforeverb
 \begin{verbatim}
@@ -343,7 +343,7 @@ for line in hand:
 \end{verbatim}
 \afterverb
 %
-When we run the program, we see the data nicely filtered to show 
+When we run the program, we see the data nicely filtered to show
 only the lines we are looking for.
 
 \beforeverb
@@ -360,11 +360,11 @@ enough to use {\tt split}, we can use another feature of regular expressions to 
 and parse the line at the same time.
 \index{string!split}
 
-Parentheses are another special character in regular expressions.  When you add parentheses
-to a regular expression, they are ignored when matching the string. But when you are using
-{\tt findall()}, parentheses indicate that while you want the whole expression to match,
-you only are interested in extracting a portion of the substring that matches the regular
-expression.  
+Parentheses are another special character in regular expressions.  When we add parentheses
+to a regular expression, they are ignored when matching the string. But when we are using
+{\tt findall()}, parentheses indicate that while we want the whole expression to match,
+we only are interested in extracting a portion of the substring that matches the regular
+expression.
 \index{regex!parentheses}
 \index{parentheses!regular expression}
 
@@ -404,7 +404,7 @@ The numbers are still in a list and need to be converted from strings to floatin
 have used the power of regular expressions to both search and extract the information we found
 interesting.
 
-As another example of this technique, if you look at the file there are a number of lines
+As another example of this technique, we see that the file contains a number of lines
 of the form:
 
 \beforeverb
@@ -431,7 +431,7 @@ for line in hand:
 Translating our regular expression, we are looking for lines that start with ``Details:'',
 followed by any number of characters (``.*''), followed by ``rev='', and then by one or
 more digits.   We want to find lines that match the entire expression but we only want to
-extract the integer number at the end of the line, so we surround ``[0-9]+'' with parentheses.  
+extract the integer number at the end of the line, so we surround ``[0-9]+'' with parentheses.
 
 When we run the program, we get the following output:
 
@@ -466,10 +466,10 @@ it again on the colon character to pull out the two characters we were intereste
 % Add a section on the notion of brittle code
 While this worked, it actually results in pretty brittle code that is assuming the lines are nicely
 formatted.  If you were to add enough error checking (or a big try/except block) to insure that your
-program never failed when presented with incorrectly formatted lines, the code would balloon to 
+program never failed when presented with incorrectly formatted lines, the code would balloon to
 10-15 lines of code that was pretty hard to read.
 
-We can do this in a far simpler way with the following regular expression:
+We can do this in a far more simply way with the following regular expression:
 
 \beforeverb
 \begin{verbatim}
@@ -480,7 +480,7 @@ We can do this in a far simpler way with the following regular expression:
 The translation of this regular expression is that we are looking for lines that start with ``From ''
 (note the space), followed by any number of characters (``.*''), followed by a space, followed by two
 digits ``[0-9][0-9]'', followed by a colon character.  This is the definition of the kinds of lines
-we are looking for.  
+we are looking for.
 
 In order to pull out only the hour using {\tt findall()}, we add parentheses around the two digits
 as follows:
@@ -518,11 +518,11 @@ When the program runs, it produces the following output:
 %
 \section{Escape character}
 
-Since we use special characters in regular expressions to match the beginning or end of 
-a line or specify wild cards, we need a way to indicate that these characters are ``normal'' 
+Since we use special characters in regular expressions to match the beginning or end of
+a line or specify wild cards, we need a way to indicate that these characters are ``normal''
 and we want to match the actual character such as a dollar sign or caret.
 
-We can indicate that we want to simply match a character by prefixing that character 
+We can indicate that we simply want to match a character by prefixing that character
 with a backslash.  For example, we can find money amounts with the following regular
 expression.
 
@@ -536,10 +536,14 @@ y = re.findall('\$[0-9.]+',x)
 %
 Since we prefix the dollar sign with a backslash, it actually matches the dollar sign
 in the input string instead of matching the ``end of line'', and the rest of the regular
-expression matches one or more digits or the period character.  {\em Note:} Inside 
-square brackets, characters are not ``special''.   So when we say ``[0-9.]'', it really 
-means digits or a period.    Outside of square brackets, a period is the ``wild-card'' 
+expression matches one or more digits or the period character.  {\em Note:} Inside
+square brackets, characters are not ``special''.   So when we say ``[0-9.]'', it really
+means digits or a period.    Outside of square brackets, a period is the ``wild-card''
 character and matches any character.  Inside square brackets, the period is a period.
+Using the backslash character in this way is known as ``escaping'' the magic
+properties of ``special'' characters, which we've seen before, for example, when
+we explicitly include a newline character in {\tt print} statements.
+
 
 \section{Summary}
 
@@ -573,11 +577,11 @@ Applies to the immediately preceding character and indicates to match zero or mo
 preceding character(s) in ``non-greedy mode''.
 
 + \newline
-Applies to the immediately preceding character and indicates to match one or more of the 
+Applies to the immediately preceding character and indicates to match one or more of the
 preceding character(s).
 
 +? \newline
-Applies to the immediately preceding character and indicates to match one or more of the 
+Applies to the immediately preceding character and indicates to match one or more of the
 preceding character(s) in ``non-greedy mode''.
 
 [aeiou] \newline
@@ -611,13 +615,13 @@ Matches any non-digit character; equivalent to the set [\verb"^"0-9].
 
 \section{Bonus section for Unix users}
 
-Support for searching files using regular expressions was built into the Unix operating system 
+Support for searching files using regular expressions was built into the Unix operating system
 since the 1960s and it is available in nearly all programming languages in one form or another.
 
 \index{grep}
-As a matter of fact, there is a command-line program built into Unix 
-called {\bf grep} (Generalized Regular Expression Parser) that does pretty much 
-the same as the {\tt search()} examples in this chapter.  So if you have a 
+As a matter of fact, there is a command-line program built into Unix
+called {\bf grep} (Generalized Regular Expression Parser) that does pretty much
+the same as the {\tt search()} examples in this chapter.  So if you have a
 Macintosh or Linux system, you can try the following commands in your command-line window.
 
 \beforeverb
@@ -635,7 +639,7 @@ This tells {\tt grep} to show you lines that start with the string ``From:'' in 
 documentation for {\tt grep}, you will find some subtle differences between the regular
 expression support in Python and the regular expression support in {\tt grep}.  As an example,
 {\tt grep} does not support the non-blank character ``{\textbackslash}S'' so you will need to
-use the slightly more complex set notation ``[\verb"^" ]'', which simply means match a 
+use the slightly more complex set notation ``[\verb"^" ]'', which simply means match a
 character that is anything other than a space.
 
 \section{Debugging}
@@ -674,8 +678,8 @@ If you know what module you want to use, you can use the {\tt dir()} command to 
 \begin{verbatim}
 >>> import re
 >>> dir(re)
-[.. 'compile', 'copy_reg', 'error', 'escape', 'findall', 
-'finditer', 'match', 'purge', 'search', 'split', 'sre_compile', 
+[.. 'compile', 'copy_reg', 'error', 'escape', 'findall',
+'finditer', 'match', 'purge', 'search', 'split', 'sre_compile',
 'sre_parse', 'sub', 'subn', 'sys', 'template']
 \end{verbatim}
 \afterverb
@@ -690,7 +694,7 @@ Help on function search in module re:
 search(pattern, string, flags=0)
     Scan through string looking for a match to the pattern, returning
     a match object, or None if no match was found.
->>> 
+>>>
 \end{verbatim}
 \afterverb
 %
@@ -703,7 +707,7 @@ or don't have access to a web browser or search engine.
 
 \item[brittle code:]
 Code that works when the input data is in a particular format but is prone to breakage
-if there is some deviation from the correct format.  We call this ``brittle code'' 
+if there is some deviation from the correct format.  We call this ``brittle code''
 because it is easily broken.
 
 \item[greedy matching:]
@@ -732,7 +736,7 @@ character is the period.
 \section{Exercises}
 
 \begin{ex}
-Write a simple program to simulate the operation of the {\tt grep} command 
+Write a simple program to simulate the operation of the {\tt grep} command
 on Unix.  Ask the user to enter a regular expression and count the number
 of lines that matched the regular expression:
 
@@ -760,12 +764,12 @@ Write a program to look for lines of the form
 \verb"New Revision: 39772"
 
 and extract the number from each of the lines using a regular expression
-and the {\tt findall()} method.  Compute the average of the numbers and 
+and the {\tt findall()} method.  Compute the average of the numbers and
 print out the average.
 
 \beforeverb
 \begin{verbatim}
-Enter file:mbox.txt 
+Enter file:mbox.txt
 38549.7949721
 
 Enter file:mbox-short.txt
