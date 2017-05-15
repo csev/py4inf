@@ -154,7 +154,7 @@ import time
 
 mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 mysock.connect(('www.py4inf.com', 80))
-mysock.send('GET http://www.py4inf.com/cover.jpg HTTP/1.0\n\n')
+mysock.send('GET http://data.pr4e.org/cover.jpg HTTP/1.0\n\n')
 
 
 count = 0
@@ -574,7 +574,7 @@ information to a local file as follows:
 
 \beforeverb
 \begin{verbatim}
-img = urllib.urlopen('http://www.py4inf.com/cover.jpg').read()
+img = urllib.urlopen('http://data.pr4e.org/cover.jpg').read()
 fhand = open('cover.jpg', 'w')
 fhand.write(img)
 fhand.close()
@@ -598,7 +598,7 @@ using up all of the memory you have in your computer.
 \begin{verbatim}
 import urllib
 
-img = urllib.urlopen('http://www.py4inf.com/cover.jpg')
+img = urllib.urlopen('http://data.pr4e.org/cover.jpg')
 fhand = open('cover.jpg', 'w')
 size = 0
 while True:
@@ -634,7 +634,7 @@ as follows:
 
 \beforeverb
 \begin{verbatim}
-curl -O http://www.py4inf.com/cover.jpg
+curl -O http://data.pr4e.org/cover.jpg
 \end{verbatim}
 \afterverb
 %
