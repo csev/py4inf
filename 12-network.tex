@@ -43,10 +43,10 @@ Protocol is described in the following document:
 This is a long and complex 176-page document with a lot of detail.  If you 
 find it interesting, feel free to read it all.  But if you take a look around page 36 of
 RFC2616 you will find the syntax for the GET request.  To request a document from a web
-server, we make a connection to the {\tt www.py4inf.com} server on port 80, and then
+server, we make a connection to the {\tt data.pr4e.org} server on port 80, and then
 send a line of the form
 
-{\tt GET http://www.py4inf.com/code/romeo.txt HTTP/1.0 }
+{\tt GET http://data.pr4e.org/romeo.txt HTTP/1.0 }
 
 where the second parameter is the web page we are requesting, and then 
 we also send a blank line.  The web server will respond with some 
@@ -65,8 +65,8 @@ and display what the server sends back.
 import socket
 
 mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-mysock.connect(('www.py4inf.com', 80))
-mysock.send('GET http://www.py4inf.com/code/romeo.txt HTTP/1.0\n\n')
+mysock.connect(('data.pr4e.org', 80))
+mysock.send('GET http://data.pr4e.org/romeo.txt HTTP/1.0\n\n')
 
 while True:
     data = mysock.recv(512)
